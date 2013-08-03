@@ -2,7 +2,7 @@
 
 > Terminal string styling done right.
 
-[colors.js](https://github.com/Marak/colors.js) is currently the most popular coloring module, but it has serious deficiencies like extending String.prototype which causes all kinds of problems. Although there are other ones, they either do too much or not enough.
+[colors.js](https://github.com/Marak/colors.js) is currently the most popular string styling module, but it has serious deficiencies like extending String.prototype which causes all kinds of problems. Although there are other ones, they either do too much or not enough.
 
 **Chalk is a clean and focused alternative.**
 
@@ -13,6 +13,7 @@
 
 - **Doesn't extend String.prototype**
 - Expressive API
+- Clean and focused
 - Auto-detects color support
 - Actively maintained
 
@@ -37,6 +38,9 @@ console.log(chalk.blue('Hello') + 'World' + chalk.red('!'));
 
 // compose multiple styles using the chainable API
 console.log(chalk.blue.bgRed.bold('Hello world!'));
+
+// nest styles
+chalk.red('Hello' + chalk.underline.bgBlue('world') + '!');
 ```
 
 You can easily define your own themes.
@@ -73,8 +77,12 @@ Exposes the styles as [ANSI escape codes](https://github.com/sindresorhus/ansi-s
 
 ```js
 var chalk = require('chalk');
+
 console.log(chalk.styles.red);
-//=> \x1b[31m
+//=> ['\x1b[31m', '\x1b[39m']
+
+console.log(chalk.styles.red[0] + 'Hello' + chalk.styles.red[1]);
+// first item is the style escape code and second is the reset escape code
 ```
 
 ### chalk.stripColor(string)
@@ -90,7 +98,6 @@ Strip color from a string.
 - bold
 - italic
 - underline
-- blink
 - inverse
 - strikethrough
 
@@ -104,7 +111,6 @@ Strip color from a string.
 - magenta
 - cyan
 - white
-- default
 - gray
 
 ### Background colors
@@ -117,7 +123,6 @@ Strip color from a string.
 - bgMagenta
 - bgCyan
 - bgWhite
-- bgDefault
 
 
 ## License

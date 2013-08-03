@@ -6,11 +6,9 @@ var styles = (function () {
 	var ret = {};
 
 	Object.keys(ansi).forEach(function (key) {
-		var code = ansi[key];
 		ret[key] = {
-			enumerable: true,
 			get: function () {
-				this._styles.push(code);
+				this._styles.push(key);
 				return this;
 			}
 		};
@@ -25,19 +23,17 @@ function init() {
 	var ret = {};
 
 	Object.keys(styles).forEach(function (name) {
-		var code = styles[name];
-
 		ret[name] = {
-			enumerable: true,
 			get: function () {
 				var obj = defineProps(function self(str) {
 					if (!chalk.enabled) {
 						return str;
 					}
 
-					return self._styles.reduce(function (str, code) {
-						return code + (str || '');
-					}, str) + ansi['reset'];
+					return self._styles.reduce(function (str, name) {
+						var code = ansi[name];
+						return code[0] + (str || '') + code[1];
+					}, str);
 				}, styles);
 
 				obj._styles = [];
