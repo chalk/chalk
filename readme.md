@@ -50,7 +50,7 @@ console.log(error('Error!'));
 
 ## API
 
-### chalk.\<style\>\[.\<style\>...\](*string*)
+### chalk.\<style\>\[.\<style\>...\](string)
 
 Chain [styles](#styles) and call the last one as a method with a string argument.
 
@@ -77,7 +77,7 @@ console.log(chalk.styles.red);
 //=> \x1b[31m
 ```
 
-### chalk.stripColor(*string*)
+### chalk.stripColor(string)
 
 Strip color from a string.
 
