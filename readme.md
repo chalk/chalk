@@ -54,7 +54,7 @@ console.log(error('Error!'));
 
 ## API
 
-### chalk.\<style\>\[.\<style\>...\](string)
+### chalk.\<style>\[.\<style>...](string)
 
 Chain [styles](#styles) and call the last one as a method with a string argument.
 
