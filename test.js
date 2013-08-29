@@ -25,6 +25,10 @@ describe('chalk', function () {
 	it('should reset all styles with `.reset()`', function () {
 		assert.equal(chalk.reset(chalk.red.bgGreen.underline('foo') + 'foo'), '\x1b[0m\x1b[4m\x1b[42m\x1b[31mfoo\x1b[39m\x1b[49m\x1b[24mfoo\x1b[0m');
 	});
+
+	it('should alias gray to grey', function () {
+		assert.equal(chalk.grey('foo'), '\x1b[90mfoo\x1b[39m');
+	});
 });
 
 describe('chalk.enabled', function () {

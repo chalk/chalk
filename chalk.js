@@ -2,6 +2,8 @@
 var ansi = require('ansi-styles');
 var defineProps = Object.defineProperties;
 
+ansi.grey = ansi.gray;
+
 var styles = (function () {
 	var ret = {};
 
