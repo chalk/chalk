@@ -29,6 +29,10 @@ describe('chalk', function () {
 	it('should alias gray to grey', function () {
 		assert.equal(chalk.grey('foo'), '\x1b[90mfoo\x1b[39m');
 	});
+
+	it('should style a string in rainbow colors', function () {
+		assert.equal(chalk.rainbow('rygbmr g\tm\ny'), '\x1b[31mr\x1b[39m\x1b[33my\x1b[39m\x1b[32mg\x1b[39m\x1b[34mb\x1b[39m\x1b[35mm\x1b[39m\x1b[31mr\x1b[39m\x1b[33m \x1b[39m\x1b[32mg\x1b[39m\x1b[34m\t\x1b[39m\x1b[35mm\x1b[39m\x1b[31m\n\x1b[39m\x1b[33my\x1b[39m');
+	});
 });
 
 describe('chalk.enabled', function () {
