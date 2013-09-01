@@ -60,3 +60,20 @@ chalk.supportsColor = require('has-color');
 if (chalk.enabled === undefined) {
 	chalk.enabled = chalk.supportsColor;
 }
+
+// rainbow style
+var rainbowColors = [
+	chalk.red,
+	chalk.yellow,
+	chalk.green,
+	chalk.blue,
+	chalk.magenta
+];
+chalk.rainbow = function(str) {
+	var arStr = str.split(''),
+		out = '';
+	for (var i in arStr) {
+		out += rainbowColors[i % rainbowColors.length](arStr[i]);
+	}
+	return out;
+};
