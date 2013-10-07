@@ -34,13 +34,16 @@ var chalk = require('chalk');
 console.log(chalk.blue('Hello world!'));
 
 // combine styled and normal strings
-console.log(chalk.blue('Hello') + 'World' + chalk.red('!'));
+console.log(chalk.blue('Hello'), 'World' + chalk.red('!'));
 
 // compose multiple styles using the chainable API
 console.log(chalk.blue.bgRed.bold('Hello world!'));
 
 // nest styles
-chalk.red('Hello' + chalk.underline.bgBlue('world') + '!');
+chalk.red('Hello', chalk.underline.bgBlue('world') + '!');
+
+// pass in multiple arguments
+console.log(chalk.blue('Hello', 'World!', 'Foo', 'bar', 'biz', 'baz')) 
 ```
 
 You can easily define your own themes.
@@ -58,6 +61,7 @@ console.log(error('Error!'));
 
 Chain [styles](#styles) and call the last one as a method with a string argument.
 
+Multiple arguments are also supported. Chalk will add a space between each one.
 
 ### chalk.enabled
 

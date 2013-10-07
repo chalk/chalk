@@ -27,7 +27,9 @@ function init() {
 	Object.keys(styles).forEach(function (name) {
 		ret[name] = {
 			get: function () {
-				var obj = defineProps(function self(str) {
+				var obj = defineProps(function self() {
+					var str = [].slice.call(arguments).join(' ');
+
 					if (!chalk.enabled) {
 						return str;
 					}
