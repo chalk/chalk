@@ -51,7 +51,7 @@ function init() {
 chalk.styles = ansi;
 
 chalk.stripColor = function (str) {
-	return str.replace(/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/g, '');
+	return typeof str === 'string' ? str.replace(/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/g, '') : str;
 };
 
 chalk.supportsColor = require('has-color');
