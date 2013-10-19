@@ -57,7 +57,7 @@ console.log(error('Error!'));
 
 ## API
 
-### chalk.\<style>\[.\<style>...](string)
+### chalk.`<style>[.<style>...](string, [string...])`
 
 Chain [styles](#styles) and call the last one as a method with a string argument.
 
@@ -131,4 +131,4 @@ Strip color from a string.
 
 ## License
 
-MIT License • © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](http://sindresorhus.com)
