@@ -29,6 +29,14 @@ describe('chalk', function () {
 	it('should alias gray to grey', function () {
 		assert.equal(chalk.grey('foo'), '\x1b[90mfoo\x1b[39m');
 	});
+
+	it('should support variable number of arguments', function () {
+		assert.equal(chalk.red('foo', 'bar'), '\x1b[31mfoo bar\x1b[39m');
+	});
+
+	it('should support falsy values', function () {
+		assert.equal(chalk.red(0), '\x1b[31m0\x1b[39m');
+	});
 });
 
 describe('chalk.enabled', function () {
