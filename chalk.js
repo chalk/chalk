@@ -1,5 +1,7 @@
 'use strict';
 var ansi = require('ansi-styles');
+var stripAnsi = require('strip-ansi');
+var hasColor = require('has-color');
 var defineProps = Object.defineProperties;
 
 ansi.grey = ansi.gray;
@@ -51,12 +53,8 @@ function init() {
 }
 
 chalk.styles = ansi;
-
-chalk.stripColor = function (str) {
-	return typeof str === 'string' ? str.replace(/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/g, '') : str;
-};
-
-chalk.supportsColor = require('has-color');
+chalk.stripColor = stripAnsi;
+chalk.supportsColor = hasColor;
 
 // detect mode if not set manually
 if (chalk.enabled === undefined) {

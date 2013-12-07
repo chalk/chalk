@@ -44,7 +44,8 @@
   },
   "dependencies": {
     "has-color": "~0.1.0",
-    "ansi-styles": "~0.2.0"
+    "ansi-styles": "~0.2.0",
+    "strip-ansi": "~0.1.0"
   },
   "devDependencies": {
     "mocha": "~1.12.0"
