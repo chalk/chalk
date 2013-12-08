@@ -37,6 +37,10 @@ describe('chalk', function () {
 	it('should support falsy values', function () {
 		assert.equal(chalk.red(0), '\x1b[31m0\x1b[39m');
 	});
+
+	it('don\'t output escape codes if the input is empty', function () {
+		assert.equal(chalk.red(), '');
+	});
 });
 
 describe('chalk.enabled', function () {
