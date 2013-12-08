@@ -49,7 +49,7 @@ describe('chalk.enabled', function () {
 
 describe('chalk.styles', function () {
 	it('should expose the styles as ANSI escape codes', function () {
-		assert.equal(chalk.styles.red[0], '\x1b[31m');
+		assert.equal(chalk.styles.red.open, '\x1b[31m');
 	});
 });
 

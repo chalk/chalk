@@ -38,7 +38,7 @@ function init() {
 
 					return self._styles.reduce(function (str, name) {
 						var code = ansi[name];
-						return code[0] + (str || '') + code[1];
+						return code.open + (str || '') + code.close;
 					}, str);
 				}, styles);
 

@@ -45,7 +45,7 @@ console.log(chalk.blue.bgRed.bold('Hello world!'));
 chalk.red('Hello', chalk.underline.bgBlue('world') + '!');
 
 // pass in multiple arguments
-console.log(chalk.blue('Hello', 'World!', 'Foo', 'bar', 'biz', 'baz')) 
+console.log(chalk.blue('Hello', 'World!', 'Foo', 'bar', 'biz', 'baz'));
 ```
 
 You can easily define your own themes.
@@ -85,15 +85,14 @@ Exposes the styles as [ANSI escape codes](https://github.com/sindresorhus/ansi-s
 var chalk = require('chalk');
 
 console.log(chalk.styles.red);
-//=> ['\x1b[31m', '\x1b[39m']
+//=> {open: '\x1b[31m', close: '\x1b[39m'}
 
-console.log(chalk.styles.red[0] + 'Hello' + chalk.styles.red[1]);
-// first item is the style escape code and second is the reset escape code
+console.log(chalk.styles.red.open + 'Hello' + chalk.styles.red.close);
 ```
 
 ### chalk.stripColor(string)
 
-Strip color from a string.
+[Strip color](https://github.com/sindresorhus/strip-ansi) from a string.
 
 
 ## Styles

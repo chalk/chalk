@@ -44,11 +44,11 @@
   },
   "dependencies": {
     "has-color": "~0.1.0",
-    "ansi-styles": "~0.2.0",
+    "ansi-styles": "~1.0.0",
     "strip-ansi": "~0.1.0"
   },
   "devDependencies": {
-    "mocha": "~1.12.0"
+    "mocha": "~1.x"
   },
   "engines": {
     "node": ">=0.8.0"
