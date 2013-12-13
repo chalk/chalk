@@ -3,11 +3,12 @@ var ansi = require('ansi-styles');
 var stripAnsi = require('strip-ansi');
 var hasColor = require('has-color');
 var defineProps = Object.defineProperties;
-
-ansi.grey = ansi.gray;
+var chalk = module.exports;
 
 var styles = (function () {
 	var ret = {};
+
+	ansi.grey = ansi.gray;
 
 	Object.keys(ansi).forEach(function (key) {
 		ret[key] = {
@@ -20,8 +21,6 @@ var styles = (function () {
 
 	return ret;
 })();
-
-var chalk = module.exports = defineProps({}, init());
 
 function init() {
 	var ret = {};
@@ -51,6 +50,8 @@ function init() {
 
 	return ret;
 }
+
+defineProps(chalk, init());
 
 chalk.styles = ansi;
 chalk.stripColor = stripAnsi;
