@@ -1,7 +1,7 @@
 /*global describe, it */
 'use strict';
 var assert = require('assert');
-var chalk = require('./chalk');
+var chalk = require('./index');
 
 describe('chalk', function () {
 	it('should style string', function () {
