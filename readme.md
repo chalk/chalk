@@ -133,3 +133,8 @@ console.log(chalk.styles.red.open + 'Hello' + chalk.styles.red.close);
 ## License
 
 MIT © [Sindre Sorhus](http://sindresorhus.com)
+
+
+-
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sindresorhus/chalk/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
