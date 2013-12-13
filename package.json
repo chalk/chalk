@@ -32,9 +32,8 @@
     "url": "http://sindresorhus.com"
   },
   "files": [
-    "chalk.js"
+    "index.js"
   ],
-  "main": "chalk",
   "repository": {
     "type": "git",
     "url": "git://github.com/sindresorhus/chalk.git"
