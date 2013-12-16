@@ -49,12 +49,20 @@ console.log(  chalk.red('Hello', chalk.underline.bgBlue('world') + '!')  );
 console.log(  chalk.blue('Hello', 'World!', 'Foo', 'bar', 'biz', 'baz')  );
 ```
 
-You can easily define your own themes.
+Easily define your own themes.
 
 ```js
 var chalk = require('chalk');
 var error = chalk.bold.red;
 console.log(error('Error!'));
+```
+
+Take advantage of console.log [string substitution](http://nodejs.org/docs/latest/api/console.html#console_console_log_data).
+
+```js
+var name = 'Sindre';
+console.log(chalk.green('Hello %s'), name);
+//=> Hello Sindre
 ```
 
 
