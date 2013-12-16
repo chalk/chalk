@@ -45,7 +45,7 @@ function init() {
 
 				return obj[name];
 			}
-		}
+		};
 	});
 
 	return ret;
