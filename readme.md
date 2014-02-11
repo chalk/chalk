@@ -18,12 +18,14 @@
 - Clean and focused
 - Auto-detects color support
 - Actively maintained
-- [Used by 200+ modules](https://npmjs.org/browse/depended/chalk)
+- [Used by 300+ modules](https://npmjs.org/browse/depended/chalk)
 
 
 ## Install
 
-Install with [npm](https://npmjs.org/package/chalk): `npm install --save chalk`
+```
+npm install --save chalk
+```
 
 
 ## Example
@@ -113,10 +115,10 @@ Example:
 
 ```js
 var chalk = require('chalk');
-var styledString = fromExternal();
+var styledString = getText();
 
 if (!chalk.supportsColor) {
-	chalk.stripColor(styledString);
+	styledString = chalk.stripColor(styledString);
 }
 ```
 
@@ -159,8 +161,3 @@ if (!chalk.supportsColor) {
 ## License
 
 MIT © [Sindre Sorhus](http://sindresorhus.com)
-
-
--
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sindresorhus/chalk/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
