@@ -10,7 +10,7 @@
     "url": "http://sindresorhus.com"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   },
   "scripts": {
     "test": "mocha"
@@ -40,11 +40,11 @@
     "text"
   ],
   "dependencies": {
-    "has-color": "~0.1.0",
-    "ansi-styles": "~1.0.0",
-    "strip-ansi": "~0.1.0"
+    "ansi-styles": "^1.0.0",
+    "has-color": "^0.1.0",
+    "strip-ansi": "^0.2.0"
   },
   "devDependencies": {
-    "mocha": "~1.x"
+    "mocha": "*"
   }
 }
