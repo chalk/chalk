@@ -2,7 +2,7 @@
 
 > Terminal string styling done right
 
-[![Build Status](https://secure.travis-ci.org/sindresorhus/chalk.png?branch=master)](http://travis-ci.org/sindresorhus/chalk)
+[![Build Status](https://travis-ci.org/sindresorhus/chalk.svg?branch=master)](https://travis-ci.org/sindresorhus/chalk)
 
 [colors.js](https://github.com/Marak/colors.js) is currently the most popular string styling module, but it has serious deficiencies like extending String.prototype which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68). Although there are other ones, they either do too much or not enough.
 
@@ -23,12 +23,12 @@
 
 ## Install
 
-```
-npm install --save chalk
+```bash
+$ npm install --save chalk
 ```
 
 
-## Example
+## Usage
 
 Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
 
@@ -160,4 +160,4 @@ if (!chalk.supportsColor) {
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
