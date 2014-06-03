@@ -1,5 +1,5 @@
 'use strict';
-var ansi = require('ansi-styles');
+var ansiStyles = require('ansi-styles');
 var stripAnsi = require('strip-ansi');
 var hasColor = require('has-color');
 var defineProps = Object.defineProperties;
@@ -8,9 +8,9 @@ var chalk = module.exports;
 var styles = (function () {
 	var ret = {};
 
-	ansi.grey = ansi.gray;
+	ansiStyles.grey = ansiStyles.gray;
 
-	Object.keys(ansi).forEach(function (key) {
+	Object.keys(ansiStyles).forEach(function (key) {
 		ret[key] = {
 			get: function () {
 				this._styles.push(key);
@@ -36,7 +36,7 @@ function init() {
 					}
 
 					return self._styles.reduce(function (str, name) {
-						var code = ansi[name];
+						var code = ansiStyles[name];
 						return str ? code.open + str + code.close : '';
 					}, str);
 				}, styles);
@@ -53,7 +53,7 @@ function init() {
 
 defineProps(chalk, init());
 
-chalk.styles = ansi;
+chalk.styles = ansiStyles;
 chalk.stripColor = stripAnsi;
 chalk.supportsColor = hasColor;
 

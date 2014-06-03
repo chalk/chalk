@@ -23,7 +23,7 @@
 
 ## Install
 
-```bash
+```sh
 $ npm install --save chalk
 ```
 
@@ -100,7 +100,7 @@ Generally not useful, but you might need just the `.open` or `.close` escape cod
 var chalk = require('chalk');
 
 console.log(chalk.styles.red);
-//=> {open: '\x1b[31m', close: '\x1b[39m'}
+//=> {open: '\u001b[31m', close: '\u001b[39m'}
 
 console.log(chalk.styles.red.open + 'Hello' + chalk.styles.red.close);
 ```
@@ -162,4 +162,4 @@ if (!chalk.supportsColor) {
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](http://sindresorhus.com)

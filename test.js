@@ -4,37 +4,37 @@ var chalk = require('./index');
 
 describe('chalk', function () {
 	it('should style string', function () {
-		assert.equal(chalk.underline('foo'), '\x1b[4mfoo\x1b[24m');
-		assert.equal(chalk.red('foo'), '\x1b[31mfoo\x1b[39m');
-		assert.equal(chalk.bgRed('foo'), '\x1b[41mfoo\x1b[49m');
+		assert.equal(chalk.underline('foo'), '\u001b[4mfoo\u001b[24m');
+		assert.equal(chalk.red('foo'), '\u001b[31mfoo\u001b[39m');
+		assert.equal(chalk.bgRed('foo'), '\u001b[41mfoo\u001b[49m');
 	});
 
 	it('should support applying multiple styles at once', function () {
-		assert.equal(chalk.red.bgGreen.underline('foo'), '\x1b[4m\x1b[42m\x1b[31mfoo\x1b[39m\x1b[49m\x1b[24m');
-		assert.equal(chalk.underline.red.bgGreen('foo'), '\x1b[42m\x1b[31m\x1b[4mfoo\x1b[24m\x1b[39m\x1b[49m');
+		assert.equal(chalk.red.bgGreen.underline('foo'), '\u001b[4m\u001b[42m\u001b[31mfoo\u001b[39m\u001b[49m\u001b[24m');
+		assert.equal(chalk.underline.red.bgGreen('foo'), '\u001b[42m\u001b[31m\u001b[4mfoo\u001b[24m\u001b[39m\u001b[49m');
 	});
 
 	it('should support nesting styles', function () {
 		assert.equal(
 			chalk.red('foo' + chalk.underline.bgBlue('bar') + '!'),
-			'\x1b[31mfoo\x1b[44m\x1b[4mbar\x1b[24m\x1b[49m!\x1b[39m'
+			'\u001b[31mfoo\u001b[44m\u001b[4mbar\u001b[24m\u001b[49m!\u001b[39m'
 		);
 	});
 
 	it('should reset all styles with `.reset()`', function () {
-		assert.equal(chalk.reset(chalk.red.bgGreen.underline('foo') + 'foo'), '\x1b[0m\x1b[4m\x1b[42m\x1b[31mfoo\x1b[39m\x1b[49m\x1b[24mfoo\x1b[0m');
+		assert.equal(chalk.reset(chalk.red.bgGreen.underline('foo') + 'foo'), '\u001b[0m\u001b[4m\u001b[42m\u001b[31mfoo\u001b[39m\u001b[49m\u001b[24mfoo\u001b[0m');
 	});
 
 	it('should alias gray to grey', function () {
-		assert.equal(chalk.grey('foo'), '\x1b[90mfoo\x1b[39m');
+		assert.equal(chalk.grey('foo'), '\u001b[90mfoo\u001b[39m');
 	});
 
 	it('should support variable number of arguments', function () {
-		assert.equal(chalk.red('foo', 'bar'), '\x1b[31mfoo bar\x1b[39m');
+		assert.equal(chalk.red('foo', 'bar'), '\u001b[31mfoo bar\u001b[39m');
 	});
 
 	it('should support falsy values', function () {
-		assert.equal(chalk.red(0), '\x1b[31m0\x1b[39m');
+		assert.equal(chalk.red(0), '\u001b[31m0\u001b[39m');
 	});
 
 	it('don\'t output escape codes if the input is empty', function () {
@@ -52,7 +52,7 @@ describe('chalk.enabled', function () {
 
 describe('chalk.styles', function () {
 	it('should expose the styles as ANSI escape codes', function () {
-		assert.equal(chalk.styles.red.open, '\x1b[31m');
+		assert.equal(chalk.styles.red.open, '\u001b[31m');
 	});
 });
 
