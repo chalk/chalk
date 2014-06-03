@@ -8,7 +8,7 @@
 
 **Chalk is a clean and focused alternative.**
 
-![screenshot](screenshot.png)
+![screenshot](https://github.com/sindresorhus/ansi-styles/raw/master/screenshot.png)
 
 
 ## Why
@@ -127,35 +127,37 @@ if (!chalk.supportsColor) {
 
 ### General
 
-- reset
-- bold
-- italic
-- underline
-- inverse
-- strikethrough
+- `reset`
+- `bold`
+- `dim`
+- `italic` *(not widely supported)*
+- `underline`
+- `inverse`
+- `hidden`
+- `strikethrough` *(not widely supported)*
 
 ### Text colors
 
-- black
-- red
-- green
-- yellow
-- blue
-- magenta
-- cyan
-- white
-- gray
+- `black`
+- `red`
+- `green`
+- `yellow`
+- `blue`
+- `magenta`
+- `cyan`
+- `white`
+- `gray`
 
 ### Background colors
 
-- bgBlack
-- bgRed
-- bgGreen
-- bgYellow
-- bgBlue
-- bgMagenta
-- bgCyan
-- bgWhite
+- `bgBlack`
+- `bgRed`
+- `bgGreen`
+- `bgYellow`
+- `bgBlue`
+- `bgMagenta`
+- `bgCyan`
+- `bgWhite`
 
 
 ## License
