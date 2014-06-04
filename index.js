@@ -29,7 +29,7 @@ function init() {
 		ret[name] = {
 			get: function () {
 				var obj = defineProps(function self() {
-					var str = [].slice.call(arguments).join(' ');
+					var str = Array.prototype.slice.call(arguments).join(' ');
 
 					if (!chalk.enabled) {
 						return str;
