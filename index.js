@@ -1,7 +1,7 @@
 'use strict';
 var ansiStyles = require('ansi-styles');
 var stripAnsi = require('strip-ansi');
-var hasColor = require('has-color');
+var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
 var chalk = module.exports;
 
@@ -55,7 +55,7 @@ defineProps(chalk, init());
 
 chalk.styles = ansiStyles;
 chalk.stripColor = stripAnsi;
-chalk.supportsColor = hasColor;
+chalk.supportsColor = supportsColor;
 
 // detect mode if not set manually
 if (chalk.enabled === undefined) {

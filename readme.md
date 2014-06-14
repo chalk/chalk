@@ -84,7 +84,7 @@ Color support is automatically detected, but you can override it.
 
 ### chalk.supportsColor
 
-Detect whether the terminal [supports color](https://github.com/sindresorhus/has-color).
+Detect whether the terminal [supports color](https://github.com/sindresorhus/supports-color).
 
 Can be overridden by the user with the flags `--color` and `--no-color`.
 
