@@ -1,4 +1,4 @@
-# <img width="250" src="logo.png" alt="chalk">
+# <img width="250" src="logo.png?raw=1" alt="chalk">
 
 > Terminal string styling done right
 
@@ -8,7 +8,7 @@
 
 **Chalk is a clean and focused alternative.**
 
-![screenshot](https://github.com/sindresorhus/ansi-styles/raw/master/screenshot.png)
+![screenshot](https://github.com/sindresorhus/ansi-styles/blob/master/screenshot.png?raw=1)
 
 
 ## Why
