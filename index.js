@@ -22,6 +22,19 @@ var styles = (function () {
 	return ret;
 })();
 
+// enrich each ansiStyle object with regular expression matching
+// all instances of the corresponding code.close
+(function () {
+	var _matchUnescapedCharacters = /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g;
+	function escapeStr(str) {
+		return str.replace(_matchUnescapedCharacters, '\\$&');
+	}
+
+	Object.keys(ansiStyles).forEach(function (key) {
+		ansiStyles[key].closeRe = new RegExp(escapeStr(ansiStyles[key].close), 'g');
+	});
+})();
+
 function init() {
 	var ret = {};
 
@@ -37,7 +50,12 @@ function init() {
 
 					return self._styles.reduce(function (str, name) {
 						var code = ansiStyles[name];
-						return str ? code.open + str + code.close : '';
+						return str ?
+							// Replace any instances already present with a re-opening code
+							// otherwise only the part of the string until said closing code will be coloured, and the rest will be
+							// simply 'plain'.
+							code.open + str.replace(code.closeRe, code.open) + code.close :
+							'';
 					}, str);
 				}, styles);
 

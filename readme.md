@@ -47,6 +47,9 @@ console.log(  chalk.blue.bgRed.bold('Hello world!')  );
 // nest styles
 console.log(  chalk.red('Hello', chalk.underline.bgBlue('world') + '!')  );
 
+// nest styles of the same type even (colour, underline, background)
+console.log( chalk.green('Hello, I'm a green line ' + chalk.blue('with a blue substring') + ' that becomes green again!') );
+
 // pass in multiple arguments
 console.log(  chalk.blue('Hello', 'World!', 'Foo', 'bar', 'biz', 'baz')  );
 ```

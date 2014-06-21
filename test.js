@@ -21,6 +21,13 @@ describe('chalk', function () {
 		);
 	});
 
+	it('should support nesting styles of the same type (color, underline, bg)', function () {
+		assert.equal(
+			chalk.red('a' + chalk.blue('b' + chalk.green('c') + 'b') + 'c'),
+			'\u001b[31ma\u001b[34mb\u001b[32mc\u001b[34mb\u001b[31mc\u001b[39m'
+		);
+	});
+
 	it('should reset all styles with `.reset()`', function () {
 		assert.equal(chalk.reset(chalk.red.bgGreen.underline('foo') + 'foo'), '\u001b[0m\u001b[4m\u001b[42m\u001b[31mfoo\u001b[39m\u001b[49m\u001b[24mfoo\u001b[0m');
 	});
