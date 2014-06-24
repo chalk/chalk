@@ -1,6 +1,6 @@
 'use strict';
 var assert = require('assert');
-var chalk = require('./index');
+var chalk = require('./');
 
 describe('chalk', function () {
 	it('should style string', function () {

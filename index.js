@@ -1,4 +1,5 @@
 'use strict';
+var escapeStringRegexp = require('escape-string-regexp');
 var ansiStyles = require('ansi-styles');
 var stripAnsi = require('strip-ansi');
 var supportsColor = require('supports-color');
@@ -11,6 +12,8 @@ var styles = (function () {
 	ansiStyles.grey = ansiStyles.gray;
 
 	Object.keys(ansiStyles).forEach(function (key) {
+		ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
+
 		ret[key] = {
 			get: function () {
 				this._styles.push(key);
@@ -20,19 +23,6 @@ var styles = (function () {
 	});
 
 	return ret;
-})();
-
-// enrich each ansiStyle object with regular expression matching
-// all instances of the corresponding code.close
-(function () {
-	var _matchUnescapedCharacters = /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g;
-	function escapeStr(str) {
-		return str.replace(_matchUnescapedCharacters, '\\$&');
-	}
-
-	Object.keys(ansiStyles).forEach(function (key) {
-		ansiStyles[key].closeRe = new RegExp(escapeStr(ansiStyles[key].close), 'g');
-	});
 })();
 
 function init() {
@@ -50,12 +40,11 @@ function init() {
 
 					return self._styles.reduce(function (str, name) {
 						var code = ansiStyles[name];
-						return str ?
+						return str ? code.open +
 							// Replace any instances already present with a re-opening code
-							// otherwise only the part of the string until said closing code will be coloured, and the rest will be
-							// simply 'plain'.
-							code.open + str.replace(code.closeRe, code.open) + code.close :
-							'';
+							// otherwise only the part of the string until said closing code
+							// will be colored, and the rest will simply be 'plain'.
+							str.replace(code.closeRe, code.open) + code.close : '';
 					}, str);
 				}, styles);
 
