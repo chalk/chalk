@@ -109,6 +109,10 @@ console.log(chalk.styles.red);
 console.log(chalk.styles.red.open + 'Hello' + chalk.styles.red.close);
 ```
 
+### chalk.hasColor(string)
+
+Check whether a string [has color](https://github.com/sindresorhus/has-ansi).
+
 ### chalk.stripColor(string)
 
 [Strip color](https://github.com/sindresorhus/strip-ansi) from a string.

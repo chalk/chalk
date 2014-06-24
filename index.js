@@ -2,6 +2,7 @@
 var escapeStringRegexp = require('escape-string-regexp');
 var ansiStyles = require('ansi-styles');
 var stripAnsi = require('strip-ansi');
+var hasAnsi = require('has-ansi');
 var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
 var chalk = module.exports;
@@ -61,6 +62,7 @@ function init() {
 defineProps(chalk, init());
 
 chalk.styles = ansiStyles;
+chalk.hasColor = hasAnsi;
 chalk.stripColor = stripAnsi;
 chalk.supportsColor = supportsColor;
 

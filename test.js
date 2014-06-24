@@ -63,6 +63,13 @@ describe('chalk.styles', function () {
 	});
 });
 
+describe('chalk.hasColor()', function () {
+	it('should detect whether a string has color', function () {
+		assert(chalk.hasColor(chalk.blue('foo')));
+		assert(!chalk.hasColor(chalk.stripColor(chalk.blue('foo'))));
+	});
+});
+
 describe('chalk.stripColor()', function () {
 	it('should strip color from string', function () {
 		assert.equal(chalk.stripColor(chalk.underline.red.bgGreen('foo')), 'foo');

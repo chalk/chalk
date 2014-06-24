@@ -42,7 +42,8 @@
   "dependencies": {
     "ansi-styles": "^1.1.0",
     "escape-string-regexp": "^1.0.0",
-    "strip-ansi": "^0.2.0",
+    "has-ansi": "^0.1.0",
+    "strip-ansi": "^0.2.2",
     "supports-color": "^0.2.0"
   },
   "devDependencies": {
