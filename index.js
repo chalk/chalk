@@ -26,32 +26,32 @@ var styles = (function () {
 	return ret;
 })();
 
+function applyStyle() {
+	// support varags, but simply cast to string in case there's only one arg
+	var str = arguments.length === 1 ?  arguments[0] + '' : [].slice.call(arguments).join(' ');
+
+	if (!chalk.enabled || !str) {
+		return str;
+	}
+
+	return applyStyle._styles.reduce(function (str, name) {
+		var code = ansiStyles[name];
+		// Replace any instances already present with a re-opening code
+		// otherwise only the part of the string until said closing code
+		// will be colored, and the rest will simply be 'plain'.
+		return code.open + str.replace(code.closeRe, code.open) + code.close;
+	}, str) ;
+}
+
 function init() {
 	var ret = {};
 
 	Object.keys(styles).forEach(function (name) {
+		var style = defineProps(applyStyle, styles);
 		ret[name] = {
 			get: function () {
-				var obj = defineProps(function self() {
-					var str = [].slice.call(arguments).join(' ');
-
-					if (!chalk.enabled) {
-						return str;
-					}
-
-					return self._styles.reduce(function (str, name) {
-						var code = ansiStyles[name];
-						return str ? code.open +
-							// Replace any instances already present with a re-opening code
-							// otherwise only the part of the string until said closing code
-							// will be colored, and the rest will simply be 'plain'.
-							str.replace(code.closeRe, code.open) + code.close : '';
-					}, str);
-				}, styles);
-
-				obj._styles = [];
-
-				return obj[name];
+				style._styles = [];
+				return style[name];
 			}
 		};
 	});
