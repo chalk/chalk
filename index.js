@@ -34,13 +34,17 @@ function applyStyle() {
 		return str;
 	}
 
-	return applyStyle._styles.reduce(function (str, name) {
-		var code = ansiStyles[name];
+	var nestedStyles = applyStyle._styles;
+
+	for (var i = 0; i < nestedStyles.length; i++) {
+		var code = ansiStyles[nestedStyles[i]];
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
 		// will be colored, and the rest will simply be 'plain'.
-		return code.open + str.replace(code.closeRe, code.open) + code.close;
-	}, str) ;
+		str = code.open + str.replace(code.closeRe, code.open) + code.close;
+	}
+
+	return str;
 }
 
 function init() {
