@@ -28,7 +28,7 @@ var styles = (function () {
 
 function applyStyle() {
 	// support varags, but simply cast to string in case there's only one arg
-	var str = arguments.length === 1 ?  arguments[0] + '' : [].slice.call(arguments).join(' ');
+	var str = arguments.length === 1 ? String(arguments[0]) : [].slice.call(arguments).join(' ');
 
 	if (!chalk.enabled || !str) {
 		return str;
