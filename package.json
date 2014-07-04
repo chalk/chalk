@@ -12,7 +12,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "bench": "matcha benchmark.js"
   },
   "files": [
     "index.js"
