@@ -46,6 +46,7 @@
     "supports-color": "^0.2.0"
   },
   "devDependencies": {
+    "matcha": "^0.5.0",
     "mocha": "*"
   }
 }
