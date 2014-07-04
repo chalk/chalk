@@ -14,6 +14,7 @@
 
 ## Why
 
+- Highly performant
 - Doesn't extend String.prototype
 - Expressive API
 - Ability to nest styles
