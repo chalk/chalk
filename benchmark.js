@@ -1,6 +1,8 @@
 var chalk = require('./');
 
 suite('chalk', function () {
+	set('iterations', 100000);
+
 	bench('single style', function () {
 		chalk.red('the fox jumps over the lazy dog');
 	});
