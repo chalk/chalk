@@ -9,6 +9,7 @@
 	"indent": 4,
 	"newcap": true,
 	"noarg": true,
+	"proto": true,
 	"quotmark": "single",
 	"undef": true,
 	"unused": "vars",
