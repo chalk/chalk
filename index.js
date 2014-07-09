@@ -7,6 +7,17 @@ var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
 var chalk = module.exports;
 
+function build(_styles) {
+	var builder = function builder() {
+		return applyStyle.apply(builder, arguments);
+	};
+	builder._styles = _styles;
+	// __proto__ is used because we must return a function, but there is
+	// no way to create a function with a different prototype.
+	builder.__proto__ = proto;
+	return builder;
+}
+
 var styles = (function () {
 	var ret = {};
 
@@ -17,14 +28,15 @@ var styles = (function () {
 
 		ret[key] = {
 			get: function () {
-				this._styles.push(key);
-				return this;
+				return build(this._styles.concat(key));
 			}
 		};
 	});
 
 	return ret;
 })();
+
+var proto = defineProps(function chalk() {}, styles);
 
 function applyStyle() {
 	// support varags, but simply cast to string in case there's only one arg
@@ -34,7 +46,8 @@ function applyStyle() {
 		return str;
 	}
 
-	var nestedStyles = applyStyle._styles;
+	/*jshint validthis: true*/
+	var nestedStyles = this._styles;
 
 	for (var i = 0; i < nestedStyles.length; i++) {
 		var code = ansiStyles[nestedStyles[i]];
@@ -51,11 +64,9 @@ function init() {
 	var ret = {};
 
 	Object.keys(styles).forEach(function (name) {
-		var style = defineProps(applyStyle, styles);
 		ret[name] = {
 			get: function () {
-				style._styles = [];
-				return style[name];
+				return build([name]);
 			}
 		};
 	});
