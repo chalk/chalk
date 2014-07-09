@@ -40,7 +40,15 @@ var proto = defineProps(function chalk() {}, styles);
 
 function applyStyle() {
 	// support varags, but simply cast to string in case there's only one arg
-	var str = arguments.length === 1 ? String(arguments[0]) : [].slice.call(arguments).join(' ');
+	var args = arguments;
+	var argsLen = args.length;
+	var str = argsLen !== 0 && String(arguments[0]);
+	if (argsLen > 1) {
+		// don't slice `arguments`, it prevents v8 optimizations
+		for (var a = 1; a < argsLen; a++) {
+			str += ' ' + args[a];
+		}
+	}
 
 	if (!chalk.enabled || !str) {
 		return str;
