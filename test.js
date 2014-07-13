@@ -86,3 +86,14 @@ describe('chalk.stripColor()', function () {
 		assert.equal(chalk.stripColor(chalk.underline.red.bgGreen('foo')), 'foo');
 	});
 });
+
+describe('chalk.foreground() and chalk.background()', function () {
+	it('should style according to their given rgb values', function () {
+		assert.equal(chalk.foreground(2, 5, 3, 'foobar'), '\u001b[;38;5;121mfoobar\u001b[0m');
+	});
+	it('should play nice with other chalk styles', function () {
+		assert.equal(chalk.background(1, 3, 3, chalk.red("Unicorns, attack!")), '\u001b[;48;5;73m\u001b[31mUnicorns, attack!\u001b[39m\u001b[0m');
+	});
+});
+
+
