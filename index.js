@@ -1,5 +1,6 @@
 'use strict';
 var escapeStringRegexp = require('escape-string-regexp');
+var ansi8bit = require('ansi-8-bit');
 var ansiStyles = require('ansi-styles');
 var stripAnsi = require('strip-ansi');
 var hasAnsi = require('has-ansi');
@@ -83,6 +84,14 @@ function init() {
 }
 
 defineProps(chalk, init());
+
+chalk.foreground = function (r, g, b, str) {
+	return ansi8bit.fg.getRgb(r, g, b) + str + ansi8bit.reset;
+};
+
+chalk.background = function (r, g, b, str) {
+	return ansi8bit.bg.getRgb(r, g, b) + str + ansi8bit.reset;
+};
 
 chalk.styles = ansiStyles;
 chalk.hasColor = hasAnsi;
