@@ -42,9 +42,9 @@
   "dependencies": {
     "ansi-styles": "^1.1.0",
     "escape-string-regexp": "^1.0.1",
-    "has-ansi": "^0.1.0",
-    "strip-ansi": "^0.3.0",
-    "supports-color": "^0.2.0"
+    "has-ansi": "^1.0.0",
+    "strip-ansi": "^2.0.0",
+    "supports-color": "^1.0.0"
   },
   "devDependencies": {
     "matcha": "^0.5.0",
