@@ -10,14 +10,14 @@ describe('chalk', function () {
 	});
 
 	it('should support applying multiple styles at once', function () {
-		assert.equal(chalk.red.bgGreen.underline('foo'), '\u001b[4m\u001b[42m\u001b[31mfoo\u001b[39m\u001b[49m\u001b[24m');
-		assert.equal(chalk.underline.red.bgGreen('foo'), '\u001b[42m\u001b[31m\u001b[4mfoo\u001b[24m\u001b[39m\u001b[49m');
+		assert.equal(chalk.red.bgGreen.underline('foo'), '\u001b[31m\u001b[42m\u001b[4mfoo\u001b[24m\u001b[49m\u001b[39m');
+		assert.equal(chalk.underline.red.bgGreen('foo'), '\u001b[4m\u001b[31m\u001b[42mfoo\u001b[49m\u001b[39m\u001b[24m');
 	});
 
 	it('should support nesting styles', function () {
 		assert.equal(
 			chalk.red('foo' + chalk.underline.bgBlue('bar') + '!'),
-			'\u001b[31mfoo\u001b[44m\u001b[4mbar\u001b[24m\u001b[49m!\u001b[39m'
+			'\u001b[31mfoo\u001b[4m\u001b[44mbar\u001b[49m\u001b[24m!\u001b[39m'
 		);
 	});
 
@@ -29,7 +29,7 @@ describe('chalk', function () {
 	});
 
 	it('should reset all styles with `.reset()`', function () {
-		assert.equal(chalk.reset(chalk.red.bgGreen.underline('foo') + 'foo'), '\u001b[0m\u001b[4m\u001b[42m\u001b[31mfoo\u001b[39m\u001b[49m\u001b[24mfoo\u001b[0m');
+		assert.equal(chalk.reset(chalk.red.bgGreen.underline('foo') + 'foo'), '\u001b[0m\u001b[31m\u001b[42m\u001b[4mfoo\u001b[24m\u001b[49m\u001b[39mfoo\u001b[0m');
 	});
 
 	it('should be able to cache multiple styles', function() {
