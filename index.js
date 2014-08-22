@@ -57,7 +57,8 @@ function applyStyle() {
 	/*jshint validthis: true*/
 	var nestedStyles = this._styles;
 
-	for (var i = 0; i < nestedStyles.length; i++) {
+	var i = nestedStyles.length;
+	while (i--) {
 		var code = ansiStyles[nestedStyles[i]];
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
