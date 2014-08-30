@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/sindresorhus/chalk.svg?branch=master)](https://travis-ci.org/sindresorhus/chalk)
 ![](http://img.shields.io/badge/unicorn-approved-ff69b4.svg)
 
-[colors.js](https://github.com/Marak/colors.js) is currently the most popular
+[colors.js](https://github.com/Marak/colors.js) used to be the most popular
 string styling module, but it has serious deficiencies like extending
 String.prototype which causes all kinds of
 [problems](https://github.com/yeoman/yo/issues/68). Although there are other
