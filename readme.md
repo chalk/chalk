@@ -31,7 +31,7 @@ ones, they either do too much or not enough.
 ## Install
 
 ```sh
-$ npm install --save chalk
+npm install --save chalk
 ```
 
 
