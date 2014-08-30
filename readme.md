@@ -2,14 +2,9 @@
 
 > Terminal string styling done right
 
-[![Build Status](https://travis-ci.org/sindresorhus/chalk.svg?branch=master)](https://travis-ci.org/sindresorhus/chalk)
-![](http://img.shields.io/badge/unicorn-approved-ff69b4.svg)
+[![Build Status](https://travis-ci.org/sindresorhus/chalk.svg?branch=master)](https://travis-ci.org/sindresorhus/chalk) ![](http://img.shields.io/badge/unicorn-approved-ff69b4.svg)
 
-[colors.js](https://github.com/Marak/colors.js) used to be the most popular
-string styling module, but it has serious deficiencies like extending
-`String.prototype` which causes all kinds of
-[problems](https://github.com/yeoman/yo/issues/68). Although there are other
-ones, they either do too much or not enough.
+[colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68). Although there are other ones, they either do too much or not enough.
 
 **Chalk is a clean and focused alternative.**
 
@@ -37,8 +32,7 @@ npm install --save chalk
 
 ## Usage
 
-Chalk comes with an easy to use composable API where you just chain and nest
-the styles you want.
+Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
 
 ```js
 var chalk = require('chalk');
@@ -74,8 +68,7 @@ var error = chalk.bold.red;
 console.log(error('Error!'));
 ```
 
-Take advantage of console.log [string
-substitution](http://nodejs.org/docs/latest/api/console.html#console_console_log_data).
+Take advantage of console.log [string substitution](http://nodejs.org/docs/latest/api/console.html#console_console_log_data).
 
 ```js
 var name = 'Sindre';
@@ -90,10 +83,7 @@ console.log(chalk.green('Hello %s'), name);
 
 Example: `chalk.red.bold.underline('Hello', 'world');`
 
-Chain [styles](#styles) and call the last one as a method with a string
-argument. Order doesn't matter, and later styles take precedent in case of a
-conflict. This simply means that `Chalk.red.yellow.green` is equivalent to
-`Chalk.green`.
+Chain [styles](#styles) and call the last one as a method with a string argument. Order doesn't matter, and later styles take precedent in case of a conflict. This simply means that `Chalk.red.yellow.green` is equivalent to `Chalk.green`.
 
 Multiple arguments will be separated by space.
 
@@ -103,8 +93,7 @@ Color support is automatically detected, but you can override it.
 
 ### chalk.supportsColor
 
-Detect whether the terminal [supports
-color](https://github.com/sindresorhus/supports-color).
+Detect whether the terminal [supports color](https://github.com/sindresorhus/supports-color).
 
 Can be overridden by the user with the flags `--color` and `--no-color`.
 
@@ -112,11 +101,9 @@ Used internally and handled for you, but exposed for convenience.
 
 ### chalk.styles
 
-Exposes the styles as [ANSI escape
-codes](https://github.com/sindresorhus/ansi-styles).
+Exposes the styles as [ANSI escape codes](https://github.com/sindresorhus/ansi-styles).
 
-Generally not useful, but you might need just the `.open` or `.close` escape
-code if you're mixing externally styled strings with your own.
+Generally not useful, but you might need just the `.open` or `.close` escape code if you're mixing externally styled strings with your own.
 
 ```js
 var chalk = require('chalk');
@@ -135,8 +122,7 @@ Check whether a string [has color](https://github.com/sindresorhus/has-ansi).
 
 [Strip color](https://github.com/sindresorhus/strip-ansi) from a string.
 
-Can be useful in combination with `.supportsColor` to strip color on externally
-styled text when it's not supported.
+Can be useful in combination with `.supportsColor` to strip color on externally styled text when it's not supported.
 
 Example:
 
@@ -188,12 +174,7 @@ if (!chalk.supportsColor) {
 
 ## 256-colors
 
-Chalk does not support support anything other than the base eight colors, which
-guarantees it will work on all terminals and systems. Some terminals,
-specifically `xterm` compliant ones, will support the full range of 8-bit
-colors. For this the lower level
-[ansi-256-colors](https://github.com/jbnicolai/ansi-256-colors) package can be
-used.
+Chalk does not support support anything other than the base eight colors, which guarantees it will work on all terminals and systems. Some terminals, specifically `xterm` compliant ones, will support the full range of 8-bit colors. For this the lower level [ansi-256-colors](https://github.com/jbnicolai/ansi-256-colors) package can be used.
 
 ## License
 
