@@ -7,7 +7,7 @@
 
 [colors.js](https://github.com/Marak/colors.js) used to be the most popular
 string styling module, but it has serious deficiencies like extending
-String.prototype which causes all kinds of
+`String.prototype` which causes all kinds of
 [problems](https://github.com/yeoman/yo/issues/68). Although there are other
 ones, they either do too much or not enough.
 
@@ -19,7 +19,7 @@ ones, they either do too much or not enough.
 ## Why
 
 - Highly performant
-- Doesn't extend String.prototype
+- Doesn't extend `String.prototype`
 - Expressive API
 - Ability to nest styles
 - Clean and focused
