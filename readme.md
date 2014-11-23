@@ -138,7 +138,7 @@ if (!chalk.supportsColor) {
 
 ## Styles
 
-### General
+### Modifiers
 
 - `reset`
 - `bold`
@@ -149,7 +149,7 @@ if (!chalk.supportsColor) {
 - `hidden`
 - `strikethrough` *(not widely supported)*
 
-### Text colors
+### Colors
 
 - `black`
 - `red`
@@ -172,9 +172,11 @@ if (!chalk.supportsColor) {
 - `bgCyan`
 - `bgWhite`
 
+
 ## 256-colors
 
 Chalk does not support support anything other than the base eight colors, which guarantees it will work on all terminals and systems. Some terminals, specifically `xterm` compliant ones, will support the full range of 8-bit colors. For this the lower level [ansi-256-colors](https://github.com/jbnicolai/ansi-256-colors) package can be used.
+
 
 ## License
 

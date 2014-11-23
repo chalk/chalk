@@ -21,8 +21,6 @@ function build(_styles) {
 var styles = (function () {
 	var ret = {};
 
-	ansiStyles.grey = ansiStyles.gray;
-
 	Object.keys(ansiStyles).forEach(function (key) {
 		ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
 
@@ -54,7 +52,7 @@ function applyStyle() {
 		return str;
 	}
 
-	/*jshint validthis: true*/
+	/*jshint validthis: true */
 	var nestedStyles = this._styles;
 
 	var i = nestedStyles.length;

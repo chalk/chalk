@@ -40,14 +40,14 @@
     "text"
   ],
   "dependencies": {
-    "ansi-styles": "^1.1.0",
+    "ansi-styles": "^2.0.0",
     "escape-string-regexp": "^1.0.1",
     "has-ansi": "^1.0.0",
     "strip-ansi": "^2.0.0",
-    "supports-color": "^1.0.0"
+    "supports-color": "^1.2.0"
   },
   "devDependencies": {
-    "matcha": "^0.5.0",
+    "matcha": "^0.6.0",
     "mocha": "*"
   }
 }
