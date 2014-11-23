@@ -20,7 +20,7 @@
 - Clean and focused
 - Auto-detects color support
 - Actively maintained
-- [Used by 1700+ modules](https://npmjs.org/browse/depended/chalk)
+- [Used by 2200+ modules](https://npmjs.org/browse/depended/chalk)
 
 
 ## Install
