@@ -178,6 +178,11 @@ if (!chalk.supportsColor) {
 Chalk does not support support anything other than the base eight colors, which guarantees it will work on all terminals and systems. Some terminals, specifically `xterm` compliant ones, will support the full range of 8-bit colors. For this the lower level [ansi-256-colors](https://github.com/jbnicolai/ansi-256-colors) package can be used.
 
 
+## Windows
+
+If you're on Windows, do yourself a favor and use [`cmder`](http://bliker.github.io/cmder/) instead of `cmd.exe`.
+
+
 ## License
 
 MIT © [Sindre Sorhus](http://sindresorhus.com)
