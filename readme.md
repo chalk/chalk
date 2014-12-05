@@ -155,7 +155,7 @@ if (!chalk.supportsColor) {
 - `red`
 - `green`
 - `yellow`
-- `blue`
+- `blue` *(on Windows the bright version is used as normal blue is illegible)*
 - `magenta`
 - `cyan`
 - `white`

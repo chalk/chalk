@@ -23,8 +23,8 @@ describe('chalk', function () {
 
 	it('should support nesting styles of the same type (color, underline, bg)', function () {
 		assert.equal(
-			chalk.red('a' + chalk.blue('b' + chalk.green('c') + 'b') + 'c'),
-			'\u001b[31ma\u001b[34mb\u001b[32mc\u001b[34mb\u001b[31mc\u001b[39m'
+			chalk.red('a' + chalk.yellow('b' + chalk.green('c') + 'b') + 'c'),
+			'\u001b[31ma\u001b[33mb\u001b[32mc\u001b[33mb\u001b[31mc\u001b[39m'
 		);
 	});
 
@@ -34,13 +34,13 @@ describe('chalk', function () {
 
 	it('should be able to cache multiple styles', function() {
 		var red = chalk.red;
-		var blue = chalk.blue;
+		var green = chalk.green;
 		var redBold = red.bold;
-		var blueBold = blue.bold;
+		var greenBold = green.bold;
 
-		assert.notEqual(red('foo'), blue('foo'));
-		assert.notEqual(redBold('bar'), blueBold('bar'));
-		assert.notEqual(blue('baz'), blueBold('baz'));
+		assert.notEqual(red('foo'), green('foo'));
+		assert.notEqual(redBold('bar'), greenBold('bar'));
+		assert.notEqual(green('baz'), greenBold('baz'));
 	});
 
 	it('should alias gray to grey', function () {
@@ -76,8 +76,8 @@ describe('chalk.styles', function () {
 
 describe('chalk.hasColor()', function () {
 	it('should detect whether a string has color', function () {
-		assert(chalk.hasColor(chalk.blue('foo')));
-		assert(!chalk.hasColor(chalk.stripColor(chalk.blue('foo'))));
+		assert(chalk.hasColor(chalk.green('foo')));
+		assert(!chalk.hasColor(chalk.stripColor(chalk.green('foo'))));
 	});
 });
 

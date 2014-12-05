@@ -7,6 +7,11 @@ var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
 var chalk = module.exports;
 
+// use bright blue on Windows as the normal blue color is illegible
+if (process.platform === 'win32') {
+	ansiStyles.blue.open = '\u001b[94m';
+}
+
 function build(_styles) {
 	var builder = function builder() {
 		return applyStyle.apply(builder, arguments);
