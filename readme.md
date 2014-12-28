@@ -41,7 +41,7 @@ var chalk = require('chalk');
 chalk.blue('Hello world!');
 
 // combine styled and normal strings
-chalk.blue('Hello'), 'World' + chalk.red('!');
+chalk.blue('Hello') + 'World' + chalk.red('!');
 
 // compose multiple styles using the chainable API
 chalk.blue.bgRed.bold('Hello world!');
