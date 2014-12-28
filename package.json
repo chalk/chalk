@@ -42,7 +42,7 @@
   "dependencies": {
     "ansi-styles": "^2.0.0",
     "escape-string-regexp": "^1.0.1",
-    "has-ansi": "^1.0.0",
+    "has-ansi": "^1.0.1",
     "strip-ansi": "^2.0.0",
     "supports-color": "^1.2.0"
   },
