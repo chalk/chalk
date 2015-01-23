@@ -5,7 +5,13 @@ var stripAnsi = require('strip-ansi');
 var hasAnsi = require('has-ansi');
 var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
-var chalk = module.exports;
+
+function Chalk(enabled) {
+	// detect mode if not set manually
+	if (enabled === undefined) {
+		this.enabled = this.supportsColor;
+	}
+}
 
 // use bright blue on Windows as the normal blue color is illegible
 if (process.platform === 'win32') {
@@ -17,6 +23,7 @@ function build(_styles) {
 		return applyStyle.apply(builder, arguments);
 	};
 	builder._styles = _styles;
+	builder.enabled = this.enabled;
 	// __proto__ is used because we must return a function, but there is
 	// no way to create a function with a different prototype.
 	builder.__proto__ = proto;
@@ -31,7 +38,7 @@ var styles = (function () {
 
 		ret[key] = {
 			get: function () {
-				return build(this._styles.concat(key));
+				return build.call(this, this._styles.concat(key));
 			}
 		};
 	});
@@ -53,7 +60,7 @@ function applyStyle() {
 		}
 	}
 
-	if (!chalk.enabled || !str) {
+	if (!this.enabled || !str) {
 		return str;
 	}
 
@@ -78,7 +85,7 @@ function init() {
 	Object.keys(styles).forEach(function (name) {
 		ret[name] = {
 			get: function () {
-				return build([name]);
+				return build.call(this, [name]);
 			}
 		};
 	});
@@ -86,14 +93,11 @@ function init() {
 	return ret;
 }
 
-defineProps(chalk, init());
+defineProps(Chalk.prototype, init());
 
-chalk.styles = ansiStyles;
-chalk.hasColor = hasAnsi;
-chalk.stripColor = stripAnsi;
-chalk.supportsColor = supportsColor;
+Chalk.prototype.styles = ansiStyles;
+Chalk.prototype.hasColor = hasAnsi;
+Chalk.prototype.stripColor = stripAnsi;
+Chalk.prototype.supportsColor = supportsColor;
 
-// detect mode if not set manually
-if (chalk.enabled === undefined) {
-	chalk.enabled = chalk.supportsColor;
-}
+module.exports = new Chalk();
