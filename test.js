@@ -70,7 +70,7 @@ describe('chalk.enabled', function () {
 
 describe('chalk.constructor', function () {
 	it('should create a isolated context where colors can be disabled', function () {
-		var ctx = new chalk.constructor(false);
+		var ctx = new chalk.constructor({enabled: false});
 		assert.equal(ctx.red('foo'), 'foo');
 		assert.equal(chalk.red('foo'), '\u001b[31mfoo\u001b[39m');
 	});

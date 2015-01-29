@@ -6,10 +6,12 @@ var hasAnsi = require('has-ansi');
 var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
 
-function Chalk(enabled) {
+function Chalk(options) {
 	// detect mode if not set manually
-	if (enabled === undefined) {
-		this.enabled = this.supportsColor;
+	if (!options || options.enabled === undefined) {
+		this.enabled = supportsColor;
+	} else {
+		this.enabled = options.enabled;
 	}
 }
 
