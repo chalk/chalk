@@ -97,9 +97,8 @@ function init() {
 
 defineProps(Chalk.prototype, init());
 
-Chalk.prototype.styles = ansiStyles;
-Chalk.prototype.hasColor = hasAnsi;
-Chalk.prototype.stripColor = stripAnsi;
-Chalk.prototype.supportsColor = supportsColor;
-
 module.exports = new Chalk();
+module.exports.styles = ansiStyles;
+module.exports.hasColor = hasAnsi;
+module.exports.stripColor = stripAnsi;
+module.exports.supportsColor = supportsColor;
