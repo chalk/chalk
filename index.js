@@ -8,11 +8,7 @@ var defineProps = Object.defineProperties;
 
 function Chalk(options) {
 	// detect mode if not set manually
-	if (!options || options.enabled === undefined) {
-		this.enabled = supportsColor;
-	} else {
-		this.enabled = options.enabled;
-	}
+	this.enabled = !options || options.enabled === undefined ? supportsColor : options.enabled;
 }
 
 // use bright blue on Windows as the normal blue color is illegible
