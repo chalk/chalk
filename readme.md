@@ -89,7 +89,10 @@ Multiple arguments will be separated by space.
 
 ### chalk.enabled
 
-Color support is automatically detected, but you can override it.
+Color support is automatically detected, but you can override it by setting the
+`enabled` property or by creating a new instance just for your usage. Changing
+the property should only be done from end-user facing applications as it
+affects all consumers of the default chalk instance
 
 ### chalk.supportsColor
 
