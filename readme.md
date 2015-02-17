@@ -20,13 +20,13 @@
 - Clean and focused
 - Auto-detects color support
 - Actively maintained
-- [Used by 2200+ modules](https://www.npmjs.com/browse/depended/chalk)
+- [Used by ~3000 modules](https://www.npmjs.com/browse/depended/chalk)
 
 
 ## Install
 
-```sh
-npm install --save chalk
+```
+$ npm install --save chalk
 ```
 
 
@@ -89,10 +89,13 @@ Multiple arguments will be separated by space.
 
 ### chalk.enabled
 
-Color support is automatically detected, but you can override it by setting the
-`enabled` property or by creating a new instance just for your usage. Changing
-the property should only be done from end-user facing applications as it
-affects all consumers of the default chalk instance
+Color support is automatically detected, but you can override it by setting the `enabled` property. You should however only do this in your own code as it applies globally to all chalk consumers.
+
+If you need to change this in a reusable module create a new instance:
+
+```js
+var ctx = new chalk.constructor({enabled: false});
+```
 
 ### chalk.supportsColor
 
