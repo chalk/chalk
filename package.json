@@ -40,11 +40,11 @@
     "text"
   ],
   "dependencies": {
-    "ansi-styles": "^2.0.0",
-    "escape-string-regexp": "^1.0.1",
-    "has-ansi": "^1.0.1",
-    "strip-ansi": "^2.0.0",
-    "supports-color": "^1.2.0"
+    "ansi-styles": "^2.0.1",
+    "escape-string-regexp": "^1.0.2",
+    "has-ansi": "^1.0.3",
+    "strip-ansi": "^2.0.1",
+    "supports-color": "^1.2.1"
   },
   "devDependencies": {
     "matcha": "^0.6.0",
