@@ -6,7 +6,7 @@
   "repository": "sindresorhus/chalk",
   "maintainers": [
     "Sindre Sorhus <sindresorhus@gmail.com> (http://sindresorhus.com)",
-    "Joshua Appelman <joshua@jbna.nl>"
+    "Joshua Appelman <jappelman@xebia.com> (http://jbnicolai.com)"
   ],
   "engines": {
     "node": ">=0.10.0"
