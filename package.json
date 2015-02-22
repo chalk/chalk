@@ -1,6 +1,6 @@
 {
   "name": "chalk",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Terminal string styling done right. Much color.",
   "license": "MIT",
   "repository": "sindresorhus/chalk",
@@ -40,14 +40,14 @@
     "text"
   ],
   "dependencies": {
-    "ansi-styles": "^2.0.0",
-    "escape-string-regexp": "^1.0.1",
-    "has-ansi": "^1.0.1",
-    "strip-ansi": "^2.0.0",
-    "supports-color": "^1.2.0"
+    "ansi-styles": "~2.0.0",
+    "supports-color": "~1.2.0",
+    "escape-string-regexp": "~1.0.2",
+    "has-ansi": "~1.0.3",
+    "strip-ansi": "~2.0.2"
   },
   "devDependencies": {
-    "matcha": "^0.6.0",
-    "mocha": "*"
+    "mocha": "*",
+    "matcha": "~0.6.0"
   }
 }
