@@ -1,4 +1,9 @@
-# <img width="300" src="https://cdn.rawgit.com/sindresorhus/chalk/77ae94f63ab1ac61389b190e5a59866569d1a376/logo.svg" alt="chalk">
+<h1 align="center">
+	<br>
+	<img width="360" src="https://cdn.rawgit.com/sindresorhus/chalk/19935d6484811c5e468817f846b7b3d417d7bf4a/logo.svg" alt="chalk">
+	<br>
+	<br>
+</h1>
 
 > Terminal string styling done right
 
