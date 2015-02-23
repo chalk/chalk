@@ -99,11 +99,9 @@ var ctx = new chalk.constructor({enabled: false});
 
 ### chalk.supportsColor
 
-Detect whether the terminal [supports color](https://github.com/sindresorhus/supports-color).
+Detect whether the terminal [supports color](https://github.com/sindresorhus/supports-color). Used internally and handled for you, but exposed for convenience.
 
-Can be overridden by the user with the flags `--color` and `--no-color`.
-
-Used internally and handled for you, but exposed for convenience.
+Can be overridden by the user with the flags `--color` and `--no-color`. For situations where using `--color` is not possible, add an environment variable `FORCE_COLOR` with any value to force color. Trumps `--no-color`.
 
 ### chalk.styles
 

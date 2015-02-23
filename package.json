@@ -44,7 +44,7 @@
     "escape-string-regexp": "^1.0.2",
     "has-ansi": "^1.0.3",
     "strip-ansi": "^2.0.1",
-    "supports-color": "^1.2.1"
+    "supports-color": "^1.3.0"
   },
   "devDependencies": {
     "matcha": "^0.6.0",
