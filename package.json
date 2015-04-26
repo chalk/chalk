@@ -48,6 +48,9 @@
   },
   "devDependencies": {
     "matcha": "^0.6.0",
-    "mocha": "*"
+    "mocha": "*",
+    "require-uncached": "^1.0.2",
+    "resolve-from": "^1.0.0",
+    "semver": "^4.3.3"
   }
 }

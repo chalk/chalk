@@ -1,5 +1,8 @@
 'use strict';
 var assert = require('assert');
+var requireUncached = require('require-uncached');
+var resolveFrom = require('resolve-from');
+var semver = require('semver');
 var chalk = require('./');
 
 describe('chalk', function () {
@@ -32,7 +35,7 @@ describe('chalk', function () {
 		assert.equal(chalk.reset(chalk.red.bgGreen.underline('foo') + 'foo'), '\u001b[0m\u001b[31m\u001b[42m\u001b[4mfoo\u001b[24m\u001b[49m\u001b[39mfoo\u001b[0m');
 	});
 
-	it('should be able to cache multiple styles', function() {
+	it('should be able to cache multiple styles', function () {
 		var red = chalk.red;
 		var green = chalk.green;
 		var redBold = red.bold;
@@ -57,6 +60,46 @@ describe('chalk', function () {
 
 	it('don\'t output escape codes if the input is empty', function () {
 		assert.equal(chalk.red(), '');
+	});
+});
+
+describe('chalk on windows', function () {
+	var originalEnv;
+	var originalPlatform;
+
+	// in node versions older than 0.12.x process.platform cannot be overridden
+	if (semver.lt(process.version, '0.12.0')) {
+		return;
+	}
+
+	before(function () {
+		originalEnv = process.env;
+		originalPlatform = process.platform;
+	});
+
+	after(function () {
+		process.env = originalEnv;
+		Object.defineProperty(process, 'platform', {value: originalPlatform});
+	});
+
+	beforeEach(function () {
+		process.env = {};
+		Object.defineProperty(process, 'platform', {value: 'win32'});
+		// since chalk internally modifies ansiStyles.blue.open, ansi-styles needs
+		// to be removed from the require cache for require-uncached to work
+		delete require.cache[resolveFrom(__dirname, 'ansi-styles')];
+	});
+
+	it('should replace blue foreground color in cmd.exe', function () {
+		process.env.TERM = 'dumb';
+		var chalkCtx = requireUncached('./');
+		assert.equal(chalkCtx.blue('foo'), '\u001b[94mfoo\u001b[39m');
+	});
+
+	it('shouldn\'t replace blue foreground color in xterm based terminals', function () {
+		process.env.TERM = 'xterm-256color';
+		var chalkCtx = requireUncached('./');
+		assert.equal(chalkCtx.blue('foo'), '\u001b[34mfoo\u001b[39m');
 	});
 });
 
