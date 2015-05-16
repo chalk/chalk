@@ -81,6 +81,12 @@ console.log(chalk.green('Hello %s'), name);
 //=> Hello Sindre
 ```
 
+You can also render colored text using an HTML-like string with tags.
+
+```js
+var chalk = require('chalk');
+console.log(chalk.text('<red>Error!</red>'));
+```
 
 ## API
 
@@ -143,6 +149,32 @@ if (!chalk.supportsColor) {
 	styledString = chalk.stripColor(styledString);
 }
 ```
+
+### chalk.colorize(string)
+
+Returns color styled text from a tagged string.
+
+Tag names are the same used for accessing colors in `chalk.styles`.
+
+Example:
+
+```js
+var chalk = require('chalk');
+
+console.log( chalk.colorize("<magenta>Hello</magenta>, <red>th<green>is</green></red> <b>is</b> a <white><u>test</u></white>!") );
+```
+
+You can also use a shorthand for some modifiers :
+
+| Alias | Modifier      |
+|-------|---------------|
+| b     | bold          |
+| u     | underline     |
+| i     | italic        |
+| inv   | inverse       |
+| h     | hidden        |
+| s     | strikethrough |
+| d     | dim           |
 
 
 ## Styles

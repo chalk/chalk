@@ -137,3 +137,12 @@ describe('chalk.stripColor()', function () {
 		assert.equal(chalk.stripColor(chalk.underline.red.bgGreen('foo')), 'foo');
 	});
 });
+
+describe('chalk.colorize()', function () {
+	it('should render correctly colors tagged within string', function () {
+		assert.equal(chalk.colorize("<red><bgGreen><u>foo</u></bgGreen></red>"),
+		             '\u001b[31m\u001b[42m\u001b[4mfoo\u001b[24m\u001b[49m\u001b[39m');
+		assert.equal(chalk.colorize("<u><red><bgGreen>foo</bgGreen></red></u>"),
+		             '\u001b[4m\u001b[31m\u001b[42mfoo\u001b[49m\u001b[39m\u001b[24m');
+	});
+});
