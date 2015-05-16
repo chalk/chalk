@@ -77,6 +77,24 @@ function applyStyle() {
 	return str;
 }
 
+function colorize(text){
+	// Permit a map of aliases for long styles
+	var styleAliases = {
+		'b' 	: 'bold',
+		'u' 	: 'underline',
+		'i' 	: 'italic',
+		'inv' : 'inverse',
+		'h' 	: 'hidden',
+		's' 	: 'strikethrough',
+		'd' 	: 'dim'
+	};
+	return text.replace(/<(\/?)(\w+)>/g,function(full,closed,tag){
+		var color = ansiStyles[(tag in styleAliases) ? styleAliases[tag] : tag];
+		return  color ? color[closed ? 'close' : 'open'] : full;
+	});
+};
+
+
 function init() {
 	var ret = {};
 
@@ -98,3 +116,4 @@ module.exports.styles = ansiStyles;
 module.exports.hasColor = hasAnsi;
 module.exports.stripColor = stripAnsi;
 module.exports.supportsColor = supportsColor;
+module.exports.colorize = colorize;
