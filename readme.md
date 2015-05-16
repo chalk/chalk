@@ -85,7 +85,7 @@ You can also render colored text using an HTML-like string with tags.
 
 ```js
 var chalk = require('chalk');
-console.log(chalk.text('<red>Error!</red>'));
+console.log(chalk.colorize('<red>Error!</red>'));
 ```
 
 ## API
