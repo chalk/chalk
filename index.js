@@ -5,10 +5,20 @@ var stripAnsi = require('strip-ansi');
 var hasAnsi = require('has-ansi');
 var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
+var fs = require('fs');
 
 function Chalk(options) {
 	// detect mode if not set manually
 	this.enabled = !options || options.enabled === undefined ? supportsColor : options.enabled;
+  var configPath = process.cwd() + '/.chalkrc';
+  if (fs.existsSync(configPath)) {
+    var content = JSON.parse(fs.readFileSync(configPath));
+    if (content.overwrite) {
+      Object.keys(content.overwrite).forEach(function (key) {
+        ansiStyles[key] = ansiStyles[content.overwrite[key]];
+      });
+    }
+  }
 }
 
 // use bright blue on Windows as the normal blue color is illegible
