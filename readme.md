@@ -7,15 +7,16 @@
 
 > Terminal string styling done right
 
-[![Build Status](https://travis-ci.org/sindresorhus/chalk.svg?branch=master)](https://travis-ci.org/sindresorhus/chalk) [![](http://img.shields.io/badge/unicorn-approved-ff69b4.svg)](https://www.youtube.com/watch?v=9auOCbH5Ns4)
-[![Coverage Status](https://coveralls.io/repos/sindresorhus/chalk/badge.svg?branch=)](https://coveralls.io/r/sindresorhus/chalk?branch=)
+[![Build Status](https://travis-ci.org/sindresorhus/chalk.svg?branch=master)](https://travis-ci.org/sindresorhus/chalk)
+[![Coverage Status](https://coveralls.io/repos/sindresorhus/chalk/badge.svg?branch=master)](https://coveralls.io/r/sindresorhus/chalk?branch=master)
+[![](http://img.shields.io/badge/unicorn-approved-ff69b4.svg)](https://www.youtube.com/watch?v=9auOCbH5Ns4)
 
 
 [colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68). Although there are other ones, they either do too much or not enough.
 
 **Chalk is a clean and focused alternative.**
 
-![screenshot](https://github.com/sindresorhus/ansi-styles/raw/master/screenshot.png)
+![](https://github.com/sindresorhus/ansi-styles/raw/master/screenshot.png)
 
 
 ## Why

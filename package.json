@@ -5,8 +5,8 @@
   "license": "MIT",
   "repository": "sindresorhus/chalk",
   "maintainers": [
-    "Sindre Sorhus <sindresorhus@gmail.com> (http://sindresorhus.com)",
-    "Joshua Appelman <jappelman@xebia.com> (http://jbnicolai.com)"
+    "Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)",
+    "Joshua Appelman <jappelman@xebia.com> (jbnicolai.com)"
   ],
   "engines": {
     "node": ">=0.10.0"
@@ -28,7 +28,9 @@
     "console",
     "cli",
     "string",
+    "str",
     "ansi",
+    "style",
     "styles",
     "tty",
     "formatting",
