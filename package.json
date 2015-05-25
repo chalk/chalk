@@ -13,7 +13,9 @@
   },
   "scripts": {
     "test": "mocha",
-    "bench": "matcha benchmark.js"
+    "bench": "matcha benchmark.js",
+    "coverage": "nyc npm test && nyc report",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "files": [
     "index.js"
@@ -47,8 +49,10 @@
     "supports-color": "^1.3.0"
   },
   "devDependencies": {
+    "coveralls": "^2.11.2",
     "matcha": "^0.6.0",
     "mocha": "*",
+    "nyc": "^2.1.4",
     "require-uncached": "^1.0.2",
     "resolve-from": "^1.0.0",
     "semver": "^4.3.3"
