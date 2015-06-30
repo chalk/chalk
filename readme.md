@@ -1,6 +1,8 @@
 <h1 align="center">
 	<br>
+	<br>
 	<img width="360" src="https://cdn.rawgit.com/chalk/chalk/19935d6484811c5e468817f846b7b3d417d7bf4a/logo.svg" alt="chalk">
+	<br>
 	<br>
 	<br>
 </h1>
