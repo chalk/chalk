@@ -1,14 +1,14 @@
 <h1 align="center">
 	<br>
-	<img width="360" src="https://cdn.rawgit.com/sindresorhus/chalk/19935d6484811c5e468817f846b7b3d417d7bf4a/logo.svg" alt="chalk">
+	<img width="360" src="https://cdn.rawgit.com/chalk/chalk/19935d6484811c5e468817f846b7b3d417d7bf4a/logo.svg" alt="chalk">
 	<br>
 	<br>
 </h1>
 
 > Terminal string styling done right
 
-[![Build Status](https://travis-ci.org/sindresorhus/chalk.svg?branch=master)](https://travis-ci.org/sindresorhus/chalk)
-[![Coverage Status](https://coveralls.io/repos/sindresorhus/chalk/badge.svg?branch=master)](https://coveralls.io/r/sindresorhus/chalk?branch=master)
+[![Build Status](https://travis-ci.org/chalk/chalk.svg?branch=master)](https://travis-ci.org/chalk/chalk)
+[![Coverage Status](https://coveralls.io/repos/chalk/chalk/badge.svg?branch=master)](https://coveralls.io/r/chalk/chalk?branch=master)
 [![](http://img.shields.io/badge/unicorn-approved-ff69b4.svg)](https://www.youtube.com/watch?v=9auOCbH5Ns4)
 
 
@@ -16,7 +16,7 @@
 
 **Chalk is a clean and focused alternative.**
 
-![](https://github.com/sindresorhus/ansi-styles/raw/master/screenshot.png)
+![](https://github.com/chalk/ansi-styles/raw/master/screenshot.png)
 
 
 ## Why
@@ -107,13 +107,13 @@ var ctx = new chalk.constructor({enabled: false});
 
 ### chalk.supportsColor
 
-Detect whether the terminal [supports color](https://github.com/sindresorhus/supports-color). Used internally and handled for you, but exposed for convenience.
+Detect whether the terminal [supports color](https://github.com/chalk/supports-color). Used internally and handled for you, but exposed for convenience.
 
 Can be overridden by the user with the flags `--color` and `--no-color`. For situations where using `--color` is not possible, add an environment variable `FORCE_COLOR` with any value to force color. Trumps `--no-color`.
 
 ### chalk.styles
 
-Exposes the styles as [ANSI escape codes](https://github.com/sindresorhus/ansi-styles).
+Exposes the styles as [ANSI escape codes](https://github.com/chalk/ansi-styles).
 
 Generally not useful, but you might need just the `.open` or `.close` escape code if you're mixing externally styled strings with your own.
 
@@ -128,11 +128,11 @@ console.log(chalk.styles.red.open + 'Hello' + chalk.styles.red.close);
 
 ### chalk.hasColor(string)
 
-Check whether a string [has color](https://github.com/sindresorhus/has-ansi).
+Check whether a string [has color](https://github.com/chalk/has-ansi).
 
 ### chalk.stripColor(string)
 
-[Strip color](https://github.com/sindresorhus/strip-ansi) from a string.
+[Strip color](https://github.com/chalk/strip-ansi) from a string.
 
 Can be useful in combination with `.supportsColor` to strip color on externally styled text when it's not supported.
 

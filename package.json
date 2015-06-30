@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Terminal string styling done right. Much color.",
   "license": "MIT",
-  "repository": "sindresorhus/chalk",
+  "repository": "chalk/chalk",
   "maintainers": [
     "Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)",
     "Joshua Appelman <jappelman@xebia.com> (jbnicolai.com)"
