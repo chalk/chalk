@@ -12,7 +12,7 @@ function Chalk(options) {
 }
 
 // use bright blue on Windows as the normal blue color is illegible
-if (process.platform === 'win32' && !/^xterm/i.test(process.env.TERM || '')) {
+if (process.platform === 'win32' && !/^xterm/i.test(process.env.TERM)) {
 	ansiStyles.blue.open = '\u001b[94m';
 }
 
