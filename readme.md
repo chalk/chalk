@@ -197,6 +197,15 @@ Chalk does not support support anything other than the base eight colors, which 
 If you're on Windows, do yourself a favor and use [`cmder`](http://bliker.github.io/cmder/) instead of `cmd.exe`.
 
 
+## Related
+
+- [ansi-styles](https://github.com/chalk/ansi-styles/) - ANSI escape codes for styling strings in the terminal
+- [supports-color](https://github.com/chalk/supports-color/) - Detect whether a terminal supports color
+- [strip-ansi](https://github.com/chalk/strip-ansi) - Strip ANSI escape codes
+- [has-ansi](https://github.com/chalk/has-ansi) - Check if a string has ANSI escape codes
+- [ansi-regex](https://github.com/chalk/ansi-regex) - Regular expression for matching ANSI escape codes
+
+
 ## License
 
 MIT © [Sindre Sorhus](http://sindresorhus.com)
