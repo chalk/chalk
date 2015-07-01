@@ -199,6 +199,7 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://bliker.github
 
 ## Related
 
+- [chalk-cli](https://github.com/chalk/chalk-cli) - CLI for this module
 - [ansi-styles](https://github.com/chalk/ansi-styles/) - ANSI escape codes for styling strings in the terminal
 - [supports-color](https://github.com/chalk/supports-color/) - Detect whether a terminal supports color
 - [strip-ansi](https://github.com/chalk/strip-ansi) - Strip ANSI escape codes
