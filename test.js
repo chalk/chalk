@@ -101,6 +101,25 @@ describe('chalk on windows', function () {
 		var chalkCtx = requireUncached('./');
 		assert.equal(chalkCtx.blue('foo'), '\u001b[34mfoo\u001b[39m');
 	});
+
+	it('should not apply dimmed styling on gray strings, see https://github.com/chalk/chalk/issues/58', function () {
+		process.env.TERM = 'dumb';
+		var chalkCtx = requireUncached('./');
+		assert.equal(chalkCtx.gray.dim('foo'), '\u001b[90mfoo\u001b[22m\u001b[39m');
+	});
+
+	it('should apply dimmed styling on xterm compatible terminals', function () {
+		process.env.TERM = 'xterm';
+		var chalkCtx = requireUncached('./');
+		assert.equal(chalkCtx.gray.dim('foo'), '\u001b[90m\u001b[2mfoo\u001b[22m\u001b[39m');
+	});
+
+	it('should apply dimmed styling on strings of other colors', function () {
+		process.env.TERM = 'dumb';
+		var chalkCtx = requireUncached('./');
+		assert.equal(chalkCtx.blue.dim('foo'), '\u001b[94m\u001b[2mfoo\u001b[22m\u001b[39m');
+	});
+
 });
 
 describe('chalk.enabled', function () {
