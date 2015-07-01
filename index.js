@@ -5,6 +5,7 @@ var stripAnsi = require('strip-ansi');
 var hasAnsi = require('has-ansi');
 var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
+var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
 
 function Chalk(options) {
 	// detect mode if not set manually
@@ -12,7 +13,7 @@ function Chalk(options) {
 }
 
 // use bright blue on Windows as the normal blue color is illegible
-if (process.platform === 'win32' && !/^xterm/i.test(process.env.TERM)) {
+if (isSimpleWindowsTerm) {
 	ansiStyles.blue.open = '\u001b[94m';
 }
 
@@ -69,6 +70,14 @@ function applyStyle() {
 	var nestedStyles = this._styles;
 	var i = nestedStyles.length;
 
+	// Turns out that on Windows dimmed gray text becomes invisible in cmd.exe,
+	// see https://github.com/chalk/chalk/issues/58
+	// If we're on Windows and we're dealing with a gray color, temporarily make 'dim' a noop.
+	var originalDim = ansiStyles.dim.open;
+	if (isSimpleWindowsTerm && (nestedStyles.indexOf('gray') !== -1 || nestedStyles.indexOf('grey') !== -1)) {
+		ansiStyles.dim.open = '';
+	}
+
 	while (i--) {
 		var code = ansiStyles[nestedStyles[i]];
 
@@ -77,6 +86,9 @@ function applyStyle() {
 		// will be colored, and the rest will simply be 'plain'.
 		str = code.open + str.replace(code.closeRe, code.open) + code.close;
 	}
+
+	// Reset the original 'dim' if we changed it to work around the Windows dimmed gray issue.
+	ansiStyles.dim.open = originalDim;
 
 	return str;
 }
