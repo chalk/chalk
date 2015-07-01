@@ -6,7 +6,8 @@
   "repository": "chalk/chalk",
   "maintainers": [
     "Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)",
-    "Joshua Appelman <jappelman@xebia.com> (jbnicolai.com)"
+    "Joshua Appelman <jappelman@xebia.com> (jbnicolai.com)",
+    "JD Ballard <i.am.qix@gmail.com> (github.com/qix-)"
   ],
   "engines": {
     "node": ">=0.10.0"
