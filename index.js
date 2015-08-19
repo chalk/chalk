@@ -36,7 +36,7 @@ var styles = (function () {
 var proto = defineProps(function chalk() {}, styles);
 
 function build(_styles) {
-	var builder = function builder() {
+	var builder = function () {
 		return applyStyle.apply(builder, arguments);
 	};
 
