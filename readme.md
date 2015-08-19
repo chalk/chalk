@@ -205,6 +205,7 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://bliker.github
 - [strip-ansi](https://github.com/chalk/strip-ansi) - Strip ANSI escape codes
 - [has-ansi](https://github.com/chalk/has-ansi) - Check if a string has ANSI escape codes
 - [ansi-regex](https://github.com/chalk/ansi-regex) - Regular expression for matching ANSI escape codes
+- [wrap-ansi](https://github.com/chalk/wrap-ansi) - Wordwrap a string with ANSI escape codes
 
 
 ## License
