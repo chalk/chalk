@@ -119,7 +119,6 @@ describe('chalk on windows', function () {
 		var chalkCtx = requireUncached('./');
 		assert.equal(chalkCtx.blue.dim('foo'), '\u001b[94m\u001b[2mfoo\u001b[22m\u001b[39m');
 	});
-
 });
 
 describe('chalk.enabled', function () {

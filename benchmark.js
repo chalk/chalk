@@ -1,3 +1,5 @@
+/* globals set bench */
+'use strict';
 var chalk = require('./');
 
 suite('chalk', function () {

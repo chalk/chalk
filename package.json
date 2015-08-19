@@ -13,7 +13,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "xo && mocha",
     "bench": "matcha benchmark.js",
     "coverage": "nyc npm test && nyc report",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
@@ -58,6 +58,13 @@
     "nyc": "^3.0.0",
     "require-uncached": "^1.0.2",
     "resolve-from": "^1.0.0",
-    "semver": "^4.3.3"
+    "semver": "^4.3.3",
+    "xo": "*"
+  },
+  "xo": {
+    "envs": [
+      "node",
+      "mocha"
+    ]
   }
 }

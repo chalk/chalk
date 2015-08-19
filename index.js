@@ -44,7 +44,7 @@ function build(_styles) {
 	builder.enabled = this.enabled;
 	// __proto__ is used because we must return a function, but there is
 	// no way to create a function with a different prototype.
-	/*eslint no-proto: 0 */
+	/* eslint-disable no-proto */
 	builder.__proto__ = proto;
 
 	return builder;
