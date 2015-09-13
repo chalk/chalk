@@ -194,7 +194,7 @@ Chalk does not support anything other than the base eight colors, which guarante
 
 ## Windows
 
-If you're on Windows, do yourself a favor and use [`cmder`](http://bliker.github.io/cmder/) instead of `cmd.exe`.
+If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) instead of `cmd.exe`.
 
 
 ## Related
