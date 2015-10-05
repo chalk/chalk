@@ -45,7 +45,7 @@ $ npm install --save chalk
 Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
 
 ```js
-var chalk = require('chalk');
+const chalk = require('chalk');
 
 // style a string
 chalk.blue('Hello world!');
@@ -73,17 +73,17 @@ chalk.green(
 Easily define your own themes.
 
 ```js
-var chalk = require('chalk');
-var error = chalk.bold.red;
+const chalk = require('chalk');
+const error = chalk.bold.red;
 console.log(error('Error!'));
 ```
 
 Take advantage of console.log [string substitution](http://nodejs.org/docs/latest/api/console.html#console_console_log_data).
 
 ```js
-var name = 'Sindre';
+const name = 'Sindre';
 console.log(chalk.green('Hello %s'), name);
-//=> Hello Sindre
+//=> 'Hello Sindre'
 ```
 
 
@@ -104,7 +104,7 @@ Color support is automatically detected, but you can override it by setting the 
 If you need to change this in a reusable module create a new instance:
 
 ```js
-var ctx = new chalk.constructor({enabled: false});
+const ctx = new chalk.constructor({enabled: false});
 ```
 
 ### chalk.supportsColor
@@ -120,7 +120,7 @@ Exposes the styles as [ANSI escape codes](https://github.com/chalk/ansi-styles).
 Generally not useful, but you might need just the `.open` or `.close` escape code if you're mixing externally styled strings with your own.
 
 ```js
-var chalk = require('chalk');
+const chalk = require('chalk');
 
 console.log(chalk.styles.red);
 //=> {open: '\u001b[31m', close: '\u001b[39m'}
@@ -141,8 +141,8 @@ Can be useful in combination with `.supportsColor` to strip color on externally 
 Example:
 
 ```js
-var chalk = require('chalk');
-var styledString = getText();
+const chalk = require('chalk');
+let styledString = getText();
 
 if (!chalk.supportsColor) {
 	styledString = chalk.stripColor(styledString);
