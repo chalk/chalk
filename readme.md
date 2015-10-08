@@ -68,6 +68,13 @@ chalk.green(
 	chalk.blue.underline.bold('with a blue substring') +
 	' that becomes green again!'
 );
+
+// ES2015 template literal
+const systemStats = `
+CPU: ${chalk.red('90%')}
+RAM: ${chalk.green('40%')}
+DISK: ${chalk.yellow('70%')}
+`;
 ```
 
 Easily define your own themes.
