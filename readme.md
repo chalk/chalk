@@ -42,13 +42,18 @@ $ npm install --save chalk
 
 ## Usage
 
-Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
-
 ```js
 const chalk = require('chalk');
 
-// style a string
-chalk.blue('Hello world!');
+console.log(chalk.blue('Hello world!'));
+```
+
+Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
+
+Here without `console.log` for purity.
+
+```js
+const chalk = require('chalk');
 
 // combine styled and normal strings
 chalk.blue('Hello') + 'World' + chalk.red('!');
