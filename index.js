@@ -1,8 +1,6 @@
 'use strict';
 var escapeStringRegexp = require('escape-string-regexp');
 var ansiStyles = require('ansi-styles');
-var stripAnsi = require('strip-ansi');
-var hasAnsi = require('has-ansi');
 var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
 var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
@@ -111,6 +109,4 @@ defineProps(Chalk.prototype, init());
 
 module.exports = new Chalk();
 module.exports.styles = ansiStyles;
-module.exports.hasColor = hasAnsi;
-module.exports.stripColor = stripAnsi;
 module.exports.supportsColor = supportsColor;

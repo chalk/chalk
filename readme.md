@@ -140,27 +140,6 @@ console.log(chalk.styles.red);
 console.log(chalk.styles.red.open + 'Hello' + chalk.styles.red.close);
 ```
 
-### chalk.hasColor(string)
-
-Check whether a string [has color](https://github.com/chalk/has-ansi).
-
-### chalk.stripColor(string)
-
-[Strip color](https://github.com/chalk/strip-ansi) from a string.
-
-Can be useful in combination with `.supportsColor` to strip color on externally styled text when it's not supported.
-
-Example:
-
-```js
-const chalk = require('chalk');
-let styledString = getText();
-
-if (!chalk.supportsColor) {
-	styledString = chalk.stripColor(styledString);
-}
-```
-
 
 ## Styles
 
