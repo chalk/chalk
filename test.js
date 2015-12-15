@@ -61,6 +61,10 @@ describe('chalk', function () {
 	it('don\'t output escape codes if the input is empty', function () {
 		assert.equal(chalk.red(), '');
 	});
+
+	it('line breaks should open and close colors', function () {
+		assert.equal(chalk.grey('hello\nworld'), '\u001b[90mhello\u001b[39m\n\u001b[90mworld\u001b[39m');
+	});
 });
 
 describe('chalk on windows', function () {
