@@ -15,21 +15,17 @@ if (isSimpleWindowsTerm) {
 	ansiStyles.blue.open = '\u001b[94m';
 }
 
-var styles = (function () {
-	var ret = {};
+var styles = {};
 
-	Object.keys(ansiStyles).forEach(function (key) {
-		ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
+Object.keys(ansiStyles).forEach(function (key) {
+	ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
 
-		ret[key] = {
-			get: function () {
-				return build.call(this, this._styles.concat(key));
-			}
-		};
-	});
-
-	return ret;
-})();
+	styles[key] = {
+		get: function () {
+			return build.call(this, this._styles.concat(key));
+		}
+	};
+});
 
 var proto = defineProps(function chalk() {}, styles);
 
