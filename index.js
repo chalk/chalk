@@ -22,7 +22,7 @@ Object.keys(ansiStyles).forEach(function (key) {
 
 	styles[key] = {
 		get: function () {
-			return build.call(this, this._styles.concat(key));
+			return build.call(this, this._styles ? this._styles.concat(key) : [key]);
 		}
 	};
 });
@@ -87,21 +87,7 @@ function applyStyle() {
 	return str;
 }
 
-function init() {
-	var ret = {};
-
-	Object.keys(styles).forEach(function (name) {
-		ret[name] = {
-			get: function () {
-				return build.call(this, [name]);
-			}
-		};
-	});
-
-	return ret;
-}
-
-defineProps(Chalk.prototype, init());
+defineProps(Chalk.prototype, styles);
 
 module.exports = new Chalk();
 module.exports.styles = ansiStyles;
