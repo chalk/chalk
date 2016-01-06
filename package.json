@@ -47,16 +47,16 @@
   "dependencies": {
     "ansi-styles": "^2.1.0",
     "escape-string-regexp": "^1.0.2",
-    "supports-color": "^2.0.0"
+    "supports-color": "^3.1.2"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
     "matcha": "^0.6.0",
     "mocha": "*",
-    "nyc": "^3.0.0",
+    "nyc": "^5.2.0",
     "require-uncached": "^1.0.2",
-    "resolve-from": "^1.0.0",
-    "semver": "^4.3.3",
+    "resolve-from": "^2.0.0",
+    "semver": "^5.1.0",
     "xo": "*"
   },
   "xo": {
