@@ -58,8 +58,15 @@ describe('chalk', function () {
 		assert.equal(chalk.red(0), '\u001b[31m0\u001b[39m');
 	});
 
-	it('don\'t output escape codes if the input is empty', function () {
+	it('shouldn\'t output escape codes if the input is empty', function () {
 		assert.equal(chalk.red(), '');
+		assert.equal(chalk.red.blue.black(), '');
+	});
+
+	it('should keep Function.prototype methods', function () {
+		assert.equal(chalk.grey.apply(null, ['foo']), '\u001b[90mfoo\u001b[39m');
+		assert.equal(chalk.reset(chalk.red.bgGreen.underline.bind(null)('foo') + 'foo'), '\u001b[0m\u001b[31m\u001b[42m\u001b[4mfoo\u001b[24m\u001b[49m\u001b[39mfoo\u001b[0m');
+		assert.equal(chalk.red.blue.black.call(null), '');
 	});
 });
 
