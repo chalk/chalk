@@ -15,21 +15,17 @@ if (isSimpleWindowsTerm) {
 	ansiStyles.blue.open = '\u001b[94m';
 }
 
-var styles = (function () {
-	var ret = {};
+var styles = {};
 
-	Object.keys(ansiStyles).forEach(function (key) {
-		ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
+Object.keys(ansiStyles).forEach(function (key) {
+	ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
 
-		ret[key] = {
-			get: function () {
-				return build.call(this, this._styles.concat(key));
-			}
-		};
-	});
-
-	return ret;
-})();
+	styles[key] = {
+		get: function () {
+			return build.call(this, this._styles ? this._styles.concat(key) : [key]);
+		}
+	};
+});
 
 var proto = defineProps(function chalk() {}, styles);
 
@@ -91,21 +87,7 @@ function applyStyle() {
 	return str;
 }
 
-function init() {
-	var ret = {};
-
-	Object.keys(styles).forEach(function (name) {
-		ret[name] = {
-			get: function () {
-				return build.call(this, [name]);
-			}
-		};
-	});
-
-	return ret;
-}
-
-defineProps(Chalk.prototype, init());
+defineProps(Chalk.prototype, styles);
 
 module.exports = new Chalk();
 module.exports.styles = ansiStyles;
