@@ -80,10 +80,10 @@ function applyStyle() {
 		// will be colored, and the rest will simply be 'plain'.
 		str = code.open + str.replace(code.closeRe, code.open) + code.close;
 
-		// Close the coloring before a line break and reopening after next line
-		// To fix a bleed issue on macs
-		// see https://github.com/chalk/chalk/pull/92
-		str = str.replace(/\n/gm, code.close + '\n' + code.open);
+		// Close the styling before a linebreak and reopen
+		// after next line to fix a bleed issue on OS X
+		// https://github.com/chalk/chalk/pull/92
+		str = str.replace(/\r?\n/g, code.close + '$&' + code.open);
 	}
 
 	// Reset the original 'dim' if we changed it to work around the Windows dimmed gray issue.
