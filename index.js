@@ -79,6 +79,11 @@ function applyStyle() {
 		// otherwise only the part of the string until said closing code
 		// will be colored, and the rest will simply be 'plain'.
 		str = code.open + str.replace(code.closeRe, code.open) + code.close;
+
+		// Close the coloring before a line break and reopening after next line
+		// To fix a bleed issue on macs
+		// see https://github.com/chalk/chalk/pull/92
+		str = str.replace(/\n/gm, code.close + '\n' + code.open);
 	}
 
 	// Reset the original 'dim' if we changed it to work around the Windows dimmed gray issue.

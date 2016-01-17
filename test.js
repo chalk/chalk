@@ -68,6 +68,10 @@ describe('chalk', function () {
 		assert.equal(chalk.reset(chalk.red.bgGreen.underline.bind(null)('foo') + 'foo'), '\u001b[0m\u001b[31m\u001b[42m\u001b[4mfoo\u001b[24m\u001b[49m\u001b[39mfoo\u001b[0m');
 		assert.equal(chalk.red.blue.black.call(null), '');
 	});
+
+	it('line breaks should open and close colors', function () {
+		assert.equal(chalk.grey('hello\nworld'), '\u001b[90mhello\u001b[39m\n\u001b[90mworld\u001b[39m');
+	});
 });
 
 describe('chalk on windows', function () {
