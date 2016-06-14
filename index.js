@@ -81,7 +81,7 @@ function applyStyle() {
 		str = code.open + str.replace(code.closeRe, code.open) + code.close;
 
 		// Close the styling before a linebreak and reopen
-		// after next line to fix a bleed issue on OS X
+		// after next line to fix a bleed issue on macOS
 		// https://github.com/chalk/chalk/pull/92
 		str = str.replace(/\r?\n/g, code.close + '$&' + code.open);
 	}
