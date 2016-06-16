@@ -2,6 +2,7 @@
 var escapeStringRegexp = require('escape-string-regexp');
 var ansiStyles = require('ansi-styles');
 var supportsColor = require('supports-color');
+
 var defineProps = Object.defineProperties;
 var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
 
