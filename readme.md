@@ -32,7 +32,7 @@
 
 ## Install
 
-```
+```console
 $ npm install --save chalk
 ```
 
@@ -157,7 +157,7 @@ console.log(chalk.styles.red.open + 'Hello' + chalk.styles.red.close);
 - `red`
 - `green`
 - `yellow`
-- `blue` *(on Windows the bright version is used as normal blue is illegible)*
+- `blue` *(on Windows the bright version is used since normal blue is illegible)*
 - `magenta`
 - `cyan`
 - `white`
