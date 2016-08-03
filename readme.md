@@ -27,7 +27,7 @@
 - Clean and focused
 - Auto-detects color support
 - Actively maintained
-- [Used by ~7700 modules](https://www.npmjs.com/browse/depended/chalk) as of March 15, 2016
+- [Used by ~10,000 modules](https://www.npmjs.com/browse/depended/chalk) as of August 2nd, 2016
 
 
 ## Install
