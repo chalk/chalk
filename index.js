@@ -28,6 +28,7 @@ Object.keys(ansiStyles).forEach(function (key) {
 	};
 });
 
+// eslint-disable-next-line func-names
 var proto = defineProps(function chalk() {}, styles);
 
 function build(_styles) {

@@ -56,7 +56,7 @@
     "require-uncached": "^1.0.2",
     "resolve-from": "^2.0.0",
     "semver": "^5.1.0",
-    "xo": "*"
+    "xo": "^0.16.0"
   },
   "xo": {
     "envs": [
