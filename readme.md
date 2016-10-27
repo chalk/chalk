@@ -76,6 +76,15 @@ CPU: ${chalk.red('90%')}
 RAM: ${chalk.green('40%')}
 DISK: ${chalk.yellow('70%')}
 `);
+
+// ES2015 using [tagged template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals)
+const { red, yellow, green } = chalk;
+log(`
+CPU: ${red.bold`90%`}
+RAM: ${green`40%`}
+DISK: ${yellow`70%`}
+`);
+
 ```
 
 Easily define your own themes.
