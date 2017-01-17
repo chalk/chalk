@@ -72,6 +72,26 @@ describe('chalk', function () {
 	it('line breaks should open and close colors', function () {
 		assert.equal(chalk.grey('hello\nworld'), '\u001b[90mhello\u001b[39m\n\u001b[90mworld\u001b[39m');
 	});
+
+	it('should properly convert RGB to 16 colors on basic color terminals', function () {
+		assert.equal(new chalk.constructor({level: 1}).hex('#FF0000')('hello'), '\u001b[91mhello\u001b[39m');
+		assert.equal(new chalk.constructor({level: 1}).bgHex('#FF0000')('hello'), '\u001b[101mhello\u001b[49m');
+	});
+
+	it('should properly convert RGB to 256 colors on basic color terminals', function () {
+		assert.equal(new chalk.constructor({level: 2}).hex('#FF0000')('hello'), '\u001b[38;5;196mhello\u001b[39m');
+		assert.equal(new chalk.constructor({level: 2}).bgHex('#FF0000')('hello'), '\u001b[48;5;196mhello\u001b[49m');
+	});
+
+	it('should properly convert RGB to 256 colors on basic color terminals', function () {
+		assert.equal(new chalk.constructor({level: 3}).hex('#FF0000')('hello'), '\u001b[38;2;255;0;0mhello\u001b[39m');
+		assert.equal(new chalk.constructor({level: 3}).bgHex('#FF0000')('hello'), '\u001b[48;2;255;0;0mhello\u001b[49m');
+	});
+
+	it('should not emit RGB codes if level is 0', function () {
+		assert.equal(new chalk.constructor({level: 0}).hex('#FF0000')('hello'), 'hello');
+		assert.equal(new chalk.constructor({level: 0}).bgHex('#FF0000')('hello'), 'hello');
+	});
 });
 
 describe('chalk on windows', function () {
