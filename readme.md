@@ -126,7 +126,7 @@ const ctx = new chalk.constructor({level: 0});
 
 Levels are as follows:
 
-0. All color disabled
+0. All colors disabled
 1. Basic color support (16 colors)
 2. 256 color support
 3. RGB/Truecolor support (16 million colors)
