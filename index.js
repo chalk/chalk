@@ -6,6 +6,9 @@ var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
 var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
 
+var levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
+var skipModels = ['gray'];
+
 function Chalk(options) {
 	// detect level if not set manually
 	this.level = !options || options.level === undefined ? supportsColor.level : options.level;
@@ -25,6 +28,43 @@ Object.keys(ansiStyles).forEach(function (key) {
 		get: function () {
 			var codes = ansiStyles[key];
 			return build.call(this, this._styles ? this._styles.concat(codes) : [codes], key);
+		}
+	};
+});
+
+ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), 'g');
+Object.keys(ansiStyles.color.ansi).forEach(function (model) {
+	if (skipModels.indexOf(model) !== -1) {
+		return;
+	}
+
+	styles[model] = {
+		get: function () {
+			var level = this.level;
+			return function () {
+				var open = ansiStyles.color[levelMapping[level]][model].apply(null, arguments);
+				var codes = {open: open, close: ansiStyles.color.close, closeRe: ansiStyles.color.closeRe};
+				return build.call(this, this._styles ? this._styles.concat(codes) : [codes], model);
+			};
+		}
+	};
+});
+
+ansiStyles.bgColor.closeRe = new RegExp(escapeStringRegexp(ansiStyles.bgColor.close), 'g');
+Object.keys(ansiStyles.bgColor.ansi).forEach(function (model) {
+	if (skipModels.indexOf(model) !== -1) {
+		return;
+	}
+
+	var bgModel = 'bg' + model.charAt(0).toUpperCase() + model.substring(1);
+	styles[bgModel] = {
+		get: function () {
+			var level = this.level;
+			return function () {
+				var open = ansiStyles.bgColor[levelMapping[level]][model].apply(null, arguments);
+				var codes = {open: open, close: ansiStyles.bgColor.close, closeRe: ansiStyles.bgColor.closeRe};
+				return build.call(this, this._styles ? this._styles.concat(codes) : [codes], model);
+			};
 		}
 	};
 });
