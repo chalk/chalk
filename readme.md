@@ -194,7 +194,7 @@ console.log(chalk.styles.red.open + 'Hello' + chalk.styles.red.close);
 
 Chalk supports 256 colors and, when manually specified, [Truecolor (16 million colors)](https://gist.github.com/XVilka/8346728) on all supported terminal emulators.
 
-For supported methods (listed below), the color will be 'fit' to the color level supported (i.e. RGB colors will be downsampled to 16 colors if only basic support is enabled).
+Colors are downsampled from 16 million RGB values to an ANSI color format that is supported by the terminal emulator (or by specifying {level: n} as a chalk option). For example, Chalk configured to run at level 1 (basic color support) will downsample an RGB value of #FF0000 (red) to 31 (ANSI escape for red).
 
 Some examples:
 
