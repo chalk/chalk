@@ -44,9 +44,9 @@
     "text"
   ],
   "dependencies": {
-    "ansi-styles": "^2.1.0",
+    "ansi-styles": "^3.0.0",
     "escape-string-regexp": "^1.0.2",
-    "supports-color": "^3.1.2"
+    "supports-color": "^3.2.3"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",

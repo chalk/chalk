@@ -132,17 +132,18 @@ describe('chalk on windows', function () {
 	});
 });
 
-describe('chalk.enabled', function () {
+describe('chalk.level', function () {
 	it('should not output colors when manually disabled', function () {
-		chalk.enabled = false;
+		var oldLevel = chalk.level;
+		chalk.level = 0;
 		assert.equal(chalk.red('foo'), 'foo');
-		chalk.enabled = true;
+		chalk.level = oldLevel;
 	});
 });
 
 describe('chalk.constructor', function () {
 	it('should create a isolated context where colors can be disabled', function () {
-		var ctx = new chalk.constructor({enabled: false});
+		var ctx = new chalk.constructor({level: 0});
 		assert.equal(ctx.red('foo'), 'foo');
 		assert.equal(chalk.red('foo'), '\u001b[31mfoo\u001b[39m');
 	});

@@ -7,8 +7,8 @@ var defineProps = Object.defineProperties;
 var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
 
 function Chalk(options) {
-	// detect mode if not set manually
-	this.enabled = !options || options.enabled === undefined ? supportsColor : options.enabled;
+	// detect level if not set manually
+	this.level = !options || options.level === undefined ? supportsColor.level : options.level;
 }
 
 // use bright blue on Windows as the normal blue color is illegible
@@ -37,7 +37,7 @@ function build(_styles) {
 	};
 
 	builder._styles = _styles;
-	builder.enabled = this.enabled;
+	builder.level = this.level;
 	// __proto__ is used because we must return a function, but there is
 	// no way to create a function with a different prototype.
 	/* eslint-disable no-proto */
@@ -59,7 +59,7 @@ function applyStyle() {
 		}
 	}
 
-	if (!this.enabled || !str) {
+	if (!this.level || !str) {
 		return str;
 	}
 
