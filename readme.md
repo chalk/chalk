@@ -210,10 +210,10 @@ Background versions of these models are prefixed with `bg` and the first level o
 
 As of this writing, these are the supported color models that are exposed in Chalk:
 
-- `rgb`
-- `hex`
-- `keyword` (CSS keywords)
-- `hsl`
+- `rgb` - e.g. `chalk.rgb(255, 136, 0).bold('Orange!')`
+- `hex` - e.g. `chalk.hex('#ff8800').bold('Orange!')`
+- `keyword` (CSS keywords) - e.g. `chalk.keyword('orange').bold('Orange!')`
+- `hsl` - e.g. `chalk.hsl(32, 100, 50).bold('Orange!')`
 - `hsv`
 - `hwb`
 - `cmyk`
