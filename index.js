@@ -23,7 +23,8 @@ Object.keys(ansiStyles).forEach(function (key) {
 
 	styles[key] = {
 		get: function () {
-			return build.call(this, this._styles ? this._styles.concat(key) : [key]);
+			var codes = ansiStyles[key];
+			return build.call(this, this._styles ? this._styles.concat(codes) : [codes], key);
 		}
 	};
 });
@@ -31,13 +32,17 @@ Object.keys(ansiStyles).forEach(function (key) {
 // eslint-disable-next-line func-names
 var proto = defineProps(function chalk() {}, styles);
 
-function build(_styles) {
+function build(_styles, key) {
 	var builder = function () {
 		return applyStyle.apply(builder, arguments);
 	};
 
 	builder._styles = _styles;
 	builder.level = this.level;
+
+	// see below for fix regarding invisible grey/dim combination on windows.
+	builder.hasGrey = this.hasGrey || key === 'gray' || key === 'grey';
+
 	// __proto__ is used because we must return a function, but there is
 	// no way to create a function with a different prototype.
 	/* eslint-disable no-proto */
@@ -70,12 +75,12 @@ function applyStyle() {
 	// see https://github.com/chalk/chalk/issues/58
 	// If we're on Windows and we're dealing with a gray color, temporarily make 'dim' a noop.
 	var originalDim = ansiStyles.dim.open;
-	if (isSimpleWindowsTerm && (nestedStyles.indexOf('gray') !== -1 || nestedStyles.indexOf('grey') !== -1)) {
+	if (isSimpleWindowsTerm && this.hasGrey) {
 		ansiStyles.dim.open = '';
 	}
 
 	while (i--) {
-		var code = ansiStyles[nestedStyles[i]];
+		var code = nestedStyles[i];
 
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
