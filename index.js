@@ -6,7 +6,9 @@ var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
 var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
 
+// supportsColor.level -> ansiStyles.color[name] mapping
 var levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
+// color-convert models to exclude from the Chalk API due to conflicts and such.
 var skipModels = ['gray'];
 
 function Chalk(options) {
