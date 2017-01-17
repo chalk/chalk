@@ -196,7 +196,18 @@ Chalk supports 256 colors and, when manually specified, [Truecolor (16 million c
 
 For the methods that support it (listed below), the color will be 'fit' to the color level supported (i.e. RGB colors will be downsampled to 16 colors if only basic support is enabled).
 
+Some examples:
+
 For a complete list of color models, see [`color-convert`'s list of conversions](https://github.com/Qix-/color-convert/blob/master/conversions.js). Background versions of these models are prefixed with `bg` and the first level of the module capitalized (e.g. `keyword` for foreground colors and `bgKeyword` for background colors).
+
+- `chalk.hex('#DEADED').underline('Hello, world!')`
+- `chalk.keyword('orange')('Some orange text')`
+- `chalk.rgb(15, 100, 204).inverse('Hello!')`
+
+
+- `chalk.bgHex('#DEADED').underline('Hello, world!')`
+- `chalk.bgKeyword('orange')('Some orange text')`
+- `chalk.bgRgb(15, 100, 204).inverse('Hello!')`
 
 As of this writing, these are the supported color models that are exposed in Chalk:
 
