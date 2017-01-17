@@ -198,12 +198,11 @@ For supported methods (listed below), the color will be 'fit' to the color level
 
 Some examples:
 
-For a complete list of color models, see [`color-convert`'s list of conversions](https://github.com/Qix-/color-convert/blob/master/conversions.js). Background versions of these models are prefixed with `bg` and the first level of the module capitalized (e.g. `keyword` for foreground colors and `bgKeyword` for background colors).
-
 - `chalk.hex('#DEADED').underline('Hello, world!')`
 - `chalk.keyword('orange')('Some orange text')`
 - `chalk.rgb(15, 100, 204).inverse('Hello!')`
 
+Background versions of these models are prefixed with `bg` and the first level of the module capitalized (e.g. `keyword` for foreground colors and `bgKeyword` for background colors).
 
 - `chalk.bgHex('#DEADED').underline('Hello, world!')`
 - `chalk.bgKeyword('orange')('Some orange text')`
@@ -225,6 +224,8 @@ As of this writing, these are the supported color models that are exposed in Cha
 - `ansi256`
 - `hcg`
 - `apple` (see [qix-/color-convert#30](https://github.com/Qix-/color-convert/issues/30))
+
+For a complete list of color models, see [`color-convert`'s list of conversions](https://github.com/Qix-/color-convert/blob/master/conversions.js).
 
 ## Windows
 
