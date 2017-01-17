@@ -212,6 +212,8 @@ For a complete list of color models, see [`color-convert`'s list of conversions]
 As of this writing, these are the supported color models that are exposed in Chalk:
 
 - `rgb`
+- `hex`
+- `keyword` (CSS keywords)
 - `hsl`
 - `hsv`
 - `hwb`
@@ -219,12 +221,10 @@ As of this writing, these are the supported color models that are exposed in Cha
 - `xyz`
 - `lab`
 - `lch`
-- `hex`
-- `keyword`
 - `ansi16`
 - `ansi256`
 - `hcg`
-- `apple`
+- `apple` (see [qix-/color-convert#30](https://github.com/Qix-/color-convert/issues/30))
 
 ## Windows
 
