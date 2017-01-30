@@ -138,6 +138,28 @@ describe('chalk.enabled', function () {
 		assert.equal(chalk.red('foo'), 'foo');
 		chalk.enabled = true;
 	});
+
+	it('should enable/disable colors based on overall chalk enabled property, not individual instances', function () {
+		chalk.enabled = true;
+		var red = chalk.red;
+		assert.equal(red.enabled, true);
+		chalk.enabled = false;
+		assert.equal(red.enabled, chalk.enabled);
+		chalk.enabled = true;
+	});
+
+	it('should propagate enable/disable changes from child colors', function () {
+		chalk.enabled = true;
+		var red = chalk.red;
+		assert.equal(red.enabled, true);
+		assert.equal(chalk.enabled, true);
+		red.enabled = false;
+		assert.equal(red.enabled, false);
+		assert.equal(chalk.enabled, false);
+		chalk.enabled = true;
+		assert.equal(red.enabled, true);
+		assert.equal(chalk.enabled, true);
+	});
 });
 
 describe('chalk.constructor', function () {

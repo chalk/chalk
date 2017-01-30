@@ -36,8 +36,20 @@ function build(_styles) {
 		return applyStyle.apply(builder, arguments);
 	};
 
+	var self = this;
+
 	builder._styles = _styles;
-	builder.enabled = this.enabled;
+
+	Object.defineProperty(builder, 'enabled', {
+		enumerable: true,
+		get: function () {
+			return self.enabled;
+		},
+		set: function (v) {
+			self.enabled = v;
+		}
+	});
+
 	// __proto__ is used because we must return a function, but there is
 	// no way to create a function with a different prototype.
 	/* eslint-disable no-proto */
