@@ -111,3 +111,4 @@ defineProps(Chalk.prototype, styles);
 module.exports = new Chalk();
 module.exports.styles = ansiStyles;
 module.exports.supportsColor = supportsColor;
+module.exports.isSimpleWindowsTerm = isSimpleWindowsTerm;
