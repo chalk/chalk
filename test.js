@@ -1,9 +1,9 @@
 'use strict';
 var assert = require('assert');
-var requireUncached = require('require-uncached');
+var importFresh = require('import-fresh');
 var resolveFrom = require('resolve-from');
 var semver = require('semver');
-var chalk = require('./');
+var chalk = require('.');
 
 describe('chalk', function () {
 	it('should style string', function () {
@@ -103,31 +103,31 @@ describe('chalk on windows', function () {
 
 	it('should replace blue foreground color in cmd.exe', function () {
 		process.env.TERM = 'dumb';
-		var chalkCtx = requireUncached('./');
+		var chalkCtx = importFresh('.');
 		assert.equal(chalkCtx.blue('foo'), '\u001b[94mfoo\u001b[39m');
 	});
 
 	it('shouldn\'t replace blue foreground color in xterm based terminals', function () {
 		process.env.TERM = 'xterm-256color';
-		var chalkCtx = requireUncached('./');
+		var chalkCtx = importFresh('.');
 		assert.equal(chalkCtx.blue('foo'), '\u001b[34mfoo\u001b[39m');
 	});
 
 	it('should not apply dimmed styling on gray strings, see https://github.com/chalk/chalk/issues/58', function () {
 		process.env.TERM = 'dumb';
-		var chalkCtx = requireUncached('./');
+		var chalkCtx = importFresh('.');
 		assert.equal(chalkCtx.gray.dim('foo'), '\u001b[90mfoo\u001b[22m\u001b[39m');
 	});
 
 	it('should apply dimmed styling on xterm compatible terminals', function () {
 		process.env.TERM = 'xterm';
-		var chalkCtx = requireUncached('./');
+		var chalkCtx = importFresh('.');
 		assert.equal(chalkCtx.gray.dim('foo'), '\u001b[90m\u001b[2mfoo\u001b[22m\u001b[39m');
 	});
 
 	it('should apply dimmed styling on strings of other colors', function () {
 		process.env.TERM = 'dumb';
-		var chalkCtx = requireUncached('./');
+		var chalkCtx = importFresh('.');
 		assert.equal(chalkCtx.blue.dim('foo'), '\u001b[94m\u001b[2mfoo\u001b[22m\u001b[39m');
 	});
 });
