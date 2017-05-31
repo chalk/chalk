@@ -4,7 +4,39 @@ var ansiStyles = require('ansi-styles');
 var supportsColor = require('supports-color');
 
 var defineProps = Object.defineProperties;
-var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
+var term = '';
+var platform = '';
+var scriptRunner = (function () {
+        if (typeof process !== 'undefined' && process.toString() === '[object process]') {
+                return 'node';
+        } else if (typeof phantom !== 'undefined') {
+                return 'phantomjs';
+        }
+})();
+
+switch (scriptRunner) {
+        case 'node':
+                platform = process.platform;
+                term = process.env.TERM;
+
+                break;
+        case 'phantomjs':
+                var sys = require('system');
+                
+                term = sys.env.TERM;
+                
+                if (sys.os.name === 'windows') {
+                    platform = 'win32';
+                } else {
+                    platform = sys.os.name; 
+                }
+
+                break;
+        default:
+                throw new Error('Can\'t figure out script runner');
+}
+
+var isSimpleWindowsTerm = platform === 'win32' && !/^xterm/i.test(term);
 
 function Chalk(options) {
 	// detect mode if not set manually
