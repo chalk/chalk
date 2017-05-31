@@ -44,19 +44,19 @@
     "text"
   ],
   "dependencies": {
-    "ansi-styles": "^2.1.0",
-    "escape-string-regexp": "^1.0.2",
-    "supports-color": "^3.1.2"
+    "ansi-styles": "^3.0.0",
+    "escape-string-regexp": "^1.0.5",
+    "supports-color": "^3.2.3"
   },
   "devDependencies": {
-    "coveralls": "^2.11.2",
+    "coveralls": "^2.13.1",
     "import-fresh": "^2.0.0",
     "matcha": "^0.7.0",
     "mocha": "*",
     "nyc": "^10.3.2",
     "resolve-from": "^3.0.0",
-    "semver": "^5.1.0",
-    "xo": "^0.16.0"
+    "semver": "^5.3.0",
+    "xo": "^0.18.2"
   },
   "xo": {
     "envs": [
