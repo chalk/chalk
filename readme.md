@@ -227,6 +227,7 @@ As of this writing, these are the supported color models that are exposed in Cha
 
 For a complete list of color models, see [`color-convert`'s list of conversions](https://github.com/Qix-/color-convert/blob/master/conversions.js).
 
+
 ## Windows
 
 If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) instead of `cmd.exe`.
@@ -245,6 +246,12 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 - [color-convert](https://github.com/qix-/color-convert) - Converts colors between different models
 
 
+## Maintainers
+
+- [Sindre Sorhus](https://github.com/sindresorhus)
+- [Josh Junon](https://github.com/qix-)
+
+
 ## License
 
-MIT © [Sindre Sorhus](https://sindresorhus.com)
+MIT

@@ -1,70 +1,61 @@
 {
-  "name": "chalk",
-  "version": "1.1.1",
-  "description": "Terminal string styling done right. Much color.",
-  "license": "MIT",
-  "repository": "chalk/chalk",
-  "maintainers": [
-    "Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)",
-    "Joshua Boy Nicolai Appelman <joshua@jbna.nl> (jbna.nl)",
-    "JD Ballard <i.am.qix@gmail.com> (github.com/qix-)"
-  ],
-  "engines": {
-    "node": ">=4"
-  },
-  "scripts": {
-    "test": "xo && nyc mocha",
-    "bench": "matcha benchmark.js",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
-  },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "color",
-    "colour",
-    "colors",
-    "terminal",
-    "console",
-    "cli",
-    "string",
-    "str",
-    "ansi",
-    "style",
-    "styles",
-    "tty",
-    "formatting",
-    "rgb",
-    "256",
-    "shell",
-    "xterm",
-    "log",
-    "logging",
-    "command-line",
-    "text"
-  ],
-  "dependencies": {
-    "ansi-styles": "^3.0.0",
-    "escape-string-regexp": "^1.0.2",
-    "supports-color": "^3.2.3"
-  },
-  "devDependencies": {
-    "coveralls": "^2.11.2",
-    "import-fresh": "^2.0.0",
-    "matcha": "^0.7.0",
-    "mocha": "*",
-    "nyc": "^10.3.2",
-    "resolve-from": "^3.0.0",
-    "semver": "^5.1.0",
-    "xo": "^0.16.0"
-  },
-  "xo": {
-    "envs": [
-      "node",
-      "mocha"
-    ],
-    "ignores": [
-      "example.js"
-    ]
-  }
+	"name": "chalk",
+	"version": "1.1.1",
+	"description": "Terminal string styling done right. Much color",
+	"license": "MIT",
+	"repository": "chalk/chalk",
+	"engines": {
+		"node": ">=4"
+	},
+	"scripts": {
+		"test": "xo && nyc mocha",
+		"bench": "matcha benchmark.js",
+		"coveralls": "nyc report --reporter=text-lcov | coveralls"
+	},
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"color",
+		"colour",
+		"colors",
+		"terminal",
+		"console",
+		"cli",
+		"string",
+		"str",
+		"ansi",
+		"style",
+		"styles",
+		"tty",
+		"formatting",
+		"rgb",
+		"256",
+		"shell",
+		"xterm",
+		"log",
+		"logging",
+		"command-line",
+		"text"
+	],
+	"dependencies": {
+		"ansi-styles": "^3.0.0",
+		"escape-string-regexp": "^1.0.2",
+		"supports-color": "^3.2.3"
+	},
+	"devDependencies": {
+		"coveralls": "^2.11.2",
+		"import-fresh": "^2.0.0",
+		"matcha": "^0.7.0",
+		"mocha": "*",
+		"nyc": "^11.0.2",
+		"resolve-from": "^3.0.0",
+		"xo": "*"
+	},
+	"xo": {
+		"envs": [
+			"node",
+			"mocha"
+		]
+	}
 }

@@ -1,24 +1,24 @@
 /* globals set bench */
 'use strict';
-var chalk = require('./');
+const chalk = require('.');
 
-suite('chalk', function () {
+suite('chalk', () => {
 	set('iterations', 100000);
 
-	bench('single style', function () {
+	bench('single style', () => {
 		chalk.red('the fox jumps over the lazy dog');
 	});
 
-	bench('several styles', function () {
+	bench('several styles', () => {
 		chalk.blue.bgRed.bold('the fox jumps over the lazy dog');
 	});
 
-	var cached = chalk.blue.bgRed.bold;
-	bench('cached styles', function () {
+	const cached = chalk.blue.bgRed.bold;
+	bench('cached styles', () => {
 		cached('the fox jumps over the lazy dog');
 	});
 
-	bench('nested styles', function () {
+	bench('nested styles', () => {
 		chalk.red('the fox jumps', chalk.underline.bgBlue('over the lazy dog') + '!');
 	});
 });
