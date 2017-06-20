@@ -72,6 +72,26 @@ describe('chalk', function () {
 	it('line breaks should open and close colors', function () {
 		assert.equal(chalk.grey('hello\nworld'), '\u001b[90mhello\u001b[39m\n\u001b[90mworld\u001b[39m');
 	});
+
+	it('should properly convert RGB to 16 colors on basic color terminals', function () {
+		assert.equal(new chalk.constructor({level: 1}).hex('#FF0000')('hello'), '\u001b[91mhello\u001b[39m');
+		assert.equal(new chalk.constructor({level: 1}).bgHex('#FF0000')('hello'), '\u001b[101mhello\u001b[49m');
+	});
+
+	it('should properly convert RGB to 256 colors on basic color terminals', function () {
+		assert.equal(new chalk.constructor({level: 2}).hex('#FF0000')('hello'), '\u001b[38;5;196mhello\u001b[39m');
+		assert.equal(new chalk.constructor({level: 2}).bgHex('#FF0000')('hello'), '\u001b[48;5;196mhello\u001b[49m');
+	});
+
+	it('should properly convert RGB to 256 colors on basic color terminals', function () {
+		assert.equal(new chalk.constructor({level: 3}).hex('#FF0000')('hello'), '\u001b[38;2;255;0;0mhello\u001b[39m');
+		assert.equal(new chalk.constructor({level: 3}).bgHex('#FF0000')('hello'), '\u001b[48;2;255;0;0mhello\u001b[49m');
+	});
+
+	it('should not emit RGB codes if level is 0', function () {
+		assert.equal(new chalk.constructor({level: 0}).hex('#FF0000')('hello'), 'hello');
+		assert.equal(new chalk.constructor({level: 0}).bgHex('#FF0000')('hello'), 'hello');
+	});
 });
 
 describe('chalk on windows', function () {
@@ -132,39 +152,43 @@ describe('chalk on windows', function () {
 	});
 });
 
-describe('chalk.enabled', function () {
+describe('chalk.level', function () {
 	it('should not output colors when manually disabled', function () {
-		chalk.enabled = false;
+		var oldLevel = chalk.level;
+		chalk.level = 0;
 		assert.equal(chalk.red('foo'), 'foo');
-		chalk.enabled = true;
+		chalk.level = oldLevel;
 	});
 
 	it('should enable/disable colors based on overall chalk enabled property, not individual instances', function () {
-		chalk.enabled = true;
+		var oldLevel = chalk.level;
+		chalk.level = 1;
 		var red = chalk.red;
-		assert.equal(red.enabled, true);
-		chalk.enabled = false;
-		assert.equal(red.enabled, chalk.enabled);
-		chalk.enabled = true;
+		assert.equal(red.level, 1);
+		chalk.level = 0;
+		assert.equal(red.level, chalk.level);
+		chalk.level = oldLevel;
 	});
 
 	it('should propagate enable/disable changes from child colors', function () {
-		chalk.enabled = true;
+		var oldLevel = chalk.level;
+		chalk.level = 1;
 		var red = chalk.red;
-		assert.equal(red.enabled, true);
-		assert.equal(chalk.enabled, true);
-		red.enabled = false;
-		assert.equal(red.enabled, false);
-		assert.equal(chalk.enabled, false);
-		chalk.enabled = true;
-		assert.equal(red.enabled, true);
-		assert.equal(chalk.enabled, true);
+		assert.equal(red.level, 1);
+		assert.equal(chalk.level, 1);
+		red.level = 0;
+		assert.equal(red.level, 0);
+		assert.equal(chalk.level, 0);
+		chalk.level = 1;
+		assert.equal(red.level, 1);
+		assert.equal(chalk.level, 1);
+		chalk.level = oldLevel;
 	});
 });
 
 describe('chalk.constructor', function () {
 	it('should create a isolated context where colors can be disabled', function () {
-		var ctx = new chalk.constructor({enabled: false});
+		var ctx = new chalk.constructor({level: 0});
 		assert.equal(ctx.red('foo'), 'foo');
 		assert.equal(chalk.red('foo'), '\u001b[31mfoo\u001b[39m');
 	});

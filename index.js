@@ -6,9 +6,14 @@ var supportsColor = require('supports-color');
 var defineProps = Object.defineProperties;
 var isSimpleWindowsTerm = process.platform === 'win32' && !/^xterm/i.test(process.env.TERM);
 
+// supportsColor.level -> ansiStyles.color[name] mapping
+var levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
+// color-convert models to exclude from the Chalk API due to conflicts and such.
+var skipModels = ['gray'];
+
 function Chalk(options) {
-	// detect mode if not set manually
-	this.enabled = !options || options.enabled === undefined ? supportsColor : options.enabled;
+	// detect level if not set manually
+	this.level = !options || options.level === undefined ? supportsColor.level : options.level;
 }
 
 // use bright blue on Windows as the normal blue color is illegible
@@ -23,7 +28,45 @@ Object.keys(ansiStyles).forEach(function (key) {
 
 	styles[key] = {
 		get: function () {
-			return build.call(this, this._styles ? this._styles.concat(key) : [key]);
+			var codes = ansiStyles[key];
+			return build.call(this, this._styles ? this._styles.concat(codes) : [codes], key);
+		}
+	};
+});
+
+ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), 'g');
+Object.keys(ansiStyles.color.ansi).forEach(function (model) {
+	if (skipModels.indexOf(model) !== -1) {
+		return;
+	}
+
+	styles[model] = {
+		get: function () {
+			var level = this.level;
+			return function () {
+				var open = ansiStyles.color[levelMapping[level]][model].apply(null, arguments);
+				var codes = {open: open, close: ansiStyles.color.close, closeRe: ansiStyles.color.closeRe};
+				return build.call(this, this._styles ? this._styles.concat(codes) : [codes], model);
+			};
+		}
+	};
+});
+
+ansiStyles.bgColor.closeRe = new RegExp(escapeStringRegexp(ansiStyles.bgColor.close), 'g');
+Object.keys(ansiStyles.bgColor.ansi).forEach(function (model) {
+	if (skipModels.indexOf(model) !== -1) {
+		return;
+	}
+
+	var bgModel = 'bg' + model.charAt(0).toUpperCase() + model.substring(1);
+	styles[bgModel] = {
+		get: function () {
+			var level = this.level;
+			return function () {
+				var open = ansiStyles.bgColor[levelMapping[level]][model].apply(null, arguments);
+				var codes = {open: open, close: ansiStyles.bgColor.close, closeRe: ansiStyles.bgColor.closeRe};
+				return build.call(this, this._styles ? this._styles.concat(codes) : [codes], model);
+			};
 		}
 	};
 });
@@ -31,7 +74,7 @@ Object.keys(ansiStyles).forEach(function (key) {
 // eslint-disable-next-line func-names
 var proto = defineProps(function chalk() {}, styles);
 
-function build(_styles) {
+function build(_styles, key) {
 	var builder = function () {
 		return applyStyle.apply(builder, arguments);
 	};
@@ -40,15 +83,18 @@ function build(_styles) {
 
 	builder._styles = _styles;
 
-	Object.defineProperty(builder, 'enabled', {
+	Object.defineProperty(builder, 'level', {
 		enumerable: true,
 		get: function () {
-			return self.enabled;
+			return self.level;
 		},
-		set: function (v) {
-			self.enabled = v;
+		set: function (level) {
+			self.level = level;
 		}
 	});
+
+	// see below for fix regarding invisible grey/dim combination on windows.
+	builder.hasGrey = this.hasGrey || key === 'gray' || key === 'grey';
 
 	// __proto__ is used because we must return a function, but there is
 	// no way to create a function with a different prototype.
@@ -71,7 +117,7 @@ function applyStyle() {
 		}
 	}
 
-	if (!this.enabled || !str) {
+	if (!this.level || !str) {
 		return str;
 	}
 
@@ -82,12 +128,12 @@ function applyStyle() {
 	// see https://github.com/chalk/chalk/issues/58
 	// If we're on Windows and we're dealing with a gray color, temporarily make 'dim' a noop.
 	var originalDim = ansiStyles.dim.open;
-	if (isSimpleWindowsTerm && (nestedStyles.indexOf('gray') !== -1 || nestedStyles.indexOf('grey') !== -1)) {
+	if (isSimpleWindowsTerm && this.hasGrey) {
 		ansiStyles.dim.open = '';
 	}
 
 	while (i--) {
-		var code = ansiStyles[nestedStyles[i]];
+		var code = nestedStyles[i];
 
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code

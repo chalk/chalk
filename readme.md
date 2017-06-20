@@ -76,14 +76,23 @@ CPU: ${chalk.red('90%')}
 RAM: ${chalk.green('40%')}
 DISK: ${chalk.yellow('70%')}
 `);
+
+// Use RGB colors in terminal emulators that support it.
+log(chalk.keyword('orange')('Yay for orange colored text!'));
+log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
+log(chalk.hex('#DEADED').bold('Bold gray!'));
 ```
 
 Easily define your own themes.
 
 ```js
 const chalk = require('chalk');
+
 const error = chalk.bold.red;
+const warning = chalk.keyword('orange');
+
 console.log(error('Error!'));
+console.log(warning('Warning!'));
 ```
 
 Take advantage of console.log [string substitution](http://nodejs.org/docs/latest/api/console.html#console_console_log_data).
@@ -105,15 +114,22 @@ Chain [styles](#styles) and call the last one as a method with a string argument
 
 Multiple arguments will be separated by space.
 
-### chalk.enabled
+### chalk.level
 
-Color support is automatically detected, but you can override it by setting the `enabled` property. You should however only do this in your own code as it applies globally to all chalk consumers.
+Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all chalk consumers.
 
 If you need to change this in a reusable module create a new instance:
 
 ```js
-const ctx = new chalk.constructor({enabled: false});
+const ctx = new chalk.constructor({level: 0});
 ```
+
+Levels are as follows:
+
+0. All colors disabled
+1. Basic color support (16 colors)
+2. 256 color support
+3. RGB/Truecolor support (16 million colors)
 
 ### chalk.supportsColor
 
@@ -174,10 +190,42 @@ console.log(chalk.styles.red.open + 'Hello' + chalk.styles.red.close);
 - `bgWhite`
 
 
-## 256-colors
+## 256/16 million (Truecolor) color support
 
-Chalk does not support anything other than the base eight colors, which guarantees it will work on all terminals and systems. Some terminals, specifically `xterm` compliant ones, will support the full range of 8-bit colors. For this the lower level [ansi-256-colors](https://github.com/jbnicolai/ansi-256-colors) package can be used.
+Chalk supports 256 colors and, when manually specified, [Truecolor (16 million colors)](https://gist.github.com/XVilka/8346728) on all supported terminal emulators.
 
+Colors are downsampled from 16 million RGB values to an ANSI color format that is supported by the terminal emulator (or by specifying {level: n} as a chalk option). For example, Chalk configured to run at level 1 (basic color support) will downsample an RGB value of #FF0000 (red) to 31 (ANSI escape for red).
+
+Some examples:
+
+- `chalk.hex('#DEADED').underline('Hello, world!')`
+- `chalk.keyword('orange')('Some orange text')`
+- `chalk.rgb(15, 100, 204).inverse('Hello!')`
+
+Background versions of these models are prefixed with `bg` and the first level of the module capitalized (e.g. `keyword` for foreground colors and `bgKeyword` for background colors).
+
+- `chalk.bgHex('#DEADED').underline('Hello, world!')`
+- `chalk.bgKeyword('orange')('Some orange text')`
+- `chalk.bgRgb(15, 100, 204).inverse('Hello!')`
+
+As of this writing, these are the supported color models that are exposed in Chalk:
+
+- `rgb` - e.g. `chalk.rgb(255, 136, 0).bold('Orange!')`
+- `hex` - e.g. `chalk.hex('#ff8800').bold('Orange!')`
+- `keyword` (CSS keywords) - e.g. `chalk.keyword('orange').bold('Orange!')`
+- `hsl` - e.g. `chalk.hsl(32, 100, 50).bold('Orange!')`
+- `hsv`
+- `hwb`
+- `cmyk`
+- `xyz`
+- `lab`
+- `lch`
+- `ansi16`
+- `ansi256`
+- `hcg`
+- `apple` (see [qix-/color-convert#30](https://github.com/Qix-/color-convert/issues/30))
+
+For a complete list of color models, see [`color-convert`'s list of conversions](https://github.com/Qix-/color-convert/blob/master/conversions.js).
 
 ## Windows
 
@@ -194,6 +242,7 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 - [ansi-regex](https://github.com/chalk/ansi-regex) - Regular expression for matching ANSI escape codes
 - [wrap-ansi](https://github.com/chalk/wrap-ansi) - Wordwrap a string with ANSI escape codes
 - [slice-ansi](https://github.com/chalk/slice-ansi) - Slice a string with ANSI escape codes
+- [color-convert](https://github.com/qix-/color-convert) - Converts colors between different models
 
 
 ## License
