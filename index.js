@@ -82,7 +82,7 @@ function build(_styles, key) {
 	var self = this;
 
 	builder._styles = _styles;
-  
+
 	Object.defineProperty(builder, 'level', {
 		enumerable: true,
 		get: function () {
