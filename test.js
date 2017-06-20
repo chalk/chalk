@@ -161,25 +161,28 @@ describe('chalk.level', function () {
 	});
 
 	it('should enable/disable colors based on overall chalk enabled property, not individual instances', function () {
-		chalk.enabled = true;
+		var oldLevel = chalk.level;
+		chalk.level = 1;
 		var red = chalk.red;
-		assert.equal(red.enabled, true);
-		chalk.enabled = false;
-		assert.equal(red.enabled, chalk.enabled);
-		chalk.enabled = true;
+		assert.equal(red.level, 1);
+		chalk.level = 0;
+		assert.equal(red.level, chalk.level);
+		chalk.level = oldLevel;
 	});
 
 	it('should propagate enable/disable changes from child colors', function () {
-		chalk.enabled = true;
+		var oldLevel = chalk.level;
+		chalk.level = 1;
 		var red = chalk.red;
-		assert.equal(red.enabled, true);
-		assert.equal(chalk.enabled, true);
-		red.enabled = false;
-		assert.equal(red.enabled, false);
-		assert.equal(chalk.enabled, false);
-		chalk.enabled = true;
-		assert.equal(red.enabled, true);
-		assert.equal(chalk.enabled, true);
+		assert.equal(red.level, 1);
+		assert.equal(chalk.level, 1);
+		red.level = 0;
+		assert.equal(red.level, 0);
+		assert.equal(chalk.level, 0);
+		chalk.level = 1;
+		assert.equal(red.level, 1);
+		assert.equal(chalk.level, 1);
+		chalk.level = oldLevel;
 	});
 });
 
