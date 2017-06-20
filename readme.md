@@ -1,7 +1,7 @@
 <h1 align="center">
 	<br>
 	<br>
-	<img width="360" src="https://cdn.rawgit.com/chalk/chalk/19935d6484811c5e468817f846b7b3d417d7bf4a/logo.svg" alt="chalk">
+	<img width="320" src="https://cdn.rawgit.com/chalk/chalk/19935d6484811c5e468817f846b7b3d417d7bf4a/logo.svg" alt="chalk">
 	<br>
 	<br>
 	<br>
@@ -18,22 +18,23 @@
 ![](https://github.com/chalk/ansi-styles/raw/master/screenshot.png)
 
 
-## Why
+## Highlights
 
-- Highly performant
-- Doesn't extend `String.prototype`
 - Expressive API
+- Highly performant
 - Ability to nest styles
-- Clean and focused
+- [256/Truecolor color support](#256-and-truecolor-color-support)
 - Auto-detects color support
+- Doesn't extend `String.prototype`
+- Clean and focused
 - Actively maintained
-- [Used by ~16,000 modules](https://www.npmjs.com/browse/depended/chalk) as of May 31st, 2017
+- [Used by ~17,000 packages](https://www.npmjs.com/browse/depended/chalk) as of June 20th, 2017
 
 
 ## Install
 
 ```console
-$ npm install --save chalk
+$ npm install chalk
 ```
 
 
@@ -51,19 +52,19 @@ Chalk comes with an easy to use composable API where you just chain and nest the
 const chalk = require('chalk');
 const log = console.log;
 
-// combine styled and normal strings
+// Combine styled and normal strings
 log(chalk.blue('Hello') + 'World' + chalk.red('!'));
 
-// compose multiple styles using the chainable API
+// Compose multiple styles using the chainable API
 log(chalk.blue.bgRed.bold('Hello world!'));
 
-// pass in multiple arguments
+// Pass in multiple arguments
 log(chalk.blue('Hello', 'World!', 'Foo', 'bar', 'biz', 'baz'));
 
-// nest styles
+// Nest styles
 log(chalk.red('Hello', chalk.underline.bgBlue('world') + '!'));
 
-// nest styles of the same type even (color, underline, background)
+// Nest styles of the same type even (color, underline, background)
 log(chalk.green(
 	'I am a green line ' +
 	chalk.blue.underline.bold('with a blue substring') +
@@ -83,7 +84,7 @@ log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
 log(chalk.hex('#DEADED').bold('Bold gray!'));
 ```
 
-Easily define your own themes.
+Easily define your own themes:
 
 ```js
 const chalk = require('chalk');
@@ -95,7 +96,7 @@ console.log(error('Error!'));
 console.log(warning('Warning!'));
 ```
 
-Take advantage of console.log [string substitution](http://nodejs.org/docs/latest/api/console.html#console_console_log_data).
+Take advantage of console.log [string substitution](https://nodejs.org/docs/latest/api/console.html#console_console_log_data_args):
 
 ```js
 const name = 'Sindre';
@@ -110,13 +111,13 @@ console.log(chalk.green('Hello %s'), name);
 
 Example: `chalk.red.bold.underline('Hello', 'world');`
 
-Chain [styles](#styles) and call the last one as a method with a string argument. Order doesn't matter, and later styles take precedent in case of a conflict. This simply means that `Chalk.red.yellow.green` is equivalent to `Chalk.green`.
+Chain [styles](#styles) and call the last one as a method with a string argument. Order doesn't matter, and later styles take precedent in case of a conflict. This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 
 Multiple arguments will be separated by space.
 
 ### chalk.level
 
-Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all chalk consumers.
+Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all Chalk consumers.
 
 If you need to change this in a reusable module create a new instance:
 
@@ -129,13 +130,15 @@ Levels are as follows:
 0. All colors disabled
 1. Basic color support (16 colors)
 2. 256 color support
-3. RGB/Truecolor support (16 million colors)
+3. Truecolor support (16 million colors)
 
 ### chalk.supportsColor
 
 Detect whether the terminal [supports color](https://github.com/chalk/supports-color). Used internally and handled for you, but exposed for convenience.
 
-Can be overridden by the user with the flags `--color` and `--no-color`. For situations where using `--color` is not possible, add an environment variable `FORCE_COLOR` with any value to force color. Trumps `--no-color`.
+Can be overridden by the user with the flags `--color` and `--no-color`. For situations where using `--color` is not possible, add the environment variable `FORCE_COLOR=1` to forcefully enable color or `FORCE_COLOR=0` to forcefully disable. The use of `FORCE_COLOR` overrides all other color support checks.
+
+Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
 
 
 ## Styles
@@ -145,11 +148,11 @@ Can be overridden by the user with the flags `--color` and `--no-color`. For sit
 - `reset`
 - `bold`
 - `dim`
-- `italic` *(not widely supported)*
+- `italic` *(Not widely supported)*
 - `underline`
 - `inverse`
 - `hidden`
-- `strikethrough` *(not widely supported)*
+- `strikethrough` *(Not widely supported)*
 
 ### Colors
 
@@ -157,11 +160,19 @@ Can be overridden by the user with the flags `--color` and `--no-color`. For sit
 - `red`
 - `green`
 - `yellow`
-- `blue` *(on Windows the bright version is used since normal blue is illegible)*
+- `blue` *(On Windows the bright version is used since normal blue is illegible)*
 - `magenta`
 - `cyan`
 - `white`
 - `gray`
+- `blackBright`
+- `redBright`
+- `greenBright`
+- `yellowBright`
+- `blueBright`
+- `magentaBright`
+- `cyanBright`
+- `whiteBright`
 
 ### Background colors
 
@@ -173,15 +184,23 @@ Can be overridden by the user with the flags `--color` and `--no-color`. For sit
 - `bgMagenta`
 - `bgCyan`
 - `bgWhite`
+- `bgBlackBright`
+- `bgRedBright`
+- `bgGreenBright`
+- `bgYellowBright`
+- `bgBlueBright`
+- `bgMagentaBright`
+- `bgCyanBright`
+- `bgWhiteBright`
 
 
-## 256/16 million (Truecolor) color support
+## 256 and Truecolor color support
 
-Chalk supports 256 colors and, when manually specified, [Truecolor (16 million colors)](https://gist.github.com/XVilka/8346728) on all supported terminal emulators.
+Chalk supports 256 colors and [Truecolor](https://gist.github.com/XVilka/8346728) (16 million colors) on supported terminal apps.
 
-Colors are downsampled from 16 million RGB values to an ANSI color format that is supported by the terminal emulator (or by specifying {level: n} as a chalk option). For example, Chalk configured to run at level 1 (basic color support) will downsample an RGB value of #FF0000 (red) to 31 (ANSI escape for red).
+Colors are downsampled from 16 million RGB values to an ANSI color format that is supported by the terminal emulator (or by specifying `{level: n}` as a Chalk option). For example, Chalk configured to run at level 1 (basic color support) will downsample an RGB value of #FF0000 (red) to 31 (ANSI escape for red).
 
-Some examples:
+Examples:
 
 - `chalk.hex('#DEADED').underline('Hello, world!')`
 - `chalk.keyword('orange')('Some orange text')`
@@ -193,24 +212,16 @@ Background versions of these models are prefixed with `bg` and the first level o
 - `chalk.bgKeyword('orange')('Some orange text')`
 - `chalk.bgRgb(15, 100, 204).inverse('Hello!')`
 
-As of this writing, these are the supported color models that are exposed in Chalk:
+The following color models can be used:
 
-- `rgb` - e.g. `chalk.rgb(255, 136, 0).bold('Orange!')`
-- `hex` - e.g. `chalk.hex('#ff8800').bold('Orange!')`
-- `keyword` (CSS keywords) - e.g. `chalk.keyword('orange').bold('Orange!')`
-- `hsl` - e.g. `chalk.hsl(32, 100, 50).bold('Orange!')`
-- `hsv`
-- `hwb`
-- `cmyk`
-- `xyz`
-- `lab`
-- `lch`
+- [`rgb`](https://en.wikipedia.org/wiki/RGB_color_model) - Example: `chalk.rgb(255, 136, 0).bold('Orange!')`
+- [`hex`](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) - Example: `chalk.hex('#FF8800').bold('Orange!')`
+- [`keyword`](https://www.w3.org/wiki/CSS/Properties/color/keywords) (CSS keywords) - Example: `chalk.keyword('orange').bold('Orange!')`
+- [`hsl`](https://en.wikipedia.org/wiki/HSL_and_HSV) - Example: `chalk.hsl(32, 100, 50).bold('Orange!')`
+- [`hsv`](https://en.wikipedia.org/wiki/HSL_and_HSV) - Example: `chalk.hsl(32, 1, 1).bold('Orange!')`
+- [`hwb`](https://en.wikipedia.org/wiki/HWB_color_model)  - Example: `chalk.hsl(32, 0, 50).bold('Orange!')`
 - `ansi16`
 - `ansi256`
-- `hcg`
-- `apple` (see [qix-/color-convert#30](https://github.com/Qix-/color-convert/issues/30))
-
-For a complete list of color models, see [`color-convert`'s list of conversions](https://github.com/Qix-/color-convert/blob/master/conversions.js).
 
 
 ## Windows
