@@ -187,9 +187,3 @@ describe('chalk.constructor', () => {
 		assert.equal(chalk.red('foo'), '\u001B[31mfoo\u001B[39m');
 	});
 });
-
-describe('chalk.styles', () => {
-	it('should expose the styles as ANSI escape codes', () => {
-		assert.equal(chalk.styles.red.open, '\u001B[31m');
-	});
-});

@@ -137,21 +137,6 @@ Detect whether the terminal [supports color](https://github.com/chalk/supports-c
 
 Can be overridden by the user with the flags `--color` and `--no-color`. For situations where using `--color` is not possible, add an environment variable `FORCE_COLOR` with any value to force color. Trumps `--no-color`.
 
-### chalk.styles
-
-Exposes the styles as [ANSI escape codes](https://github.com/chalk/ansi-styles).
-
-Generally not useful, but you might need just the `.open` or `.close` escape code if you're mixing externally styled strings with your own.
-
-```js
-const chalk = require('chalk');
-
-console.log(chalk.styles.red);
-//=> {open: '\u001b[31m', close: '\u001b[39m'}
-
-console.log(chalk.styles.red.open + 'Hello' + chalk.styles.red.close);
-```
-
 
 ## Styles
 
