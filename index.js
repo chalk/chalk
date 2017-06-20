@@ -3,13 +3,13 @@ const escapeStringRegexp = require('escape-string-regexp');
 const ansiStyles = require('ansi-styles');
 const supportsColor = require('supports-color');
 
-const defineProps = Object.defineProperties;
 const isSimpleWindowsTerm = process.platform === 'win32' && !process.env.TERM.toLowerCase().startsWith('xterm');
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
+
 // `color-convert` models to exclude from the Chalk API due to conflicts and such
-const skipModels = ['gray'];
+const skipModels = new Set(['gray']);
 
 function Chalk(options) {
 	// Detect level if not set manually
@@ -36,7 +36,7 @@ for (const key of Object.keys(ansiStyles)) {
 
 ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), 'g');
 for (const model of Object.keys(ansiStyles.color.ansi)) {
-	if (skipModels.indexOf(model) !== -1) {
+	if (skipModels.has(model)) {
 		continue;
 	}
 
@@ -58,11 +58,11 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 
 ansiStyles.bgColor.closeRe = new RegExp(escapeStringRegexp(ansiStyles.bgColor.close), 'g');
 for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
-	if (skipModels.indexOf(model) !== -1) {
+	if (skipModels.has(model)) {
 		continue;
 	}
 
-	const bgModel = 'bg' + model.charAt(0).toUpperCase() + model.slice(1);
+	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
 	styles[bgModel] = {
 		get() {
 			const level = this.level;
@@ -79,8 +79,7 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 	};
 }
 
-// eslint-disable-next-line func-names
-const proto = defineProps(() => {}, styles);
+const proto = Object.defineProperties(() => {}, styles);
 
 function build(_styles, key) {
 	const builder = function () {
@@ -127,9 +126,6 @@ function applyStyle() {
 		return str;
 	}
 
-	const nestedStyles = this._styles;
-	let i = nestedStyles.length;
-
 	// Turns out that on Windows dimmed gray text becomes invisible in cmd.exe,
 	// see https://github.com/chalk/chalk/issues/58
 	// If we're on Windows and we're dealing with a gray color, temporarily make 'dim' a noop.
@@ -138,9 +134,7 @@ function applyStyle() {
 		ansiStyles.dim.open = '';
 	}
 
-	while (i--) {
-		const code = nestedStyles[i];
-
+	for (const code of this._styles.slice().reverse()) {
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
 		// will be colored, and the rest will simply be 'plain'.
@@ -152,13 +146,13 @@ function applyStyle() {
 		str = str.replace(/\r?\n/g, `${code.close}$&${code.open}`);
 	}
 
-	// Reset the original 'dim' if we changed it to work around the Windows dimmed gray issue
+	// Reset the original `dim` if we changed it to work around the Windows dimmed gray issue
 	ansiStyles.dim.open = originalDim;
 
 	return str;
 }
 
-defineProps(Chalk.prototype, styles);
+Object.defineProperties(Chalk.prototype, styles);
 
 module.exports = new Chalk();
 module.exports.styles = ansiStyles;
