@@ -10,7 +10,7 @@
     "JD Ballard <i.am.qix@gmail.com> (github.com/qix-)"
   ],
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4"
   },
   "scripts": {
     "test": "xo && nyc mocha",
@@ -50,11 +50,11 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
+    "import-fresh": "^2.0.0",
     "matcha": "^0.7.0",
     "mocha": "*",
-    "nyc": "^6.1.1",
-    "require-uncached": "^1.0.2",
-    "resolve-from": "^2.0.0",
+    "nyc": "^10.3.2",
+    "resolve-from": "^3.0.0",
     "semver": "^5.1.0",
     "xo": "^0.16.0"
   },

@@ -1,7 +1,7 @@
 'use strict';
-const chalk = require('./');
+const chalk = require('.');
 
-// generates screenshot
+// Generates screenshot
 for (const key of Object.keys(chalk.styles)) {
 	let ret = key;
 

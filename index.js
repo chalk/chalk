@@ -79,8 +79,19 @@ function build(_styles, key) {
 		return applyStyle.apply(builder, arguments);
 	};
 
+	var self = this;
+
 	builder._styles = _styles;
-	builder.level = this.level;
+  
+	Object.defineProperty(builder, 'level', {
+		enumerable: true,
+		get: function () {
+			return self.level;
+		},
+		set: function (level) {
+			self.level = level;
+		}
+	});
 
 	// see below for fix regarding invisible grey/dim combination on windows.
 	builder.hasGrey = this.hasGrey || key === 'gray' || key === 'grey';

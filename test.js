@@ -1,9 +1,9 @@
 'use strict';
 var assert = require('assert');
-var requireUncached = require('require-uncached');
+var importFresh = require('import-fresh');
 var resolveFrom = require('resolve-from');
 var semver = require('semver');
-var chalk = require('./');
+var chalk = require('.');
 
 describe('chalk', function () {
 	it('should style string', function () {
@@ -123,31 +123,31 @@ describe('chalk on windows', function () {
 
 	it('should replace blue foreground color in cmd.exe', function () {
 		process.env.TERM = 'dumb';
-		var chalkCtx = requireUncached('./');
+		var chalkCtx = importFresh('.');
 		assert.equal(chalkCtx.blue('foo'), '\u001b[94mfoo\u001b[39m');
 	});
 
 	it('shouldn\'t replace blue foreground color in xterm based terminals', function () {
 		process.env.TERM = 'xterm-256color';
-		var chalkCtx = requireUncached('./');
+		var chalkCtx = importFresh('.');
 		assert.equal(chalkCtx.blue('foo'), '\u001b[34mfoo\u001b[39m');
 	});
 
 	it('should not apply dimmed styling on gray strings, see https://github.com/chalk/chalk/issues/58', function () {
 		process.env.TERM = 'dumb';
-		var chalkCtx = requireUncached('./');
+		var chalkCtx = importFresh('.');
 		assert.equal(chalkCtx.gray.dim('foo'), '\u001b[90mfoo\u001b[22m\u001b[39m');
 	});
 
 	it('should apply dimmed styling on xterm compatible terminals', function () {
 		process.env.TERM = 'xterm';
-		var chalkCtx = requireUncached('./');
+		var chalkCtx = importFresh('.');
 		assert.equal(chalkCtx.gray.dim('foo'), '\u001b[90m\u001b[2mfoo\u001b[22m\u001b[39m');
 	});
 
 	it('should apply dimmed styling on strings of other colors', function () {
 		process.env.TERM = 'dumb';
-		var chalkCtx = requireUncached('./');
+		var chalkCtx = importFresh('.');
 		assert.equal(chalkCtx.blue.dim('foo'), '\u001b[94m\u001b[2mfoo\u001b[22m\u001b[39m');
 	});
 });
@@ -158,6 +158,28 @@ describe('chalk.level', function () {
 		chalk.level = 0;
 		assert.equal(chalk.red('foo'), 'foo');
 		chalk.level = oldLevel;
+	});
+
+	it('should enable/disable colors based on overall chalk enabled property, not individual instances', function () {
+		chalk.enabled = true;
+		var red = chalk.red;
+		assert.equal(red.enabled, true);
+		chalk.enabled = false;
+		assert.equal(red.enabled, chalk.enabled);
+		chalk.enabled = true;
+	});
+
+	it('should propagate enable/disable changes from child colors', function () {
+		chalk.enabled = true;
+		var red = chalk.red;
+		assert.equal(red.enabled, true);
+		assert.equal(chalk.enabled, true);
+		red.enabled = false;
+		assert.equal(red.enabled, false);
+		assert.equal(chalk.enabled, false);
+		chalk.enabled = true;
+		assert.equal(red.enabled, true);
+		assert.equal(chalk.enabled, true);
 	});
 });
 
