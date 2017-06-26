@@ -194,10 +194,51 @@ describe('chalk.level', () => {
 	});
 });
 
+describe('chalk.enabled', () => {
+	it('should not output colors when manually disabled', () => {
+		chalk.enabled = false;
+		assert.equal(chalk.red('foo'), 'foo');
+		chalk.enabled = true;
+	});
+
+	it('should enable/disable colors based on overall chalk enabled property, not individual instances', () => {
+		chalk.enabled = false;
+		const red = chalk.red;
+		assert.equal(red.enabled, false);
+		chalk.enabled = true;
+		assert.equal(red.enabled, true);
+		chalk.enabled = true;
+	});
+
+	it('should propagate enable/disable changes from child colors', () => {
+		chalk.enabled = false;
+		const red = chalk.red;
+		assert.equal(red.enabled, false);
+		assert.equal(chalk.enabled, false);
+		red.enabled = true;
+		assert.equal(red.enabled, true);
+		assert.equal(chalk.enabled, true);
+		chalk.enabled = false;
+		assert.equal(red.enabled, false);
+		assert.equal(chalk.enabled, false);
+		chalk.enabled = true;
+	});
+});
+
 describe('chalk.constructor', () => {
-	it('should create a isolated context where colors can be disabled', () => {
-		const ctx = new chalk.constructor({level: 0});
+	it('should create an isolated context where colors can be disabled (by level)', () => {
+		const ctx = new chalk.constructor({level: 0, enabled: true});
 		assert.equal(ctx.red('foo'), 'foo');
 		assert.equal(chalk.red('foo'), '\u001B[31mfoo\u001B[39m');
+		ctx.level = 2;
+		assert.equal(ctx.red('foo'), '\u001B[31mfoo\u001B[39m');
+	});
+
+	it('should create an isolated context where colors can be disabled (by enabled flag)', () => {
+		const ctx = new chalk.constructor({enabled: false});
+		assert.equal(ctx.red('foo'), 'foo');
+		assert.equal(chalk.red('foo'), '\u001B[31mfoo\u001B[39m');
+		ctx.enabled = true;
+		assert.equal(ctx.red('foo'), '\u001B[31mfoo\u001B[39m');
 	});
 });
