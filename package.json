@@ -13,7 +13,8 @@
 		"coveralls": "nyc report --reporter=text-lcov | coveralls"
 	},
 	"files": [
-		"index.js"
+		"index.js",
+		"templates.js"
 	],
 	"keywords": [
 		"color",

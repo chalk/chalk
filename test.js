@@ -19,6 +19,10 @@ console.log('host TERM=', process.env.TERM || '[none]');
 console.log('host platform=', process.platform || '[unknown]');
 
 describe('chalk', () => {
+	it('should not add any styling when called as the base function', () => {
+		assert.equal(chalk('foo'), 'foo');
+	});
+
 	it('should style string', () => {
 		assert.equal(chalk.underline('foo'), '\u001B[4mfoo\u001B[24m');
 		assert.equal(chalk.red('foo'), '\u001B[31mfoo\u001B[39m');
@@ -240,5 +244,96 @@ describe('chalk.constructor', () => {
 		assert.equal(chalk.red('foo'), '\u001B[31mfoo\u001B[39m');
 		ctx.enabled = true;
 		assert.equal(ctx.red('foo'), '\u001B[31mfoo\u001B[39m');
+	});
+});
+
+describe('tagged template literal', () => {
+	it('should return an empty string for an empty literal', () => {
+		const ctx = chalk.constructor();
+		assert.equal(ctx``, '');
+	});
+
+	it('should return a regular string for a literal with no templates', () => {
+		const ctx = chalk.constructor({level: 0});
+		assert.equal(ctx`hello`, 'hello');
+	});
+
+	it('should correctly perform template parsing', () => {
+		const ctx = chalk.constructor({level: 0});
+		assert.equal(ctx`{bold Hello, {cyan World!} This is a} test. {green Woo!}`,
+			ctx.bold('Hello,', ctx.cyan('World!'), 'This is a') + ' test. ' + ctx.green('Woo!'));
+	});
+
+	it('should correctly perform template substitutions', () => {
+		const ctx = chalk.constructor({level: 0});
+		const name = 'Sindre';
+		const exclamation = 'Neat';
+		assert.equal(ctx`{bold Hello, {cyan.inverse ${name}!} This is a} test. {green ${exclamation}!}`,
+			ctx.bold('Hello,', ctx.cyan.inverse(name + '!'), 'This is a') + ' test. ' + ctx.green(exclamation + '!'));
+	});
+
+	it('should correctly parse and evaluate color-convert functions', () => {
+		const ctx = chalk.constructor({level: 3});
+		assert.equal(ctx`{bold.rgb(144,10,178).inverse Hello, {~inverse there!}}`,
+			'\u001B[0m\u001B[1m\u001B[38;2;144;10;178m\u001B[7mHello, ' +
+			'\u001B[27m\u001B[39m\u001B[22m\u001B[0m\u001B[0m\u001B[1m' +
+			'\u001B[38;2;144;10;178mthere!\u001B[39m\u001B[22m\u001B[0m');
+
+		assert.equal(ctx`{bold.bgRgb(144,10,178).inverse Hello, {~inverse there!}}`,
+			'\u001B[0m\u001B[1m\u001B[48;2;144;10;178m\u001B[7mHello, ' +
+			'\u001B[27m\u001B[49m\u001B[22m\u001B[0m\u001B[0m\u001B[1m' +
+			'\u001B[48;2;144;10;178mthere!\u001B[49m\u001B[22m\u001B[0m');
+	});
+
+	it('should properly handle escapes', () => {
+		const ctx = chalk.constructor({level: 3});
+		assert.equal(ctx`{bold hello \{in brackets\}}`,
+			'\u001B[0m\u001B[1mhello {in brackets}\u001B[22m\u001B[0m');
+	});
+
+	it('should throw if there is an unclosed block', () => {
+		const ctx = chalk.constructor({level: 3});
+		try {
+			console.log(ctx`{bold this shouldn't appear ever\}`);
+			assert.fail();
+		} catch (err) {
+			assert.equal(err.message, 'literal template has an unclosed block');
+		}
+	});
+
+	it('should throw if there is an invalid style', () => {
+		const ctx = chalk.constructor({level: 3});
+		try {
+			console.log(ctx`{abadstylethatdoesntexist this shouldn't appear ever}`);
+			assert.fail();
+		} catch (err) {
+			assert.equal(err.message, 'invalid Chalk style: abadstylethatdoesntexist');
+		}
+	});
+
+	it('should properly style multiline color blocks', () => {
+		const ctx = chalk.constructor({level: 3});
+		assert.equal(
+			ctx`{bold
+				Hello! This is a
+				${'multiline'} block!
+				:)
+			} {underline
+				I hope you enjoy
+			}`,
+			'\u001B[0m\u001B[1m\u001B[22m\u001B[0m\n' +
+			'\u001B[0m\u001B[1m\t\t\t\tHello! This is a\u001B[22m\u001B[0m\n' +
+			'\u001B[0m\u001B[1m\t\t\t\tmultiline block!\u001B[22m\u001B[0m\n' +
+			'\u001B[0m\u001B[1m\t\t\t\t:)\u001B[22m\u001B[0m\n' +
+			'\u001B[0m\u001B[1m\t\t\t\u001B[22m\u001B[0m\u001B[0m \u001B[0m\u001B[0m\u001B[4m\u001B[24m\u001B[0m\n' +
+			'\u001B[0m\u001B[4m\t\t\t\tI hope you enjoy\u001B[24m\u001B[0m\n' +
+			'\u001B[0m\u001B[4m\t\t\t\u001B[24m\u001B[0m'
+		);
+	});
+
+	it('should escape interpolated values', () => {
+		const ctx = chalk.constructor({level: 0});
+		assert.equal(ctx`Hello {bold hi}`, 'Hello hi');
+		assert.equal(ctx`Hello ${'{bold hi}'}`, 'Hello {bold hi}');
 	});
 });
