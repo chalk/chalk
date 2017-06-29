@@ -29,9 +29,9 @@ function sleep(ms) {
 
 async function animateString(str) {
 	console.log();
-	for (let i = 0; i < 360*5; i++) {
+	for (let i = 0; i < 360 * 5; i++) {
 		console.log('\x1b[1F\x1b[G ', rainbow(str, i));
-		await sleep(2);
+		await sleep(50); // eslint-disable-line no-await-in-loop
 	}
 }
 
