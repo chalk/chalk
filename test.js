@@ -247,7 +247,7 @@ describe('chalk.constructor', () => {
 	});
 });
 
-describe('chalk tag literal', () => {
+describe('tagged template literal', () => {
 	it('should return an empty string for an empty literal', () => {
 		const ctx = chalk.constructor();
 		assert.equal(ctx``, '');
@@ -275,20 +275,20 @@ describe('chalk tag literal', () => {
 	it('should correctly parse and evaluate color-convert functions', () => {
 		const ctx = chalk.constructor({level: 3});
 		assert.equal(ctx`{bold.rgb(144,10,178).inverse Hello, {~inverse there!}}`,
-			'\u001b[0m\u001b[1m\u001b[38;2;144;10;178m\u001b[7mHello, ' +
-			'\u001b[27m\u001b[39m\u001b[22m\u001b[0m\u001b[0m\u001b[1m' +
-			'\u001b[38;2;144;10;178mthere!\u001b[39m\u001b[22m\u001b[0m');
+			'\u001B[0m\u001B[1m\u001B[38;2;144;10;178m\u001B[7mHello, ' +
+			'\u001B[27m\u001B[39m\u001B[22m\u001B[0m\u001B[0m\u001B[1m' +
+			'\u001B[38;2;144;10;178mthere!\u001B[39m\u001B[22m\u001B[0m');
 
 		assert.equal(ctx`{bold.bgRgb(144,10,178).inverse Hello, {~inverse there!}}`,
-			'\u001b[0m\u001b[1m\u001b[48;2;144;10;178m\u001b[7mHello, ' +
-			'\u001b[27m\u001b[49m\u001b[22m\u001b[0m\u001b[0m\u001b[1m' +
-			'\u001b[48;2;144;10;178mthere!\u001b[49m\u001b[22m\u001b[0m');
+			'\u001B[0m\u001B[1m\u001B[48;2;144;10;178m\u001B[7mHello, ' +
+			'\u001B[27m\u001B[49m\u001B[22m\u001B[0m\u001B[0m\u001B[1m' +
+			'\u001B[48;2;144;10;178mthere!\u001B[49m\u001B[22m\u001B[0m');
 	});
 
 	it('should properly handle escapes', () => {
 		const ctx = chalk.constructor({level: 3});
 		assert.equal(ctx`{bold hello \{in brackets\}}`,
-			'\u001b[0m\u001b[1mhello {in brackets}\u001b[22m\u001b[0m');
+			'\u001B[0m\u001B[1mhello {in brackets}\u001B[22m\u001B[0m');
 	});
 
 	it('should throw if there is an unclosed block', () => {
@@ -321,13 +321,13 @@ describe('chalk tag literal', () => {
 			} {underline
 				I hope you enjoy
 			}`,
-			'\u001b[0m\u001b[1m\u001b[22m\u001b[0m\n' +
-			'\u001b[0m\u001b[1m\t\t\t\tHello! This is a\u001b[22m\u001b[0m\n' +
-			'\u001b[0m\u001b[1m\t\t\t\tmultiline block!\u001b[22m\u001b[0m\n' +
-			'\u001b[0m\u001b[1m\t\t\t\t:)\u001b[22m\u001b[0m\n' +
-			'\u001b[0m\u001b[1m\t\t\t\u001b[22m\u001b[0m\u001b[0m \u001b[0m\u001b[0m\u001b[4m\u001b[24m\u001b[0m\n' +
-			'\u001b[0m\u001b[4m\t\t\t\tI hope you enjoy\u001b[24m\u001b[0m\n' +
-			'\u001b[0m\u001b[4m\t\t\t\u001b[24m\u001b[0m'
+			'\u001B[0m\u001B[1m\u001B[22m\u001B[0m\n' +
+			'\u001B[0m\u001B[1m\t\t\t\tHello! This is a\u001B[22m\u001B[0m\n' +
+			'\u001B[0m\u001B[1m\t\t\t\tmultiline block!\u001B[22m\u001B[0m\n' +
+			'\u001B[0m\u001B[1m\t\t\t\t:)\u001B[22m\u001B[0m\n' +
+			'\u001B[0m\u001B[1m\t\t\t\u001B[22m\u001B[0m\u001B[0m \u001B[0m\u001B[0m\u001B[4m\u001B[24m\u001B[0m\n' +
+			'\u001B[0m\u001B[4m\t\t\t\tI hope you enjoy\u001B[24m\u001B[0m\n' +
+			'\u001B[0m\u001B[4m\t\t\t\u001B[24m\u001B[0m'
 		);
 	});
 
