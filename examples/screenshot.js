@@ -1,8 +1,9 @@
 'use strict';
-const chalk = require('.');
+const chalk = require('..');
+const styles = require('ansi-styles');
 
 // Generates screenshot
-for (const key of Object.keys(chalk.styles)) {
+for (const key of Object.keys(styles)) {
 	let ret = key;
 
 	if (key === 'reset' || key === 'hidden' || key === 'grey') {
