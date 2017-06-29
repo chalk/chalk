@@ -4,6 +4,10 @@ const importFresh = require('import-fresh');
 const resolveFrom = require('resolve-from');
 const chalk = require('.');
 
+console.log('host TERM=', process.env.TERM || '[none]');
+console.log('host platform=', process.platform || '[unknown]');
+console.log('host support=', chalk.supportsColor);
+
 describe('chalk', () => {
 	it('should style string', () => {
 		assert.equal(chalk.underline('foo'), '\u001B[4mfoo\u001B[24m');
