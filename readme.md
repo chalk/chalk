@@ -115,11 +115,23 @@ Chain [styles](#styles) and call the last one as a method with a string argument
 
 Multiple arguments will be separated by space.
 
+### chalk.enabled
+
+Color support is automatically detected, as is the level (see `chalk.level`). However, if you'd like to simply enable/disable Chalk, you can do so via the `.enabled` property.
+
+Chalk is enabled by default unless expicitly disabled via the constructor or `chalk.level` is `0`.
+
+If you need to change this in a reusable module, create a new instance:
+
+```js
+const ctx = new chalk.constructor({enabled: false});
+```
+
 ### chalk.level
 
 Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all Chalk consumers.
 
-If you need to change this in a reusable module create a new instance:
+If you need to change this in a reusable module, create a new instance:
 
 ```js
 const ctx = new chalk.constructor({level: 0});

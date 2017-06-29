@@ -13,7 +13,8 @@ const skipModels = new Set(['gray']);
 
 function Chalk(options) {
 	// Detect level if not set manually
-	this.level = !options || options.level === undefined ? supportsColor.level : options.level;
+	this.level = Number(!options || options.level === undefined ? supportsColor.level : options.level);
+	this.enabled = options && 'enabled' in options ? options.enabled : this.level > 0;
 }
 
 // Use bright blue on Windows as the normal blue color is illegible
@@ -89,6 +90,7 @@ function build(_styles, key) {
 	builder._styles = _styles;
 
 	const self = this;
+
 	Object.defineProperty(builder, 'level', {
 		enumerable: true,
 		get() {
@@ -96,6 +98,16 @@ function build(_styles, key) {
 		},
 		set(level) {
 			self.level = level;
+		}
+	});
+
+	Object.defineProperty(builder, 'enabled', {
+		enumerable: true,
+		get() {
+			return self.enabled;
+		},
+		set(enabled) {
+			self.enabled = enabled;
 		}
 	});
 
@@ -122,7 +134,7 @@ function applyStyle() {
 		}
 	}
 
-	if (!this.level || !str) {
+	if (!this.enabled || this.level <= 0 || !str) {
 		return str;
 	}
 
