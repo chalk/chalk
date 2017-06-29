@@ -2,11 +2,21 @@
 const assert = require('assert');
 const importFresh = require('import-fresh');
 const resolveFrom = require('resolve-from');
+
+// Spoof supports-color
+require.cache[resolveFrom(__dirname, 'supports-color')] = {
+	exports: {
+		level: 3,
+		hasBasic: true,
+		has256: true,
+		has16m: true
+	}
+};
+
 const chalk = require('.');
 
 console.log('host TERM=', process.env.TERM || '[none]');
 console.log('host platform=', process.platform || '[unknown]');
-console.log('host support=', chalk.supportsColor);
 
 describe('chalk', () => {
 	it('should style string', () => {
