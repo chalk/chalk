@@ -3,6 +3,8 @@ const escapeStringRegexp = require('escape-string-regexp');
 const ansiStyles = require('ansi-styles');
 const supportsColor = require('supports-color');
 
+const template = require('./templates.js');
+
 const isSimpleWindowsTerm = process.platform === 'win32' && !process.env.TERM.toLowerCase().startsWith('xterm');
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
@@ -11,18 +13,43 @@ const levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
 // `color-convert` models to exclude from the Chalk API due to conflicts and such
 const skipModels = new Set(['gray']);
 
-function Chalk(options) {
+const styles = Object.create(null);
+
+function applyOptions(obj, options) {
+	options = options || {};
+
 	// Detect level if not set manually
-	this.level = Number(!options || options.level === undefined ? supportsColor.level : options.level);
-	this.enabled = options && 'enabled' in options ? options.enabled : this.level > 0;
+	obj.level = options.level === undefined ? supportsColor.level : options.level;
+	obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0;
+}
+
+function Chalk(options) {
+	// We check for this.template here since calling chalk.constructor()
+	// by itself will have a `this` of a previously constructed chalk object.
+	if (!this || !(this instanceof Chalk) || this.template) {
+		const chalk = {};
+		applyOptions(chalk, options);
+
+		chalk.template = function () {
+			const args = [].slice.call(arguments);
+			return chalkTag.apply(null, [chalk.template].concat(args));
+		};
+
+		Object.setPrototypeOf(chalk, Chalk.prototype);
+		Object.setPrototypeOf(chalk.template, chalk);
+
+		chalk.template.constructor = Chalk;
+
+		return chalk.template;
+	}
+
+	applyOptions(this, options);
 }
 
 // Use bright blue on Windows as the normal blue color is illegible
 if (isSimpleWindowsTerm) {
 	ansiStyles.blue.open = '\u001B[94m';
 }
-
-const styles = Object.create(null);
 
 for (const key of Object.keys(ansiStyles)) {
 	ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
@@ -164,7 +191,24 @@ function applyStyle() {
 	return str;
 }
 
+function chalkTag(chalk, strings) {
+	const args = [].slice.call(arguments, 2);
+
+	if (!Array.isArray(strings)) {
+		return strings.toString();
+	}
+
+	const parts = [strings.raw[0]];
+
+	for (let i = 1; i < strings.length; i++) {
+		parts.push(args[i - 1].toString().replace(/[{}]/g, '\\$&'));
+		parts.push(strings.raw[i]);
+	}
+
+	return template(chalk, parts.join(''));
+}
+
 Object.defineProperties(Chalk.prototype, styles);
 
-module.exports = new Chalk();
+module.exports = Chalk(); // eslint-disable-line new-cap
 module.exports.supportsColor = supportsColor;

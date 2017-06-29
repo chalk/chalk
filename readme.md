@@ -78,6 +78,13 @@ RAM: ${chalk.green('40%')}
 DISK: ${chalk.yellow('70%')}
 `);
 
+// ES2015/ES2016 tagged template literal
+log(chalk`
+CPU: {red ${cpu.totalPercent}%}
+RAM: {green ${ram.used / ram.total * 100}%}
+DISK: {rgb(255,131,0) ${disk.used / disk.total * 100}%}
+`);
+
 // Use RGB colors in terminal emulators that support it.
 log(chalk.keyword('orange')('Yay for orange colored text!'));
 log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
@@ -205,6 +212,37 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `bgCyanBright`
 - `bgWhiteBright`
 
+## Template Literal Tagging
+
+`chalk` by itself can be used as a [tagged template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals).
+
+This means you can use template strings in ES2015/ES2016 literals (<code>chalk&grave;hello&grave;</code>) to template large or multi-line strings.
+
+```javascript
+const chalk = require('chalk');
+
+const miles = 18;
+const calculateFeet = miles => miles * 5280;
+
+console.log(chalk`
+  There are {bold 5280 feet} in a mile.
+  In {bold ${miles} miles}, there are {green.bold ${calculateFeet(miles)} feet}.
+`);
+```
+
+Blocks are delimited by an opening curly brace (`{`), a style, some content, and a closing curly brace (`}`).
+
+Template styles are chained exactly like normal Chalk styles. The following two statements are equivalent.
+
+```javascript
+console.log(chalk.bold.rgb(10, 100, 200)('Hello!'));
+console.log(chalk`{bold.rgb(10,100,200) Hello!}`);
+```
+
+Note that function styles (`rgb()`, `hsl()`, `keyword()`, etc.) may not contain spaces between parameters.
+
+All interpolated values (<code>chalk&grave;${foo}&grave;</code>) are converted to strings via the `.toString()` method.
+All curly braces (`{` and `}`) in interpolated value strings are escaped.
 
 ## 256 and Truecolor color support
 
