@@ -4,8 +4,3 @@ node_js:
   - '6'
   - '4'
 after_success: npm run coveralls
-
-# TODO temporary fix - please see links below
-# https://blog.travis-ci.com/2017-06-21-trusty-updates-2017-Q2-launch
-# https://github.com/travis-ci/travis-ci/issues/7991
-group: deprecated-2017Q2
