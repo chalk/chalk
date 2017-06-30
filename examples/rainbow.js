@@ -1,3 +1,4 @@
+'use strict';
 const chalk = require('..');
 
 const ignoreChars = /[^!-~]/;
@@ -23,15 +24,13 @@ function rainbow(str, offset) {
 	return chars.join('');
 }
 
-function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
-}
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function animateString(str) {
 	console.log();
 	for (let i = 0; i < 360 * 5; i++) {
-		console.log('\x1b[1F\x1b[G ', rainbow(str, i));
-		await sleep(50); // eslint-disable-line no-await-in-loop
+		console.log('\u001B[1F\u001B[G ', rainbow(str, i));
+		await sleep(2); // eslint-disable-line no-await-in-loop
 	}
 }
 

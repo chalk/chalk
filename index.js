@@ -24,8 +24,8 @@ function applyOptions(obj, options) {
 }
 
 function Chalk(options) {
-	// We check for this.template here since calling chalk.constructor()
-	// by itself will have a `this` of a previously constructed chalk object.
+	// We check for this.template here since calling `chalk.constructor()`
+	// by itself will have a `this` of a previously constructed chalk object
 	if (!this || !(this instanceof Chalk) || this.template) {
 		const chalk = {};
 		applyOptions(chalk, options);
@@ -142,7 +142,7 @@ function build(_styles, key) {
 	builder.hasGrey = this.hasGrey || key === 'gray' || key === 'grey';
 
 	// `__proto__` is used because we must return a function, but there is
-	// no way to create a function with a different prototype.
+	// no way to create a function with a different prototype
 	builder.__proto__ = proto; // eslint-disable-line no-proto
 
 	return builder;

@@ -27,9 +27,7 @@ const takeWhileReverse = (array, predicate, start) => {
 	return out;
 };
 
-/**
- * Checks if the character at position i in string is a normal character a.k.a a non control character.
- * */
+// Check if the character at position `i` in string is a normal character (non-control character)
 const isNormalCharacter = (string, i) => {
 	const char = string[i];
 	const backslash = '\\';
@@ -45,10 +43,8 @@ const isNormalCharacter = (string, i) => {
 
 const collectStyles = data => data ? collectStyles(data.parent).concat(data.styles) : ['reset'];
 
-/**
- * Computes the style for a given data based on it's style and the style of it's parent. Also accounts for !style styles
- * which remove a style from the list if present.
- * */
+// Compute the style for a given data based on its style and the style of its parent.
+// Also accounts for `!style` styles which remove a style from the list if present.
 const sumStyles = data => {
 	const negateRegex = /^~.+/;
 	let out = [];
@@ -65,13 +61,10 @@ const sumStyles = data => {
 	return out;
 };
 
-/**
- * Takes a string and parses it into a tree of data objects which inherit styles from their parent.
- * */
+// Take a string and parse it into a tree of data objects which inherit styles from their parent
 function parse(string) {
 	const root = data(null);
 	let pushingStyle = false;
-
 	let current = root;
 
 	for (let i = 0; i < string.length; i++) {
@@ -88,7 +81,7 @@ function parse(string) {
 		};
 
 		if (pushingStyle) {
-			if (' \t'.indexOf(char) > -1) {
+			if (' \t'.includes(char)) {
 				pushingStyle = false;
 			} else if (char === '\n') {
 				pushingStyle = false;
@@ -111,16 +104,14 @@ function parse(string) {
 	}
 
 	if (current !== root) {
-		throw new Error('literal template has an unclosed block');
+		throw new Error('Template literal has an unclosed block');
 	}
 
 	return root;
 }
 
-/**
- * Takes a tree of data objects and flattens it to a list of data objects with the inherited and negations styles
- * accounted for.
- * */
+// Take a tree of data objects and flatten it to a list of data
+// objects with the inherited and negations styles accounted for
 function flatten(data) {
 	let flat = [];
 
@@ -140,13 +131,11 @@ function flatten(data) {
 
 function assertStyle(chalk, style) {
 	if (!chalk[style]) {
-		throw new Error(`invalid Chalk style: ${style}`);
+		throw new Error(`Invalid Chalk style: ${style}`);
 	}
 }
 
-/**
- * Checks if a given style is valid and parses style functions.
- * */
+// Check if a given style is valid and parse style functions
 function parseStyle(chalk, style) {
 	const fnMatch = style.match(/^\s*(\w+)\s*\(\s*([^)]*)\s*\)\s*/);
 	if (!fnMatch) {
@@ -162,9 +151,7 @@ function parseStyle(chalk, style) {
 	return chalk[name].apply(chalk, args);
 }
 
-/**
- * Performs the actual styling of the string, essentially lifted from cli.js.
- * */
+// Perform the actual styling of the string
 function style(chalk, flat) {
 	return flat.map(data => {
 		const fn = data.styles.reduce(parseStyle, chalk);

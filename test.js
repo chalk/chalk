@@ -303,7 +303,7 @@ describe('tagged template literal', () => {
 			console.log(ctx`{bold this shouldn't appear ever\}`);
 			assert.fail();
 		} catch (err) {
-			assert.equal(err.message, 'literal template has an unclosed block');
+			assert.equal(err.message, 'Template literal has an unclosed block');
 		}
 	});
 
@@ -313,7 +313,7 @@ describe('tagged template literal', () => {
 			console.log(ctx`{abadstylethatdoesntexist this shouldn't appear ever}`);
 			assert.fail();
 		} catch (err) {
-			assert.equal(err.message, 'invalid Chalk style: abadstylethatdoesntexist');
+			assert.equal(err.message, 'Invalid Chalk style: abadstylethatdoesntexist');
 		}
 	});
 
