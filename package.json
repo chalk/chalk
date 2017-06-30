@@ -1,7 +1,7 @@
 {
 	"name": "chalk",
 	"version": "2.0.1",
-	"description": "Terminal string styling done right. Much color",
+	"description": "Terminal string styling done right",
 	"license": "MIT",
 	"repository": "chalk/chalk",
 	"engines": {

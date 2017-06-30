@@ -15,8 +15,8 @@ require.cache[resolveFrom(__dirname, 'supports-color')] = {
 
 const chalk = require('.');
 
-console.log('host TERM=', process.env.TERM || '[none]');
-console.log('host platform=', process.platform || '[unknown]');
+console.log('TERM:', process.env.TERM || '[none]');
+console.log('platform:', process.platform || '[unknown]');
 
 describe('chalk', () => {
 	it('should not add any styling when called as the base function', () => {
@@ -111,7 +111,7 @@ describe('chalk', () => {
 	});
 });
 
-describe('chalk on windows', () => {
+describe('chalk on Windows', () => {
 	let originalEnv;
 	let originalPlatform;
 
@@ -235,7 +235,7 @@ describe('chalk.enabled', () => {
 	});
 });
 
-describe('chalk.constructor', () => {
+describe('chalk.constructor()', () => {
 	it('should create an isolated context where colors can be disabled (by level)', () => {
 		const ctx = new chalk.constructor({level: 0, enabled: true});
 		assert.equal(ctx.red('foo'), 'foo');
