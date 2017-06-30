@@ -5,7 +5,7 @@ const supportsColor = require('supports-color');
 
 const template = require('./templates.js');
 
-const isSimpleWindowsTerm = process.platform === 'win32' && !process.env.TERM.toLowerCase().startsWith('xterm');
+const isSimpleWindowsTerm = process.platform === 'win32' && !(process.env.TERM || '').toLowerCase().startsWith('xterm');
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];

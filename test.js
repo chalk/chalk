@@ -133,6 +133,12 @@ describe('chalk on windows', () => {
 		delete require.cache[resolveFrom(__dirname, 'ansi-styles')];
 	});
 
+	it('should detect a simple term if TERM isn\'t set', () => {
+		delete process.env.TERM;
+		const chalkCtx = importFresh('.');
+		assert.equal(chalkCtx.blue('foo'), '\u001B[94mfoo\u001B[39m');
+	});
+
 	it('should replace blue foreground color in cmd.exe', () => {
 		process.env.TERM = 'dumb';
 		const chalkCtx = importFresh('.');
