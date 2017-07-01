@@ -54,6 +54,7 @@
 		"resolve-from": "^3.0.0",
 		"xo": "*"
 	},
+	"types": "./index.d.ts",
 	"xo": {
 		"envs": [
 			"node",
