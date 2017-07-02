@@ -8,7 +8,7 @@
 		"node": ">=4"
 	},
 	"scripts": {
-		"test": "xo && nyc mocha",
+		"test": "xo && tsc -p types && nyc mocha",
 		"bench": "matcha benchmark.js",
 		"coveralls": "nyc report --reporter=text-lcov | coveralls"
 	},
@@ -51,9 +51,10 @@
 		"mocha": "*",
 		"nyc": "^11.0.2",
 		"resolve-from": "^3.0.0",
+		"typescript": "^2.4.1",
 		"xo": "*"
 	},
-	"types": "./index.d.ts",
+	"types": "./types/index.d.ts",
 	"xo": {
 		"envs": [
 			"node",
