@@ -1,4 +1,4 @@
-import * as chalk from '..';
+import chalk from '..';
 
 chalk.underline('foo');
 chalk.red('foo');
@@ -21,6 +21,10 @@ const ctx = chalk.constructor({level: chalk.Level.TrueColor });
 ctx('foo');
 ctx.red('foo');
 ctx`foo`;
+
+chalk.enabled = true;
+chalk.level = 1;
+chalk.level = chalk.Level.Extended;
 
 chalk.level === chalk.Level.Extended;
 

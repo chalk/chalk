@@ -1,7 +1,7 @@
 // Type definitions for Chalk
 // Definitions by: Thomas Sauer <https://github.com/t-sauer>
 
-export = chalk;
+export default chalk;
 
 declare function chalk(...text: string[]): string;
 declare function chalk(text: TemplateStringsArray, ...placeholders: string[]): string;
