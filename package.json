@@ -14,7 +14,8 @@
 	},
 	"files": [
 		"index.js",
-		"templates.js"
+		"templates.js",
+		"types/index.d.ts"
 	],
 	"keywords": [
 		"color",
@@ -55,7 +56,7 @@
 		"typescript": "^2.4.1",
 		"xo": "*"
 	},
-	"types": "./types/index.d.ts",
+	"types": "types/index.d.ts",
 	"xo": {
 		"envs": [
 			"node",
