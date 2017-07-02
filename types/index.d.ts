@@ -1,4 +1,4 @@
-// Type definitions for Chalk 2
+// Type definitions for Chalk
 // Definitions by: Thomas Sauer <https://github.com/t-sauer>
 
 export = chalk;
@@ -7,7 +7,6 @@ declare function chalk(...text: (string | number)[]): string;
 declare function chalk(text: TemplateStringsArray, ...placeholders: (string | number)[]): string;
 
 declare namespace chalk {
-
 	interface ChalkConstructorOptions {
 		enabled?: boolean;
 		level?: number;
