@@ -8,22 +8,22 @@ declare function chalk(text: TemplateStringsArray, ...placeholders: string[]): s
 
 declare namespace chalk {
 
-	export enum ChalkLevel {
-		Disabled = 0,
+	export enum Level {
+		None = 0,
 		Basic = 1,
 		Extended = 2,
 		TrueColor = 3
 	}
 
-	interface ChalkConstructorOptions {
+	interface ConstructorOptions {
 		enabled?: boolean;
-		level?: ChalkLevel;
+		level?: Level;
 	}
 
-	export function constructor(options?: ChalkConstructorOptions): typeof chalk;
+	export function constructor(options?: ConstructorOptions): typeof chalk;
 
 	export let enabled: boolean;
-	export let level: ChalkLevel;
+	export let level: Level;
 	export const supportsColor: boolean;
 
 	export const hex: (color: string) => typeof chalk;

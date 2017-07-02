@@ -5,7 +5,6 @@ chalk.red('foo');
 chalk.bgRed('foo');
 
 const name = 'Josh';
-const number = 0;
 chalk`Hello {bold.red ${name}}`;
 
 chalk.red`foo`;
@@ -18,12 +17,12 @@ chalk.underline.red.bgGreen('foo');
 chalk.grey('foo');
 
 chalk.constructor({level: 1});
-const ctx = chalk.constructor({level: chalk.ChalkLevel.TrueColor });
+const ctx = chalk.constructor({level: chalk.Level.TrueColor });
 ctx('foo');
 ctx.red('foo');
 ctx`foo`;
 
-chalk.level === chalk.ChalkLevel.Extended;
+chalk.level === chalk.Level.Extended;
 
 chalk.enabled;
 chalk.supportsColor;
