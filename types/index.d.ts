@@ -3,19 +3,27 @@
 
 export = chalk;
 
-declare function chalk(...text: (string | number)[]): string;
-declare function chalk(text: TemplateStringsArray, ...placeholders: (string | number)[]): string;
+declare function chalk(...text: string[]): string;
+declare function chalk(text: TemplateStringsArray, ...placeholders: string[]): string;
 
 declare namespace chalk {
+
+	export enum ChalkLevel {
+		Disabled = 0,
+		Basic = 1,
+		Extended = 2,
+		TrueColor = 3
+	}
+
 	interface ChalkConstructorOptions {
 		enabled?: boolean;
-		level?: number;
+		level?: ChalkLevel;
 	}
 
 	export function constructor(options?: ChalkConstructorOptions): typeof chalk;
 
 	export let enabled: boolean;
-	export let level: number;
+	export let level: ChalkLevel;
 	export const supportsColor: boolean;
 
 	export const hex: (color: string) => typeof chalk;
@@ -50,7 +58,7 @@ declare namespace chalk {
 	export const cyan: typeof chalk;
 	export const white: typeof chalk;
 	export const gray: typeof chalk;
-	export const grey: typeof chalk;
+	export const grey: typeof gray;
 	export const blackBright: typeof chalk;
 	export const redBright: typeof chalk;
 	export const greenBright: typeof chalk;
