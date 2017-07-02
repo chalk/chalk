@@ -1,8 +1,11 @@
-import * as chalk from '../.';
+import * as chalk from '..';
 
 chalk.underline('foo');
 chalk.red('foo');
 chalk.bgRed('foo');
+
+const name = 'Josh';
+chalk`Hello {bold.red ${name}}`;
 
 chalk.red`foo`;
 chalk.underline`foo`;
