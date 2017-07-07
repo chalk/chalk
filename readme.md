@@ -181,8 +181,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `magenta`
 - `cyan`
 - `white`
-- `gray`
-- `blackBright`
+- `gray` ("bright black")
 - `redBright`
 - `greenBright`
 - `yellowBright`
