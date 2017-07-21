@@ -2,6 +2,7 @@
 const assert = require('assert');
 const importFresh = require('import-fresh');
 const resolveFrom = require('resolve-from');
+const execa = require('execa');
 
 // Spoof supports-color
 require.cache[resolveFrom(__dirname, 'supports-color')] = {
@@ -201,6 +202,13 @@ describe('chalk.level', () => {
 		assert.equal(red.level, 1);
 		assert.equal(chalk.level, 1);
 		chalk.level = oldLevel;
+	});
+
+	it('should disable colors if they are not supported', () => {
+		return execa('node', ['fixture'])
+			.then(result => {
+				assert.equal(result.stdout, 'test');
+			});
 	});
 });
 
