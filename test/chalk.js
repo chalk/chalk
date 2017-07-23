@@ -13,6 +13,9 @@ require.cache[resolveFrom(__dirname, 'supports-color')] = {
 
 const m = require('..');
 
+console.log('TERM:', process.env.TERM || '[none]');
+console.log('platform:', process.platform || '[unknown]');
+
 test('don\'t add any styling when called as the base function', t => {
 	t.is(m('foo'), 'foo');
 });
