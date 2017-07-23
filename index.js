@@ -152,7 +152,7 @@ function applyStyle() {
 	// Support varags, but simply cast to string in case there's only one arg
 	const args = arguments;
 	const argsLen = args.length;
-	let str = argsLen !== 0 && String(arguments[0]);
+	let str = String(arguments[0]);
 
 	if (argsLen === 0) {
 		return '';
