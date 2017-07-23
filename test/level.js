@@ -1,17 +1,9 @@
 import path from 'path';
 import test from 'ava';
 import execa from 'execa';
-import resolveFrom from 'resolve-from';
 
 // Spoof supports-color
-require.cache[resolveFrom(__dirname, 'supports-color')] = {
-	exports: {
-		level: 3,
-		hasBasic: true,
-		has256: true,
-		has16m: true
-	}
-};
+require('./_supports-color')(__dirname);
 
 const m = require('..');
 
