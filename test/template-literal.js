@@ -79,12 +79,12 @@ test('properly style multiline color blocks', t => {
 			I hope you enjoy
 		}`,
 		'\u001B[0m\u001B[1m\u001B[22m\u001B[0m\n' +
-		'\u001B[0m\u001B[1m\t\t\t\tHello! This is a\u001B[22m\u001B[0m\n' +
-		'\u001B[0m\u001B[1m\t\t\t\tmultiline block!\u001B[22m\u001B[0m\n' +
-		'\u001B[0m\u001B[1m\t\t\t\t:)\u001B[22m\u001B[0m\n' +
-		'\u001B[0m\u001B[1m\t\t\t\u001B[22m\u001B[0m\u001B[0m \u001B[0m\u001B[0m\u001B[4m\u001B[24m\u001B[0m\n' +
-		'\u001B[0m\u001B[4m\t\t\t\tI hope you enjoy\u001B[24m\u001B[0m\n' +
-		'\u001B[0m\u001B[4m\t\t\t\u001B[24m\u001B[0m'
+		'\u001B[0m\u001B[1m\t\t\tHello! This is a\u001B[22m\u001B[0m\n' +
+		'\u001B[0m\u001B[1m\t\t\tmultiline block!\u001B[22m\u001B[0m\n' +
+		'\u001B[0m\u001B[1m\t\t\t:)\u001B[22m\u001B[0m\n' +
+		'\u001B[0m\u001B[1m\t\t\u001B[22m\u001B[0m\u001B[0m \u001B[0m\u001B[0m\u001B[4m\u001B[24m\u001B[0m\n' +
+		'\u001B[0m\u001B[4m\t\t\tI hope you enjoy\u001B[24m\u001B[0m\n' +
+		'\u001B[0m\u001B[4m\t\t\u001B[24m\u001B[0m'
 	);
 });
 
