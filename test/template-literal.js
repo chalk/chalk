@@ -93,3 +93,26 @@ test('escape interpolated values', t => {
 	t.is(ctx`Hello {bold hi}`, 'Hello hi');
 	t.is(ctx`Hello ${'{bold hi}'}`, 'Hello {bold hi}');
 });
+
+test('allow custom colors (themes) on custom contexts', t => {
+	const ctx = m.constructor({level: 3});
+	ctx.rose = ctx.hex('#F6D9D9');
+	t.is(ctx`Hello, {rose Rose}.`, '\u001b[0mHello, \u001b[38;2;246;217;217mRose\u001b[38m.\u001b[0m');
+});
+
+test('correctly parse newline literals (bug #184)', t => {
+	const ctx = m.constructor({level: 0});
+	t.is(ctx`Hello
+{red there}`, 'Hello\nthere');
+});
+
+test('correctly parse newline escapes (bug #177)', t => {
+	const ctx = m.constructor({level: 0});
+	t.is(ctx`Hello\nthere!`, `Hello\nthere!`);
+});
+
+test('correctly parse escape in parameters (bug #177 comment 318622809)', t => {
+	const ctx = m.constructor({level: 0});
+	const str = '\\';
+	t.is(ctx`{blue ${str}}`, '\\');
+});
