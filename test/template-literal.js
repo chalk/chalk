@@ -32,20 +32,20 @@ test('correctly perform template substitutions', t => {
 test('correctly parse and evaluate color-convert functions', t => {
 	const ctx = m.constructor({level: 3});
 	t.is(ctx`{bold.rgb(144,10,178).inverse Hello, {~inverse there!}}`,
-		'\u001B[0m\u001B[1m\u001B[38;2;144;10;178m\u001B[7mHello, ' +
-		'\u001B[27m\u001B[39m\u001B[22m\u001B[0m\u001B[0m\u001B[1m' +
-		'\u001B[38;2;144;10;178mthere!\u001B[39m\u001B[22m\u001B[0m');
+		'\u001B[1m\u001B[38;2;144;10;178m\u001B[7mHello, ' +
+		'\u001B[27m\u001B[39m\u001B[22m\u001B[1m' +
+		'\u001B[38;2;144;10;178mthere!\u001B[39m\u001B[22m');
 
 	t.is(ctx`{bold.bgRgb(144,10,178).inverse Hello, {~inverse there!}}`,
-		'\u001B[0m\u001B[1m\u001B[48;2;144;10;178m\u001B[7mHello, ' +
-		'\u001B[27m\u001B[49m\u001B[22m\u001B[0m\u001B[0m\u001B[1m' +
-		'\u001B[48;2;144;10;178mthere!\u001B[49m\u001B[22m\u001B[0m');
+		'\u001B[1m\u001B[48;2;144;10;178m\u001B[7mHello, ' +
+		'\u001B[27m\u001B[49m\u001B[22m\u001B[1m' +
+		'\u001B[48;2;144;10;178mthere!\u001B[49m\u001B[22m');
 });
 
 test('properly handle escapes', t => {
 	const ctx = m.constructor({level: 3});
 	t.is(ctx`{bold hello \{in brackets\}}`,
-		'\u001B[0m\u001B[1mhello {in brackets}\u001B[22m\u001B[0m');
+		'\u001B[1mhello {in brackets}\u001B[22m');
 });
 
 test('throw if there is an unclosed block', t => {
@@ -54,7 +54,14 @@ test('throw if there is an unclosed block', t => {
 		console.log(ctx`{bold this shouldn't appear ever\}`);
 		t.fail();
 	} catch (err) {
-		t.is(err.message, 'Template literal has an unclosed block');
+		t.is(err.message, 'Chalk template literal is missing 1 closing bracket (`}`)');
+	}
+
+	try {
+		console.log(ctx`{bold this shouldn't {inverse appear {underline ever\} :) \}`);
+		t.fail();
+	} catch (err) {
+		t.is(err.message, 'Chalk template literal is missing 3 closing brackets (`}`)');
 	}
 });
 
@@ -64,7 +71,7 @@ test('throw if there is an invalid style', t => {
 		console.log(ctx`{abadstylethatdoesntexist this shouldn't appear ever}`);
 		t.fail();
 	} catch (err) {
-		t.is(err.message, 'Invalid Chalk style: abadstylethatdoesntexist');
+		t.is(err.message, 'Unknown Chalk style: abadstylethatdoesntexist');
 	}
 });
 
@@ -78,13 +85,13 @@ test('properly style multiline color blocks', t => {
 		} {underline
 			I hope you enjoy
 		}`,
-		'\u001B[0m\u001B[1m\u001B[22m\u001B[0m\n' +
-		'\u001B[0m\u001B[1m\t\t\tHello! This is a\u001B[22m\u001B[0m\n' +
-		'\u001B[0m\u001B[1m\t\t\tmultiline block!\u001B[22m\u001B[0m\n' +
-		'\u001B[0m\u001B[1m\t\t\t:)\u001B[22m\u001B[0m\n' +
-		'\u001B[0m\u001B[1m\t\t\u001B[22m\u001B[0m\u001B[0m \u001B[0m\u001B[0m\u001B[4m\u001B[24m\u001B[0m\n' +
-		'\u001B[0m\u001B[4m\t\t\tI hope you enjoy\u001B[24m\u001B[0m\n' +
-		'\u001B[0m\u001B[4m\t\t\u001B[24m\u001B[0m'
+		'\u001B[1m\u001B[22m\n' +
+		'\u001B[1m\t\t\tHello! This is a\u001B[22m\n' +
+		'\u001B[1m\t\t\tmultiline block!\u001B[22m\n' +
+		'\u001B[1m\t\t\t:)\u001B[22m\n' +
+		'\u001B[1m\t\t\u001B[22m \u001B[4m\u001B[24m\n' +
+		'\u001B[4m\t\t\tI hope you enjoy\u001B[24m\n' +
+		'\u001B[4m\t\t\u001B[24m'
 	);
 });
 
@@ -97,7 +104,7 @@ test('escape interpolated values', t => {
 test('allow custom colors (themes) on custom contexts', t => {
 	const ctx = m.constructor({level: 3});
 	ctx.rose = ctx.hex('#F6D9D9');
-	t.is(ctx`Hello, {rose Rose}.`, '\u001b[0mHello, \u001b[38;2;246;217;217mRose\u001b[38m.\u001b[0m');
+	t.is(ctx`Hello, {rose Rose}.`, 'Hello, \u001B[38;2;246;217;217mRose\u001B[39m.');
 });
 
 test('correctly parse newline literals (bug #184)', t => {
@@ -115,4 +122,42 @@ test('correctly parse escape in parameters (bug #177 comment 318622809)', t => {
 	const ctx = m.constructor({level: 0});
 	const str = '\\';
 	t.is(ctx`{blue ${str}}`, '\\');
+});
+
+test('correctly parses unicode/hex escapes', t => {
+	const ctx = m.constructor({level: 0});
+	t.is(ctx`\u0078ylophones are fo\x78y! {magenta.inverse \u0078ylophones are fo\x78y!}`,
+		'xylophones are foxy! xylophones are foxy!');
+});
+
+test('correctly parses string arguments', t => {
+	const ctx = m.constructor({level: 3});
+	t.is(ctx`{keyword('black').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
+	t.is(ctx`{keyword('blac\x6B').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
+	t.is(ctx`{keyword('blac\u006B').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
+});
+
+test('throws if a bad argument is encountered', t => {
+	const ctx = m.constructor({level: 3}); // Keep level at least 1 in case we optimize for disabled chalk instances
+	try {
+		console.log(ctx`{keyword(????) hi}`);
+		t.fail();
+	} catch (err) {
+		t.is(err.message, 'Invalid Chalk template style argument: ???? (in style \'keyword\')');
+	}
+});
+
+test('throws if an extra unescaped } is found', t => {
+	const ctx = m.constructor({level: 0});
+	try {
+		console.log(ctx`{red hi!}}`);
+		t.fail();
+	} catch (err) {
+		t.is(err.message, 'Found extraneous } in Chalk template literal');
+	}
+});
+
+test('should not parse upper-case escapes', t => {
+	const ctx = m.constructor({level: 0});
+	t.is(ctx`\N\n\T\t\X07\x07\U000A\u000A\U000a\u000a`, 'N\nT\tX07\x07U000A\u000AU000a\u000A');
 });
