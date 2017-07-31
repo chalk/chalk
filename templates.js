@@ -1,162 +1,128 @@
 'use strict';
+const TEMPLATE_REGEX = /(?:\\(u[a-f0-9]{4}|x[a-f0-9]{2}|.))|(?:\{(~)?(\w+(?:\([^)]*\))?(?:\.\w+(?:\([^)]*\))?)*)(?:[ \t]|(?=\r?\n)))|(\})|((?:.|[\r\n\f])+?)/gi;
+const STYLE_REGEX = /(?:^|\.)(\w+)(?:\(([^)]*)\))?/g;
+const STRING_REGEX = /^(['"])((?:\\.|(?!\1)[^\\])*)\1$/;
+const ESCAPE_REGEX = /\\(u[0-9a-f]{4}|x[0-9a-f]{2}|.)|([^\\])/gi;
 
-function data(parent) {
-	return {
-		styles: [],
-		parent,
-		contents: []
-	};
+const ESCAPES = {
+	n: '\n',
+	r: '\r',
+	t: '\t',
+	b: '\b',
+	f: '\f',
+	v: '\v',
+	0: '\0',
+	'\\': '\\',
+	e: '\u001b',
+	a: '\u0007'
+};
+
+function unescape(c) {
+	if ((c[0] === 'u' && c.length === 5) || (c[0] === 'x' && c.length === 3)) {
+		return String.fromCharCode(parseInt(c.slice(1), 16));
+	}
+
+	return ESCAPES[c] || c;
 }
 
-const zeroBound = n => n < 0 ? 0 : n;
-const lastIndex = a => zeroBound(a.length - 1);
+function parseArguments(name, args) {
+	const results = [];
+	const chunks = args.trim().split(/\s*,\s*/g);
+	let matches;
 
-const last = a => a[lastIndex(a)];
-
-const takeWhileReverse = (array, predicate, start) => {
-	const out = [];
-
-	for (let i = start; i >= 0 && i <= start; i--) {
-		if (predicate(array[i])) {
-			out.unshift(array[i]);
+	for (const chunk of chunks) {
+		if (!isNaN(chunk)) {
+			results.push(Number(chunk));
+		} else if ((matches = chunk.match(STRING_REGEX))) {
+			results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, chr) => escape ? unescape(escape) : chr));
 		} else {
-			break;
+			throw new Error(`Invalid Chalk template style argument: ${chunk} (in style '${name}')`);
 		}
 	}
 
-	return out;
-};
+	return results;
+}
 
-// Check if the character at position `i` in string is a normal character (non-control character)
-const isNormalCharacter = (string, i) => {
-	const char = string[i];
-	const backslash = '\\';
+function parseStyle(style) {
+	STYLE_REGEX.lastIndex = 0;
 
-	if (!(char === backslash || char === '{' || char === '}')) {
-		return true;
-	}
+	const results = [];
+	let matches;
 
-	const n = i === 0 ? 0 : takeWhileReverse(string, x => x === '\\', zeroBound(i - 1)).length;
+	while ((matches = STYLE_REGEX.exec(style)) !== null) {
+		const name = matches[1];
 
-	return n % 2 === 1;
-};
-
-const collectStyles = data => data ? collectStyles(data.parent).concat(data.styles) : ['reset'];
-
-// Compute the style for a given data based on its style and the style of its parent.
-// Also accounts for `!style` styles which remove a style from the list if present.
-const sumStyles = data => {
-	const negateRegex = /^~.+/;
-	let out = [];
-
-	for (const style of collectStyles(data)) {
-		if (negateRegex.test(style)) {
-			const exclude = style.slice(1);
-			out = out.filter(x => x !== exclude);
+		if (matches[2]) {
+			const args = parseArguments(name, matches[2]);
+			results.push([name].concat(args));
 		} else {
-			out.push(style);
+			results.push([name]);
 		}
 	}
 
-	return out;
-};
+	return results;
+}
 
-// Take a string and parse it into a tree of data objects which inherit styles from their parent
-function parse(string) {
-	const root = data(null);
-	let pushingStyle = false;
-	let current = root;
+function buildStyle(chalk, styles) {
+	const enabled = {};
 
-	for (let i = 0; i < string.length; i++) {
-		const char = string[i];
+	for (const layer of styles) {
+		for (const style of layer.styles) {
+			enabled[style[0]] = layer.inverse ? null : style.slice(1);
+		}
+	}
 
-		const addNormalCharacter = () => {
-			const lastChunk = last(current.contents);
-
-			if (typeof lastChunk === 'string') {
-				current.contents[lastIndex(current.contents)] = lastChunk + char;
-			} else {
-				current.contents.push(char);
+	let current = chalk;
+	for (const styleName of Object.keys(enabled)) {
+		if (Array.isArray(enabled[styleName])) {
+			if (!(styleName in current)) {
+				throw new Error(`Unknown Chalk style: ${styleName}`);
 			}
-		};
 
-		if (pushingStyle) {
-			if (' \t'.includes(char)) {
-				pushingStyle = false;
-			} else if (char === '\n') {
-				pushingStyle = false;
-				addNormalCharacter();
-			} else if (char === '.') {
-				current.styles.push('');
+			if (enabled[styleName].length > 0) {
+				current = current[styleName].apply(current, enabled[styleName]);
 			} else {
-				current.styles[lastIndex(current.styles)] = (last(current.styles) || '') + char;
+				current = current[styleName];
 			}
-		} else if (isNormalCharacter(string, i)) {
-			addNormalCharacter();
-		} else if (char === '{') {
-			pushingStyle = true;
-			const nCurrent = data(current);
-			current.contents.push(nCurrent);
-			current = nCurrent;
-		} else if (char === '}') {
-			current = current.parent;
 		}
 	}
 
-	if (current !== root) {
-		throw new Error('Template literal has an unclosed block');
-	}
-
-	return root;
+	return current;
 }
 
-// Take a tree of data objects and flatten it to a list of data
-// objects with the inherited and negations styles accounted for
-function flatten(data) {
-	let flat = [];
+module.exports = (chalk, tmp) => {
+	const styles = [];
+	const chunks = [];
+	let chunk = [];
 
-	for (const content of data.contents) {
-		if (typeof content === 'string') {
-			flat.push({
-				styles: sumStyles(data),
-				content
-			});
+	// eslint-disable-next-line max-params
+	tmp.replace(TEMPLATE_REGEX, (m, escapeChar, inverse, style, close, chr) => {
+		if (escapeChar) {
+			chunk.push(unescape(escapeChar));
+		} else if (style) {
+			const str = chunk.join('');
+			chunk = [];
+			chunks.push(styles.length === 0 ? str : buildStyle(chalk, styles)(str));
+			styles.push({inverse, styles: parseStyle(style)});
+		} else if (close) {
+			if (styles.length === 0) {
+				throw new Error('Found extraneous } in Chalk template literal');
+			}
+
+			chunks.push(buildStyle(chalk, styles)(chunk.join('')));
+			chunk = [];
+			styles.pop();
 		} else {
-			flat = flat.concat(flatten(content));
+			chunk.push(chr);
 		}
+	});
+
+	chunks.push(chunk.join(''));
+
+	if (styles.length > 0) {
+		const errMsg = `Chalk template literal is missing ${styles.length} closing bracket${styles.length === 1 ? '' : 's'} (\`}\`)`;
+		throw new Error(errMsg);
 	}
 
-	return flat;
-}
-
-function assertStyle(chalk, style) {
-	if (!chalk[style]) {
-		throw new Error(`Invalid Chalk style: ${style}`);
-	}
-}
-
-// Check if a given style is valid and parse style functions
-function parseStyle(chalk, style) {
-	const fnMatch = style.match(/^\s*(\w+)\s*\(\s*([^)]*)\s*\)\s*/);
-	if (!fnMatch) {
-		assertStyle(chalk, style);
-		return chalk[style];
-	}
-
-	const name = fnMatch[1].trim();
-	const args = fnMatch[2].split(/,/g).map(s => s.trim());
-
-	assertStyle(chalk, name);
-
-	return chalk[name].apply(chalk, args);
-}
-
-// Perform the actual styling of the string
-function style(chalk, flat) {
-	return flat.map(data => {
-		const fn = data.styles.reduce(parseStyle, chalk);
-		return fn(data.content.replace(/\n$/, ''));
-	}).join('');
-}
-
-module.exports = (chalk, string) => style(chalk, flatten(parse(string)));
+	return chunks.join('');
+};
