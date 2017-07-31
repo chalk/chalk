@@ -12,6 +12,10 @@ test('don\'t add any styling when called as the base function', t => {
 	t.is(m('foo'), 'foo');
 });
 
+test('support multiple arguments in base function', t => {
+	t.is(m('hello', 'there'), 'hello there');
+});
+
 test('style string', t => {
 	t.is(m.underline('foo'), '\u001B[4mfoo\u001B[24m');
 	t.is(m.red('foo'), '\u001B[31mfoo\u001B[39m');

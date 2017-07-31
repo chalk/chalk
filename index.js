@@ -197,12 +197,13 @@ function applyStyle() {
 }
 
 function chalkTag(chalk, strings) {
-	const args = [].slice.call(arguments, 2);
-
 	if (!Array.isArray(strings)) {
-		return strings.toString();
+		// If chalk() was called by itself or with a string,
+		// return the string itself as a string.
+		return [].slice.call(arguments, 1).join(' ');
 	}
 
+	const args = [].slice.call(arguments, 2);
 	const parts = [strings.raw[0]];
 
 	for (let i = 1; i < strings.length; i++) {
