@@ -205,7 +205,7 @@ function chalkTag(chalk, strings) {
 	const parts = [strings.raw[0]];
 
 	for (let i = 1; i < strings.length; i++) {
-		parts.push(args[i - 1].toString().replace(/[{}]/g, '\\$&'));
+		parts.push(args[i - 1].toString().replace(/[{}\\]/g, '\\$&'));
 		parts.push(strings.raw[i]);
 	}
 
