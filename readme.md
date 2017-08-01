@@ -291,6 +291,8 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 - [wrap-ansi](https://github.com/chalk/wrap-ansi) - Wordwrap a string with ANSI escape codes
 - [slice-ansi](https://github.com/chalk/slice-ansi) - Slice a string with ANSI escape codes
 - [color-convert](https://github.com/qix-/color-convert) - Converts colors between different models
+- [chalk-animation](https://github.com/bokub/chalk-animation) - Animate strings in the terminal
+- [gradient-string](https://github.com/bokub/gradient-string) - Apply color gradients to strings
 
 
 ## Maintainers
