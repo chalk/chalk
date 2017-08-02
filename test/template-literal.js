@@ -161,3 +161,9 @@ test('should not parse upper-case escapes', t => {
 	const ctx = m.constructor({level: 0});
 	t.is(ctx`\N\n\T\t\X07\x07\U000A\u000A\U000a\u000a`, 'N\nT\tX07\x07U000A\u000AU000a\u000A');
 });
+
+test('should properly handle undefined template interpolated values', t => {
+	const ctx = m.constructor({level: 0});
+	t.is(ctx`hello ${undefined}`, 'hello undefined');
+	t.is(ctx`hello ${null}`, 'hello null');
+});
