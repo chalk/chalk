@@ -1,7 +1,10 @@
 'use strict';
-const escapeStringRegexp = require('escape-string-regexp');
-const ansiStyles = require('ansi-styles');
-const supportsColor = require('supports-color');
+
+const paraquire = require('paraquire')(module);
+
+const escapeStringRegexp = paraquire('escape-string-regexp');
+const ansiStyles = paraquire('ansi-styles');
+const supportsColor = paraquire('supports-color', {builtin: ['os'], process: ['argv', 'env', 'platform', 'stdout', 'versions']});
 
 const template = require('./templates.js');
 
