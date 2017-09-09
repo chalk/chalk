@@ -53,7 +53,7 @@
 		"matcha": "^0.7.0",
 		"nyc": "^11.0.2",
 		"resolve-from": "^3.0.0",
-		"typescript": "^2.4.1",
+		"typescript": "^2.5.2",
 		"xo": "*"
 	},
 	"types": "types/index.d.ts",

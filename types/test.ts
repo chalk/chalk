@@ -1,4 +1,4 @@
-import chalk from '..';
+import chalk, { Level } from '..';
 
 chalk.underline('foo');
 chalk.red('foo');
@@ -17,20 +17,23 @@ chalk.underline.red.bgGreen('foo');
 chalk.grey('foo');
 
 chalk.constructor({level: 1});
-const ctx = chalk.constructor({level: chalk.Level.TrueColor });
+const ctx = chalk.constructor({level: Level.TrueColor });
 ctx('foo');
 ctx.red('foo');
 ctx`foo`;
 
 chalk.enabled = true;
 chalk.level = 1;
-chalk.level = chalk.Level.Extended;
+chalk.level = Level.Extended;
 
-chalk.level === chalk.Level.Extended;
+chalk.level === Level.Extended;
 
 chalk.enabled;
-chalk.supportsColor;
 chalk.level;
+chalk.supportsColor.level;
+chalk.supportsColor.has16m;
+chalk.supportsColor.has256;
+chalk.supportsColor.hasBasic;
 
 chalk.keyword('orange').bgBlue('foo');
 chalk.hex('#123456').bgBlue('foo');
