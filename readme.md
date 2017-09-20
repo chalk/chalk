@@ -286,6 +286,7 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 - [ansi-styles](https://github.com/chalk/ansi-styles) - ANSI escape codes for styling strings in the terminal
 - [supports-color](https://github.com/chalk/supports-color) - Detect whether a terminal supports color
 - [strip-ansi](https://github.com/chalk/strip-ansi) - Strip ANSI escape codes
+- [strip-ansi-stream](https://github.com/chalk/strip-ansi-stream) - Strip ANSI escape codes from a stream
 - [has-ansi](https://github.com/chalk/has-ansi) - Check if a string has ANSI escape codes
 - [ansi-regex](https://github.com/chalk/ansi-regex) - Regular expression for matching ANSI escape codes
 - [wrap-ansi](https://github.com/chalk/wrap-ansi) - Wordwrap a string with ANSI escape codes
