@@ -1,4 +1,4 @@
-import chalk, { Level } from '..';
+import chalk, {Level} from '..';
 
 chalk.underline('foo');
 chalk.red('foo');
