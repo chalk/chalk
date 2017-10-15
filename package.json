@@ -8,7 +8,7 @@
 		"node": ">=4"
 	},
 	"scripts": {
-		"test": "xo && tsc -p types && nyc ava",
+		"test": "xo && tsc --project types && nyc ava",
 		"bench": "matcha benchmark.js",
 		"coveralls": "nyc report --reporter=text-lcov | coveralls"
 	},
@@ -53,7 +53,7 @@
 		"matcha": "^0.7.0",
 		"nyc": "^11.0.2",
 		"resolve-from": "^3.0.0",
-		"typescript": "^2.5.2",
+		"typescript": "^2.5.3",
 		"xo": "*"
 	},
 	"types": "types/index.d.ts",
