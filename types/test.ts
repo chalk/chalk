@@ -24,9 +24,13 @@ ctx`foo`;
 
 chalk.enabled = true;
 chalk.level = 1;
-chalk.level = Level.Extended;
+chalk.level = Level.Ansi256;
 
-chalk.level === Level.Extended;
+chalk.level === Level.Ansi256;
+
+let chalkInstance = new chalk();
+chalkInstance = new chalk.constructor();
+chalkInstance = chalk.constructor();
 
 chalk.enabled;
 chalk.level;

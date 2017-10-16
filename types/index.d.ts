@@ -4,7 +4,7 @@
 export const enum Level {
 	None = 0,
 	Basic = 1,
-	Extended = 2,
+	Ansi256 = 2,
 	TrueColor = 3
 }
 
@@ -14,8 +14,8 @@ export interface ChalkOptions {
 }
 
 export interface Chalk {
-	new (options: ChalkOptions): Chalk;
-	(options: ChalkOptions): Chalk;
+	new (options?: ChalkOptions): Chalk;
+	(options?: ChalkOptions): Chalk;
 	(...text: string[]): string;
 	(text: TemplateStringsArray, ...placeholders: string[]): string;
 	constructor: Chalk;
