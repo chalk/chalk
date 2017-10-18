@@ -218,3 +218,4 @@ Object.defineProperties(Chalk.prototype, styles);
 
 module.exports = Chalk(); // eslint-disable-line new-cap
 module.exports.supportsColor = supportsColor;
+module.exports.default = module.exports; // For TypeScript

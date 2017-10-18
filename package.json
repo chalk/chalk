@@ -8,13 +8,14 @@
 		"node": ">=4"
 	},
 	"scripts": {
-		"test": "xo && nyc ava",
+		"test": "xo && tsc --project types && nyc ava",
 		"bench": "matcha benchmark.js",
 		"coveralls": "nyc report --reporter=text-lcov | coveralls"
 	},
 	"files": [
 		"index.js",
-		"templates.js"
+		"templates.js",
+		"types/index.d.ts"
 	],
 	"keywords": [
 		"color",
@@ -52,8 +53,10 @@
 		"matcha": "^0.7.0",
 		"nyc": "^11.0.2",
 		"resolve-from": "^3.0.0",
+		"typescript": "^2.5.3",
 		"xo": "*"
 	},
+	"types": "types/index.d.ts",
 	"xo": {
 		"envs": [
 			"node",
