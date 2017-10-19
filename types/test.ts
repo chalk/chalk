@@ -32,6 +32,9 @@ let chalkInstance = new chalk();
 chalkInstance = new chalk.constructor();
 chalkInstance = chalk.constructor();
 
+let x = 'imastring';
+x = chalk();
+
 chalk.enabled;
 chalk.level;
 chalk.supportsColor.level;

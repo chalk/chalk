@@ -13,20 +13,26 @@ export interface ChalkOptions {
 	level?: Level;
 }
 
-export interface Chalk {
+export interface ChalkConstructor extends Chalk {
 	new (options?: ChalkOptions): Chalk;
 	(options?: ChalkOptions): Chalk;
+}
+
+export interface ColorSupport {
+	level: Level;
+	hasBasic: boolean;
+	has256: boolean;
+	has16m: boolean;
+}
+
+export interface Chalk {
 	(...text: string[]): string;
 	(text: TemplateStringsArray, ...placeholders: string[]): string;
-	constructor: Chalk;
+	new (options?: ChalkOptions): Chalk;
+	(options: ChalkOptions): Chalk;
+	constructor: ChalkConstructor;
 	enabled: boolean;
 	level: Level;
-	supportsColor: {
-		level: Level;
-		hasBasic: boolean;
-		has256: boolean;
-		has16m: boolean;
-	};
 	rgb(r: number, g: number, b: number): Chalk;
 	hsl(h: number, s: number, l: number): Chalk;
 	hsv(h: number, s: number, v: number): Chalk;
@@ -86,6 +92,6 @@ export interface Chalk {
 	bgWhiteBright: Chalk;
 }
 
-declare const chalk: Chalk
+declare const chalk: Chalk & { supportsColor: ColorSupport };
 
 export default chalk
