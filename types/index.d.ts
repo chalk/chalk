@@ -86,5 +86,5 @@ export interface Chalk {
 	bgWhiteBright: Chalk;
 }
 
-declare function chalk (): any;
-export default chalk as Chalk;
+declare const _chalk: Chalk;
+export default _chalk;
