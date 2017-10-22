@@ -13,7 +13,7 @@ export interface ChalkOptions {
 	level?: Level;
 }
 
-export interface ChalkConstructor extends Chalk {
+export interface ChalkConstructor {
 	new (options?: ChalkOptions): Chalk;
 	(options?: ChalkOptions): Chalk;
 }
@@ -28,8 +28,6 @@ export interface ColorSupport {
 export interface Chalk {
 	(...text: string[]): string;
 	(text: TemplateStringsArray, ...placeholders: string[]): string;
-	new (options?: ChalkOptions): Chalk;
-	(options: ChalkOptions): Chalk;
 	constructor: ChalkConstructor;
 	enabled: boolean;
 	level: Level;
