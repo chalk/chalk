@@ -28,9 +28,14 @@ chalk.level = Level.Ansi256;
 
 chalk.level === Level.Ansi256;
 
-let chalkInstance = new chalk();
-chalkInstance = new chalk.constructor();
+let chalkInstance = new chalk.constructor();
 chalkInstance = chalk.constructor();
+
+chalkInstance.blue('foo');
+chalkInstance`foo`;
+
+let x = 'imastring';
+x = chalk();
 
 chalk.enabled;
 chalk.level;

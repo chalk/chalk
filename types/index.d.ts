@@ -13,80 +13,85 @@ export interface ChalkOptions {
 	level?: Level;
 }
 
-export interface Chalk {
+export interface ChalkConstructor {
 	new (options?: ChalkOptions): Chalk;
 	(options?: ChalkOptions): Chalk;
-	(...text: string[]): string;
-	(text: TemplateStringsArray, ...placeholders: string[]): string;
-	constructor: Chalk;
-	enabled: boolean;
-	level: Level;
-	supportsColor: {
-		level: Level;
-		hasBasic: boolean;
-		has256: boolean;
-		has16m: boolean;
-	};
-	rgb(r: number, g: number, b: number): Chalk;
-	hsl(h: number, s: number, l: number): Chalk;
-	hsv(h: number, s: number, v: number): Chalk;
-	hwb(h: number, w: number, b: number): Chalk;
-	bgHex(color: string): Chalk;
-	bgKeyword(color: string): Chalk;
-	bgRgb(r: number, g: number, b: number): Chalk;
-	bgHsl(h: number, s: number, l: number): Chalk;
-	bgHsv(h: number, s: number, v: number): Chalk;
-	bgHwb(h: number, w: number, b: number): Chalk;
-	hex(color: string): Chalk;
-	keyword(color: string): Chalk;
-
-	reset: Chalk;
-	bold: Chalk;
-	dim: Chalk;
-	italic: Chalk;
-	underline: Chalk;
-	inverse: Chalk;
-	hidden: Chalk;
-	strikethrough: Chalk;
-
-	visible: Chalk;
-
-	black: Chalk;
-	red: Chalk;
-	green: Chalk;
-	yellow: Chalk;
-	blue: Chalk;
-	magenta: Chalk;
-	cyan: Chalk;
-	white: Chalk;
-	gray: Chalk;
-	grey: Chalk;
-	blackBright: Chalk;
-	redBright: Chalk;
-	greenBright: Chalk;
-	yellowBright: Chalk;
-	blueBright: Chalk;
-	magentaBright: Chalk;
-	cyanBright: Chalk;
-	whiteBright: Chalk;
-
-	bgBlack: Chalk;
-	bgRed: Chalk;
-	bgGreen: Chalk;
-	bgYellow: Chalk;
-	bgBlue: Chalk;
-	bgMagenta: Chalk;
-	bgCyan: Chalk;
-	bgWhite: Chalk;
-	bgBlackBright: Chalk;
-	bgRedBright: Chalk;
-	bgGreenBright: Chalk;
-	bgYellowBright: Chalk;
-	bgBlueBright: Chalk;
-	bgMagentaBright: Chalk;
-	bgCyanBright: Chalk;
-	bgWhiteBright: Chalk;
 }
 
-declare function chalk (): any;
-export default chalk as Chalk;
+export interface ColorSupport {
+	level: Level;
+	hasBasic: boolean;
+	has256: boolean;
+	has16m: boolean;
+}
+
+export interface Chalk {
+	(...text: string[]): string;
+	(text: TemplateStringsArray, ...placeholders: string[]): string;
+	constructor: ChalkConstructor;
+	enabled: boolean;
+	level: Level;
+	rgb(r: number, g: number, b: number): this;
+	hsl(h: number, s: number, l: number): this;
+	hsv(h: number, s: number, v: number): this;
+	hwb(h: number, w: number, b: number): this;
+	bgHex(color: string): this;
+	bgKeyword(color: string): this;
+	bgRgb(r: number, g: number, b: number): this;
+	bgHsl(h: number, s: number, l: number): this;
+	bgHsv(h: number, s: number, v: number): this;
+	bgHwb(h: number, w: number, b: number): this;
+	hex(color: string): this;
+	keyword(color: string): this;
+
+	readonly reset: this;
+	readonly bold: this;
+	readonly dim: this;
+	readonly italic: this;
+	readonly underline: this;
+	readonly inverse: this;
+	readonly hidden: this;
+	readonly strikethrough: this;
+
+	readonly visible: this;
+
+	readonly black: this;
+	readonly red: this;
+	readonly green: this;
+	readonly yellow: this;
+	readonly blue: this;
+	readonly magenta: this;
+	readonly cyan: this;
+	readonly white: this;
+	readonly gray: this;
+	readonly grey: this;
+	readonly blackBright: this;
+	readonly redBright: this;
+	readonly greenBright: this;
+	readonly yellowBright: this;
+	readonly blueBright: this;
+	readonly magentaBright: this;
+	readonly cyanBright: this;
+	readonly whiteBright: this;
+
+	readonly bgBlack: this;
+	readonly bgRed: this;
+	readonly bgGreen: this;
+	readonly bgYellow: this;
+	readonly bgBlue: this;
+	readonly bgMagenta: this;
+	readonly bgCyan: this;
+	readonly bgWhite: this;
+	readonly bgBlackBright: this;
+	readonly bgRedBright: this;
+	readonly bgGreenBright: this;
+	readonly bgYellowBright: this;
+	readonly bgBlueBright: this;
+	readonly bgMagentaBright: this;
+	readonly bgCyanBright: this;
+	readonly bgWhiteBright: this;
+}
+
+declare const chalk: Chalk & { supportsColor: ColorSupport };
+
+export default chalk
