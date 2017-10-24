@@ -63,6 +63,13 @@ for (const key of Object.keys(ansiStyles)) {
 	};
 }
 
+styles.visible = {
+	get() {
+		this._emptyIfNotVisible = true;
+		return build.call(this, this._styles ? this._styles : [], 'visible');
+	}
+};
+
 ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), 'g');
 for (const model of Object.keys(ansiStyles.color.ansi)) {
 	if (skipModels.has(model)) {
@@ -116,6 +123,7 @@ function build(_styles, key) {
 	};
 
 	builder._styles = _styles;
+	builder._emptyIfNotVisible = this._emptyIfNotVisible;
 
 	const self = this;
 
@@ -167,7 +175,7 @@ function applyStyle() {
 	}
 
 	if (!this.enabled || this.level <= 0 || !str) {
-		return str;
+		return this._emptyIfNotVisible ? '' : str;
 	}
 
 	// Turns out that on Windows dimmed gray text becomes invisible in cmd.exe,

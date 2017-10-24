@@ -45,3 +45,7 @@ chalk.rgb(1, 14, 9).bgBlue('foo');
 chalk.hsl(1, 14, 9).bgBlue('foo');
 chalk.hsv(1, 14, 9).bgBlue('foo');
 chalk.hwb(1, 14, 9).bgBlue('foo');
+
+chalk.visible('foo');
+chalk.red.visible('foo');
+chalk.visible.red('foo');

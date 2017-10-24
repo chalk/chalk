@@ -49,6 +49,8 @@ export interface Chalk {
 	hidden: Chalk;
 	strikethrough: Chalk;
 
+	visible: Chalk;
+
 	black: Chalk;
 	red: Chalk;
 	green: Chalk;
