@@ -53,6 +53,8 @@ export interface Chalk {
 	readonly hidden: this;
 	readonly strikethrough: this;
 
+	readonly visible: this;
+
 	readonly black: this;
 	readonly red: this;
 	readonly green: this;
