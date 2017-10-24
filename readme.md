@@ -170,6 +170,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `inverse`
 - `hidden`
 - `strikethrough` *(Not widely supported)*
+- `visible` (Text is emitted only if enabled)
 
 ### Colors
 
