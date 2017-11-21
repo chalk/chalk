@@ -1,8 +1,8 @@
 'use strict';
+const os = require('os');
 const escapeStringRegexp = require('escape-string-regexp');
 const ansiStyles = require('ansi-styles');
 const supportsColor = require('supports-color');
-const os = require('os');
 
 const template = require('./templates.js');
 
