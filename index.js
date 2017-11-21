@@ -2,10 +2,12 @@
 const escapeStringRegexp = require('escape-string-regexp');
 const ansiStyles = require('ansi-styles');
 const supportsColor = require('supports-color');
+const os = require('os')
 
 const template = require('./templates.js');
 
 const isSimpleWindowsTerm = process.platform === 'win32' && !(process.env.TERM || '').toLowerCase().startsWith('xterm');
+const isWindows10 = process.platform === 'win32' && os.release().startsWith('10');
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
@@ -50,6 +52,11 @@ function Chalk(options) {
 // Use bright blue on Windows as the normal blue color is illegible
 if (isSimpleWindowsTerm) {
 	ansiStyles.blue.open = '\u001B[94m';
+}
+
+// Use full reset on Windows 10 as it does not currently support the standard bold close sequence
+if (isWindows10) {
+	ansiStyles.bold.close = '\u001B[0m';
 }
 
 for (const key of Object.keys(ansiStyles)) {
