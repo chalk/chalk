@@ -53,7 +53,10 @@ if (isSimpleWindowsTerm) {
 }
 
 for (const key of Object.keys(ansiStyles)) {
-	ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
+	// Module escape-string-regexp throws if value entered is not a string.
+	if (typeof ansiStyles[key].close === 'string') {
+		ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
+	}
 
 	styles[key] = {
 		get() {
@@ -69,7 +72,10 @@ styles.visible = {
 	}
 };
 
-ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), 'g');
+// Module escape-string-regexp throws if value entered is not a string.
+if (typeof ansiStyles.color.close === 'string') {
+	ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), 'g');
+}
 for (const model of Object.keys(ansiStyles.color.ansi)) {
 	if (skipModels.has(model)) {
 		continue;
@@ -91,7 +97,11 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 	};
 }
 
-ansiStyles.bgColor.closeRe = new RegExp(escapeStringRegexp(ansiStyles.bgColor.close), 'g');
+// Module escape-string-regexp throws if value entered is not a string.
+if (typeof ansiStyles.bgColor.close === 'string') {
+	ansiStyles.bgColor.closeRe = new RegExp(escapeStringRegexp(ansiStyles.bgColor.close), 'g');
+}
+
 for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 	if (skipModels.has(model)) {
 		continue;
