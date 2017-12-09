@@ -124,7 +124,7 @@ Multiple arguments will be separated by space.
 
 Color support is automatically detected, as is the level (see `chalk.level`). However, if you'd like to simply enable/disable Chalk, you can do so via the `.enabled` property.
 
-Chalk is enabled by default unless expicitly disabled via the constructor or `chalk.level` is `0`.
+Chalk is enabled by default unless explicitly disabled via the constructor or `chalk.level` is `0`.
 
 If you need to change this in a reusable module, create a new instance:
 
