@@ -1,4 +1,5 @@
-node_modules
+.idea/
+node_modules/
+coverage/
 yarn.lock
-coverage
 .nyc_output
