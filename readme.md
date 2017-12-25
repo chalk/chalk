@@ -83,6 +83,10 @@ RAM: {green ${ram.used / ram.total * 100}%}
 DISK: {rgb(255,131,0) ${disk.used / disk.total * 100}%}
 `);
 
+// ES2015 single-color tagged template literal
+const {yellow, red} = require('chalk');
+log(yellow`CPU:`, red`${cpu.totalPercent}`);
+
 // Use RGB colors in terminal emulators that support it.
 log(chalk.keyword('orange')('Yay for orange colored text!'));
 log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
