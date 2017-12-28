@@ -19,7 +19,7 @@ function applyOptions(obj, options) {
 	options = options || {};
 
 	// Detect level if not set manually
-	const scLevel = supportsColor ? supportsColor.level : 0;
+	const scLevel = supportsColor.stdout ? supportsColor.stdout.level : 0;
 	obj.level = options.level === undefined ? scLevel : options.level;
 	obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0;
 }
