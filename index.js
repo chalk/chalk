@@ -22,6 +22,10 @@ function applyOptions(obj, options) {
 	const scLevel = supportsColor ? supportsColor.level : 0;
 	obj.level = options.level === undefined ? scLevel : options.level;
 	obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0;
+
+	// By default, wrappers are empty strings
+	const defaultWrapper = {pre: '', post: ''};
+	obj.wrapper = typeof options.wrapper === 'object' ? Object.assign({}, defaultWrapper, options.wrapper) : defaultWrapper;
 }
 
 function Chalk(options) {
@@ -149,6 +153,9 @@ function build(_styles, _empty, key) {
 	// See below for fix regarding invisible grey/dim combination on Windows
 	builder.hasGrey = this.hasGrey || key === 'gray' || key === 'grey';
 
+	// Setting the wrapper in case it is being used
+	builder.wrapper = this.wrapper;
+
 	// `__proto__` is used because we must return a function, but there is
 	// no way to create a function with a different prototype
 	builder.__proto__ = proto; // eslint-disable-line no-proto
@@ -189,12 +196,15 @@ function applyStyle() {
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
 		// will be colored, and the rest will simply be 'plain'.
-		str = code.open + str.replace(code.closeRe, code.open) + code.close;
+		const open = this.wrapper.pre + code.open + this.wrapper.post;
+		const close = this.wrapper.pre + code.close + this.wrapper.post;
+
+		str = open + str.replace(code.closeRe, code.open) + close;
 
 		// Close the styling before a linebreak and reopen
 		// after next line to fix a bleed issue on macOS
 		// https://github.com/chalk/chalk/pull/92
-		str = str.replace(/\r?\n/g, `${code.close}$&${code.open}`);
+		str = str.replace(/\r?\n/g, `${close}$&${open}`);
 	}
 
 	// Reset the original `dim` if we changed it to work around the Windows dimmed gray issue

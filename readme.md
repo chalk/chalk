@@ -149,6 +149,26 @@ Levels are as follows:
 2. 256 color support
 3. Truecolor support (16 million colors)
 
+### chalk.wrapper
+
+The wrapper marks the unprintable characters.  
+A wrapper can be added to the styles, so you can escape characters or add marks to then.  
+By default, these wrappers are empty strings `""`.
+
+The wrappers object has two properties, `pre` and `post`.  
+For example:
+
+```js
+const ctx = new chalk.constructor({wrapper: {
+	pre: '>',
+	post: '<',
+}});
+
+ctx.red('foo') // outputs "><foo><"
+```
+
+This can be specially useful when escaping characters, using it into a _PS1_ string or debugging and outputing it into different terminals/TTYs.
+
 ### chalk.supportsColor
 
 Detect whether the terminal [supports color](https://github.com/chalk/supports-color). Used internally and handled for you, but exposed for convenience.

@@ -11,6 +11,12 @@ export const enum Level {
 export interface ChalkOptions {
 	enabled?: boolean;
 	level?: Level;
+	wrapper?: Wrapper;
+}
+
+export interface Wrapper {
+	pre: String,
+	post: String
 }
 
 export interface ChalkConstructor {
@@ -31,6 +37,7 @@ export interface Chalk {
 	constructor: ChalkConstructor;
 	enabled: boolean;
 	level: Level;
+	wrapper: Wrapper;
 	rgb(r: number, g: number, b: number): this;
 	hsl(h: number, s: number, l: number): this;
 	hsv(h: number, s: number, v: number): this;
