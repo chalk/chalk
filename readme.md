@@ -1,3 +1,13 @@
+
+## IMPORTANT
+
+This is the same chalk from [](https://github.com/chalk/chalk).  
+The only change made to it is the support for "wrappers" in the effects.
+
+There is a Pull Request opened to add it to Chalk, but while it is not merged (or in case it does not get approved) we can use this fork instead.
+If you want to help, you can check the [Pull Request](https://github.com/chalk/chalk/pull/252) and [the issue](https://github.com/chalk/chalk/issues/253).  
+This is being **temporarily**  published in _npm_ so we can test it out a little further.
+
 <h1 align="center">
 	<br>
 	<br>
@@ -151,7 +161,7 @@ Levels are as follows:
 
 ### chalk.wrapper
 
-The wrapper marks the unprintable characters.  
+The wrapper marks the unprintable characters from style tags.  
 A wrapper can be added to the styles, so you can escape characters or add marks to then.  
 By default, these wrappers are empty strings `""`.
 

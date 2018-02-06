@@ -1,5 +1,5 @@
 {
-	"name": "chalk",
+	"name": "@nasc/chalk",
 	"version": "2.3.0",
 	"description": "Terminal string styling done right",
 	"license": "MIT",
