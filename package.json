@@ -43,7 +43,7 @@
 	"dependencies": {
 		"ansi-styles": "^3.1.0",
 		"escape-string-regexp": "^1.0.5",
-		"supports-color": "^4.0.0"
+		"supports-color": "^5.0.0"
 	},
 	"devDependencies": {
 		"ava": "*",
