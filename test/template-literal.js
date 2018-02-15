@@ -126,14 +126,14 @@ test('correctly parse escape in parameters (bug #177 comment 318622809)', t => {
 
 test('correctly parses unicode/hex escapes', t => {
 	const ctx = m.constructor({level: 0});
-	t.is(ctx`\u0078ylophones are fo\u0078y! {magenta.inverse \u0078ylophones are fo\u0078y!}`,
+	t.is(ctx`\u0078ylophones are fo\x78y! {magenta.inverse \u0078ylophones are fo\x78y!}`,
 		'xylophones are foxy! xylophones are foxy!');
 });
 
 test('correctly parses string arguments', t => {
 	const ctx = m.constructor({level: 3});
 	t.is(ctx`{keyword('black').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
-	t.is(ctx`{keyword('blac\u006B').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
+	t.is(ctx`{keyword('blac\x6B').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
 	t.is(ctx`{keyword('blac\u006B').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
 });
 
@@ -159,7 +159,7 @@ test('throws if an extra unescaped } is found', t => {
 
 test('should not parse upper-case escapes', t => {
 	const ctx = m.constructor({level: 0});
-	t.is(ctx`\N\n\T\t\X07\u0007\U000A\u000A\U000a\u000a`, 'N\nT\tX07\u0007U000A\u000AU000a\u000A');
+	t.is(ctx`\N\n\T\t\X07\x07\U000A\u000A\U000a\u000a`, 'N\nT\tX07\x07U000A\u000AU000a\u000A');
 });
 
 test('should properly handle undefined template interpolated values', t => {
