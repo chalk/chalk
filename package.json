@@ -3,7 +3,7 @@
 	"version": "2.3.1",
 	"description": "Terminal string styling done right",
 	"license": "MIT",
-	"repository": "chalk/chalk",
+	"repository": "https://github.com/felipenmoura/chalk",
 	"engines": {
 		"node": ">=4"
 	},

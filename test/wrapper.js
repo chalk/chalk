@@ -5,12 +5,14 @@ import test from 'ava';
 // Spoof supports-color
 require('./_supports-color')(__dirname);
 
-const m = require('..');
+const Chalk = require('..');
 
-m.wrapper = {
-	pre: '@',
-	post: '#'
-};
+const m = new Chalk.constructor({
+	wrapper: {
+		before: '@',
+		after: '#'
+	}
+});
 
 test('add wrapper to underline', t => {
 	t.is(m.underline('foo'), '@\u001B[4m#foo@\u001B[24m#');

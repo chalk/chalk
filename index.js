@@ -24,7 +24,7 @@ function applyOptions(obj, options) {
 	obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0;
 
 	// By default, wrappers are empty strings
-	const defaultWrapper = {pre: '', post: ''};
+	const defaultWrapper = {before: '', after: ''};
 	obj.wrapper = typeof options.wrapper === 'object' ? Object.assign({}, defaultWrapper, options.wrapper) : defaultWrapper;
 }
 
@@ -196,8 +196,8 @@ function applyStyle() {
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
 		// will be colored, and the rest will simply be 'plain'.
-		const open = this.wrapper.pre + code.open + this.wrapper.post;
-		const close = this.wrapper.pre + code.close + this.wrapper.post;
+		const open = this.wrapper.before + code.open + this.wrapper.after;
+		const close = this.wrapper.before + code.close + this.wrapper.after;
 
 		str = open + str.replace(code.closeRe, code.open) + close;
 
