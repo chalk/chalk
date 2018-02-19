@@ -1,9 +1,9 @@
 {
-	"name": "@nasc/chalk",
-	"version": "2.3.1",
+	"name": "chalk",
+	"version": "2.3.0",
 	"description": "Terminal string styling done right",
 	"license": "MIT",
-	"repository": "https://github.com/felipenmoura/chalk",
+	"repository": "chalk/chalk",
 	"engines": {
 		"node": ">=4"
 	},

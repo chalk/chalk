@@ -159,7 +159,7 @@ Levels are as follows:
 2. 256 color support
 3. Truecolor support (16 million colors)
 
-### chalk.wrapper
+### wrapper
 
 The wrapper marks the unprintable characters from style tags.  
 A wrapper can be added to the styles, so you can escape characters or add marks to then.  
@@ -179,7 +179,8 @@ const ctx = new chalk.constructor({
 ctx.red('foo') // outputs ">\u001B[31m<foo>\u001B[39m<"
 ```
 
-This can be specially useful when escaping characters, using it into a _PS1_ string or debugging and outputing it into different terminals/TTYs.  
+This can be specially useful when escaping characters, using it into a _PS1_ string or outputing it into different terminals/TTYs.  
+
 That's because _PS1_ uses the number of _printable_ characters to know the length of the string and to position the cursor. If you don't mark the colour codes as "unprintable" by using `\[` and `\]`, those characteres will be used to determine the length of the string, mispositioning the cursor.
 
 ```js
