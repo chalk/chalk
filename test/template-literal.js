@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-hex-escape */
 import test from 'ava';
 
 // Spoof supports-color
