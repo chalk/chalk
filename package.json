@@ -15,7 +15,8 @@
 	"files": [
 		"index.js",
 		"templates.js",
-		"types/index.d.ts"
+		"types/index.d.ts",
+		"types/options.d.ts"
 	],
 	"keywords": [
 		"color",
