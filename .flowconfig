@@ -1,0 +1,13 @@
+[ignore]
+.*/node_modules/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+suppress_comment= \\(.\\|\n\\)*\\$ExpectError
+
+[strict]
