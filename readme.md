@@ -300,6 +300,7 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 - [chalk-animation](https://github.com/bokub/chalk-animation) - Animate strings in the terminal
 - [gradient-string](https://github.com/bokub/gradient-string) - Apply color gradients to strings
 - [chalk-pipe](https://github.com/LitoMore/chalk-pipe) - Create chalk style schemes with simpler style strings
+- [terminal-link](https://github.com/sindresorhus/terminal-link) - Create clickable links in the terminal
 
 
 ## Maintainers
