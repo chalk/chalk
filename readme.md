@@ -26,7 +26,7 @@
 - Doesn't extend `String.prototype`
 - Clean and focused
 - Actively maintained
-- [Used by ~23,000 packages](https://www.npmjs.com/browse/depended/chalk) as of December 31, 2017
+- [Used by ~26,000 packages](https://www.npmjs.com/browse/depended/chalk) as of Match 5, 2017
 
 
 ## Install
