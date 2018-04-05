@@ -1,4 +1,5 @@
-import chalk, {Level} from '..';
+import chalk from '..'
+import chalktr = require('..')
 
 chalk.underline('foo');
 chalk.red('foo');
@@ -17,16 +18,16 @@ chalk.underline.red.bgGreen('foo');
 chalk.grey('foo');
 
 chalk.constructor({level: 1});
-const ctx = chalk.constructor({level: Level.TrueColor });
+const ctx = chalk.constructor({level: Chalk.Level.TrueColor });
 ctx('foo');
 ctx.red('foo');
 ctx`foo`;
 
 chalk.enabled = true;
 chalk.level = 1;
-chalk.level = Level.Ansi256;
+chalk.level = Chalk.Level.Ansi256;
 
-chalk.level === Level.Ansi256;
+chalk.level === Chalk.Level.Ansi256;
 
 let chalkInstance = new chalk.constructor();
 chalkInstance = chalk.constructor();

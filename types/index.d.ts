@@ -1,36 +1,14 @@
-// Type definitions for Chalk
-// Definitions by: Thomas Sauer <https://github.com/t-sauer>
-
-export const enum Level {
-	None = 0,
-	Basic = 1,
-	Ansi256 = 2,
-	TrueColor = 3
+/// <reference path="./options.d.ts" />
+interface ChalkConstructor {
+	new (options?: Chalk.Options): Chalk;
+	(options?: Chalk.Options): Chalk;
 }
-
-export interface ChalkOptions {
-	enabled?: boolean;
-	level?: Level;
-}
-
-export interface ChalkConstructor {
-	new (options?: ChalkOptions): Chalk;
-	(options?: ChalkOptions): Chalk;
-}
-
-export interface ColorSupport {
-	level: Level;
-	hasBasic: boolean;
-	has256: boolean;
-	has16m: boolean;
-}
-
-export interface Chalk {
+interface Chalk {
 	(...text: string[]): string;
 	(text: TemplateStringsArray, ...placeholders: string[]): string;
 	constructor: ChalkConstructor;
 	enabled: boolean;
-	level: Level;
+	level: Chalk.Level;
 	rgb(r: number, g: number, b: number): this;
 	hsl(h: number, s: number, l: number): this;
 	hsv(h: number, s: number, v: number): this;
@@ -92,6 +70,10 @@ export interface Chalk {
 	readonly bgWhiteBright: this;
 }
 
-declare const chalk: Chalk & { supportsColor: ColorSupport };
+interface chalk extends Chalk {
+	supportsColor: Chalk.ColorSupport;
+	default: chalk
+}
+declare	const chalk: chalk
+export = chalk
 
-export default chalk
