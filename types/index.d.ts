@@ -95,3 +95,7 @@ export interface Chalk {
 declare const chalk: Chalk & { supportsColor: ColorSupport };
 
 export default chalk
+
+declare module 'chalk' {
+  export = chalk
+}
