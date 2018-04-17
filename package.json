@@ -8,14 +8,15 @@
 		"node": ">=4"
 	},
 	"scripts": {
-		"test": "xo && tsc --project types && nyc ava",
+		"test": "xo && tsc --project types && flow --max-warnings=0 && nyc ava",
 		"bench": "matcha benchmark.js",
 		"coveralls": "nyc report --reporter=text-lcov | coveralls"
 	},
 	"files": [
 		"index.js",
 		"templates.js",
-		"types/index.d.ts"
+		"types/index.d.ts",
+		"index.js.flow"
 	],
 	"keywords": [
 		"color",
@@ -49,6 +50,7 @@
 		"ava": "*",
 		"coveralls": "^3.0.0",
 		"execa": "^0.9.0",
+		"flow-bin": "^0.68.0",
 		"import-fresh": "^2.0.0",
 		"matcha": "^0.7.0",
 		"nyc": "^11.0.2",
@@ -61,6 +63,9 @@
 		"envs": [
 			"node",
 			"mocha"
+		],
+		"ignores": [
+			"test/_flow.js"
 		]
 	}
 }
