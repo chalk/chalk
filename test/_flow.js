@@ -1,14 +1,13 @@
 // @flow
-
 import chalk from '..';
 
 // $ExpectError (Can't have typo in option name)
-chalk.constructor({ levl:  1 });
-chalk.constructor({ level:  1 });
+chalk.constructor({levl: 1});
+chalk.constructor({level: 1});
 
 // $ExpectError (Option must have proper type)
-new chalk.constructor({ enabled:  'true' });
-new chalk.constructor({ enabled:  true });
+new chalk.constructor({enabled: 'true'});
+new chalk.constructor({enabled: true});
 
 // $ExpectError (Can't pass in null)
 chalk.underline(null);
@@ -50,7 +49,7 @@ chalk.enabled = true;
 chalk.level = 10;
 chalk.level = 1;
 
-let chalkInstance = new chalk.constructor();
+const chalkInstance = new chalk.constructor();
 
 // $ExpectError (Can't have typo in method name)
 chalkInstance.blu('foo');
@@ -92,4 +91,4 @@ chalk.black;
 
 // $ExpectError (Can't write to readonly property)
 chalk.reset = 'foo';
-console.log(chalk.reset)
+console.log(chalk.reset);
