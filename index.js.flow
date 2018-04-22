@@ -91,5 +91,4 @@ export interface Chalk {
 };
 
 declare var chalk: Chalk;
-
-export default chalk;
+module.exports = chalk;
