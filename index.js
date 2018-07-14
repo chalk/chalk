@@ -78,6 +78,7 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 	styles[model] = {
 		get() {
 			const level = this.level;
+			const self = this;
 			return function () {
 				const open = ansiStyles.color[levelMapping[level]][model].apply(null, arguments);
 				const codes = {
@@ -85,7 +86,7 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 					close: ansiStyles.color.close,
 					closeRe: ansiStyles.color.closeRe
 				};
-				return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
+				return build.call(self, self._styles ? self._styles.concat(codes) : [codes], self._empty, model);
 			};
 		}
 	};
@@ -101,6 +102,7 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 	styles[bgModel] = {
 		get() {
 			const level = this.level;
+			const self = this;
 			return function () {
 				const open = ansiStyles.bgColor[levelMapping[level]][model].apply(null, arguments);
 				const codes = {
@@ -108,7 +110,7 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 					close: ansiStyles.bgColor.close,
 					closeRe: ansiStyles.bgColor.closeRe
 				};
-				return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
+				return build.call(self, self._styles ? self._styles.concat(codes) : [codes], self._empty, model);
 			};
 		}
 	};
