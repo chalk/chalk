@@ -98,3 +98,10 @@ test('don\'t emit RGB codes if level is 0', t => {
 	t.is(new m.constructor({level: 0}).hex('#FF0000')('hello'), 'hello');
 	t.is(new m.constructor({level: 0}).bgHex('#FF0000')('hello'), 'hello');
 });
+
+test('support destructure hex/bgHex function', t => {
+	const {hex} = m.constructor({level: 2});
+	t.is(hex('#FF0000')('hello'), '\u001B[38;5;196mhello\u001B[39m');
+	const {bgHex} = m.constructor({level: 2});
+	t.is(bgHex('#FF0000')('hello'), '\u001B[48;5;196mhello\u001B[49m');
+});
