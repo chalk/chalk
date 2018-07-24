@@ -1,7 +1,7 @@
 <h1 align="center">
 	<br>
 	<br>
-	<img width="320" src="media/logo.svg" alt="Chalk">
+	<img width="320" src="https://cdn.rawgit.com/chalk/chalk/a6ad9454/media/logo.svg" alt="Chalk">
 	<br>
 	<br>
 	<br>
@@ -26,7 +26,31 @@
 - Doesn't extend `String.prototype`
 - Clean and focused
 - Actively maintained
-- [Used by ~23,000 packages](https://www.npmjs.com/browse/depended/chalk) as of December 31, 2017
+
+<details>
+<summary>
+	<a href="https://www.npmjs.com/browse/depended/chalk">Used by ~30,200 packages</a> as of July 24, 2018
+</summary>
+	
+### History
+
+- Used by [~23,000 modules](https://github.com/chalk/chalk/commit/bc3dd75329b43eeda3200ac9a161b6e5a9b9dfe3#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of December 31, 2017
+- Used by [~17,000 modules](https://github.com/chalk/chalk/commit/1d73b211116d95bb4706b66523b59299952e83e5#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of June 20, 2017
+- Used by [~16,000 modules](https://github.com/chalk/chalk/commit/dbae68d623270e86300b9e066bf960b42961b820#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of May 31, 2017
+- Used by [~10,000 modules](https://github.com/chalk/chalk/commit/835ca3d9503fa987725bde711b97ca4be2386221#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of August 2, 2016
+- Used by [~7,700 modules](https://github.com/chalk/chalk/commit/426fc485bd5f038de52ecc8d170c9c9092ed77e2#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of March 15, 2016
+- Used by [~6,700 modules](https://github.com/chalk/chalk/commit/51b8f329e896d049e8713376edef464cd7743988#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of January 11, 2016
+- Used by [~5,000 modules](https://github.com/chalk/chalk/commit/14603cd0f527247d5bb36f35983f048b95376c87#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of August 23, 2015
+- Used by [~4,500 modules](https://github.com/chalk/chalk/commit/6142553bb5d7b3e7fbcea76b8ccf876f373e1bf1#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of Jul 15, 2015
+- Used by [~4,000 modules](https://github.com/chalk/chalk/commit/6a506dc9b35131bd528df23a0f4629316b07913d#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of May 24, 2015
+- Used by [~3,000 modules](https://github.com/chalk/chalk/commit/c799a8aaed1b99c519dd4a6bbd7b4c0fad57efc1#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of Feb 17, 2015
+- Used by [~2,200 modules](https://github.com/chalk/chalk/commit/0b1c65dfd3b086827819adf03035e64f419cc186#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of Nov 23, 2014
+- Used by [~1,700 modules](https://github.com/chalk/chalk/commit/9864ba45814f76d459ffd96b6871dd997b249130#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of Aug 30, 2014
+- Used by [~1,000 modules](https://github.com/chalk/chalk/commit/90f012c79363640f8a790e3060921d7049373a4f#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of Jun 7, 2014
+- Used by [~850 modules](https://github.com/chalk/chalk/commit/449fa45b4062916a9954de89f3f1b66f74822171#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of May 17, 2014
+- Used by [~300 modules](https://github.com/chalk/chalk/commit/d99230962138f6d8a3c0c3a9856ca5632d4c1efd#diff-0730bb7c2e8f9ea2438b52e419dd86c9) as of Feb 11, 2014
+
+</details>
 
 
 ## Install
