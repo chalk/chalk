@@ -1,7 +1,7 @@
 <h1 align="center">
 	<br>
 	<br>
-	<img width="320" src="media/logo.svg" alt="Chalk">
+	<img width="320" src="media/logo.svg?sanitize=true" alt="Chalk">
 	<br>
 	<br>
 	<br>
