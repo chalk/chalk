@@ -9,11 +9,11 @@
 
 > Terminal string styling done right
 
-[![Build Status](https://travis-ci.org/chalk/chalk.svg?branch=master)](https://travis-ci.org/chalk/chalk) [![Coverage Status](https://coveralls.io/repos/github/chalk/chalk/badge.svg?branch=master)](https://coveralls.io/github/chalk/chalk?branch=master) [![](https://img.shields.io/badge/unicorn-approved-ff69b4.svg)](https://www.youtube.com/watch?v=9auOCbH5Ns4) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo) [![Mentioned in Awesome Node.js](https://awesome.re/mentioned-badge.svg)](https://github.com/sindresorhus/awesome-nodejs)
+[![Build Status](https://travis-ci.org/chalk/chalk.svg?branch=master)](https://travis-ci.org/chalk/chalk) [![Coverage Status](https://coveralls.io/repos/github/chalk/chalk/badge.svg?branch=master)](https://coveralls.io/github/chalk/chalk?branch=master) [![npm dependents](https://badgen.net/npm/dependents/chalk)](https://www.npmjs.com/package/chalk?activeTab=dependents) [![Downloads](https://badgen.net/npm/dt/chalk)](https://www.npmjs.com/package/chalk) [![](https://img.shields.io/badge/unicorn-approved-ff69b4.svg)](https://www.youtube.com/watch?v=9auOCbH5Ns4) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo) [![Mentioned in Awesome Node.js](https://awesome.re/mentioned-badge.svg)](https://github.com/sindresorhus/awesome-nodejs)
 
 ### [See what's new in Chalk 2](https://github.com/chalk/chalk/releases/tag/v2.0.0)
 
-<img src="https://cdn.rawgit.com/chalk/ansi-styles/8261697c95bf34b6c7767e2cbe9941a851d59385/screenshot.svg" alt="" width="900">
+<img src="https://cdn.rawgit.com/chalk/ansi-styles/8261697c95bf34b6c7767e2cbe9941a851d59385/screenshot.svg" width="900">
 
 
 ## Highlights
@@ -26,7 +26,7 @@
 - Doesn't extend `String.prototype`
 - Clean and focused
 - Actively maintained
-- [Used by ~23,000 packages](https://www.npmjs.com/browse/depended/chalk) as of December 31, 2017
+- [Used by ~30,000 packages](https://www.npmjs.com/browse/depended/chalk) as of August 6, 2018
 
 
 ## Install
