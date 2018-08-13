@@ -287,6 +287,8 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 
 ## Related
 
+- [chalkie](https://github.com/shawwn/chalkie) - Browser support for chalk
+- [ansi-html](https://github.com/Tjatse/ansi-html) - Convert chalked text to HTML
 - [chalk-cli](https://github.com/chalk/chalk-cli) - CLI for this module
 - [ansi-styles](https://github.com/chalk/ansi-styles) - ANSI escape codes for styling strings in the terminal
 - [supports-color](https://github.com/chalk/supports-color) - Detect whether a terminal supports color
