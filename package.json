@@ -8,9 +8,8 @@
 		"node": ">=4"
 	},
 	"scripts": {
-		"test": "xo && tsc --project types && flow --max-warnings=0 && nyc ava",
-		"bench": "matcha benchmark.js",
-		"coveralls": "nyc report --reporter=text-lcov | coveralls"
+		"test": "xo && nyc ava && tsc --project types && flow --max-warnings=0",
+		"bench": "matcha benchmark.js"
 	},
 	"files": [
 		"index.js",
