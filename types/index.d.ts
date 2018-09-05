@@ -1,7 +1,7 @@
 // Type definitions for Chalk
 // Definitions by: Thomas Sauer <https://github.com/t-sauer>
 
-export const enum Level {
+export enum Level {
 	None = 0,
 	Basic = 1,
 	Ansi256 = 2,
