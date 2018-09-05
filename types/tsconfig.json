@@ -4,6 +4,7 @@
 		"target": "es6",
 		"noImplicitAny": true,
 		"noEmit": true,
-		"allowJs": true
+		"allowJs": true,
+		"isolatedModules": true
 	}
 }
