@@ -1,4 +1,4 @@
-/* globals set bench */
+/* globals suite, set, bench */
 'use strict';
 const chalk = require('.');
 

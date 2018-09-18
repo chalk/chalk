@@ -28,36 +28,36 @@ test.beforeEach(() => {
 
 test('detect a simple term if TERM isn\'t set', t => {
 	delete process.env.TERM;
-	const m = importFresh('..');
-	t.is(m.blue('foo'), '\u001B[94mfoo\u001B[39m');
+	const chalk = importFresh('..');
+	t.is(chalk.blue('foo'), '\u001B[94mfoo\u001B[39m');
 });
 
 test('replace blue foreground color in cmd.exe', t => {
 	process.env.TERM = 'dumb';
-	const m = importFresh('..');
-	t.is(m.blue('foo'), '\u001B[94mfoo\u001B[39m');
+	const chalk = importFresh('..');
+	t.is(chalk.blue('foo'), '\u001B[94mfoo\u001B[39m');
 });
 
 test('don\'t replace blue foreground color in xterm based terminals', t => {
 	process.env.TERM = 'xterm-256color';
-	const m = importFresh('..');
-	t.is(m.blue('foo'), '\u001B[34mfoo\u001B[39m');
+	const chalk = importFresh('..');
+	t.is(chalk.blue('foo'), '\u001B[34mfoo\u001B[39m');
 });
 
 test('don\'t apply dimmed styling on gray strings, see https://github.com/chalk/chalk/issues/58', t => {
 	process.env.TERM = 'dumb';
-	const m = importFresh('..');
-	t.is(m.gray.dim('foo'), '\u001B[90mfoo\u001B[22m\u001B[39m');
+	const chalk = importFresh('..');
+	t.is(chalk.gray.dim('foo'), '\u001B[90mfoo\u001B[22m\u001B[39m');
 });
 
 test('apply dimmed styling on xterm compatible terminals', t => {
 	process.env.TERM = 'xterm';
-	const m = importFresh('..');
-	t.is(m.gray.dim('foo'), '\u001B[90m\u001B[2mfoo\u001B[22m\u001B[39m');
+	const chalk = importFresh('..');
+	t.is(chalk.gray.dim('foo'), '\u001B[90m\u001B[2mfoo\u001B[22m\u001B[39m');
 });
 
 test('apply dimmed styling on strings of other colors', t => {
 	process.env.TERM = 'dumb';
-	const m = importFresh('..');
-	t.is(m.blue.dim('foo'), '\u001B[94m\u001B[2mfoo\u001B[22m\u001B[39m');
+	const chalk = importFresh('..');
+	t.is(chalk.blue.dim('foo'), '\u001B[94m\u001B[2mfoo\u001B[22m\u001B[39m');
 });
