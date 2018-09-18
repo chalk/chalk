@@ -8,9 +8,9 @@ require('./_supports-color')(__dirname, {
 	has16m: false
 });
 
-const m = require('..');
+const chalk = require('..');
 
-test.failing('can be forced on using chalk.enabled', t => {
-	m.enabled = true;
-	t.is(m.green('hello'), '\u001B[32mhello\u001B[39m');
+test.failing('colors can be forced by using chalk.enabled', t => {
+	chalk.enabled = true;
+	t.is(chalk.green('hello'), '\u001B[32mhello\u001B[39m');
 });
