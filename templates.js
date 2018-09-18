@@ -80,7 +80,7 @@ function buildStyle(chalk, styles) {
 			}
 
 			if (enabled[styleName].length > 0) {
-				current = current[styleName].apply(current, enabled[styleName]);
+				current = current[styleName](...enabled[styleName]);
 			} else {
 				current = current[styleName];
 			}
