@@ -130,39 +130,23 @@ export interface Chalk {
 
 	/**
 	 * Use RGB values to set text color.
-	 *
-	 * @param r - red
-	 * @param g - green
-	 * @param b - blue
 	 */
-	rgb(r: number, g: number, b: number): this;
+	rgb(red: number, green: number, blue: number): this;
 
 	/**
 	 * Use HSL values to set text color.
-	 *
-	 * @param h - hue
-	 * @param s - saturation
-	 * @param l - lightness
 	 */
-	hsl(h: number, s: number, l: number): this;
+	hsl(hue: number, saturation: number, lightness: number): this;
 
 	/**
 	 * Use HSV values to set text color.
-	 *
-	 * @param h - hue
-	 * @param s - saturation
-	 * @param v - value
 	 */
-	hsv(h: number, s: number, v: number): this;
+	hsv(hue: number, saturation: number, value: number): this;
 
 	/**
 	 * Use HWB values to set text color.
-	 *
-	 * @param h - hue
-	 * @param w - whiteness
-	 * @param b - blackness
 	 */
-	hwb(h: number, w: number, b: number): this;
+	hwb(hue: number, whiteness: number, blackness: number): this;
 
 	/**
 	 * Use HEX value to set background color.
@@ -192,39 +176,23 @@ export interface Chalk {
 
 	/**
 	 * Use RGB values to set background color.
-	 *
-	 * @param r - red
-	 * @param g - green
-	 * @param b - blue
 	 */
-	bgRgb(r: number, g: number, b: number): this;
+	bgRgb(red: number, green: number, blue: number): this;
 
 	/**
 	 * Use HSL values to set background color.
-	 *
-	 * @param h - hue
-	 * @param s - saturation
-	 * @param l - lightness
 	 */
-	bgHsl(h: number, s: number, l: number): this;
+	bgHsl(hue: number, saturation: number, lightness: number): this;
 
 	/**
 	 * Use HSV values to set background color.
-	 *
-	 * @param h - hue
-	 * @param s - saturation
-	 * @param v - value
 	 */
-	bgHsv(h: number, s: number, v: number): this;
+	bgHsv(hue: number, saturation: number, value: number): this;
 
 	/**
 	 * Use HWB values to set background color.
-	 *
-	 * @param h - hue
-	 * @param w - whiteness
-	 * @param b - blackness
 	 */
-	bgHwb(h: number, w: number, b: number): this;
+	bgHwb(hue: number, whiteness: number, blackness: number): this;
 
 	/**
 	 * Modifier: Resets the current color chain.
@@ -316,10 +284,4 @@ export interface Chalk {
  */
 declare const chalk: Chalk & { supportsColor: ColorSupport };
 
-/**
- * Alias Options and Constructor to preserve backwards compatibility.
- */
-export type ChalkOptions = Options;
-export type ChalkConstructor = Constructor;
-
-export default chalk
+export default chalk;

@@ -61,8 +61,7 @@
 	"types": "index.d.ts",
 	"xo": {
 		"ignores": [
-			"test/_flow.js",
-			"*.ts"
+			"test/_flow.js"
 		]
 	}
 }
