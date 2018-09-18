@@ -58,7 +58,7 @@
 		"typescript": "^2.5.3",
 		"xo": "0.20.3"
 	},
-	"types": "types/index.d.ts",
+	"types": "index.d.ts",
 	"xo": {
 		"ignores": [
 			"test/_flow.js",
