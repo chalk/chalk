@@ -50,7 +50,7 @@ function parseStyle(style) {
 	let matches;
 
 	while ((matches = STYLE_REGEX.exec(style)) !== null) {
-		const name = matches[1];
+		const name = matches[1]; // eslint-disable-line prefer-destructuring
 
 		if (matches[2]) {
 			const args = parseArguments(name, matches[2]);
