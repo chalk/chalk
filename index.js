@@ -15,8 +15,10 @@ const skipModels = new Set(['gray']);
 
 const styles = Object.create(null);
 
-function applyOptions(obj, options) {
-	options = options || {};
+function applyOptions(obj, options = {}) {
+	if (options.level > 3 || options.level < 0) {
+		throw new Error('The `level` option should be an integer from 0 to 3');
+	}
 
 	// Detect level if not set manually
 	const scLevel = stdoutColor ? stdoutColor.level : 0;
