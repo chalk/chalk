@@ -1,5 +1,4 @@
 'use strict';
-const escapeStringRegexp = require('escape-string-regexp');
 const ansiStyles = require('ansi-styles');
 const stdoutColor = require('supports-color').stdout;
 
@@ -14,6 +13,10 @@ const levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
 const skipModels = new Set(['gray']);
 
 const styles = Object.create(null);
+
+function escapeStringRegexp(str) {
+	return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 function applyOptions(obj, options = {}) {
 	if (options.level > 3 || options.level < 0) {
