@@ -15,7 +15,7 @@ const skipModels = new Set(['gray']);
 const styles = Object.create(null);
 
 function escapeStringRegexp(str) {
- return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 function applyOptions(obj, options = {}) {
