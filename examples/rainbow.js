@@ -1,7 +1,7 @@
 'use strict';
 const chalk = require('..');
 
-const ignoreChars = /[^!-~]/;
+const ignoreChars = /[^!-~]/g;
 
 function rainbow(str, offset) {
 	if (!str || str.length === 0) {
