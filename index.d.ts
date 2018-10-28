@@ -225,17 +225,17 @@ export interface Chalk {
 	readonly inverse: this;
 
 	/**
-	 * Modifier
+	 * Modifier: Prints the text, but makes it invisible.
 	 */
 	readonly hidden: this;
 
 	/**
-	 * Modifier
+	 * Modifier: https://en.wikipedia.org/wiki/Strikethrough
 	 */
 	readonly strikethrough: this;
 
 	/**
-	 * Modifier
+	 * Modifier: Prints the text only when Chalk is enabled. Can be useful for things that are purely cosmetic.
 	 */
 	readonly visible: this;
 
