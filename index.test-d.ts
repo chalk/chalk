@@ -1,8 +1,8 @@
-import { expectType } from 'tsd-check';
-import chalk, { Level, Chalk, ColorSupport } from '.';
+import {expectType} from 'tsd-check';
+import chalk, {Level, Chalk, ColorSupport} from '.';
 
 // - Helpers -
-type colorReturn = Chalk & { supportsColor: ColorSupport };
+type colorReturn = Chalk & {supportsColor: ColorSupport};
 
 // - Level -
 expectType<number>(Level.None);
@@ -145,4 +145,3 @@ expectType<string>(chalk.bgWhiteBright`foo`);
 // -- Complex --
 expectType<string>(chalk.red.bgGreen.underline('foo'));
 expectType<string>( chalk.underline.red.bgGreen('foo'));
-
