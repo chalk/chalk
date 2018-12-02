@@ -230,7 +230,7 @@ export interface Chalk {
 	readonly hidden: this;
 
 	/**
-	 * Modifier: https://en.wikipedia.org/wiki/Strikethrough
+	 * Modifier: Puts a horizontal line through the center of the text. (Not widely supported)
 	 */
 	readonly strikethrough: this;
 
