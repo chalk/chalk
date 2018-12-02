@@ -166,17 +166,15 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 ### Modifiers
 
-| Modifier | Definition |
-| --- | --- |
-| `reset` | Resets the current color chain. |
-| `bold` | Make text bold. |
-| `dim` | Emitting only a small amount of light. |
-| `italic` | Make text italic. *(Not widely supported)* |
-| `underline` | Make text underline. *(Not widely supported)* |
-| `inverse` | Inverse background and foreground colors. |
-| `hidden` | Prints the text, but makes it invisible. |
-| `strikethrough` | [https://en.wikipedia.org/wiki/Strikethrough](https://en.wikipedia.org/wiki/Strikethrough) |
-| `visible` | Prints the text only when Chalk is enabled. Can be useful for things that are purely cosmetic. |
+- `reset` - Resets the current color chain.
+- `bold` - Make text bold.
+- `dim` - Emitting only a small amount of light.
+- `italic` - Make text italic. *(Not widely supported)*
+- `underline` - Make text underline. *(Not widely supported)*
+- `inverse`- Inverse background and foreground colors.
+- `hidden` - Prints the text, but makes it invisible.
+- `strikethrough` - Puts a horizontal line through the center of the text. *(Not widely supported)*
+- `visible`- Prints the text only when Chalk is enabled. Can be useful for things that are purely cosmetic.
 
 ### Colors
 
