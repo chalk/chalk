@@ -1,31 +1,31 @@
 // Type definitions for Chalk
 // Definitions by: Thomas Sauer <https://github.com/t-sauer>
 
-export const enum Level {
+declare enum Level {
 	None = 0,
 	Basic = 1,
 	Ansi256 = 2,
 	TrueColor = 3
 }
 
-export interface ChalkOptions {
+interface ChalkOptions {
 	enabled?: boolean;
 	level?: Level;
 }
 
-export interface ChalkConstructor {
+interface ChalkConstructor {
 	new (options?: ChalkOptions): Chalk;
 	(options?: ChalkOptions): Chalk;
 }
 
-export interface ColorSupport {
+interface ColorSupport {
 	level: Level;
 	hasBasic: boolean;
 	has256: boolean;
 	has16m: boolean;
 }
 
-export interface Chalk {
+interface Chalk {
 	(...text: string[]): string;
 	(text: TemplateStringsArray, ...placeholders: string[]): string;
 	constructor: ChalkConstructor;
@@ -92,6 +92,11 @@ export interface Chalk {
 	readonly bgWhiteBright: this;
 }
 
-declare const chalk: Chalk & { supportsColor: ColorSupport };
+interface PublicTypes {
+	supportsColor: ColorSupport;
+	Level: typeof Level;
+}
 
-export default chalk
+declare const chalk: Chalk & PublicTypes;
+
+export = chalk
