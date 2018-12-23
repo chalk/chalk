@@ -21,6 +21,7 @@ const ctx = chalk.constructor({level: Level.TrueColor });
 ctx('foo');
 ctx.red('foo');
 ctx`foo`;
+ctx`works with numbers ${1}`;
 
 chalk.enabled = true;
 chalk.level = 1;

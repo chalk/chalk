@@ -27,7 +27,7 @@ export interface ColorSupport {
 
 export interface Chalk {
 	(...text: string[]): string;
-	(text: TemplateStringsArray, ...placeholders: string[]): string;
+	(text: TemplateStringsArray, ...placeholders: unknown[]): string;
 	constructor: ChalkConstructor;
 	enabled: boolean;
 	level: Level;
