@@ -297,6 +297,11 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 [colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68) and the package is unmaintained. Although there are other packages, they either do too much or not enough. Chalk is a clean and focused alternative.
 
 
+## Security
+
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+
+
 ## Related
 
 - [chalk-cli](https://github.com/chalk/chalk-cli) - CLI for this module
