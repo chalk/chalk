@@ -22,8 +22,8 @@ export type ColorSupport = {|
 |};
 
 export interface Chalk {
-	(...text: string[]): string,
-	(text: TemplateStringsArray, ...placeholders: string[]): string,
+	(...text: mixed[]): string,
+	(text: TemplateStringsArray, ...placeholders: mixed[]): string,
 	constructor(options?: ChalkOptions): Chalk,
 	enabled: boolean,
 	level: Level,
