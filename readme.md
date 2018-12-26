@@ -138,7 +138,7 @@ Multiple arguments will be separated by space.
 
 ### chalk.enabled
 
-Color support is automatically detected, as is the level (see `chalk.level`). However, if you'd like to simply enable/disable Chalk, you can do so via the `.enabled` property.
+Color support is automatically detected, as is the level (see `chalk.level`). However, if you'd like to simply enable/disable Chalk, you can do so via the `.enabled` property. When `chalk.enabled` is `true`, `chalk.level` must *also* be greater than `0` for colored output to be produced.
 
 Chalk is enabled by default unless explicitly disabled via the constructor or `chalk.level` is `0`.
 
@@ -150,7 +150,7 @@ const ctx = new chalk.constructor({enabled: false});
 
 ### chalk.level
 
-Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all Chalk consumers.
+Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all Chalk consumers. When `chalk.level` is greater than `0`, `chalk.enabled` must *also* be `true` for colored output to be produced.
 
 If you need to change this in a reusable module, create a new instance:
 
