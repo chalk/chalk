@@ -29,9 +29,8 @@ export interface Options {
 	enabled?: boolean;
 
 	/**
-	 * Specify the color support for Chalk. By default,
-	 * color support is automatically detected based on
-	 * the environment.
+	 * Specify the color support for Chalk.
+	 * By default, color support is automatically detected based on the environment.
 	 */
 	level?: Level;
 }
@@ -91,9 +90,8 @@ export interface Chalk {
 	enabled: boolean;
 
 	/**
-	 * The color support for Chalk. By default, color
-	 * support is automatically detected based on the
-	 * environment.
+	 * The color support for Chalk.
+	 * By default, color support is automatically detected based on the environment.
 	 */
 	level: Level;
 
@@ -230,7 +228,8 @@ export interface Chalk {
 	readonly strikethrough: this;
 
 	/**
-	 * Modifier: Prints the text only when Chalk is enabled. Can be useful for things that are purely cosmetic.
+	 * Modifier: Prints the text only when Chalk is enabled.
+	 * Can be useful for things that are purely cosmetic.
 	 */
 	readonly visible: this;
 
