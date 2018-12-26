@@ -31,10 +31,11 @@ function parseArguments(name, args) {
 	let matches;
 
 	for (const chunk of chunks) {
-		if (!isNaN(chunk)) {
-			results.push(Number(chunk));
+		const number = Number(chunk);
+		if (!Number.isNaN(number)) {
+			results.push(number);
 		} else if ((matches = chunk.match(STRING_REGEX))) {
-			results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, chr) => escape ? unescape(escape) : chr));
+			results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, character) => escape ? unescape(escape) : character));
 		} else {
 			throw new Error(`Invalid Chalk template style argument: ${chunk} (in style '${name}')`);
 		}
@@ -73,17 +74,20 @@ function buildStyle(chalk, styles) {
 	}
 
 	let current = chalk;
+	// TODO: Use `Object.entries` when targeting Node.js 8
 	for (const styleName of Object.keys(enabled)) {
-		if (Array.isArray(enabled[styleName])) {
-			if (!(styleName in current)) {
-				throw new Error(`Unknown Chalk style: ${styleName}`);
-			}
+		if (!Array.isArray(enabled[styleName])) {
+			continue;
+		}
 
-			if (enabled[styleName].length > 0) {
-				current = current[styleName](...enabled[styleName]);
-			} else {
-				current = current[styleName];
-			}
+		if (!(styleName in current)) {
+			throw new Error(`Unknown Chalk style: ${styleName}`);
+		}
+
+		if (enabled[styleName].length > 0) {
+			current = current[styleName](...enabled[styleName]);
+		} else {
+			current = current[styleName];
 		}
 	}
 
@@ -96,13 +100,13 @@ module.exports = (chalk, tmp) => {
 	let chunk = [];
 
 	// eslint-disable-next-line max-params
-	tmp.replace(TEMPLATE_REGEX, (m, escapeChar, inverse, style, close, chr) => {
-		if (escapeChar) {
-			chunk.push(unescape(escapeChar));
+	tmp.replace(TEMPLATE_REGEX, (m, escapeCharacter, inverse, style, close, character) => {
+		if (escapeCharacter) {
+			chunk.push(unescape(escapeCharacter));
 		} else if (style) {
-			const str = chunk.join('');
+			const string = chunk.join('');
 			chunk = [];
-			chunks.push(styles.length === 0 ? str : buildStyle(chalk, styles)(str));
+			chunks.push(styles.length === 0 ? string : buildStyle(chalk, styles)(string));
 			styles.push({inverse, styles: parseStyle(style)});
 		} else if (close) {
 			if (styles.length === 0) {
@@ -113,7 +117,7 @@ module.exports = (chalk, tmp) => {
 			chunk = [];
 			styles.pop();
 		} else {
-			chunk.push(chr);
+			chunk.push(character);
 		}
 	});
 
