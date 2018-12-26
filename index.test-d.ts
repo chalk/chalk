@@ -27,7 +27,6 @@ expectType<Level>(chalk.level);
 
 // -- Template literal --
 expectType<string>(chalk``);
-
 const name = 'John';
 expectType<string>(chalk`Hello {bold.red ${name}}`);
 
@@ -38,14 +37,12 @@ expectType<colorReturn>(chalk.rgb(0, 0, 0));
 expectType<colorReturn>(chalk.hsl(0, 0, 0));
 expectType<colorReturn>(chalk.hsv(0, 0, 0));
 expectType<colorReturn>(chalk.hwb(0, 0, 0));
-
 expectType<colorReturn>(chalk.bgHex('#DEADED'));
 expectType<colorReturn>(chalk.bgKeyword('orange'));
 expectType<colorReturn>(chalk.bgRgb(0, 0, 0));
 expectType<colorReturn>(chalk.bgHsl(0, 0, 0));
 expectType<colorReturn>(chalk.bgHsv(0, 0, 0));
 expectType<colorReturn>(chalk.bgHwb(0, 0, 0));
-
 
 // -- Modifiers --
 expectType<string>(chalk.reset('foo'));
@@ -57,7 +54,6 @@ expectType<string>(chalk.inverse('foo'));
 expectType<string>(chalk.hidden('foo'));
 expectType<string>(chalk.strikethrough('foo'));
 expectType<string>(chalk.visible('foo'));
-
 expectType<string>(chalk.reset`foo`);
 expectType<string>(chalk.bold`foo`);
 expectType<string>(chalk.dim`foo`);
@@ -87,7 +83,6 @@ expectType<string>(chalk.blueBright('foo'));
 expectType<string>(chalk.magentaBright('foo'));
 expectType<string>(chalk.cyanBright('foo'));
 expectType<string>(chalk.whiteBright('foo'));
-
 expectType<string>(chalk.bgBlack('foo'));
 expectType<string>(chalk.bgRed('foo'));
 expectType<string>(chalk.bgGreen('foo'));
@@ -104,7 +99,6 @@ expectType<string>(chalk.bgBlueBright('foo'));
 expectType<string>(chalk.bgMagentaBright('foo'));
 expectType<string>(chalk.bgCyanBright('foo'));
 expectType<string>(chalk.bgWhiteBright('foo'));
-
 expectType<string>(chalk.black`foo`);
 expectType<string>(chalk.red`foo`);
 expectType<string>(chalk.green`foo`);
@@ -123,7 +117,6 @@ expectType<string>(chalk.blueBright`foo`);
 expectType<string>(chalk.magentaBright`foo`);
 expectType<string>(chalk.cyanBright`foo`);
 expectType<string>(chalk.whiteBright`foo`);
-
 expectType<string>(chalk.bgBlack`foo`);
 expectType<string>(chalk.bgRed`foo`);
 expectType<string>(chalk.bgGreen`foo`);
@@ -141,7 +134,6 @@ expectType<string>(chalk.bgMagentaBright`foo`);
 expectType<string>(chalk.bgCyanBright`foo`);
 expectType<string>(chalk.bgWhiteBright`foo`);
 
-
 // -- Complex --
 expectType<string>(chalk.red.bgGreen.underline('foo'));
-expectType<string>( chalk.underline.red.bgGreen('foo'));
+expectType<string>(chalk.underline.red.bgGreen('foo'));
