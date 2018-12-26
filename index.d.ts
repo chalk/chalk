@@ -1,8 +1,3 @@
-// Type definitions for Chalk
-// Project: Chalk
-// Definitions by: Thomas Sauer <https://github.com/t-sauer>
-// Updated definitions by: George Gkasdrogkas <https://github.com/georgegkas>
-
 export const enum Level {
 	/**
 	 * All colors disabled.
