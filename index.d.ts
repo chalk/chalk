@@ -40,11 +40,6 @@ export interface Constructor {
 	 * Return a new Chalk instance.
 	 */
 	new (options?: Options): Chalk;
-
-	/**
-	 * Return a new Chalk instance.
-	 */
-	(options?: Options): Chalk;
 }
 
 /**
