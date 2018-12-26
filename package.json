@@ -8,13 +8,13 @@
 		"node": ">=6"
 	},
 	"scripts": {
-		"test": "xo && nyc ava && tsc --project types && flow --max-warnings=0",
+		"test": "xo && nyc ava && tsd-check && flow --max-warnings=0",
 		"bench": "matcha benchmark.js"
 	},
 	"files": [
 		"index.js",
 		"templates.js",
-		"types/index.d.ts",
+		"index.d.ts",
 		"index.js.flow"
 	],
 	"keywords": [
@@ -54,10 +54,11 @@
 		"matcha": "^0.7.0",
 		"nyc": "^13.0.1",
 		"resolve-from": "^4.0.0",
-		"typescript": "^3.0.3",
-		"xo": "^0.23.0"
+		"tsd-check": "^0.2.1",
+		"typescript": "^2.5.3",
+		"xo": "0.20.3"
 	},
-	"types": "types/index.d.ts",
+	"types": "index.d.ts",
 	"xo": {
 		"ignores": [
 			"test/_flow.js"

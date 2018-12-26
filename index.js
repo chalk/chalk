@@ -199,7 +199,7 @@ function applyStyle(...args) {
 }
 
 function chalkTag(chalk, ...strings) {
-	const firstString = strings[0];
+	const [firstString] = strings;
 
 	if (!Array.isArray(firstString)) {
 		// If chalk() was called by itself or with a string,
