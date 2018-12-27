@@ -14,7 +14,7 @@ export type Options = {|
 	level?: Level
 |};
 
-export type ColorSupport = {|
+export type ColorSupport = false | {|
 	level: Level,
 	hasBasic: boolean,
 	has256: boolean,

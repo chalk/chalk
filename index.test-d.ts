@@ -2,7 +2,7 @@ import {expectType} from 'tsd-check';
 import chalk, {Level, Chalk, ColorSupport} from '.';
 
 // - Helpers -
-type colorReturn = Chalk & {supportsColor: ColorSupport};
+type colorReturn = Chalk & {supportsColor: false | ColorSupport};
 
 // - Level -
 expectType<number>(Level.None);
@@ -11,9 +11,9 @@ expectType<number>(Level.Ansi256);
 expectType<number>(Level.TrueColor);
 
 // - supportsColor -
-expectType<boolean>(chalk.supportsColor.hasBasic);
-expectType<boolean>(chalk.supportsColor.has256);
-expectType<boolean>(chalk.supportsColor.has16m);
+expectType<boolean>(chalk.supportsColor && chalk.supportsColor.hasBasic);
+expectType<boolean>(chalk.supportsColor && chalk.supportsColor.has256);
+expectType<boolean>(chalk.supportsColor && chalk.supportsColor.has16m);
 
 // - Chalk -
 // -- Constructor --
