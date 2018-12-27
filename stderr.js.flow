@@ -1,0 +1,5 @@
+// @flow strict
+
+import { Chalk } from './index';
+
+declare module.exports: Chalk;
