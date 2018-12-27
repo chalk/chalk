@@ -15,7 +15,9 @@
 		"index.js",
 		"templates.js",
 		"index.d.ts",
-		"index.js.flow"
+		"index.js.flow",
+		"stderr.js",
+		"stderr.d.ts"
 	],
 	"keywords": [
 		"color",
