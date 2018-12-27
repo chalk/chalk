@@ -55,9 +55,13 @@ $ npm install chalk
 ## Usage
 
 ```js
+// for stdout: console.log, console.info, console.debug
 const chalk = require('chalk');
+// for stderr: console.error, console.warn
+const cherr = require('chalk/stderr');
 
 console.log(chalk.blue('Hello world!'));
+console.error(cherr.red('Oh, colored error!'));
 ```
 
 Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
@@ -173,6 +177,16 @@ Can be overridden by the user with the flags `--color` and `--no-color`. For sit
 
 Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
 
+### `chalk` vs `chalk/stderr`
+
+For simplicity of use, there is `chalk/stderr` export.
+Everything exported from `chalk` is also exported from `chalk/stderr`.
+Only differense is actual value of `supportsColor` exported:
+
+- for `chalk` import, `supportsColor` depends on `stdout`
+- for `chalk/stderr` value depends on `stderr`
+
+This may differ if one of the standart outputs is redirected and the other is not.
 
 ## Styles
 
