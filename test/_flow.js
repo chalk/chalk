@@ -89,3 +89,6 @@ chalk.black;
 // $ExpectError (Can't write to readonly property)
 chalk.reset = 'foo';
 console.log(chalk.reset);
+
+// `chalk/stderr` works
+chalkStderr.blue('foo');
