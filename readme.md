@@ -62,8 +62,6 @@ console.log(chalk.blue('Hello world!'));
 
 Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
 
-For output to **stderr** (like `console.error`) use `require('chalk/stderr')`.
-
 ```js
 const chalk = require('chalk');
 const log = console.log;
@@ -178,7 +176,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 ## Output to `stderr`
 
-Output intended for `stderr` should use `require('chalk/stderr')` instead of `require('chalk')`. It has an identical API, but correctly detects color support for the `stderr` stream.
+Output intended for [`stderr`](https://nodejs.org/api/process.html#process_process_stderr) (e.g. `console.error()`) should use `require('chalk/stderr')` instead of `require('chalk')`. It has an identical API, but correctly detects color support for the `stderr` stream.
 
 
 ## Styles
