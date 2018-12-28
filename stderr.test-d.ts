@@ -1,27 +1,27 @@
 import {expectType} from 'tsd-check';
-import cherr, {Level, Chalk, ColorSupport} from './stderr';
+import chalkStderr, {Level, Chalk, ColorSupport} from './stderr';
 
 // - Helpers -
 type colorReturn = Chalk & {supportsColor: ColorSupport};
 
 // - supportsColor -
-expectType<boolean>(cherr.supportsColor.hasBasic);
-expectType<boolean>(cherr.supportsColor.has256);
-expectType<boolean>(cherr.supportsColor.has16m);
+expectType<boolean>(chalkStderr.supportsColor.hasBasic);
+expectType<boolean>(chalkStderr.supportsColor.has256);
+expectType<boolean>(chalkStderr.supportsColor.has16m);
 
 // - Chalk -
 // -- Constructor --
-expectType<Chalk>(new cherr.constructor({level: 1}));
+expectType<Chalk>(new chalkStderr.constructor({level: 1}));
 
 // -- Properties --
-expectType<boolean>(cherr.enabled);
-expectType<Level>(cherr.level);
+expectType<boolean>(chalkStderr.enabled);
+expectType<Level>(chalkStderr.level);
 
 // -- Template literal --
-expectType<string>(cherr``);
+expectType<string>(chalkStderr``);
 
 // -- Color methods --
-expectType<colorReturn>(cherr.hex('#DEADED'));
+expectType<colorReturn>(chalkStderr.hex('#DEADED'));
 
 // -- Complex --
-expectType<string>(cherr.underline.red.bgGreen('foo'));
+expectType<string>(chalkStderr.underline.red.bgGreen('foo'));

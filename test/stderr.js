@@ -5,21 +5,21 @@ import execa from 'execa';
 // Spoof supports-color
 require('./_supports-color')(__dirname);
 
-const cherr = require('../stderr');
+const chalkStderr = require('../stderr');
 
 test('stderr don\'t output colors when manually disabled', t => {
-	cherr.enabled = false;
-	t.is(cherr.red('foo'), 'foo');
-	cherr.enabled = true;
+	chalkStderr.enabled = false;
+	t.is(chalkStderr.red('foo'), 'foo');
+	chalkStderr.enabled = true;
 });
 
 test('stderr enable/disable colors based on overall chalk enabled property, not individual instances', t => {
-	cherr.enabled = false;
-	const {red} = cherr;
+	chalkStderr.enabled = false;
+	const {red} = chalkStderr;
 	t.false(red.enabled);
-	cherr.enabled = true;
+	chalkStderr.enabled = true;
 	t.true(red.enabled);
-	cherr.enabled = true;
+	chalkStderr.enabled = true;
 });
 
 test('disable colors if they are not supported', async t => {

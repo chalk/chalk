@@ -1,6 +1,6 @@
 // @flow
 import chalk from '..';
-import cherr from '../stderr';
+import chalkStderr from '../stderr';
 
 // $ExpectError (Can't have typo in option name)
 chalk.constructor({levl: 1});
@@ -15,8 +15,8 @@ chalk.underline(null);
 chalk.underline('foo');
 
 // $ExpectError (Can't pass in null)
-cherr.underline(null);
-cherr.underline('foo');
+chalkStderr.underline(null);
+chalkStderr.underline('foo');
 
 // $ExpectError (Can't have typo in chalk method)
 chalk.rd('foo');
