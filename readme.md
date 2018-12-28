@@ -55,16 +55,14 @@ $ npm install chalk
 ## Usage
 
 ```js
-// for stdout: console.log, console.info, console.debug
 const chalk = require('chalk');
-// for stderr: console.error, console.warn
-const cherr = require('chalk/stderr');
 
 console.log(chalk.blue('Hello world!'));
-console.error(cherr.red('Oh, colored error!'));
 ```
 
 Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
+
+For output to ***stderr*** (like `console.error` or `console.warn`) use `require('chalk/stderr')`
 
 ```js
 const chalk = require('chalk');
