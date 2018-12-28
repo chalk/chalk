@@ -10,6 +10,10 @@ chalk.constructor({level: 1});
 new chalk.constructor({enabled: 'true'});
 new chalk.constructor({enabled: true});
 
+// $ExpectError (Can't pass in null)
+chalk.underline(null);
+chalk.underline('foo');
+
 // $ExpectError (Can't have typo in chalk method)
 chalk.rd('foo');
 chalk.red('foo');
