@@ -62,7 +62,7 @@ console.log(chalk.blue('Hello world!'));
 
 Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
 
-For output to ***stderr*** (like `console.error` or `console.warn`) use `require('chalk/stderr')`
+For output to **stderr** (like `console.error`) use `require('chalk/stderr')`.
 
 ```js
 const chalk = require('chalk');
@@ -175,16 +175,11 @@ Can be overridden by the user with the flags `--color` and `--no-color`. For sit
 
 Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
 
-### `chalk` vs `chalk/stderr`
 
-For simplicity of use, there is `chalk/stderr` export.
-Everything exported from `chalk` is also exported from `chalk/stderr`.
-Only differense is actual value of `supportsColor` exported:
+## Output to `stderr`
 
-- for `chalk` import, `supportsColor` depends on `stdout`
-- for `chalk/stderr` value depends on `stderr`
+Output intended for `stderr` should use `require('chalk/stderr')` instead of `require('chalk')`. It has an identical API, but correctly detects color support for the `stderr` stream.
 
-This may differ if one of the standart outputs is redirected and the other is not.
 
 ## Styles
 
