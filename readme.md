@@ -138,7 +138,7 @@ Multiple arguments will be separated by space.
 
 ### chalk.enabled
 
-Color support is automatically detected, as is the level (see `chalk.level`). However, if you'd like to simply enable/disable Chalk, you can do so via the `.enabled` property.
+Color support is automatically detected, as is the level (see `chalk.level`). However, if you'd like to simply enable/disable Chalk, you can do so via the `.enabled` property. When `chalk.enabled` is `true`, `chalk.level` must *also* be greater than `0` for colored output to be produced.
 
 Chalk is enabled by default unless explicitly disabled via the constructor or `chalk.level` is `0`.
 
@@ -150,7 +150,7 @@ const ctx = new chalk.constructor({enabled: false});
 
 ### chalk.level
 
-Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all Chalk consumers.
+Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all Chalk consumers. When `chalk.level` is greater than `0`, `chalk.enabled` must *also* be `true` for colored output to be produced.
 
 If you need to change this in a reusable module, create a new instance:
 
@@ -178,15 +178,15 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 ### Modifiers
 
-- `reset`
-- `bold`
-- `dim`
-- `italic` *(Not widely supported)*
-- `underline`
-- `inverse`
-- `hidden`
-- `strikethrough` *(Not widely supported)*
-- `visible` (Text is emitted only if enabled)
+- `reset` - Resets the current color chain.
+- `bold` - Make text bold.
+- `dim` - Emitting only a small amount of light.
+- `italic` - Make text italic. *(Not widely supported)*
+- `underline` - Make text underline. *(Not widely supported)*
+- `inverse`- Inverse background and foreground colors.
+- `hidden` - Prints the text, but makes it invisible.
+- `strikethrough` - Puts a horizontal line through the center of the text. *(Not widely supported)*
+- `visible`- Prints the text only when Chalk is enabled. Can be useful for things that are purely cosmetic.
 
 ### Colors
 
@@ -295,6 +295,11 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 ## Origin story
 
 [colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68) and the package is unmaintained. Although there are other packages, they either do too much or not enough. Chalk is a clean and focused alternative.
+
+
+## Security
+
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
 ## Related
