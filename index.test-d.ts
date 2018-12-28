@@ -27,6 +27,7 @@ expectType<Level>(chalk.level);
 expectType<string>(chalk``);
 const name = 'John';
 expectType<string>(chalk`Hello {bold.red ${name}}`);
+expectType<string>(chalk`Works with numbers {bold.red ${1}}`);
 
 // -- Color methods --
 expectType<colorReturn>(chalk.hex('#DEADED'));

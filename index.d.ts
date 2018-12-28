@@ -68,9 +68,9 @@ export interface ColorSupport {
 }
 
 export interface Chalk {
-	(...text: string[]): string;
+	(...text: unknown[]): string;
 
-	(text: TemplateStringsArray, ...placeholders: string[]): string;
+	(text: TemplateStringsArray, ...placeholders: unknown[]): string;
 
 	/**
 	 * Return a new Chalk instance.
