@@ -318,7 +318,7 @@ To report a security vulnerability, please use the [Tidelift security contact](h
 - [gradient-string](https://github.com/bokub/gradient-string) - Apply color gradients to strings
 - [chalk-pipe](https://github.com/LitoMore/chalk-pipe) - Create chalk style schemes with simpler style strings
 - [terminal-link](https://github.com/sindresorhus/terminal-link) - Create clickable links in the terminal
-
+- [chalker](https://github.com/jchip/chalker) - Set ansi colors in strings using XML like markers and chalk.
 
 ## Maintainers
 
