@@ -25,6 +25,12 @@ function applyOptions(object, options = {}) {
 	object.enabled = 'enabled' in options ? options.enabled : object.level > 0;
 }
 
+class ChalkClass {
+	constructor (options) {
+		return Chalk(options)
+	}
+}
+
 function Chalk(options) {
 	// We check for this.template here since calling `chalk.constructor()`
 	// by itself will have a `this` of a previously constructed chalk object
@@ -38,6 +44,7 @@ function Chalk(options) {
 		Object.setPrototypeOf(chalk.template, chalk);
 
 		chalk.template.constructor = Chalk;
+		chalk.template.instance = ChalkClass;
 
 		return chalk.template;
 	}
