@@ -2,12 +2,12 @@
 import chalk from '..';
 
 // $ExpectError (Can't have typo in option name)
-chalk.constructor({levl: 1});
-chalk.constructor({level: 1});
+new chalk.instance({levl: 1});
+new chalk.instance({level: 1});
 
 // $ExpectError (Option must have proper type)
-new chalk.constructor({enabled: 'true'});
-new chalk.constructor({enabled: true});
+new chalk.instance({enabled: 'true'});
+new chalk.instance({enabled: true});
 
 // $ExpectError (Can't have typo in chalk method)
 chalk.rd('foo');
@@ -22,8 +22,8 @@ chalk.red.bgBlu.underline('foo');
 chalk.red.bgBlue.underline('foo');
 
 // $ExpectError (Level must be 0, 1, 2, or 3)
-const badCtx = chalk.constructor({level: 4});
-const ctx = chalk.constructor({level: 3});
+const badCtx = chalk.instance({level: 4});
+const ctx = chalk.instance({level: 3});
 
 // $ExpectError (Can't have typo in method name)
 ctx.gry('foo');
@@ -41,7 +41,7 @@ chalk.enabled = true;
 chalk.level = 10;
 chalk.level = 1;
 
-const chalkInstance = new chalk.constructor();
+const chalkInstance = new chalk.instance();
 
 // $ExpectError (Can't have typo in method name)
 chalkInstance.blu('foo');
