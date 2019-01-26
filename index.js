@@ -26,27 +26,31 @@ function applyOptions(object, options = {}) {
 }
 
 class ChalkClass {
-	constructor (options) {
-		return Chalk(options)
+	constructor(options) {
+		return chalkFactory(options);
 	}
+}
+
+function chalkFactory(options) {
+	const chalk = {};
+	applyOptions(chalk, options);
+
+	chalk.template = (...args) => chalkTag(chalk.template, ...args);
+
+	Object.setPrototypeOf(chalk, Chalk.prototype);
+	Object.setPrototypeOf(chalk.template, chalk);
+
+	chalk.template.constructor = Chalk;
+	chalk.template.instance = ChalkClass;
+
+	return chalk.template;
 }
 
 function Chalk(options) {
 	// We check for this.template here since calling `chalk.constructor()`
 	// by itself will have a `this` of a previously constructed chalk object
 	if (!this || !(this instanceof Chalk) || this.template) {
-		const chalk = {};
-		applyOptions(chalk, options);
-
-		chalk.template = (...args) => chalkTag(chalk.template, ...args);
-
-		Object.setPrototypeOf(chalk, Chalk.prototype);
-		Object.setPrototypeOf(chalk.template, chalk);
-
-		chalk.template.constructor = Chalk;
-		chalk.template.instance = ChalkClass;
-
-		return chalk.template;
+		return chalkFactory(options);
 	}
 
 	applyOptions(this, options);
