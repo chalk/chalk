@@ -6,7 +6,7 @@ require('./_supports-color')(__dirname);
 const chalk = require('..');
 
 test('create an isolated context where colors can be disabled (by level)', t => {
-	const instance = new chalk.instance({level: 0, enabled: true});
+	const instance = new chalk.Instance({level: 0, enabled: true});
 	t.is(instance.red('foo'), 'foo');
 	t.is(chalk.red('foo'), '\u001B[31mfoo\u001B[39m');
 	instance.level = 2;
@@ -14,7 +14,7 @@ test('create an isolated context where colors can be disabled (by level)', t => 
 });
 
 test('create an isolated context where colors can be disabled (by enabled flag)', t => {
-	const instance = new chalk.instance({enabled: false});
+	const instance = new chalk.Instance({enabled: false});
 	t.is(instance.red('foo'), 'foo');
 	t.is(chalk.red('foo'), '\u001B[31mfoo\u001B[39m');
 	instance.enabled = true;
@@ -24,11 +24,11 @@ test('create an isolated context where colors can be disabled (by enabled flag)'
 test('the `level` option should be a number from 0 to 3', t => {
 	/* eslint-disable no-new */
 	t.throws(() => {
-		new chalk.instance({level: 10});
+		new chalk.Instance({level: 10});
 	}, /should be an integer from 0 to 3/);
 
 	t.throws(() => {
-		new chalk.instance({level: -1});
+		new chalk.Instance({level: -1});
 	}, /should be an integer from 0 to 3/);
 	/* eslint-enable no-new */
 });

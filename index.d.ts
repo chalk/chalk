@@ -75,7 +75,7 @@ export interface Chalk {
 	/**
 	 * Return a new Chalk instance.
 	 */
-	instance: Instance;
+	Instance: Instance;
 
 	/**
 	 * Enable or disable Chalk.

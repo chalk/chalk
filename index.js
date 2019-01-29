@@ -41,21 +41,15 @@ function chalkFactory(options) {
 	Object.setPrototypeOf(chalk.template, chalk);
 
 	chalk.template.constructor = () => {
-		throw new Error('Chalk.constructor() is deprecated. Use new Chalk.instance() instead.');
+		throw new Error('Chalk.constructor() is deprecated. Use new Chalk.Instance() instead.');
 	};
-	chalk.template.instance = ChalkClass;
+	chalk.template.Instance = ChalkClass;
 
 	return chalk.template;
 }
 
 function Chalk(options) {
-	// We check for this.template here since calling `chalk.constructor()`
-	// by itself will have a `this` of a previously constructed chalk object
-	if (!this || !(this instanceof Chalk) || this.template) {
-		return chalkFactory(options);
-	}
-
-	applyOptions(this, options);
+	return chalkFactory(options);
 }
 
 // Use bright blue on Windows as the normal blue color is illegible

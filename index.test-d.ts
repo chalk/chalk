@@ -17,7 +17,7 @@ expectType<boolean>(chalk.supportsColor.has16m);
 
 // - Chalk -
 // -- Instance --
-expectType<Chalk>(new chalk.instance({level: 1}));
+expectType<Chalk>(new chalk.Instance({level: 1}));
 
 // -- Properties --
 expectType<boolean>(chalk.enabled);
