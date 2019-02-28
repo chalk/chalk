@@ -8,8 +8,12 @@
 		"node": ">=8"
 	},
 	"scripts": {
-		"test": "xo && nyc ava && tsd-check && flow",
-		"bench": "matcha benchmark.js"
+		"test:lint": "xo",
+		"test:ava": "nyc ava",
+		"test:validate": "tsd-check && flow",
+		"test": "npm-run-all test:*",
+		"bench": "matcha benchmark.js",
+		"report-coverage": "nyc report --reporter=text-lcov | coveralls"
 	},
 	"files": [
 		"index.js",
@@ -53,7 +57,8 @@
 		"flow-bin": "^0.94.0",
 		"import-fresh": "^3.0.0",
 		"matcha": "^0.7.0",
-		"nyc": "^13.3.0",
+		"npm-run-all": "^4.1.5",
+		"nyc": "^13.1.0",
 		"resolve-from": "^4.0.0",
 		"tsd-check": "^0.3.0",
 		"xo": "^0.24.0"

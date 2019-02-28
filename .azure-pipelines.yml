@@ -1,0 +1,35 @@
+trigger:
+- master
+
+jobs:
+  - job: Linux
+    pool:
+      vmImage: 'ubuntu-16.04'
+    strategy:
+      matrix:
+        Node8:
+          NODE_VERSION: '8.x'
+        Node10:
+          NODE_VERSION: '10.x'
+    steps:
+    - template: .azure-pipelines-steps.yml
+
+  - job: Windows
+    pool:
+      vmImage: vs2017-win2016
+    strategy:
+      matrix:
+        Node10:
+          NODE_VERSION: '10.x'
+    steps:
+    - template: .azure-pipelines-steps.yml
+
+  - job: macOS
+    pool:
+      vmImage: macos-10.13
+    strategy:
+      matrix:
+        Node10:
+          NODE_VERSION: '10.x'
+    steps:
+    - template: .azure-pipelines-steps.yml
