@@ -271,6 +271,6 @@ export interface Chalk {
  * Order doesn't matter, and later styles take precedent in case of a conflict.
  * This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
  */
-declare const chalk: Chalk & { supportsColor: ColorSupport };
+declare const chalk: Chalk & {supportsColor: ColorSupport};
 
 export default chalk;

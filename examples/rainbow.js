@@ -3,36 +3,39 @@ const chalk = require('..');
 
 const ignoreChars = /[^!-~]/g;
 
-function rainbow(str, offset) {
-	if (!str || str.length === 0) {
-		return str;
+const delay = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+
+function rainbow(string, offset) {
+	if (!string || string.length === 0) {
+		return string;
 	}
 
-	const hueStep = 360 / str.replace(ignoreChars, '').length;
+	const hueStep = 360 / string.replace(ignoreChars, '').length;
 
 	let hue = offset % 360;
-	const chars = [];
-	for (const c of str) {
-		if (c.match(ignoreChars)) {
-			chars.push(c);
+	const characters = [];
+	for (const character of string) {
+		if (character.match(ignoreChars)) {
+			characters.push(character);
 		} else {
-			chars.push(chalk.hsl(hue, 100, 50)(c));
+			characters.push(chalk.hsl(hue, 100, 50)(character));
 			hue = (hue + hueStep) % 360;
 		}
 	}
 
-	return chars.join('');
+	return characters.join('');
 }
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-async function animateString(str) {
+async function animateString(string) {
 	console.log();
 	for (let i = 0; i < 360 * 5; i++) {
-		console.log('\u001B[1F\u001B[G ', rainbow(str, i));
-		await sleep(2); // eslint-disable-line no-await-in-loop
+		console.log('\u001B[1F\u001B[G', rainbow(string, i));
+		await delay(2); // eslint-disable-line no-await-in-loop
 	}
 }
 
-console.log();
-animateString('We hope you enjoy the new version of Chalk 2! <3').then(() => console.log());
+(async () => {
+	console.log();
+	await animateString('We hope you enjoy Chalk! <3');
+	console.log();
+})();

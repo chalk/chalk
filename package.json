@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"repository": "chalk/chalk",
 	"engines": {
-		"node": ">=6"
+		"node": ">=8"
 	},
 	"scripts": {
 		"test": "xo && nyc ava && tsd-check && flow",
@@ -43,20 +43,20 @@
 	"dependencies": {
 		"ansi-styles": "^3.2.1",
 		"escape-string-regexp": "^1.0.5",
-		"supports-color": "^6.0.0"
+		"supports-color": "^6.1.0"
 	},
 	"devDependencies": {
-		"@sindresorhus/tsconfig": "^0.1.1",
-		"ava": "^1.0.1",
-		"coveralls": "^3.0.2",
+		"@sindresorhus/tsconfig": "^0.2.1",
+		"ava": "^1.3.1",
+		"coveralls": "^3.0.3",
 		"execa": "^1.0.0",
-		"flow-bin": "^0.89.0",
+		"flow-bin": "^0.94.0",
 		"import-fresh": "^3.0.0",
 		"matcha": "^0.7.0",
-		"nyc": "^13.1.0",
+		"nyc": "^13.3.0",
 		"resolve-from": "^4.0.0",
 		"tsd-check": "^0.3.0",
-		"xo": "^0.23.0"
+		"xo": "^0.24.0"
 	},
 	"types": "index.d.ts",
 	"xo": {
