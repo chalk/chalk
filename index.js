@@ -58,11 +58,6 @@ function Chalk(options) {
 	return chalkFactory(options);
 }
 
-// Use bright blue on Windows as the normal blue color is illegible
-if (isSimpleWindowsTerm) {
-	ansiStyles.blue.open = '\u001B[94m';
-}
-
 for (const [styleName, style] of Object.entries(ansiStyles)) {
 	style.closeRe = new RegExp(escapeStringRegexp(style.close), 'g');
 
