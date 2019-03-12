@@ -83,17 +83,17 @@ test('line breaks should open and close colors', t => {
 });
 
 test('properly convert RGB to 16 colors on basic color terminals', t => {
-	t.is(new chalk.constructor({level: 1}).hex('#FF0000')('hello'), '\u001B[91mhello\u001B[39m');
-	t.is(new chalk.constructor({level: 1}).bgHex('#FF0000')('hello'), '\u001B[101mhello\u001B[49m');
+	t.is(new chalk.Instance({level: 1}).hex('#FF0000')('hello'), '\u001B[91mhello\u001B[39m');
+	t.is(new chalk.Instance({level: 1}).bgHex('#FF0000')('hello'), '\u001B[101mhello\u001B[49m');
 });
 
 test('properly convert RGB to 256 colors on basic color terminals', t => {
-	t.is(new chalk.constructor({level: 2}).hex('#FF0000')('hello'), '\u001B[38;5;196mhello\u001B[39m');
-	t.is(new chalk.constructor({level: 2}).bgHex('#FF0000')('hello'), '\u001B[48;5;196mhello\u001B[49m');
-	t.is(new chalk.constructor({level: 3}).bgHex('#FF0000')('hello'), '\u001B[48;2;255;0;0mhello\u001B[49m');
+	t.is(new chalk.Instance({level: 2}).hex('#FF0000')('hello'), '\u001B[38;5;196mhello\u001B[39m');
+	t.is(new chalk.Instance({level: 2}).bgHex('#FF0000')('hello'), '\u001B[48;5;196mhello\u001B[49m');
+	t.is(new chalk.Instance({level: 3}).bgHex('#FF0000')('hello'), '\u001B[48;2;255;0;0mhello\u001B[49m');
 });
 
 test('don\'t emit RGB codes if level is 0', t => {
-	t.is(new chalk.constructor({level: 0}).hex('#FF0000')('hello'), 'hello');
-	t.is(new chalk.constructor({level: 0}).bgHex('#FF0000')('hello'), 'hello');
+	t.is(new chalk.Instance({level: 0}).hex('#FF0000')('hello'), 'hello');
+	t.is(new chalk.Instance({level: 0}).bgHex('#FF0000')('hello'), 'hello');
 });

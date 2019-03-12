@@ -35,7 +35,7 @@ export interface Options {
 	level?: Level;
 }
 
-export interface Constructor {
+export interface Instance {
 	/**
 	 * Return a new Chalk instance.
 	 */
@@ -75,7 +75,7 @@ export interface Chalk {
 	/**
 	 * Return a new Chalk instance.
 	 */
-	constructor: Constructor;
+	Instance: Instance;
 
 	/**
 	 * Enable or disable Chalk.
@@ -271,6 +271,6 @@ export interface Chalk {
  * Order doesn't matter, and later styles take precedent in case of a conflict.
  * This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
  */
-declare const chalk: Chalk & { supportsColor: ColorSupport };
+declare const chalk: Chalk & {supportsColor: ColorSupport};
 
 export default chalk;

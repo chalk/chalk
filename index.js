@@ -7,7 +7,12 @@ const template = require('./templates.js');
 const isSimpleWindowsTerm = process.platform === 'win32' && !(process.env.TERM || '').toLowerCase().startsWith('xterm');
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
-const levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
+const levelMapping = [
+	'ansi',
+	'ansi',
+	'ansi256',
+	'ansi16m'
+];
 
 // `color-convert` models to exclude from the Chalk API due to conflicts and such
 const skipModels = new Set(['gray']);
@@ -25,33 +30,40 @@ function applyOptions(object, options = {}) {
 	object.enabled = 'enabled' in options ? options.enabled : object.level > 0;
 }
 
-function Chalk(options) {
-	// We check for this.template here since calling `chalk.constructor()`
-	// by itself will have a `this` of a previously constructed chalk object
-	if (!this || !(this instanceof Chalk) || this.template) {
-		const chalk = {};
-		applyOptions(chalk, options);
-
-		chalk.template = (...args) => chalkTag(chalk.template, ...args);
-
-		Object.setPrototypeOf(chalk, Chalk.prototype);
-		Object.setPrototypeOf(chalk.template, chalk);
-
-		chalk.template.constructor = Chalk;
-
-		return chalk.template;
+class ChalkClass {
+	constructor(options) {
+		return chalkFactory(options);
 	}
-
-	applyOptions(this, options);
 }
 
-for (const key of Object.keys(ansiStyles)) {
-	ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
+function chalkFactory(options) {
+	const chalk = {};
+	applyOptions(chalk, options);
 
-	styles[key] = {
+	chalk.template = (...arguments_) => chalkTag(chalk.template, ...arguments_);
+
+	Object.setPrototypeOf(chalk, Chalk.prototype);
+	Object.setPrototypeOf(chalk.template, chalk);
+
+	chalk.template.constructor = () => {
+		throw new Error('`chalk.constructor()` is deprecated. Use `new chalk.Instance()` instead.');
+	};
+
+	chalk.template.Instance = ChalkClass;
+
+	return chalk.template;
+}
+
+function Chalk(options) {
+	return chalkFactory(options);
+}
+
+for (const [styleName, style] of Object.entries(ansiStyles)) {
+	style.closeRe = new RegExp(escapeStringRegexp(style.close), 'g');
+
+	styles[styleName] = {
 		get() {
-			const codes = ansiStyles[key];
-			return build.call(this, [...(this._styles || []), codes], this._empty, key);
+			return build.call(this, [...(this._styles || []), style], this._empty, styleName);
 		}
 	};
 }
@@ -94,8 +106,8 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 	styles[bgModel] = {
 		get() {
 			const {level} = this;
-			return function (...args) {
-				const open = ansiStyles.bgColor[levelMapping[level]][model](...args);
+			return function (...arguments_) {
+				const open = ansiStyles.bgColor[levelMapping[level]][model](...arguments_);
 				const codes = {
 					open,
 					close: ansiStyles.bgColor.close,
@@ -110,7 +122,7 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 const proto = Object.defineProperties(() => {}, styles);
 
 function build(_styles, _empty, key) {
-	const builder = (...args) => applyStyle.call(builder, ...args);
+	const builder = (...arguments_) => applyStyle.call(builder, ...arguments_);
 	builder._styles = _styles;
 	builder._empty = _empty;
 
@@ -146,8 +158,8 @@ function build(_styles, _empty, key) {
 	return builder;
 }
 
-function applyStyle(...args) {
-	let string = args.join(' ');
+function applyStyle(...arguments_) {
+	let string = arguments_.join(' ');
 
 	if (!this.enabled || this.level <= 0 || !string) {
 		return this._empty ? '' : string;
@@ -188,12 +200,12 @@ function chalkTag(chalk, ...strings) {
 		return strings.join(' ');
 	}
 
-	const args = strings.slice(1);
+	const arguments_ = strings.slice(1);
 	const parts = [firstString.raw[0]];
 
 	for (let i = 1; i < firstString.length; i++) {
 		parts.push(
-			String(args[i - 1]).replace(/[{}\\]/g, '\\$&'),
+			String(arguments_[i - 1]).replace(/[{}\\]/g, '\\$&'),
 			String(firstString.raw[i])
 		);
 	}

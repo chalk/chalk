@@ -25,9 +25,9 @@ function unescape(c) {
 	return ESCAPES.get(c) || c;
 }
 
-function parseArguments(name, args) {
+function parseArguments(name, arguments_) {
 	const results = [];
-	const chunks = args.trim().split(/\s*,\s*/g);
+	const chunks = arguments_.trim().split(/\s*,\s*/g);
 	let matches;
 
 	for (const chunk of chunks) {
@@ -51,7 +51,7 @@ function parseStyle(style) {
 	let matches;
 
 	while ((matches = STYLE_REGEX.exec(style)) !== null) {
-		const name = matches[1]; // eslint-disable-line prefer-destructuring
+		const name = matches[1];
 
 		if (matches[2]) {
 			const args = parseArguments(name, matches[2]);
@@ -74,9 +74,8 @@ function buildStyle(chalk, styles) {
 	}
 
 	let current = chalk;
-	// TODO: Use `Object.entries` when targeting Node.js 8
-	for (const styleName of Object.keys(enabled)) {
-		if (!Array.isArray(enabled[styleName])) {
+	for (const [styleName, styles] of Object.entries(enabled)) {
+		if (!Array.isArray(styles)) {
 			continue;
 		}
 
@@ -84,23 +83,19 @@ function buildStyle(chalk, styles) {
 			throw new Error(`Unknown Chalk style: ${styleName}`);
 		}
 
-		if (enabled[styleName].length > 0) {
-			current = current[styleName](...enabled[styleName]);
-		} else {
-			current = current[styleName];
-		}
+		current = styles.length > 0 ? current[styleName](...styles) : current[styleName];
 	}
 
 	return current;
 }
 
-module.exports = (chalk, tmp) => {
+module.exports = (chalk, temporary) => {
 	const styles = [];
 	const chunks = [];
 	let chunk = [];
 
 	// eslint-disable-next-line max-params
-	tmp.replace(TEMPLATE_REGEX, (m, escapeCharacter, inverse, style, close, character) => {
+	temporary.replace(TEMPLATE_REGEX, (m, escapeCharacter, inverse, style, close, character) => {
 		if (escapeCharacter) {
 			chunk.push(unescape(escapeCharacter));
 		} else if (style) {
