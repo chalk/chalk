@@ -4,8 +4,6 @@ const ansiStyles = require('ansi-styles');
 const {stdout: stdoutColor} = require('supports-color');
 const template = require('./templates.js');
 
-const isSimpleWindowsTerm = process.platform === 'win32' && !(process.env.TERM || '').toLowerCase().startsWith('xterm');
-
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = [
 	'ansi',
@@ -63,14 +61,14 @@ for (const [styleName, style] of Object.entries(ansiStyles)) {
 
 	styles[styleName] = {
 		get() {
-			return build.call(this, [...(this._styles || []), style], this._empty, styleName);
+			return build.call(this, [...(this._styles || []), style], this._empty);
 		}
 	};
 }
 
 styles.visible = {
 	get() {
-		return build.call(this, this._styles || [], true, 'visible');
+		return build.call(this, this._styles || [], true);
 	}
 };
 
@@ -90,7 +88,7 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 					close: ansiStyles.color.close,
 					closeRe: ansiStyles.color.closeRe
 				};
-				return build.call(this, [...(this._styles || []), codes], this._empty, model);
+				return build.call(this, [...(this._styles || []), codes], this._empty);
 			};
 		}
 	};
@@ -113,7 +111,7 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 					close: ansiStyles.bgColor.close,
 					closeRe: ansiStyles.bgColor.closeRe
 				};
-				return build.call(this, [...(this._styles || []), codes], this._empty, model);
+				return build.call(this, [...(this._styles || []), codes], this._empty);
 			};
 		}
 	};
@@ -121,7 +119,7 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 
 const proto = Object.defineProperties(() => {}, styles);
 
-function build(_styles, _empty, key) {
+function build(_styles, _empty) {
 	const builder = (...arguments_) => applyStyle.call(builder, ...arguments_);
 	builder._styles = _styles;
 	builder._empty = _empty;
@@ -148,9 +146,6 @@ function build(_styles, _empty, key) {
 		}
 	});
 
-	// See below for fix regarding invisible grey/dim combination on Windows
-	builder.hasGrey = this.hasGrey || key === 'gray' || key === 'grey';
-
 	// `__proto__` is used because we must return a function, but there is
 	// no way to create a function with a different prototype
 	builder.__proto__ = proto; // eslint-disable-line no-proto
@@ -165,14 +160,6 @@ function applyStyle(...arguments_) {
 		return this._empty ? '' : string;
 	}
 
-	// Turns out that on Windows dimmed gray text becomes invisible in cmd.exe,
-	// see https://github.com/chalk/chalk/issues/58
-	// If we're on Windows and we're dealing with a gray color, temporarily make 'dim' a noop.
-	const originalDim = ansiStyles.dim.open;
-	if (isSimpleWindowsTerm && this.hasGrey) {
-		ansiStyles.dim.open = '';
-	}
-
 	for (const code of this._styles.slice().reverse()) {
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
@@ -184,9 +171,6 @@ function applyStyle(...arguments_) {
 		// https://github.com/chalk/chalk/pull/92
 		string = string.replace(/\r?\n/g, `${code.close}$&${code.open}`);
 	}
-
-	// Reset the original `dim` if we changed it to work around the Windows dimmed gray issue
-	ansiStyles.dim.open = originalDim;
 
 	return string;
 }
