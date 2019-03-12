@@ -35,7 +35,7 @@ export interface Options {
 	level?: Level;
 }
 
-export interface Constructor {
+export interface Instance {
 	/**
 	 * Return a new Chalk instance.
 	 */
@@ -75,7 +75,7 @@ export interface Chalk {
 	/**
 	 * Return a new Chalk instance.
 	 */
-	constructor: Constructor;
+	Instance: Instance;
 
 	/**
 	 * Enable or disable Chalk.

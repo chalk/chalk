@@ -24,7 +24,7 @@ export type ColorSupport = {|
 export interface Chalk {
 	(...text: string[]): string,
 	(text: TemplateStringsArray, ...placeholders: mixed[]): string,
-	constructor(options?: Options): Chalk,
+	Instance(options?: Options): Chalk,
 	enabled: boolean,
 	level: Level,
 	rgb(red: number, green: number, blue: number): Chalk,

@@ -25,24 +25,31 @@ function applyOptions(object, options = {}) {
 	object.enabled = 'enabled' in options ? options.enabled : object.level > 0;
 }
 
-function Chalk(options) {
-	// We check for this.template here since calling `chalk.constructor()`
-	// by itself will have a `this` of a previously constructed chalk object
-	if (!this || !(this instanceof Chalk) || this.template) {
-		const chalk = {};
-		applyOptions(chalk, options);
-
-		chalk.template = (...args) => chalkTag(chalk.template, ...args);
-
-		Object.setPrototypeOf(chalk, Chalk.prototype);
-		Object.setPrototypeOf(chalk.template, chalk);
-
-		chalk.template.constructor = Chalk;
-
-		return chalk.template;
+class ChalkClass {
+	constructor(options) {
+		return chalkFactory(options);
 	}
+}
 
-	applyOptions(this, options);
+function chalkFactory(options) {
+	const chalk = {};
+	applyOptions(chalk, options);
+
+	chalk.template = (...args) => chalkTag(chalk.template, ...args);
+
+	Object.setPrototypeOf(chalk, Chalk.prototype);
+	Object.setPrototypeOf(chalk.template, chalk);
+
+	chalk.template.constructor = () => {
+		throw new Error('`chalk.constructor()` is deprecated. Use `new chalk.Instance()` instead.');
+	};
+	chalk.template.Instance = ChalkClass;
+
+	return chalk.template;
+}
+
+function Chalk(options) {
+	return chalkFactory(options);
 }
 
 // Use bright blue on Windows as the normal blue color is illegible
