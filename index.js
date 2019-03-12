@@ -41,7 +41,7 @@ function chalkFactory(options) {
 	Object.setPrototypeOf(chalk.template, chalk);
 
 	chalk.template.constructor = () => {
-		throw new Error('Chalk.constructor() is deprecated. Use new Chalk.Instance() instead.');
+		throw new Error('`chalk.constructor()` is deprecated. Use `new chalk.Instance()` instead.');
 	};
 	chalk.template.Instance = ChalkClass;
 
