@@ -17,7 +17,7 @@ const skipModels = new Set(['gray']);
 
 const styles = Object.create(null);
 
-function applyOptions(object, options = {}) {
+const applyOptions = (object, options = {}) => {
 	if (options.level > 3 || options.level < 0) {
 		throw new Error('The `level` option should be an integer from 0 to 3');
 	}
@@ -26,7 +26,7 @@ function applyOptions(object, options = {}) {
 	const colorLevel = stdoutColor ? stdoutColor.level : 0;
 	object.level = options.level === undefined ? colorLevel : options.level;
 	object.enabled = 'enabled' in options ? options.enabled : object.level > 0;
-}
+};
 
 class ChalkClass {
 	constructor(options) {
@@ -34,7 +34,7 @@ class ChalkClass {
 	}
 }
 
-function chalkFactory(options) {
+const chalkFactory = options => {
 	const chalk = {};
 	applyOptions(chalk, options);
 
@@ -50,7 +50,7 @@ function chalkFactory(options) {
 	chalk.template.Instance = ChalkClass;
 
 	return chalk.template;
-}
+};
 
 function Chalk(options) {
 	return chalkFactory(options);
@@ -61,14 +61,14 @@ for (const [styleName, style] of Object.entries(ansiStyles)) {
 
 	styles[styleName] = {
 		get() {
-			return build.call(this, [...(this._styles || []), style], this._empty);
+			return createBuilder(this, [...(this._styles || []), style], this._isEmpty);
 		}
 	};
 }
 
 styles.visible = {
 	get() {
-		return build.call(this, this._styles || [], true);
+		return createBuilder(this, this._styles || [], true);
 	}
 };
 
@@ -81,14 +81,14 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 	styles[model] = {
 		get() {
 			const {level} = this;
-			return function (...args) {
-				const open = ansiStyles.color[levelMapping[level]][model](...args);
+			return function (...arguments_) {
+				const open = ansiStyles.color[levelMapping[level]][model](...arguments_);
 				const codes = {
 					open,
 					close: ansiStyles.color.close,
 					closeRe: ansiStyles.color.closeRe
 				};
-				return build.call(this, [...(this._styles || []), codes], this._empty);
+				return createBuilder(this, [...(this._styles || []), codes], this._isEmpty);
 			};
 		}
 	};
@@ -111,7 +111,7 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 					close: ansiStyles.bgColor.close,
 					closeRe: ansiStyles.bgColor.closeRe
 				};
-				return build.call(this, [...(this._styles || []), codes], this._empty);
+				return createBuilder(this, [...(this._styles || []), codes], this._isEmpty);
 			};
 		}
 	};
@@ -119,12 +119,10 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 
 const proto = Object.defineProperties(() => {}, styles);
 
-function build(_styles, _empty) {
-	const builder = (...arguments_) => applyStyle.call(builder, ...arguments_);
+const createBuilder = (self, _styles, _isEmpty) => {
+	const builder = (...arguments_) => applyStyle(builder, ...arguments_);
 	builder._styles = _styles;
-	builder._empty = _empty;
-
-	const self = this;
+	builder._isEmpty = _isEmpty;
 
 	Object.defineProperty(builder, 'level', {
 		enumerable: true,
@@ -151,16 +149,16 @@ function build(_styles, _empty) {
 	builder.__proto__ = proto; // eslint-disable-line no-proto
 
 	return builder;
-}
+};
 
-function applyStyle(...arguments_) {
+const applyStyle = (self, ...arguments_) => {
 	let string = arguments_.join(' ');
 
-	if (!this.enabled || this.level <= 0 || !string) {
-		return this._empty ? '' : string;
+	if (!self.enabled || self.level <= 0 || !string) {
+		return self._isEmpty ? '' : string;
 	}
 
-	for (const code of this._styles.slice().reverse()) {
+	for (const code of self._styles.slice().reverse()) {
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
 		// will be colored, and the rest will simply be 'plain'.
@@ -173,9 +171,9 @@ function applyStyle(...arguments_) {
 	}
 
 	return string;
-}
+};
 
-function chalkTag(chalk, ...strings) {
+const chalkTag = (chalk, ...strings) => {
 	const [firstString] = strings;
 
 	if (!Array.isArray(firstString)) {
@@ -195,7 +193,7 @@ function chalkTag(chalk, ...strings) {
 	}
 
 	return template(chalk, parts.join(''));
-}
+};
 
 Object.defineProperties(Chalk.prototype, styles);
 
