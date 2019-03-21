@@ -37,7 +37,7 @@ test('support nesting styles', t => {
 test('support nesting styles of the same type (color, underline, bg)', t => {
 	t.is(
 		chalk.red('a' + chalk.yellow('b' + chalk.green('c') + 'b') + 'c'),
-		'\u001B[31ma\u001B[33mb\u001B[32mc\u001B[33mb\u001B[31mc\u001B[39m'
+		'\u001B[31ma\u001B[33mb\u001B[32mc\u001B[39m\u001B[31m\u001B[33mb\u001B[39m\u001B[31mc\u001B[39m'
 	);
 });
 
