@@ -162,7 +162,7 @@ const applyStyle = (self, ...arguments_) => {
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
 		// will be colored, and the rest will simply be 'plain'.
-		string = code.open + string.replace(code.closeRe, code.open) + code.close;
+		string = code.open + string.replace(code.closeRe, code.close + code.open) + code.close;
 
 		// Close the styling before a linebreak and reopen
 		// after next line to fix a bleed issue on macOS
