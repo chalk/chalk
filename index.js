@@ -96,14 +96,14 @@ function Chalk(options) {
 for (const [styleName, style] of Object.entries(ansiStyles)) {
 	styles[styleName] = {
 		get() {
-			return createBuilder(this, [...(this._styles || []), style], this._isEmpty);
+			return createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty);
 		}
 	};
 }
 
 styles.visible = {
 	get() {
-		return createBuilder(this, this._styles || [], true);
+		return createBuilder(this, this._styler, true);
 	}
 };
 
@@ -116,12 +116,8 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 		get() {
 			const {level} = this;
 			return function (...arguments_) {
-				const open = ansiStyles.color[levelMapping[level]][model](...arguments_);
-				const codes = {
-					open,
-					close: ansiStyles.color.close
-				};
-				return createBuilder(this, [...(this._styles || []), codes], this._isEmpty);
+				const styler = createStyler(ansiStyles.color[levelMapping[level]][model](...arguments_), ansiStyles.color.close, this._styler);
+				return createBuilder(this, styler, this._isEmpty);
 			};
 		}
 	};
@@ -137,12 +133,8 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 		get() {
 			const {level} = this;
 			return function (...arguments_) {
-				const open = ansiStyles.bgColor[levelMapping[level]][model](...arguments_);
-				const codes = {
-					open,
-					close: ansiStyles.bgColor.close
-				};
-				return createBuilder(this, [...(this._styles || []), codes], this._isEmpty);
+				const styler = createStyler(ansiStyles.bgColor[levelMapping[level]][model](...arguments_), ansiStyles.bgColor.close, this._styler);
+				return createBuilder(this, styler, this._isEmpty);
 			};
 		}
 	};
@@ -170,7 +162,15 @@ const proto = Object.defineProperties(() => {}, {
 	}
 });
 
-const createBuilder = (self, _styles, _isEmpty) => {
+const createStyler = (open, close, parent) => {
+	return {
+		open,
+		close,
+		parent
+	};
+};
+
+const createBuilder = (self, _styler, _isEmpty) => {
 	const builder = (...arguments_) => {
 		// eslint-disable-next-line no-implicit-coercion
 		return applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
@@ -181,7 +181,7 @@ const createBuilder = (self, _styles, _isEmpty) => {
 	builder.__proto__ = proto; // eslint-disable-line no-proto
 
 	builder._generator = self;
-	builder._styles = _styles;
+	builder._styler = _styler;
 	builder._isEmpty = _isEmpty;
 
 	return builder;
@@ -192,18 +192,20 @@ const applyStyle = (self, string) => {
 		return self._isEmpty ? '' : string;
 	}
 
-	for (const code of self._styles.slice().reverse()) {
+	let styler = self._styler;
+	while (styler !== undefined) {
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
 		// will be colored, and the rest will simply be 'plain'.
-		string = stringReplaceAll(string, code.close, code.open);
+		string = stringReplaceAll(string, styler.close, styler.open);
 
 		// Close the styling before a linebreak and reopen
 		// after next line to fix a bleed issue on macOS
 		// https://github.com/chalk/chalk/pull/92
-		string = stringEncaseCRLF(string, code.close, code.open);
+		string = stringEncaseCRLF(string, styler.close, styler.open);
 
-		string = code.open + string + code.close;
+		string = styler.open + string + styler.close;
+		styler = styler.parent;
 	}
 
 	return string;
