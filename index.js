@@ -1,5 +1,4 @@
 'use strict';
-const escapeStringRegexp = require('escape-string-regexp');
 const ansiStyles = require('ansi-styles');
 const {stdout: stdoutColor} = require('supports-color');
 const template = require('./templates.js');
@@ -95,8 +94,6 @@ function Chalk(options) {
 }
 
 for (const [styleName, style] of Object.entries(ansiStyles)) {
-	style.closeRe = new RegExp(escapeStringRegexp(style.close), 'g');
-
 	styles[styleName] = {
 		get() {
 			return createBuilder(this, [...(this._styles || []), style], this._isEmpty);
@@ -110,7 +107,6 @@ styles.visible = {
 	}
 };
 
-ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), 'g');
 for (const model of Object.keys(ansiStyles.color.ansi)) {
 	if (skipModels.has(model)) {
 		continue;
@@ -123,8 +119,7 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 				const open = ansiStyles.color[levelMapping[level]][model](...arguments_);
 				const codes = {
 					open,
-					close: ansiStyles.color.close,
-					closeRe: ansiStyles.color.closeRe
+					close: ansiStyles.color.close
 				};
 				return createBuilder(this, [...(this._styles || []), codes], this._isEmpty);
 			};
@@ -132,7 +127,6 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 	};
 }
 
-ansiStyles.bgColor.closeRe = new RegExp(escapeStringRegexp(ansiStyles.bgColor.close), 'g');
 for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 	if (skipModels.has(model)) {
 		continue;
@@ -146,8 +140,7 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 				const open = ansiStyles.bgColor[levelMapping[level]][model](...arguments_);
 				const codes = {
 					open,
-					close: ansiStyles.bgColor.close,
-					closeRe: ansiStyles.bgColor.closeRe
+					close: ansiStyles.bgColor.close
 				};
 				return createBuilder(this, [...(this._styles || []), codes], this._isEmpty);
 			};
