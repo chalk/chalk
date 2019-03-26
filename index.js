@@ -12,6 +12,44 @@ const levelMapping = [
 	'ansi16m'
 ];
 
+const stringReplaceAll = (str, substr, replacer) => {
+	let idx = str.indexOf(substr);
+	if (idx === -1) {
+		return str;
+	}
+
+	const subLen = substr.length;
+	let end = 0;
+	let res = '';
+	do {
+		res += str.substr(end, idx - end) + replacer;
+		end = idx + subLen;
+		idx = str.indexOf(substr, end);
+	} while (idx !== -1);
+
+	res += str.substr(end);
+	return res;
+};
+
+const stringEncaseCRLF = (str, prefix, postfix) => {
+	let idx = str.indexOf('\n');
+	if (idx === -1) {
+		return str;
+	}
+
+	let end = 0;
+	let res = '';
+	do {
+		const gotCR = str[idx - 1] === '\r';
+		res += str.substr(end, (gotCR ? idx - 1 : idx) - end) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
+		end = idx + 1;
+		idx = str.indexOf('\n', end);
+	} while (idx !== -1);
+
+	res += str.substr(end);
+	return res;
+};
+
 // `color-convert` models to exclude from the Chalk API due to conflicts and such
 const skipModels = new Set(['gray']);
 
@@ -117,36 +155,38 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 	};
 }
 
-const proto = Object.defineProperties(() => {}, styles);
+const proto = Object.defineProperties(() => {}, {
+	...styles,
+	level: {
+		enumerable: true,
+		get() {
+			return this._generator.level;
+		},
+		set(level) {
+			this._generator.level = level;
+		}
+	},
+	enabled: {
+		enumerable: true,
+		get() {
+			return this._generator.enabled;
+		},
+		set(enabled) {
+			this._generator.enabled = enabled;
+		}
+	}
+});
 
 const createBuilder = (self, _styles, _isEmpty) => {
 	const builder = (...arguments_) => applyStyle(builder, ...arguments_);
-	builder._styles = _styles;
-	builder._isEmpty = _isEmpty;
-
-	Object.defineProperty(builder, 'level', {
-		enumerable: true,
-		get() {
-			return self.level;
-		},
-		set(level) {
-			self.level = level;
-		}
-	});
-
-	Object.defineProperty(builder, 'enabled', {
-		enumerable: true,
-		get() {
-			return self.enabled;
-		},
-		set(enabled) {
-			self.enabled = enabled;
-		}
-	});
 
 	// `__proto__` is used because we must return a function, but there is
 	// no way to create a function with a different prototype
 	builder.__proto__ = proto; // eslint-disable-line no-proto
+
+	builder._generator = self;
+	builder._styles = _styles;
+	builder._isEmpty = _isEmpty;
 
 	return builder;
 };
@@ -162,12 +202,14 @@ const applyStyle = (self, ...arguments_) => {
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
 		// will be colored, and the rest will simply be 'plain'.
-		string = code.open + string.replace(code.closeRe, code.open) + code.close;
+		string = stringReplaceAll(string, code.close, code.open);
 
 		// Close the styling before a linebreak and reopen
 		// after next line to fix a bleed issue on macOS
 		// https://github.com/chalk/chalk/pull/92
-		string = string.replace(/\r?\n/g, `${code.close}$&${code.open}`);
+		string = stringEncaseCRLF(string, code.close, code.open);
+
+		string = code.open + string + code.close;
 	}
 
 	return string;
