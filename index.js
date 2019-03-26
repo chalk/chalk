@@ -193,19 +193,27 @@ const applyStyle = (self, string) => {
 	}
 
 	let styler = self._styler;
-	while (styler !== undefined) {
-		// Replace any instances already present with a re-opening code
-		// otherwise only the part of the string until said closing code
-		// will be colored, and the rest will simply be 'plain'.
-		string = stringReplaceAll(string, styler.close, styler.open);
 
+	if (styler !== undefined) {
+		let closeAll = '';
+		let openAll = '';
+		while (styler !== undefined) {
+			// Replace any instances already present with a re-opening code
+			// otherwise only the part of the string until said closing code
+			// will be colored, and the rest will simply be 'plain'.
+			string = stringReplaceAll(string, styler.close, styler.open);
+
+			openAll = styler.open + openAll;
+			closeAll += styler.close;
+			styler = styler.parent;
+		}
+
+		// We can move both next actions out of loop, because remaining actions in loop won't have any/visible effect on parts we add here
 		// Close the styling before a linebreak and reopen
 		// after next line to fix a bleed issue on macOS
 		// https://github.com/chalk/chalk/pull/92
-		string = stringEncaseCRLF(string, styler.close, styler.open);
-
-		string = styler.open + string + styler.close;
-		styler = styler.parent;
+		string = stringEncaseCRLF(string, closeAll, openAll);
+		string = openAll + string + closeAll;
 	}
 
 	return string;
