@@ -178,7 +178,10 @@ const proto = Object.defineProperties(() => {}, {
 });
 
 const createBuilder = (self, _styles, _isEmpty) => {
-	const builder = (...arguments_) => applyStyle(builder, ...arguments_);
+	const builder = (...arguments_) => {
+		// eslint-disable-next-line no-implicit-coercion
+		return applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+	};
 
 	// `__proto__` is used because we must return a function, but there is
 	// no way to create a function with a different prototype
@@ -191,9 +194,7 @@ const createBuilder = (self, _styles, _isEmpty) => {
 	return builder;
 };
 
-const applyStyle = (self, ...arguments_) => {
-	let string = arguments_.join(' ');
-
+const applyStyle = (self, string) => {
 	if (!self.enabled || self.level <= 0 || !string) {
 		return self._isEmpty ? '' : string;
 	}
