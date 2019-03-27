@@ -91,14 +91,18 @@ function Chalk(options) {
 for (const [styleName, style] of Object.entries(ansiStyles)) {
 	styles[styleName] = {
 		get() {
-			return createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty);
+			const builder = createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty);
+			Object.defineProperty(this, styleName, {value: builder});
+			return builder;
 		}
 	};
 }
 
 styles.visible = {
 	get() {
-		return createBuilder(this, this._styler, true);
+		const builder = createBuilder(this, this._styler, true);
+		Object.defineProperty(this, 'visible', {value: builder});
+		return builder;
 	}
 };
 
