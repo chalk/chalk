@@ -30,12 +30,7 @@ const stringReplaceAll = (str, substr, replacer) => {
 	return res;
 };
 
-const stringEncaseCRLF = (str, prefix, postfix) => {
-	let idx = str.indexOf('\n');
-	if (idx === -1) {
-		return str;
-	}
-
+const stringEncaseCRLFWithFirstIndex = (str, prefix, postfix, idx) => {
 	let end = 0;
 	let res = '';
 	do {
@@ -163,9 +158,21 @@ const proto = Object.defineProperties(() => {}, {
 });
 
 const createStyler = (open, close, parent) => {
+	let openAll;
+	let closeAll;
+	if (parent === undefined) {
+		openAll = open;
+		closeAll = close;
+	} else {
+		openAll = parent.openAll + open;
+		closeAll = close + parent.closeAll;
+	}
+
 	return {
 		open,
 		close,
+		openAll,
+		closeAll,
 		parent
 	};
 };
@@ -194,29 +201,32 @@ const applyStyle = (self, string) => {
 
 	let styler = self._styler;
 
-	if (styler !== undefined) {
-		let closeAll = '';
-		let openAll = '';
+	if (styler === undefined) {
+		return string;
+	}
+
+	const {openAll, closeAll} = styler;
+	if (string.indexOf('\u001B') !== -1) {
 		while (styler !== undefined) {
 			// Replace any instances already present with a re-opening code
 			// otherwise only the part of the string until said closing code
 			// will be colored, and the rest will simply be 'plain'.
 			string = stringReplaceAll(string, styler.close, styler.open);
 
-			openAll = styler.open + openAll;
-			closeAll += styler.close;
 			styler = styler.parent;
 		}
-
-		// We can move both next actions out of loop, because remaining actions in loop won't have any/visible effect on parts we add here
-		// Close the styling before a linebreak and reopen
-		// after next line to fix a bleed issue on macOS
-		// https://github.com/chalk/chalk/pull/92
-		string = stringEncaseCRLF(string, closeAll, openAll);
-		string = openAll + string + closeAll;
 	}
 
-	return string;
+	// We can move both next actions out of loop, because remaining actions in loop won't have any/visible effect on parts we add here
+	// Close the styling before a linebreak and reopen
+	// after next line to fix a bleed issue on macOS
+	// https://github.com/chalk/chalk/pull/92
+	const lfIdx = string.indexOf('\n');
+	if (lfIdx !== -1) {
+		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIdx);
+	}
+
+	return openAll + string + closeAll;
 };
 
 const chalkTag = (chalk, ...strings) => {
