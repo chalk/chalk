@@ -2,7 +2,7 @@ import {expectType} from 'tsd';
 import chalk = require('.');
 
 // - Helpers -
-type colorReturn = chalk.Chalk & {supportsColor: chalk.ColorSupport};
+type colorReturn = chalk.Chalk & {supportsColor?: never};
 
 // - Level -
 expectType<number>(chalk.Level.None);

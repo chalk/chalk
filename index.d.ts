@@ -70,10 +70,10 @@ declare namespace chalk {
 		has16m: boolean;
 	}
 
+	type ChalkTemplateFunction = (text: TemplateStringsArray, ...placeholders: unknown[]) => string;
+
 	interface Chalk {
 		(...text: unknown[]): string;
-
-		(text: TemplateStringsArray, ...placeholders: unknown[]): string;
 
 		/**
 		Return a new Chalk instance.
@@ -99,11 +99,9 @@ declare namespace chalk {
 		@param color - Hexadecimal value representing the desired color.
 
 		@example
-		```
 		import chalk = require('chalk');
 
 		chalk.hex('#DEADED');
-		```
 		*/
 		hex(color: string): this;
 
@@ -113,11 +111,9 @@ declare namespace chalk {
 		@param color - Keyword value representing the desired color.
 
 		@example
-		```
 		import chalk = require('chalk');
 
 		chalk.keyword('orange');
-		```
 		*/
 		keyword(color: string): this;
 
@@ -147,11 +143,9 @@ declare namespace chalk {
 		@param color - Hexadecimal value representing the desired color.
 
 		@example
-		```
 		import chalk = require('chalk');
 
 		chalk.bgHex('#DEADED');
-		```
 		*/
 		bgHex(color: string): this;
 
@@ -161,11 +155,9 @@ declare namespace chalk {
 		@param color - Keyword value representing the desired color.
 
 		@example
-		```
 		import chalk = require('chalk');
 
 		chalk.bgKeyword('orange');
-		```
 		*/
 		bgKeyword(color: string): this;
 
@@ -273,13 +265,15 @@ declare namespace chalk {
 	}
 }
 
+declare type NoThis<T> = {[K in keyof T]: T[K] extends T ? T : T[K]};
+
 /**
 Main Chalk object that allows to chain styles together.
 Call the last one as a method with a string argument.
 Order doesn't matter, and later styles take precedent in case of a conflict.
 This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 */
-declare const chalk: chalk.Chalk & {
+declare const chalk: NoThis<chalk.Chalk> & chalk.ChalkTemplateFunction & {
 	supportsColor: chalk.ColorSupport;
 	Level: typeof LevelEnum;
 };
