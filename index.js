@@ -197,6 +197,9 @@ const chalkTag = (chalk, ...strings) => {
 
 Object.defineProperties(Chalk.prototype, styles);
 
-module.exports = Chalk(); // eslint-disable-line new-cap
-module.exports.supportsColor = stdoutColor;
-module.exports.default = module.exports; // For TypeScript
+exports = module.exports = Chalk(); // eslint-disable-line new-cap, no-multi-assign
+exports.supportsColor = stdoutColor;
+
+// For TypeScript and Babel:
+exports.default = module.exports;
+Object.defineProperty(exports, '__esModule', {value: true});
