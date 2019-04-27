@@ -23,7 +23,7 @@ declare const enum LevelEnum {
 declare namespace chalk {
 	type Level = LevelEnum;
 
-	export interface Options {
+	interface Options {
 		/**
 		Enable or disable Chalk.
 
@@ -38,7 +38,7 @@ declare namespace chalk {
 		level?: Level;
 	}
 
-	export interface Instance {
+	interface Instance {
 		/**
 		Return a new Chalk instance.
 		*/
@@ -48,7 +48,7 @@ declare namespace chalk {
 	/**
 	Detect whether the terminal supports color.
 	*/
-	export interface ColorSupport {
+	interface ColorSupport {
 		/**
 		The color level used by Chalk.
 		*/
@@ -70,7 +70,7 @@ declare namespace chalk {
 		has16m: boolean;
 	}
 
-	export interface Chalk {
+	interface Chalk {
 		(...text: unknown[]): string;
 
 		(text: TemplateStringsArray, ...placeholders: unknown[]): string;
@@ -279,6 +279,9 @@ Call the last one as a method with a string argument.
 Order doesn't matter, and later styles take precedent in case of a conflict.
 This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 */
-declare const chalk: chalk.Chalk & {supportsColor: chalk.ColorSupport, Level: typeof LevelEnum};
+declare const chalk: chalk.Chalk & {
+	supportsColor: chalk.ColorSupport;
+	Level: typeof LevelEnum;
+};
 
 export = chalk;
