@@ -70,11 +70,25 @@ declare namespace chalk {
 		has16m: boolean;
 	}
 
-	type ChalkTemplateFunction = (text: TemplateStringsArray, ...placeholders: unknown[]) => string;
+	interface ChalkFunction {
+		/**
+		Use a template string.
 
-	interface Chalk {
+		@remarks Template literals are unsupported for nested calls (see [issue #341](https://github.com/chalk/chalk/issues/341))
+
+		@example
+		log(chalk`
+		CPU: {red ${cpu.totalPercent}%}
+		RAM: {green ${ram.used / ram.total * 100}%}
+		DISK: {rgb(255,131,0) ${disk.used / disk.total * 100}%}
+		`);
+		*/
+		(text: TemplateStringsArray, ...placeholders: unknown[]): string;
+
 		(...text: unknown[]): string;
+	}
 
+	interface Chalk extends ChalkFunction {
 		/**
 		Return a new Chalk instance.
 		*/
@@ -273,7 +287,7 @@ Call the last one as a method with a string argument.
 Order doesn't matter, and later styles take precedent in case of a conflict.
 This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 */
-declare const chalk: NoThis<chalk.Chalk> & chalk.ChalkTemplateFunction & {
+declare const chalk: NoThis<chalk.Chalk> & chalk.ChalkFunction & {
 	supportsColor: chalk.ColorSupport;
 	Level: typeof LevelEnum;
 };
