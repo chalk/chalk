@@ -70,11 +70,27 @@ declare namespace chalk {
 		has16m: boolean;
 	}
 
-	interface Chalk {
-		(...text: unknown[]): string;
+	interface ChalkFunction {
+		/**
+		Use a template string.
 
+		@remarks Template literals are unsupported for nested calls (see [issue #341](https://github.com/chalk/chalk/issues/341))
+
+		@example
+		```
+		log(chalk`
+		CPU: {red ${cpu.totalPercent}%}
+		RAM: {green ${ram.used / ram.total * 100}%}
+		DISK: {rgb(255,131,0) ${disk.used / disk.total * 100}%}
+		`);
+		```
+		*/
 		(text: TemplateStringsArray, ...placeholders: unknown[]): string;
 
+		(...text: unknown[]): string;
+	}
+
+	interface Chalk extends ChalkFunction {
 		/**
 		Return a new Chalk instance.
 		*/
@@ -105,7 +121,7 @@ declare namespace chalk {
 		chalk.hex('#DEADED');
 		```
 		*/
-		hex(color: string): this;
+		hex(color: string): Chalk;
 
 		/**
 		Use keyword color value to set text color.
@@ -119,27 +135,27 @@ declare namespace chalk {
 		chalk.keyword('orange');
 		```
 		*/
-		keyword(color: string): this;
+		keyword(color: string): Chalk;
 
 		/**
 		Use RGB values to set text color.
 		*/
-		rgb(red: number, green: number, blue: number): this;
+		rgb(red: number, green: number, blue: number): Chalk;
 
 		/**
 		Use HSL values to set text color.
 		*/
-		hsl(hue: number, saturation: number, lightness: number): this;
+		hsl(hue: number, saturation: number, lightness: number): Chalk;
 
 		/**
 		Use HSV values to set text color.
 		*/
-		hsv(hue: number, saturation: number, value: number): this;
+		hsv(hue: number, saturation: number, value: number): Chalk;
 
 		/**
 		Use HWB values to set text color.
 		*/
-		hwb(hue: number, whiteness: number, blackness: number): this;
+		hwb(hue: number, whiteness: number, blackness: number): Chalk;
 
 		/**
 		Use HEX value to set background color.
@@ -153,7 +169,7 @@ declare namespace chalk {
 		chalk.bgHex('#DEADED');
 		```
 		*/
-		bgHex(color: string): this;
+		bgHex(color: string): Chalk;
 
 		/**
 		Use keyword color value to set background color.
@@ -167,109 +183,109 @@ declare namespace chalk {
 		chalk.bgKeyword('orange');
 		```
 		*/
-		bgKeyword(color: string): this;
+		bgKeyword(color: string): Chalk;
 
 		/**
 		Use RGB values to set background color.
 		*/
-		bgRgb(red: number, green: number, blue: number): this;
+		bgRgb(red: number, green: number, blue: number): Chalk;
 
 		/**
 		Use HSL values to set background color.
 		*/
-		bgHsl(hue: number, saturation: number, lightness: number): this;
+		bgHsl(hue: number, saturation: number, lightness: number): Chalk;
 
 		/**
 		Use HSV values to set background color.
 		*/
-		bgHsv(hue: number, saturation: number, value: number): this;
+		bgHsv(hue: number, saturation: number, value: number): Chalk;
 
 		/**
 		Use HWB values to set background color.
 		*/
-		bgHwb(hue: number, whiteness: number, blackness: number): this;
+		bgHwb(hue: number, whiteness: number, blackness: number): Chalk;
 
 		/**
 		Modifier: Resets the current color chain.
 		*/
-		readonly reset: this;
+		readonly reset: Chalk;
 
 		/**
 		Modifier: Make text bold.
 		*/
-		readonly bold: this;
+		readonly bold: Chalk;
 
 		/**
 		Modifier: Emitting only a small amount of light.
 		*/
-		readonly dim: this;
+		readonly dim: Chalk;
 
 		/**
 		Modifier: Make text italic. (Not widely supported)
 		*/
-		readonly italic: this;
+		readonly italic: Chalk;
 
 		/**
 		Modifier: Make text underline. (Not widely supported)
 		*/
-		readonly underline: this;
+		readonly underline: Chalk;
 
 		/**
 		Modifier: Inverse background and foreground colors.
 		*/
-		readonly inverse: this;
+		readonly inverse: Chalk;
 
 		/**
 		Modifier: Prints the text, but makes it invisible.
 		*/
-		readonly hidden: this;
+		readonly hidden: Chalk;
 
 		/**
 		Modifier: Puts a horizontal line through the center of the text. (Not widely supported)
 		*/
-		readonly strikethrough: this;
+		readonly strikethrough: Chalk;
 
 		/**
 		Modifier: Prints the text only when Chalk is enabled.
 		Can be useful for things that are purely cosmetic.
 		*/
-		readonly visible: this;
+		readonly visible: Chalk;
 
-		readonly black: this;
-		readonly red: this;
-		readonly green: this;
-		readonly yellow: this;
-		readonly blue: this;
-		readonly magenta: this;
-		readonly cyan: this;
-		readonly white: this;
-		readonly gray: this;
-		readonly grey: this;
-		readonly blackBright: this;
-		readonly redBright: this;
-		readonly greenBright: this;
-		readonly yellowBright: this;
-		readonly blueBright: this;
-		readonly magentaBright: this;
-		readonly cyanBright: this;
-		readonly whiteBright: this;
+		readonly black: Chalk;
+		readonly red: Chalk;
+		readonly green: Chalk;
+		readonly yellow: Chalk;
+		readonly blue: Chalk;
+		readonly magenta: Chalk;
+		readonly cyan: Chalk;
+		readonly white: Chalk;
+		readonly gray: Chalk;
+		readonly grey: Chalk;
+		readonly blackBright: Chalk;
+		readonly redBright: Chalk;
+		readonly greenBright: Chalk;
+		readonly yellowBright: Chalk;
+		readonly blueBright: Chalk;
+		readonly magentaBright: Chalk;
+		readonly cyanBright: Chalk;
+		readonly whiteBright: Chalk;
 
-		readonly bgBlack: this;
-		readonly bgRed: this;
-		readonly bgGreen: this;
-		readonly bgYellow: this;
-		readonly bgBlue: this;
-		readonly bgMagenta: this;
-		readonly bgCyan: this;
-		readonly bgWhite: this;
-		readonly bgBlackBright: this;
-		readonly bgRedBright: this;
-		readonly bgGreenBright: this;
-		readonly bgYellowBright: this;
-		readonly bgBlueBright: this;
-		readonly bgMagentaBright: this;
-		readonly bgCyanBright: this;
-		readonly bgWhiteBright: this;
+		readonly bgBlack: Chalk;
+		readonly bgRed: Chalk;
+		readonly bgGreen: Chalk;
+		readonly bgYellow: Chalk;
+		readonly bgBlue: Chalk;
+		readonly bgMagenta: Chalk;
+		readonly bgCyan: Chalk;
+		readonly bgWhite: Chalk;
+		readonly bgBlackBright: Chalk;
+		readonly bgRedBright: Chalk;
+		readonly bgGreenBright: Chalk;
+		readonly bgYellowBright: Chalk;
+		readonly bgBlueBright: Chalk;
+		readonly bgMagentaBright: Chalk;
+		readonly bgCyanBright: Chalk;
+		readonly bgWhiteBright: Chalk;
 	}
 }
 
@@ -279,7 +295,7 @@ Call the last one as a method with a string argument.
 Order doesn't matter, and later styles take precedent in case of a conflict.
 This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 */
-declare const chalk: chalk.Chalk & {
+declare const chalk: chalk.Chalk & chalk.ChalkFunction & {
 	supportsColor: chalk.ColorSupport;
 	Level: typeof LevelEnum;
 };

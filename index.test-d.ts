@@ -1,8 +1,8 @@
-import {expectType} from 'tsd';
+import {expectType, expectError} from 'tsd';
 import chalk = require('.');
 
 // - Helpers -
-type colorReturn = chalk.Chalk & {supportsColor: chalk.ColorSupport};
+type colorReturn = chalk.Chalk & {supportsColor?: never};
 
 // - Level -
 expectType<number>(chalk.Level.None);
@@ -14,6 +14,9 @@ expectType<number>(chalk.Level.TrueColor);
 expectType<boolean>(chalk.supportsColor.hasBasic);
 expectType<boolean>(chalk.supportsColor.has256);
 expectType<boolean>(chalk.supportsColor.has16m);
+
+// -- `supportsColor` is not a member of the Chalk interface --
+expectError(chalk.reset.supportsColor);
 
 // - Chalk -
 // -- Instance --
