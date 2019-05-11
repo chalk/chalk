@@ -77,11 +77,13 @@ declare namespace chalk {
 		@remarks Template literals are unsupported for nested calls (see [issue #341](https://github.com/chalk/chalk/issues/341))
 
 		@example
+		```
 		log(chalk`
 		CPU: {red ${cpu.totalPercent}%}
 		RAM: {green ${ram.used / ram.total * 100}%}
 		DISK: {rgb(255,131,0) ${disk.used / disk.total * 100}%}
 		`);
+		```
 		*/
 		(text: TemplateStringsArray, ...placeholders: unknown[]): string;
 
@@ -113,9 +115,11 @@ declare namespace chalk {
 		@param color - Hexadecimal value representing the desired color.
 
 		@example
+		```
 		import chalk = require('chalk');
 
 		chalk.hex('#DEADED');
+		```
 		*/
 		hex(color: string): Chalk;
 
@@ -125,9 +129,11 @@ declare namespace chalk {
 		@param color - Keyword value representing the desired color.
 
 		@example
+		```
 		import chalk = require('chalk');
 
 		chalk.keyword('orange');
+		```
 		*/
 		keyword(color: string): Chalk;
 
@@ -157,9 +163,11 @@ declare namespace chalk {
 		@param color - Hexadecimal value representing the desired color.
 
 		@example
+		```
 		import chalk = require('chalk');
 
 		chalk.bgHex('#DEADED');
+		```
 		*/
 		bgHex(color: string): Chalk;
 
@@ -169,9 +177,11 @@ declare namespace chalk {
 		@param color - Keyword value representing the desired color.
 
 		@example
+		```
 		import chalk = require('chalk');
 
 		chalk.bgKeyword('orange');
+		```
 		*/
 		bgKeyword(color: string): Chalk;
 
