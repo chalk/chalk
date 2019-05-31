@@ -13,20 +13,6 @@
 
 <img src="https://cdn.jsdelivr.net/gh/chalk/ansi-styles@8261697c95bf34b6c7767e2cbe9941a851d59385/screenshot.svg" width="900">
 
----
-
-<div align="center">
-	<b>
-		<a href="https://tidelift.com/subscription/pkg/npm-chalk?utm_source=npm-chalk&utm_medium=referral&utm_campaign=readme">Get professional support for Chalk with a Tidelift subscription</a>
-	</b>
-	<br>
-	<sub>
-		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
-	</sub>
-</div>
-
----
-
 
 ## Highlights
 
@@ -293,11 +279,6 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 [colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68) and the package is unmaintained. Although there are other packages, they either do too much or not enough. Chalk is a clean and focused alternative.
 
 
-## Security
-
-To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
-
-
 ## Related
 
 - [chalk-cli](https://github.com/chalk/chalk-cli) - CLI for this module
@@ -322,6 +303,14 @@ To report a security vulnerability, please use the [Tidelift security contact](h
 - [Josh Junon](https://github.com/qix-)
 
 
-## License
+---
 
-MIT
+<div align="center">
+	<b>
+		<a href="https://tidelift.com/subscription/pkg/npm-chalk?utm_source=npm-chalk&utm_medium=referral&utm_campaign=readme">Get professional support for Chalk with a Tidelift subscription</a>
+	</b>
+	<br>
+	<sub>
+		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
+	</sub>
+</div>
