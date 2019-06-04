@@ -296,7 +296,7 @@ Order doesn't matter, and later styles take precedent in case of a conflict.
 This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 */
 declare const chalk: chalk.Chalk & chalk.ChalkFunction & {
-	supportsColor: chalk.ColorSupport;
+	supportsColor: chalk.ColorSupport | false;
 	Level: typeof LevelEnum;
 };
 
