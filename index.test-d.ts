@@ -11,9 +11,10 @@ expectType<number>(chalk.Level.Ansi256);
 expectType<number>(chalk.Level.TrueColor);
 
 // - supportsColor -
-expectType<boolean>(chalk.supportsColor.hasBasic);
-expectType<boolean>(chalk.supportsColor.has256);
-expectType<boolean>(chalk.supportsColor.has16m);
+expectType<chalk.ColorSupport | false>(chalk.supportsColor);
+expectType<boolean>((chalk.supportsColor as chalk.ColorSupport).hasBasic);
+expectType<boolean>((chalk.supportsColor as chalk.ColorSupport).has256);
+expectType<boolean>((chalk.supportsColor as chalk.ColorSupport).has16m);
 
 // -- `supportsColor` is not a member of the Chalk interface --
 expectError(chalk.reset.supportsColor);
