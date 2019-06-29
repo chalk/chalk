@@ -3,6 +3,11 @@ const ansiStyles = require('ansi-styles');
 const {stdout: stdoutColor} = require('supports-color');
 const template = require('./templates.js');
 
+const {
+	stringReplaceAll,
+	stringEncaseCRLFWithFirstIndex
+} = require('./lib/util');
+
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = [
 	'ansi',
@@ -10,39 +15,6 @@ const levelMapping = [
 	'ansi256',
 	'ansi16m'
 ];
-
-const stringReplaceAll = (str, substr, replacer) => {
-	let idx = str.indexOf(substr);
-	if (idx === -1) {
-		return str;
-	}
-
-	const subLen = substr.length;
-	let end = 0;
-	let res = '';
-	do {
-		res += str.substr(end, idx - end) + replacer;
-		end = idx + subLen;
-		idx = str.indexOf(substr, end);
-	} while (idx !== -1);
-
-	res += str.substr(end);
-	return res;
-};
-
-const stringEncaseCRLFWithFirstIndex = (str, prefix, postfix, idx) => {
-	let end = 0;
-	let res = '';
-	do {
-		const gotCR = str[idx - 1] === '\r';
-		res += str.substr(end, (gotCR ? idx - 1 : idx) - end) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
-		end = idx + 1;
-		idx = str.indexOf('\n', end);
-	} while (idx !== -1);
-
-	res += str.substr(end);
-	return res;
-};
 
 // `color-convert` models to exclude from the Chalk API due to conflicts and such
 const skipModels = new Set(['gray']);
@@ -226,9 +198,9 @@ const applyStyle = (self, string) => {
 	// Close the styling before a linebreak and reopen
 	// after next line to fix a bleed issue on macOS
 	// https://github.com/chalk/chalk/pull/92
-	const lfIdx = string.indexOf('\n');
-	if (lfIdx !== -1) {
-		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIdx);
+	const lfIndex = string.indexOf('\n');
+	if (lfIndex !== -1) {
+		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
 	}
 
 	return openAll + string + closeAll;
