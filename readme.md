@@ -176,7 +176,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `red`
 - `green`
 - `yellow`
-- `blue` *(On Windows the bright version is used since normal blue is illegible)*
+- `blue`
 - `magenta`
 - `cyan`
 - `white`
