@@ -14,7 +14,7 @@ test('don\'t output colors when manually disabled', t => {
 	chalk.level = oldLevel;
 });
 
-test('enable/disable colors based on overall chalk enabled property, not individual instances', t => {
+test('enable/disable colors based on overall chalk .level property, not individual instances', t => {
 	const oldLevel = chalk.level;
 	chalk.level = 1;
 	const {red} = chalk;

@@ -25,13 +25,6 @@ declare namespace chalk {
 
 	interface Options {
 		/**
-		Enable or disable Chalk.
-
-		@default true
-		*/
-		enabled?: boolean;
-
-		/**
 		Specify the color support for Chalk.
 		By default, color support is automatically detected based on the environment.
 		*/
@@ -97,13 +90,6 @@ declare namespace chalk {
 		Return a new Chalk instance.
 		*/
 		Instance: Instance;
-
-		/**
-		Enable or disable Chalk.
-
-		@default true
-		*/
-		enabled: boolean;
 
 		/**
 		The color support for Chalk.
@@ -248,7 +234,7 @@ declare namespace chalk {
 		readonly strikethrough: Chalk;
 
 		/**
-		Modifier: Prints the text only when Chalk is enabled.
+		Modifier: Prints the text only when Chalk has a color support level > 0.
 		Can be useful for things that are purely cosmetic.
 		*/
 		readonly visible: Chalk;

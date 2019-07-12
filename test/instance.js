@@ -6,18 +6,10 @@ require('./_supports-color')(__dirname);
 const chalk = require('../source');
 
 test('create an isolated context where colors can be disabled (by level)', t => {
-	const instance = new chalk.Instance({level: 0, enabled: true});
+	const instance = new chalk.Instance({level: 0});
 	t.is(instance.red('foo'), 'foo');
 	t.is(chalk.red('foo'), '\u001B[31mfoo\u001B[39m');
 	instance.level = 2;
-	t.is(instance.red('foo'), '\u001B[31mfoo\u001B[39m');
-});
-
-test('create an isolated context where colors can be disabled (by enabled flag)', t => {
-	const instance = new chalk.Instance({enabled: false});
-	t.is(instance.red('foo'), 'foo');
-	t.is(chalk.red('foo'), '\u001B[31mfoo\u001B[39m');
-	instance.enabled = true;
 	t.is(instance.red('foo'), '\u001B[31mfoo\u001B[39m');
 });
 
