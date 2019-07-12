@@ -13,6 +13,8 @@
 
 <img src="https://cdn.jsdelivr.net/gh/chalk/ansi-styles@8261697c95bf34b6c7767e2cbe9941a851d59385/screenshot.svg" width="900">
 
+**This readme reflects the next major version that is currently in development. You probably want [the v2 readme](https://www.npmjs.com/package/chalk).**
+
 
 ## Highlights
 
@@ -180,7 +182,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `magenta`
 - `cyan`
 - `white`
-- `gray` ("bright black")
+- `blackBright` (alias: `gray`, `grey`)
 - `redBright`
 - `greenBright`
 - `yellowBright`
@@ -199,7 +201,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `bgMagenta`
 - `bgCyan`
 - `bgWhite`
-- `bgBlackBright`
+- `bgBlackBright` (alias: `bgGray`, `bgGrey`)
 - `bgRedBright`
 - `bgGreenBright`
 - `bgYellowBright`

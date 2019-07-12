@@ -261,8 +261,17 @@ declare namespace chalk {
 		readonly magenta: Chalk;
 		readonly cyan: Chalk;
 		readonly white: Chalk;
+
+		/*
+		Alias for `blackBright`.
+		*/
 		readonly gray: Chalk;
+
+		/*
+		Alias for `blackBright`.
+		*/
 		readonly grey: Chalk;
+
 		readonly blackBright: Chalk;
 		readonly redBright: Chalk;
 		readonly greenBright: Chalk;
@@ -280,6 +289,17 @@ declare namespace chalk {
 		readonly bgMagenta: Chalk;
 		readonly bgCyan: Chalk;
 		readonly bgWhite: Chalk;
+
+		/*
+		Alias for `bgBlackBright`.
+		*/
+		readonly bgGray: Chalk;
+
+		/*
+		Alias for `bgBlackBright`.
+		*/
+		readonly bgGrey: Chalk;
+
 		readonly bgBlackBright: Chalk;
 		readonly bgRedBright: Chalk;
 		readonly bgGreenBright: Chalk;

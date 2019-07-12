@@ -101,3 +101,7 @@ test('don\'t emit RGB codes if level is 0', t => {
 	t.is(new chalk.Instance({level: 0}).hex('#FF0000')('hello'), 'hello');
 	t.is(new chalk.Instance({level: 0}).bgHex('#FF0000')('hello'), 'hello');
 });
+
+test('supports blackBright color', t => {
+	t.is(chalk.blackBright('foo'), '\u001B[90mfoo\u001B[39m');
+});

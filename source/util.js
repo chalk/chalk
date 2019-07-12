@@ -6,31 +6,31 @@ const stringReplaceAll = (string, substring, replacer) => {
 		return string;
 	}
 
-	const subLen = substring.length;
-	let end = 0;
-	let res = '';
+	const substringLength = substring.length;
+	let endIndex = 0;
+	let returnValue = '';
 	do {
-		res += string.substr(end, index - end) + replacer;
-		end = index + subLen;
-		index = string.indexOf(substring, end);
+		returnValue += string.substr(endIndex, index - endIndex) + replacer;
+		endIndex = index + substringLength;
+		index = string.indexOf(substring, endIndex);
 	} while (index !== -1);
 
-	res += string.substr(end);
-	return res;
+	returnValue += string.substr(endIndex);
+	return returnValue;
 };
 
 const stringEncaseCRLFWithFirstIndex = (string, prefix, postfix, index) => {
-	let end = 0;
-	let res = '';
+	let endIndex = 0;
+	let returnValue = '';
 	do {
 		const gotCR = string[index - 1] === '\r';
-		res += string.substr(end, (gotCR ? index - 1 : index) - end) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
-		end = index + 1;
-		index = string.indexOf('\n', end);
+		returnValue += string.substr(endIndex, (gotCR ? index - 1 : index) - endIndex) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
+		endIndex = index + 1;
+		index = string.indexOf('\n', endIndex);
 	} while (index !== -1);
 
-	res += string.substr(end);
-	return res;
+	returnValue += string.substr(endIndex);
+	return returnValue;
 };
 
 module.exports = {

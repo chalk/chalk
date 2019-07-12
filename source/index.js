@@ -193,10 +193,9 @@ const applyStyle = (self, string) => {
 		}
 	}
 
-	// We can move both next actions out of loop, because remaining actions in loop won't have any/visible effect on parts we add here
-	// Close the styling before a linebreak and reopen
-	// after next line to fix a bleed issue on macOS
-	// https://github.com/chalk/chalk/pull/92
+	// We can move both next actions out of loop, because remaining actions in loop won't have
+	// any/visible effect on parts we add here. Close the styling before a linebreak and reopen
+	// after next line to fix a bleed issue on macOS: https://github.com/chalk/chalk/pull/92
 	const lfIndex = string.indexOf('\n');
 	if (lfIndex !== -1) {
 		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
