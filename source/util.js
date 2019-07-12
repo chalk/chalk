@@ -10,7 +10,7 @@ const stringReplaceAll = (string, substring, replacer) => {
 	let endIndex = 0;
 	let returnValue = '';
 	do {
-		returnValue += string.substr(endIndex, index - endIndex) + replacer;
+		returnValue += string.substr(endIndex, index - endIndex) + substring + replacer;
 		endIndex = index + substringLength;
 		index = string.indexOf(substring, endIndex);
 	} while (index !== -1);
