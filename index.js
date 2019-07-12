@@ -1,8 +1,12 @@
 'use strict';
-const escapeStringRegexp = require('escape-string-regexp');
 const ansiStyles = require('ansi-styles');
 const {stdout: stdoutColor} = require('supports-color');
 const template = require('./templates.js');
+
+const {
+	stringReplaceAll,
+	stringEncaseCRLFWithFirstIndex
+} = require('./lib/util');
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = [
@@ -57,22 +61,23 @@ function Chalk(options) {
 }
 
 for (const [styleName, style] of Object.entries(ansiStyles)) {
-	style.closeRe = new RegExp(escapeStringRegexp(style.close), 'g');
-
 	styles[styleName] = {
 		get() {
-			return createBuilder(this, [...(this._styles || []), style], this._isEmpty);
+			const builder = createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty);
+			Object.defineProperty(this, styleName, {value: builder});
+			return builder;
 		}
 	};
 }
 
 styles.visible = {
 	get() {
-		return createBuilder(this, this._styles || [], true);
+		const builder = createBuilder(this, this._styler, true);
+		Object.defineProperty(this, 'visible', {value: builder});
+		return builder;
 	}
 };
 
-ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), 'g');
 for (const model of Object.keys(ansiStyles.color.ansi)) {
 	if (skipModels.has(model)) {
 		continue;
@@ -82,19 +87,13 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 		get() {
 			const {level} = this;
 			return function (...arguments_) {
-				const open = ansiStyles.color[levelMapping[level]][model](...arguments_);
-				const codes = {
-					open,
-					close: ansiStyles.color.close,
-					closeRe: ansiStyles.color.closeRe
-				};
-				return createBuilder(this, [...(this._styles || []), codes], this._isEmpty);
+				const styler = createStyler(ansiStyles.color[levelMapping[level]][model](...arguments_), ansiStyles.color.close, this._styler);
+				return createBuilder(this, styler, this._isEmpty);
 			};
 		}
 	};
 }
 
-ansiStyles.bgColor.closeRe = new RegExp(escapeStringRegexp(ansiStyles.bgColor.close), 'g');
 for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 	if (skipModels.has(model)) {
 		continue;
@@ -105,72 +104,106 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 		get() {
 			const {level} = this;
 			return function (...arguments_) {
-				const open = ansiStyles.bgColor[levelMapping[level]][model](...arguments_);
-				const codes = {
-					open,
-					close: ansiStyles.bgColor.close,
-					closeRe: ansiStyles.bgColor.closeRe
-				};
-				return createBuilder(this, [...(this._styles || []), codes], this._isEmpty);
+				const styler = createStyler(ansiStyles.bgColor[levelMapping[level]][model](...arguments_), ansiStyles.bgColor.close, this._styler);
+				return createBuilder(this, styler, this._isEmpty);
 			};
 		}
 	};
 }
 
-const proto = Object.defineProperties(() => {}, styles);
-
-const createBuilder = (self, _styles, _isEmpty) => {
-	const builder = (...arguments_) => applyStyle(builder, ...arguments_);
-	builder._styles = _styles;
-	builder._isEmpty = _isEmpty;
-
-	Object.defineProperty(builder, 'level', {
+const proto = Object.defineProperties(() => {}, {
+	...styles,
+	level: {
 		enumerable: true,
 		get() {
-			return self.level;
+			return this._generator.level;
 		},
 		set(level) {
-			self.level = level;
+			this._generator.level = level;
 		}
-	});
-
-	Object.defineProperty(builder, 'enabled', {
+	},
+	enabled: {
 		enumerable: true,
 		get() {
-			return self.enabled;
+			return this._generator.enabled;
 		},
 		set(enabled) {
-			self.enabled = enabled;
+			this._generator.enabled = enabled;
 		}
-	});
+	}
+});
+
+const createStyler = (open, close, parent) => {
+	let openAll;
+	let closeAll;
+	if (parent === undefined) {
+		openAll = open;
+		closeAll = close;
+	} else {
+		openAll = parent.openAll + open;
+		closeAll = close + parent.closeAll;
+	}
+
+	return {
+		open,
+		close,
+		openAll,
+		closeAll,
+		parent
+	};
+};
+
+const createBuilder = (self, _styler, _isEmpty) => {
+	const builder = (...arguments_) => {
+		// Single argument is hot path, implicit coercion is faster than anything
+		// eslint-disable-next-line no-implicit-coercion
+		return applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+	};
 
 	// `__proto__` is used because we must return a function, but there is
 	// no way to create a function with a different prototype
 	builder.__proto__ = proto; // eslint-disable-line no-proto
 
+	builder._generator = self;
+	builder._styler = _styler;
+	builder._isEmpty = _isEmpty;
+
 	return builder;
 };
 
-const applyStyle = (self, ...arguments_) => {
-	let string = arguments_.join(' ');
-
+const applyStyle = (self, string) => {
 	if (!self.enabled || self.level <= 0 || !string) {
 		return self._isEmpty ? '' : string;
 	}
 
-	for (const code of self._styles.slice().reverse()) {
-		// Replace any instances already present with a re-opening code
-		// otherwise only the part of the string until said closing code
-		// will be colored, and the rest will simply be 'plain'.
-		string = code.open + string.replace(code.closeRe, code.open) + code.close;
+	let styler = self._styler;
 
-		// Close the styling before a linebreak and reopen
-		// after next line to fix a bleed issue on macOS
-		// https://github.com/chalk/chalk/pull/92
-		string = string.replace(/\r?\n/g, `${code.close}$&${code.open}`);
+	if (styler === undefined) {
+		return string;
 	}
 
-	return string;
+	const {openAll, closeAll} = styler;
+	if (string.indexOf('\u001B') !== -1) {
+		while (styler !== undefined) {
+			// Replace any instances already present with a re-opening code
+			// otherwise only the part of the string until said closing code
+			// will be colored, and the rest will simply be 'plain'.
+			string = stringReplaceAll(string, styler.close, styler.open);
+
+			styler = styler.parent;
+		}
+	}
+
+	// We can move both next actions out of loop, because remaining actions in loop won't have any/visible effect on parts we add here
+	// Close the styling before a linebreak and reopen
+	// after next line to fix a bleed issue on macOS
+	// https://github.com/chalk/chalk/pull/92
+	const lfIndex = string.indexOf('\n');
+	if (lfIndex !== -1) {
+		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
+	}
+
+	return openAll + string + closeAll;
 };
 
 const chalkTag = (chalk, ...strings) => {
