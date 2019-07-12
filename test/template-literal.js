@@ -168,3 +168,10 @@ test('should properly handle undefined template interpolated values', t => {
 	t.is(instance`hello ${undefined}`, 'hello undefined');
 	t.is(instance`hello ${null}`, 'hello null');
 });
+
+test('should allow bracketed Unicode escapes', t => {
+	const instance = new chalk.Instance({level: 3});
+	t.is(instance`\u{AB}`, '\u{AB}');
+	t.is(instance`This is a {bold \u{AB681}} test`, 'This is a \u001B[1m\u{AB681}\u001B[22m test');
+	t.is(instance`This is a {bold \u{10FFFF}} test`, 'This is a \u001B[1m\u{10FFFF}\u001B[22m test');
+});
