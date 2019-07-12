@@ -3,7 +3,7 @@ import test from 'ava';
 // Spoof supports-color
 require('./_supports-color')(__dirname);
 
-const chalk = require('..');
+const chalk = require('../source');
 
 test('visible: normal output when enabled', t => {
 	const instance = new chalk.Instance({level: 3, enabled: true});

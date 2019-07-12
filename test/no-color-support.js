@@ -8,7 +8,7 @@ require('./_supports-color')(__dirname, {
 	has16m: false
 });
 
-const chalk = require('..');
+const chalk = require('../source');
 
 test.failing('colors can be forced by using chalk.enabled', t => {
 	chalk.enabled = true;

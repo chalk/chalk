@@ -3,7 +3,7 @@ import test from 'ava';
 // Spoof supports-color
 require('./_supports-color')(__dirname);
 
-const chalk = require('..');
+const chalk = require('../source');
 
 test('create an isolated context where colors can be disabled (by level)', t => {
 	const instance = new chalk.Instance({level: 0, enabled: true});

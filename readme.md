@@ -9,23 +9,11 @@
 
 > Terminal string styling done right
 
-[![Build Status](https://travis-ci.org/chalk/chalk.svg?branch=master)](https://travis-ci.org/chalk/chalk) [![Coverage Status](https://coveralls.io/repos/github/chalk/chalk/badge.svg?branch=master)](https://coveralls.io/github/chalk/chalk?branch=master) [![npm dependents](https://badgen.net/npm/dependents/chalk)](https://www.npmjs.com/package/chalk?activeTab=dependents) [![Downloads](https://badgen.net/npm/dt/chalk)](https://www.npmjs.com/package/chalk) [![](https://img.shields.io/badge/unicorn-approved-ff69b4.svg)](https://www.youtube.com/watch?v=9auOCbH5Ns4) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo) ![TypeScript- and Flow-ready](https://img.shields.io/npm/types/chalk.svg)
+[![Build Status](https://travis-ci.org/chalk/chalk.svg?branch=master)](https://travis-ci.org/chalk/chalk) [![Coverage Status](https://coveralls.io/repos/github/chalk/chalk/badge.svg?branch=master)](https://coveralls.io/github/chalk/chalk?branch=master) [![npm dependents](https://badgen.net/npm/dependents/chalk)](https://www.npmjs.com/package/chalk?activeTab=dependents) [![Downloads](https://badgen.net/npm/dt/chalk)](https://www.npmjs.com/package/chalk) [![](https://img.shields.io/badge/unicorn-approved-ff69b4.svg)](https://www.youtube.com/watch?v=9auOCbH5Ns4) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo) ![TypeScript-ready](https://img.shields.io/npm/types/chalk.svg)
 
 <img src="https://cdn.jsdelivr.net/gh/chalk/ansi-styles@8261697c95bf34b6c7767e2cbe9941a851d59385/screenshot.svg" width="900">
 
----
-
-<div align="center">
-	<b>
-		<a href="https://tidelift.com/subscription/pkg/npm-chalk?utm_source=npm-chalk&utm_medium=referral&utm_campaign=readme">Get professional support for Chalk with a Tidelift subscription</a>
-	</b>
-	<br>
-	<sub>
-		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
-	</sub>
-</div>
-
----
+**This readme reflects the next major version that is currently in development. You probably want [the v2 readme](https://www.npmjs.com/package/chalk).**
 
 
 ## Highlights
@@ -46,10 +34,6 @@
 ```console
 $ npm install chalk
 ```
-
-<a href="https://www.patreon.com/sindresorhus">
-	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
-</a>
 
 
 ## Usage
@@ -169,7 +153,7 @@ Levels are as follows:
 
 Detect whether the terminal [supports color](https://github.com/chalk/supports-color). Used internally and handled for you, but exposed for convenience.
 
-Can be overridden by the user with the flags `--color` and `--no-color`. For situations where using `--color` is not possible, add the environment variable `FORCE_COLOR=1` to forcefully enable color or `FORCE_COLOR=0` to forcefully disable. The use of `FORCE_COLOR` overrides all other color support checks.
+Can be overridden by the user with the flags `--color` and `--no-color`. For situations where using `--color` is not possible, use the environment variable `FORCE_COLOR=1` (level 1), `FORCE_COLOR=2` (level 2), or `FORCE_COLOR=3` (level 3) to forcefully enable color, or `FORCE_COLOR=0` to forcefully disable. The use of `FORCE_COLOR` overrides all other color support checks.
 
 Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
 
@@ -194,11 +178,11 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `red`
 - `green`
 - `yellow`
-- `blue` *(On Windows the bright version is used since normal blue is illegible)*
+- `blue`
 - `magenta`
 - `cyan`
 - `white`
-- `gray` ("bright black")
+- `blackBright` (alias: `gray`, `grey`)
 - `redBright`
 - `greenBright`
 - `yellowBright`
@@ -217,7 +201,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `bgMagenta`
 - `bgCyan`
 - `bgWhite`
-- `bgBlackBright`
+- `bgBlackBright` (alias: `bgGray`, `bgGrey`)
 - `bgRedBright`
 - `bgGreenBright`
 - `bgYellowBright`
@@ -238,8 +222,8 @@ const miles = 18;
 const calculateFeet = miles => miles * 5280;
 
 console.log(chalk`
-  There are {bold 5280 feet} in a mile.
-  In {bold ${miles} miles}, there are {green.bold ${calculateFeet(miles)} feet}.
+	There are {bold 5280 feet} in a mile.
+	In {bold ${miles} miles}, there are {green.bold ${calculateFeet(miles)} feet}.
 `);
 ```
 
@@ -297,11 +281,6 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 [colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68) and the package is unmaintained. Although there are other packages, they either do too much or not enough. Chalk is a clean and focused alternative.
 
 
-## Security
-
-To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
-
-
 ## Related
 
 - [chalk-cli](https://github.com/chalk/chalk-cli) - CLI for this module
@@ -326,6 +305,14 @@ To report a security vulnerability, please use the [Tidelift security contact](h
 - [Josh Junon](https://github.com/qix-)
 
 
-## License
+---
 
-MIT
+<div align="center">
+	<b>
+		<a href="https://tidelift.com/subscription/pkg/npm-chalk?utm_source=npm-chalk&utm_medium=referral&utm_campaign=readme">Get professional support for Chalk with a Tidelift subscription</a>
+	</b>
+	<br>
+	<sub>
+		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
+	</sub>
+</div>
