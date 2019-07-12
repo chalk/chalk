@@ -78,6 +78,8 @@ declare namespace chalk {
 
 		@example
 		```
+		import chalk = require('chalk');
+
 		log(chalk`
 		CPU: {red ${cpu.totalPercent}%}
 		RAM: {green ${ram.used / ram.total * 100}%}

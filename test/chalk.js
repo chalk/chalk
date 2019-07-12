@@ -3,7 +3,7 @@ import test from 'ava';
 // Spoof supports-color
 require('./_supports-color')(__dirname);
 
-const chalk = require('..');
+const chalk = require('../source');
 
 console.log('TERM:', process.env.TERM || '[none]');
 console.log('platform:', process.platform || '[unknown]');

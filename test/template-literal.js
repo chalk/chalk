@@ -4,7 +4,7 @@ import test from 'ava';
 // Spoof supports-color
 require('./_supports-color')(__dirname);
 
-const chalk = require('..');
+const chalk = require('../source');
 
 test('return an empty string for an empty literal', t => {
 	const instance = new chalk.Instance();

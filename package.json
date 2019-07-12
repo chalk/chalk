@@ -4,6 +4,7 @@
 	"description": "Terminal string styling done right",
 	"license": "MIT",
 	"repository": "chalk/chalk",
+	"main": "source",
 	"engines": {
 		"node": ">=8"
 	},
@@ -12,8 +13,7 @@
 		"bench": "matcha benchmark.js"
 	},
 	"files": [
-		"index.js",
-		"templates.js",
+		"source",
 		"index.d.ts"
 	],
 	"keywords": [
@@ -44,7 +44,6 @@
 		"supports-color": "^6.1.0"
 	},
 	"devDependencies": {
-		"@sindresorhus/tsconfig": "^0.3.0",
 		"ava": "^1.4.1",
 		"coveralls": "^3.0.3",
 		"execa": "^1.0.0",

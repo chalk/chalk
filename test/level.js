@@ -5,7 +5,7 @@ import execa from 'execa';
 // Spoof supports-color
 require('./_supports-color')(__dirname);
 
-const chalk = require('..');
+const chalk = require('../source');
 
 test('don\'t output colors when manually disabled', t => {
 	const oldLevel = chalk.level;

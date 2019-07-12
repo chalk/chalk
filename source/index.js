@@ -1,12 +1,11 @@
 'use strict';
 const ansiStyles = require('ansi-styles');
 const {stdout: stdoutColor} = require('supports-color');
-const template = require('./templates.js');
-
+const template = require('./templates');
 const {
 	stringReplaceAll,
 	stringEncaseCRLFWithFirstIndex
-} = require('./lib/util');
+} = require('./util');
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = [

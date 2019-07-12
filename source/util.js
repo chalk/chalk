@@ -1,3 +1,5 @@
+'use strict';
+
 const stringReplaceAll = (string, substring, replacer) => {
 	let index = string.indexOf(substring);
 	if (index === -1) {

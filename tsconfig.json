@@ -1,7 +1,0 @@
-{
-	"extends": "@sindresorhus/tsconfig",
-	"compilerOptions": {
-		"noEmit": true,
-		"allowJs": true
-	}
-}
