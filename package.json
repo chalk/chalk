@@ -14,7 +14,8 @@
 	},
 	"files": [
 		"source",
-		"index.d.ts"
+		"index.d.ts",
+		"stderr.js"
 	],
 	"keywords": [
 		"color",
