@@ -10,7 +10,7 @@ require('./_supports-color')(__dirname, {
 
 const chalk = require('../source');
 
-test.failing('colors can be forced by using chalk.enabled', t => {
-	chalk.enabled = true;
+test('colors can be forced by using chalk.level', t => {
+	chalk.level = 1;
 	t.is(chalk.green('hello'), '\u001B[32mhello\u001B[39m');
 });

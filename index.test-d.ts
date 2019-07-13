@@ -24,7 +24,6 @@ expectError(chalk.reset.supportsColor);
 expectType<chalk.Chalk>(new chalk.Instance({level: 1}));
 
 // -- Properties --
-expectType<boolean>(chalk.enabled);
 expectType<chalk.Level>(chalk.level);
 
 // -- Template literal --

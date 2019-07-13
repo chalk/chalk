@@ -28,7 +28,6 @@ const applyOptions = (object, options = {}) => {
 	// Detect level if not set manually
 	const colorLevel = stdoutColor ? stdoutColor.level : 0;
 	object.level = options.level === undefined ? colorLevel : options.level;
-	object.enabled = 'enabled' in options ? options.enabled : object.level > 0;
 };
 
 class ChalkClass {
@@ -120,15 +119,6 @@ const proto = Object.defineProperties(() => {}, {
 		set(level) {
 			this._generator.level = level;
 		}
-	},
-	enabled: {
-		enumerable: true,
-		get() {
-			return this._generator.enabled;
-		},
-		set(enabled) {
-			this._generator.enabled = enabled;
-		}
 	}
 });
 
@@ -171,7 +161,7 @@ const createBuilder = (self, _styler, _isEmpty) => {
 };
 
 const applyStyle = (self, string) => {
-	if (!self.enabled || self.level <= 0 || !string) {
+	if (self.level <= 0 || !string) {
 		return self._isEmpty ? '' : string;
 	}
 

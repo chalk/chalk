@@ -120,21 +120,11 @@ Chain [styles](#styles) and call the last one as a method with a string argument
 
 Multiple arguments will be separated by space.
 
-### chalk.enabled
-
-Color support is automatically detected, as is the level (see `chalk.level`). However, if you'd like to simply enable/disable Chalk, you can do so via the `.enabled` property. When `chalk.enabled` is `true`, `chalk.level` must *also* be greater than `0` for colored output to be produced.
-
-Chalk is enabled by default unless explicitly disabled via `new chalk.Instance()` or `chalk.level` is `0`.
-
-If you need to change this in a reusable module, create a new instance:
-
-```js
-const ctx = new chalk.Instance({enabled: false});
-```
-
 ### chalk.level
 
-Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all Chalk consumers. When `chalk.level` is greater than `0`, `chalk.enabled` must *also* be `true` for colored output to be produced.
+Specifies the level of color support.
+
+Color support is automatically detected, but you can override it by setting the `level` property. You should however only do this in your own code as it applies globally to all Chalk consumers.
 
 If you need to change this in a reusable module, create a new instance:
 
@@ -170,7 +160,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `inverse`- Inverse background and foreground colors.
 - `hidden` - Prints the text, but makes it invisible.
 - `strikethrough` - Puts a horizontal line through the center of the text. *(Not widely supported)*
-- `visible`- Prints the text only when Chalk is enabled. Can be useful for things that are purely cosmetic.
+- `visible`- Prints the text only when Chalk has a color level > 0. Can be useful for things that are purely cosmetic.
 
 ### Colors
 
