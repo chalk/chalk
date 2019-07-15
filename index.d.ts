@@ -20,6 +20,71 @@ declare const enum LevelEnum {
 	TrueColor = 3
 }
 
+/**
+ * Available foreground colors for use
+ */
+declare type ForegroundColor =
+	| "black"
+	| "red"
+	| "green"
+	| "yellow"
+	| "blue"
+	| "magenta"
+	| "cyan"
+	| "white"
+	| "gray"
+	| "grey"
+	| "blackBright"
+	| "redBright"
+	| "greenBright"
+	| "yellowBright"
+	| "blueBright"
+	| "magentaBright"
+	| "cyanBright"
+	| "whiteBright";
+
+/**
+ * Available background colors for use
+ */
+declare type BackgroundColor =
+	| "bgBlack"
+	| "bgRed"
+	| "bgGreen"
+	| "bgYellow"
+	| "bgBlue"
+	| "bgMagenta"
+	| "bgCyan"
+	| "bgWhite"
+	| "bgGray"
+	| "bgGrey"
+	| "bgBlackBright"
+	| "bgRedBright"
+	| "bgGreenBright"
+	| "bgYellowBright"
+	| "bgBlueBright"
+	| "bgMagentaBright"
+	| "bgCyanBright"
+	| "bgWhiteBright";
+
+/**
+ * Available colors for use
+ */
+declare type Color = BackgroundColor | ForegroundColor;
+
+/**
+ * Available modifiers for use
+ */
+declare type Modifiers =
+	| "reset"
+	| "bold"
+	| "dim"
+	| "italic"
+	| "underline"
+	| "inverse"
+	| "hidden"
+	| "strikethrough"
+	| "visible";
+
 declare namespace chalk {
 	type Level = LevelEnum;
 
@@ -306,6 +371,10 @@ This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 declare const chalk: chalk.Chalk & chalk.ChalkFunction & {
 	supportsColor: chalk.ColorSupport | false;
 	Level: typeof LevelEnum;
+	BackgroundColor: BackgroundColor;
+	ForegroundColor: ForegroundColor;
+	Color: Color;
+	Modifiers: Modifiers;
 };
 
 export = chalk;
