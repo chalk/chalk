@@ -15,9 +15,6 @@ const levelMapping = [
 	'ansi16m'
 ];
 
-// `color-convert` models to exclude from the Chalk API due to conflicts and such
-const skipModels = new Set(['gray']);
-
 const styles = Object.create(null);
 
 const applyOptions = (object, options = {}) => {
@@ -76,11 +73,9 @@ styles.visible = {
 	}
 };
 
-for (const model of Object.keys(ansiStyles.color.ansi)) {
-	if (skipModels.has(model)) {
-		continue;
-	}
+const useModels = ['rgb', 'hsl', 'hsv', 'hwb', 'cmyk', 'xyz', 'lab', 'lch', 'hex', 'keyword', 'ansi', 'ansi256', 'hcg', 'apple'];
 
+for (const model of useModels) {
 	styles[model] = {
 		get() {
 			const {level} = this;
@@ -92,11 +87,7 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 	};
 }
 
-for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
-	if (skipModels.has(model)) {
-		continue;
-	}
-
+for (const model of useModels) {
 	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
 	styles[bgModel] = {
 		get() {
