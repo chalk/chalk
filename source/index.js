@@ -1,7 +1,6 @@
 'use strict';
 const ansiStyles = require('ansi-styles');
 const {stdout: stdoutColor, stderr: stderrColor} = require('supports-color');
-const template = require('./templates');
 const {
 	stringReplaceAll,
 	stringEncaseCRLFWithFirstIndex
@@ -185,6 +184,7 @@ const applyStyle = (self, string) => {
 	return openAll + string + closeAll;
 };
 
+let template;
 const chalkTag = (chalk, ...strings) => {
 	const [firstString] = strings;
 
@@ -204,6 +204,9 @@ const chalkTag = (chalk, ...strings) => {
 		);
 	}
 
+	if (template === undefined) {
+		template = require('./templates');
+	}
 	return template(chalk, parts.join(''));
 };
 
