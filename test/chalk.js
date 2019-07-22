@@ -105,3 +105,7 @@ test('don\'t emit RGB codes if level is 0', t => {
 test('supports blackBright color', t => {
 	t.is(chalk.blackBright('foo'), '\u001B[90mfoo\u001B[39m');
 });
+
+test('sets correct level for chalk.stderr', t => {
+	t.is(chalk.stderr.level, 3);
+});

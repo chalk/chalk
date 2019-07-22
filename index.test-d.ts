@@ -16,6 +16,16 @@ expectType<boolean>((chalk.supportsColor as chalk.ColorSupport).hasBasic);
 expectType<boolean>((chalk.supportsColor as chalk.ColorSupport).has256);
 expectType<boolean>((chalk.supportsColor as chalk.ColorSupport).has16m);
 
+// - stderr -
+expectType<chalk.Chalk>(chalk.stderr);
+expectType<chalk.ColorSupport | false>(chalk.stderr.supportsColor);
+expectType<boolean>((chalk.stderr.supportsColor as chalk.ColorSupport).hasBasic);
+expectType<boolean>((chalk.stderr.supportsColor as chalk.ColorSupport).has256);
+expectType<boolean>((chalk.stderr.supportsColor as chalk.ColorSupport).has16m);
+
+// -- `stderr` is not a member of the Chalk interface --
+expectError(chalk.reset.stderr);
+
 // -- `supportsColor` is not a member of the Chalk interface --
 expectError(chalk.reset.supportsColor);
 

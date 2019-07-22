@@ -1,6 +1,6 @@
 'use strict';
 const ansiStyles = require('ansi-styles');
-const {stdout: stdoutColor} = require('supports-color');
+const {stdout: stdoutColor, stderr: stderrColor} = require('supports-color');
 const template = require('./templates');
 const {
 	stringReplaceAll,
@@ -218,5 +218,9 @@ const chalkTag = (chalk, ...strings) => {
 
 Object.defineProperties(Chalk.prototype, styles);
 
-module.exports = Chalk(); // eslint-disable-line new-cap
-module.exports.supportsColor = stdoutColor;
+const chalk = Chalk(); // eslint-disable-line new-cap
+chalk.supportsColor = stdoutColor;
+chalk.stderr = Chalk({level: stderrColor ? stderrColor.level : 0}); // eslint-disable-line new-cap
+chalk.stderr.supportsColor = stderrColor;
+
+module.exports = chalk;
