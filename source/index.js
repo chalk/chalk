@@ -72,9 +72,9 @@ styles.visible = {
 	}
 };
 
-const useModels = ['rgb', 'hsl', 'hsv', 'hwb', 'cmyk', 'xyz', 'lab', 'lch', 'hex', 'keyword', 'ansi', 'ansi256', 'hcg', 'apple'];
+const usedModels = ['rgb', 'hsl', 'hsv', 'hwb', 'cmyk', 'xyz', 'lab', 'lch', 'hex', 'keyword', 'ansi', 'ansi256', 'hcg', 'apple'];
 
-for (const model of useModels) {
+for (const model of usedModels) {
 	styles[model] = {
 		get() {
 			const {level} = this;
@@ -86,7 +86,7 @@ for (const model of useModels) {
 	};
 }
 
-for (const model of useModels) {
+for (const model of usedModels) {
 	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
 	styles[bgModel] = {
 		get() {
@@ -207,6 +207,7 @@ const chalkTag = (chalk, ...strings) => {
 	if (template === undefined) {
 		template = require('./templates');
 	}
+
 	return template(chalk, parts.join(''));
 };
 
