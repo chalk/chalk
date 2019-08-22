@@ -139,3 +139,7 @@ expectType<string>(chalk.bgWhiteBright`foo`);
 // -- Complex --
 expectType<string>(chalk.red.bgGreen.underline('foo'));
 expectType<string>(chalk.underline.red.bgGreen('foo'));
+
+// -- Color types ==
+expectType<typeof chalk.Color>('red');
+expectError<typeof chalk.Color>('hotpink');

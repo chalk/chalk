@@ -20,6 +20,74 @@ declare const enum LevelEnum {
 	TrueColor = 3
 }
 
+/**
+Basic foreground colors.
+
+[More colors here.](https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support)
+*/
+declare type ForegroundColor =
+	| 'black'
+	| 'red'
+	| 'green'
+	| 'yellow'
+	| 'blue'
+	| 'magenta'
+	| 'cyan'
+	| 'white'
+	| 'gray'
+	| 'grey'
+	| 'blackBright'
+	| 'redBright'
+	| 'greenBright'
+	| 'yellowBright'
+	| 'blueBright'
+	| 'magentaBright'
+	| 'cyanBright'
+	| 'whiteBright';
+
+/**
+Basic background colors.
+
+[More colors here.](https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support)
+*/
+declare type BackgroundColor =
+	| 'bgBlack'
+	| 'bgRed'
+	| 'bgGreen'
+	| 'bgYellow'
+	| 'bgBlue'
+	| 'bgMagenta'
+	| 'bgCyan'
+	| 'bgWhite'
+	| 'bgGray'
+	| 'bgGrey'
+	| 'bgBlackBright'
+	| 'bgRedBright'
+	| 'bgGreenBright'
+	| 'bgYellowBright'
+	| 'bgBlueBright'
+	| 'bgMagentaBright'
+	| 'bgCyanBright'
+	| 'bgWhiteBright';
+
+/**
+Basic colors.
+
+[More colors here.](https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support)
+*/
+declare type Color = ForegroundColor | BackgroundColor;
+
+declare type Modifiers =
+	| 'reset'
+	| 'bold'
+	| 'dim'
+	| 'italic'
+	| 'underline'
+	| 'inverse'
+	| 'hidden'
+	| 'strikethrough'
+	| 'visible';
+
 declare namespace chalk {
 	type Level = LevelEnum;
 
@@ -306,6 +374,10 @@ This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 declare const chalk: chalk.Chalk & chalk.ChalkFunction & {
 	supportsColor: chalk.ColorSupport | false;
 	Level: typeof LevelEnum;
+	Color: Color;
+	ForegroundColor: ForegroundColor;
+	BackgroundColor: BackgroundColor;
+	Modifiers: Modifiers;
 };
 
 export = chalk;
