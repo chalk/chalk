@@ -21,7 +21,9 @@ declare const enum LevelEnum {
 }
 
 /**
-Available builtin foreground colors. Other colors are also available: https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support
+Basic foreground colors.
+
+[More colors here.](https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support)
 */
 declare type ForegroundColor =
 	| 'black'
@@ -44,7 +46,9 @@ declare type ForegroundColor =
 	| 'whiteBright';
 
 /**
-Available builtin background colors. Other colors are also available: https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support
+Basic background colors.
+
+[More colors here.](https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support)
 */
 declare type BackgroundColor =
 	| 'bgBlack'
@@ -67,13 +71,12 @@ declare type BackgroundColor =
 	| 'bgWhiteBright';
 
 /**
-Available colors.
+Basic colors.
+
+[More colors here.](https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support)
 */
 declare type Color = ForegroundColor | BackgroundColor;
 
-/**
-Available modifiers.
-*/
 declare type Modifiers =
 	| 'reset'
 	| 'bold'
