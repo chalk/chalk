@@ -21,50 +21,50 @@ declare const enum LevelEnum {
 }
 
 /**
-Available foreground colors.
+Available builtin foreground colors. Other colors are also available: https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support
 */
 declare type ForegroundColor =
-	| "black"
-	| "red"
-	| "green"
-	| "yellow"
-	| "blue"
-	| "magenta"
-	| "cyan"
-	| "white"
-	| "gray"
-	| "grey"
-	| "blackBright"
-	| "redBright"
-	| "greenBright"
-	| "yellowBright"
-	| "blueBright"
-	| "magentaBright"
-	| "cyanBright"
-	| "whiteBright";
+	| 'black'
+	| 'red'
+	| 'green'
+	| 'yellow'
+	| 'blue'
+	| 'magenta'
+	| 'cyan'
+	| 'white'
+	| 'gray'
+	| 'grey'
+	| 'blackBright'
+	| 'redBright'
+	| 'greenBright'
+	| 'yellowBright'
+	| 'blueBright'
+	| 'magentaBright'
+	| 'cyanBright'
+	| 'whiteBright';
 
 /**
-Available background colors.
+Available builtin background colors. Other colors are also available: https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support
 */
 declare type BackgroundColor =
-	| "bgBlack"
-	| "bgRed"
-	| "bgGreen"
-	| "bgYellow"
-	| "bgBlue"
-	| "bgMagenta"
-	| "bgCyan"
-	| "bgWhite"
-	| "bgGray"
-	| "bgGrey"
-	| "bgBlackBright"
-	| "bgRedBright"
-	| "bgGreenBright"
-	| "bgYellowBright"
-	| "bgBlueBright"
-	| "bgMagentaBright"
-	| "bgCyanBright"
-	| "bgWhiteBright";
+	| 'bgBlack'
+	| 'bgRed'
+	| 'bgGreen'
+	| 'bgYellow'
+	| 'bgBlue'
+	| 'bgMagenta'
+	| 'bgCyan'
+	| 'bgWhite'
+	| 'bgGray'
+	| 'bgGrey'
+	| 'bgBlackBright'
+	| 'bgRedBright'
+	| 'bgGreenBright'
+	| 'bgYellowBright'
+	| 'bgBlueBright'
+	| 'bgMagentaBright'
+	| 'bgCyanBright'
+	| 'bgWhiteBright';
 
 /**
 Available colors.
@@ -75,15 +75,15 @@ declare type Color = ForegroundColor | BackgroundColor;
 Available modifiers.
 */
 declare type Modifiers =
-	| "reset"
-	| "bold"
-	| "dim"
-	| "italic"
-	| "underline"
-	| "inverse"
-	| "hidden"
-	| "strikethrough"
-	| "visible";
+	| 'reset'
+	| 'bold'
+	| 'dim'
+	| 'italic'
+	| 'underline'
+	| 'inverse'
+	| 'hidden'
+	| 'strikethrough'
+	| 'visible';
 
 declare namespace chalk {
 	type Level = LevelEnum;
