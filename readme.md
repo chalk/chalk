@@ -151,7 +151,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 `chalk.stderr` contains a separate instance configured with color support detected for `stderr` stream instead of `stdout`.
 Override rules from `chalk.supportsColor` apply to this too.
-`chalk.stderr.supportsColor` is exposed for convinience.
+`chalk.stderr.supportsColor` is exposed for convenience.
 
 ## Styles
 
