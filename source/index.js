@@ -72,7 +72,7 @@ styles.visible = {
 	}
 };
 
-const usedModels = ['rgb', 'hsl', 'hsv', 'hwb', 'cmyk', 'xyz', 'lab', 'lch', 'hex', 'keyword', 'ansi', 'ansi256', 'hcg', 'apple'];
+const usedModels = ['rgb', 'hex', 'keyword', 'hsl', 'hsv', 'hwb', 'ansi', 'ansi256'];
 
 for (const model of usedModels) {
 	styles[model] = {
