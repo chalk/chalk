@@ -106,6 +106,7 @@ test('supports blackBright color', t => {
 	t.is(chalk.blackBright('foo'), '\u001B[90mfoo\u001B[39m');
 });
 
-test('sets correct level for chalk.stderr', t => {
+test('sets correct level for chalk.stderr and respects it', t => {
 	t.is(chalk.stderr.level, 3);
+	t.is(chalk.stderr.red.bold('foo'), '\u001B[31m\u001B[1mfoo\u001B[22m\u001B[39m');
 });
