@@ -41,5 +41,5 @@ test('propagate enable/disable changes from child colors', t => {
 
 test('disable colors if they are not supported', async t => {
 	const {stdout} = await execa.node(path.join(__dirname, '_fixture'));
-	t.is(stdout, 'test');
+	t.is(stdout, 'testout testerr');
 });

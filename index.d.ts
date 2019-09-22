@@ -378,6 +378,7 @@ declare const chalk: chalk.Chalk & chalk.ChalkFunction & {
 	ForegroundColor: ForegroundColor;
 	BackgroundColor: BackgroundColor;
 	Modifiers: Modifiers;
+	stderr: chalk.Chalk & {supportsColor: chalk.ColorSupport | false};
 };
 
 export = chalk;

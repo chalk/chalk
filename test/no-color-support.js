@@ -2,10 +2,18 @@ import test from 'ava';
 
 // Spoof supports-color
 require('./_supports-color')(__dirname, {
-	level: 0,
-	hasBasic: false,
-	has256: false,
-	has16m: false
+	stdout: {
+		level: 0,
+		hasBasic: false,
+		has256: false,
+		has16m: false
+	},
+	stderr: {
+		level: 0,
+		hasBasic: false,
+		has256: false,
+		has16m: false
+	}
 });
 
 const chalk = require('../source');
