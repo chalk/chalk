@@ -232,6 +232,6 @@ chalk.Level = {
 	1: 'Basic',
 	2: 'Ansi256',
 	3: 'TrueColor'
-}
+};
 
 module.exports = chalk;
