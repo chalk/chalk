@@ -1,4 +1,4 @@
-declare enum LevelEnum {
+declare const enum LevelEnum {
 	/**
 	All colors disabled.
 	*/
