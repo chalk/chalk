@@ -1,7 +1,6 @@
 'use strict';
 const ansiStyles = require('ansi-styles');
 const {stdout: stdoutColor, stderr: stderrColor} = require('supports-color');
-const template = require('./templates');
 const {
 	stringReplaceAll,
 	stringEncaseCRLFWithFirstIndex
@@ -14,9 +13,6 @@ const levelMapping = [
 	'ansi256',
 	'ansi16m'
 ];
-
-// `color-convert` models to exclude from the Chalk API due to conflicts and such
-const skipModels = new Set(['gray']);
 
 const styles = Object.create(null);
 
@@ -76,11 +72,9 @@ styles.visible = {
 	}
 };
 
-for (const model of Object.keys(ansiStyles.color.ansi)) {
-	if (skipModels.has(model)) {
-		continue;
-	}
+const usedModels = ['rgb', 'hex', 'keyword', 'hsl', 'hsv', 'hwb', 'ansi', 'ansi256'];
 
+for (const model of usedModels) {
 	styles[model] = {
 		get() {
 			const {level} = this;
@@ -92,11 +86,7 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 	};
 }
 
-for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
-	if (skipModels.has(model)) {
-		continue;
-	}
-
+for (const model of usedModels) {
 	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
 	styles[bgModel] = {
 		get() {
@@ -194,6 +184,7 @@ const applyStyle = (self, string) => {
 	return openAll + string + closeAll;
 };
 
+let template;
 const chalkTag = (chalk, ...strings) => {
 	const [firstString] = strings;
 
@@ -211,6 +202,10 @@ const chalkTag = (chalk, ...strings) => {
 			String(arguments_[i - 1]).replace(/[{}\\]/g, '\\$&'),
 			String(firstString.raw[i])
 		);
+	}
+
+	if (template === undefined) {
+		template = require('./templates');
 	}
 
 	return template(chalk, parts.join(''));
