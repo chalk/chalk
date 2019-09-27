@@ -223,6 +223,7 @@ chalk.supportsColor = stdoutColor;
 chalk.stderr = Chalk({level: stderrColor ? stderrColor.level : 0}); // eslint-disable-line new-cap
 chalk.stderr.supportsColor = stderrColor;
 
+// For TypeScript
 chalk.Level = {
 	None: 0,
 	Basic: 1,
