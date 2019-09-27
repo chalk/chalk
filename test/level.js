@@ -43,3 +43,15 @@ test('disable colors if they are not supported', async t => {
 	const {stdout} = await execa.node(path.join(__dirname, '_fixture'));
 	t.is(stdout, 'testout testerr');
 });
+
+test('chalk.Level enum object', t => {
+	const {Level} = chalk;
+	t.is(Level.None, 0);
+	t.is(Level.Basic, 1);
+	t.is(Level.Ansi256, 2);
+	t.is(Level.TrueColor, 3);
+	t.is(Level[Level.None], 'None');
+	t.is(Level[Level.Basic], 'Basic');
+	t.is(Level[Level.Ansi256], 'Ansi256');
+	t.is(Level[Level.TrueColor], 'TrueColor');
+});
