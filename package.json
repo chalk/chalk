@@ -40,11 +40,11 @@
 		"text"
 	],
 	"dependencies": {
-		"ansi-styles": "^4.0.0",
-		"supports-color": "^7.0.0"
+		"ansi-styles": "^4.1.0",
+		"supports-color": "^7.1.0"
 	},
 	"devDependencies": {
-		"ava": "^2.2.0",
+		"ava": "^2.4.0",
 		"coveralls": "^3.0.5",
 		"execa": "^2.0.3",
 		"import-fresh": "^3.1.0",
@@ -52,6 +52,12 @@
 		"nyc": "^14.1.1",
 		"resolve-from": "^5.0.0",
 		"tsd": "^0.7.4",
-		"xo": "^0.24.0"
+		"xo": "^0.25.3"
+	},
+	"xo": {
+		"rules": {
+			"unicorn/prefer-string-slice": "off",
+			"unicorn/prefer-includes": "off"
+		}
 	}
 }

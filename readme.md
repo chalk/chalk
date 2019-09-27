@@ -26,7 +26,7 @@
 - Doesn't extend `String.prototype`
 - Clean and focused
 - Actively maintained
-- [Used by ~40,000 packages](https://www.npmjs.com/browse/depended/chalk) as of March 1, 2019
+- [Used by ~46,000 packages](https://www.npmjs.com/browse/depended/chalk) as of October 1, 2019
 
 
 ## Install
@@ -267,7 +267,7 @@ The following color models can be used:
 
 ## Windows
 
-If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) instead of `cmd.exe`.
+If you're on Windows, do yourself a favor and use [Windows Terminal](https://github.com/microsoft/terminal) instead of `cmd.exe`.
 
 
 ## Origin story
