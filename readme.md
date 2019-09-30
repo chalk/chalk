@@ -132,8 +132,8 @@ If you need to change this in a reusable module, create a new instance:
 const ctx = new chalk.Instance({level: 0});
 ```
 
-| level | description |
-| ---: | :--- |
+| Level | Description |
+| :---: | :--- |
 | `0` | All colors disabled |
 | `1` | Basic color support (16 colors) |
 | `2` | 256 color support |
