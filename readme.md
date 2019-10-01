@@ -132,12 +132,12 @@ If you need to change this in a reusable module, create a new instance:
 const ctx = new chalk.Instance({level: 0});
 ```
 
-Levels are as follows:
-
-0. All colors disabled
-1. Basic color support (16 colors)
-2. 256 color support
-3. Truecolor support (16 million colors)
+| Level | Description |
+| :---: | :--- |
+| `0` | All colors disabled |
+| `1` | Basic color support (16 colors) |
+| `2` | 256 color support |
+| `3` | Truecolor support (16 million colors) |
 
 ### chalk.supportsColor
 
