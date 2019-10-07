@@ -214,7 +214,7 @@ declare namespace chalk {
 		hwb(hue: number, whiteness: number, blackness: number): Chalk;
 
 		/**
-		Use 8-bit unsigned numbers to set text color.
+		Use 8-bit unsigned number to set text color.
 		*/
 		ansi256(index: number): Chalk;
 
@@ -267,7 +267,7 @@ declare namespace chalk {
 		bgHwb(hue: number, whiteness: number, blackness: number): Chalk;
 
 		/**
-		Use 8-bit unsigned numbers to set background color.
+		Use 8-bit unsigned number to set background color.
 		*/
 		bgAnsi256(index: number): Chalk;
 
