@@ -214,6 +214,14 @@ declare namespace chalk {
 		hwb(hue: number, whiteness: number, blackness: number): Chalk;
 
 		/**
+		Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set text color.
+
+		30 <= code && code < 38 || 90 <= code && code < 98
+		For example, 31 for red, 91 for redBright.
+		*/
+		ansi(code: number): Chalk;
+
+		/**
 		Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set text color.
 		*/
 		ansi256(index: number): Chalk;
@@ -265,6 +273,15 @@ declare namespace chalk {
 		Use HWB values to set background color.
 		*/
 		bgHwb(hue: number, whiteness: number, blackness: number): Chalk;
+
+		/**
+		Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set background color.
+
+		30 <= code && code < 38 || 90 <= code && code < 98
+		For example, 31 for red, 91 for redBright.
+		Use the foreground code, not the background code (for example, not 41, nor 101).
+		*/
+		bgAnsi(code: number): Chalk;
 
 		/**
 		Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set background color.

@@ -49,6 +49,7 @@ expectType<colorReturn>(chalk.rgb(0, 0, 0));
 expectType<colorReturn>(chalk.hsl(0, 0, 0));
 expectType<colorReturn>(chalk.hsv(0, 0, 0));
 expectType<colorReturn>(chalk.hwb(0, 0, 0));
+expectType<colorReturn>(chalk.ansi(30));
 expectType<colorReturn>(chalk.ansi256(0));
 expectType<colorReturn>(chalk.bgHex('#DEADED'));
 expectType<colorReturn>(chalk.bgKeyword('orange'));
@@ -56,6 +57,7 @@ expectType<colorReturn>(chalk.bgRgb(0, 0, 0));
 expectType<colorReturn>(chalk.bgHsl(0, 0, 0));
 expectType<colorReturn>(chalk.bgHsv(0, 0, 0));
 expectType<colorReturn>(chalk.bgHwb(0, 0, 0));
+expectType<colorReturn>(chalk.bgAnsi(30));
 expectType<colorReturn>(chalk.bgAnsi256(0));
 
 // -- Modifiers --
