@@ -275,6 +275,13 @@ If you're on Windows, do yourself a favor and use [Windows Terminal](https://git
 [colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68) and the package is unmaintained. Although there are other packages, they either do too much or not enough. Chalk is a clean and focused alternative.
 
 
+## chalk for enterprise
+
+Available as part of the Tidelift Subscription.
+
+The maintainers of chalk and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-chalk?utm_source=npm-chalk&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
+
+
 ## Related
 
 - [chalk-cli](https://github.com/chalk/chalk-cli) - CLI for this module
@@ -297,16 +304,3 @@ If you're on Windows, do yourself a favor and use [Windows Terminal](https://git
 
 - [Sindre Sorhus](https://github.com/sindresorhus)
 - [Josh Junon](https://github.com/qix-)
-
-
----
-
-<div align="center">
-	<b>
-		<a href="https://tidelift.com/subscription/pkg/npm-chalk?utm_source=npm-chalk&utm_medium=referral&utm_campaign=readme">Get professional support for Chalk with a Tidelift subscription</a>
-	</b>
-	<br>
-	<sub>
-		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
-	</sub>
-</div>
