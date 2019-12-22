@@ -133,6 +133,15 @@ declare namespace chalk {
 
 	interface ChalkFunction {
 		/**
+		Use a string.
+
+		@remarks Template literals are unsupported for nested calls (see [issue #341](https://github.com/chalk/chalk/issues/341))
+		*/
+		(text: string): string;
+	}
+
+	interface ChalkTemplateFunction {
+		/**
 		Use a template string.
 
 		@remarks Template literals are unsupported for nested calls (see [issue #341](https://github.com/chalk/chalk/issues/341))
@@ -153,7 +162,7 @@ declare namespace chalk {
 		(...text: unknown[]): string;
 	}
 
-	interface Chalk extends ChalkFunction {
+	interface ChalkObject {
 		/**
 		Return a new Chalk instance.
 		*/
@@ -291,105 +300,109 @@ declare namespace chalk {
 		/**
 		Modifier: Resets the current color chain.
 		*/
-		readonly reset: Chalk;
+		readonly reset: ChalkProperty;
 
 		/**
 		Modifier: Make text bold.
 		*/
-		readonly bold: Chalk;
+		readonly bold: ChalkProperty;
 
 		/**
 		Modifier: Emitting only a small amount of light.
 		*/
-		readonly dim: Chalk;
+		readonly dim: ChalkProperty;
 
 		/**
 		Modifier: Make text italic. (Not widely supported)
 		*/
-		readonly italic: Chalk;
+		readonly italic: ChalkProperty;
 
 		/**
 		Modifier: Make text underline. (Not widely supported)
 		*/
-		readonly underline: Chalk;
+		readonly underline: ChalkProperty;
 
 		/**
 		Modifier: Inverse background and foreground colors.
 		*/
-		readonly inverse: Chalk;
+		readonly inverse: ChalkProperty;
 
 		/**
 		Modifier: Prints the text, but makes it invisible.
 		*/
-		readonly hidden: Chalk;
+		readonly hidden: ChalkProperty;
 
 		/**
 		Modifier: Puts a horizontal line through the center of the text. (Not widely supported)
 		*/
-		readonly strikethrough: Chalk;
+		readonly strikethrough: ChalkProperty;
 
 		/**
 		Modifier: Prints the text only when Chalk has a color support level > 0.
 		Can be useful for things that are purely cosmetic.
 		*/
-		readonly visible: Chalk;
+		readonly visible: ChalkProperty;
 
-		readonly black: Chalk;
-		readonly red: Chalk;
-		readonly green: Chalk;
-		readonly yellow: Chalk;
-		readonly blue: Chalk;
-		readonly magenta: Chalk;
-		readonly cyan: Chalk;
-		readonly white: Chalk;
-
-		/*
-		Alias for `blackBright`.
-		*/
-		readonly gray: Chalk;
+		readonly black: ChalkProperty;
+		readonly red: ChalkProperty;
+		readonly green: ChalkProperty;
+		readonly yellow: ChalkProperty;
+		readonly blue: ChalkProperty;
+		readonly magenta: ChalkProperty;
+		readonly cyan: ChalkProperty;
+		readonly white: ChalkProperty;
 
 		/*
 		Alias for `blackBright`.
 		*/
-		readonly grey: Chalk;
+		readonly gray: ChalkProperty;
 
-		readonly blackBright: Chalk;
-		readonly redBright: Chalk;
-		readonly greenBright: Chalk;
-		readonly yellowBright: Chalk;
-		readonly blueBright: Chalk;
-		readonly magentaBright: Chalk;
-		readonly cyanBright: Chalk;
-		readonly whiteBright: Chalk;
+		/*
+		Alias for `blackBright`.
+		*/
+		readonly grey: ChalkProperty;
 
-		readonly bgBlack: Chalk;
-		readonly bgRed: Chalk;
-		readonly bgGreen: Chalk;
-		readonly bgYellow: Chalk;
-		readonly bgBlue: Chalk;
-		readonly bgMagenta: Chalk;
-		readonly bgCyan: Chalk;
-		readonly bgWhite: Chalk;
+		readonly blackBright: ChalkProperty;
+		readonly redBright: ChalkProperty;
+		readonly greenBright: ChalkProperty;
+		readonly yellowBright: ChalkProperty;
+		readonly blueBright: ChalkProperty;
+		readonly magentaBright: ChalkProperty;
+		readonly cyanBright: ChalkProperty;
+		readonly whiteBright: ChalkProperty;
+
+		readonly bgBlack: ChalkProperty;
+		readonly bgRed: ChalkProperty;
+		readonly bgGreen: ChalkProperty;
+		readonly bgYellow: ChalkProperty;
+		readonly bgBlue: ChalkProperty;
+		readonly bgMagenta: ChalkProperty;
+		readonly bgCyan: ChalkProperty;
+		readonly bgWhite: ChalkProperty;
 
 		/*
 		Alias for `bgBlackBright`.
 		*/
-		readonly bgGray: Chalk;
+		readonly bgGray: ChalkProperty;
 
 		/*
 		Alias for `bgBlackBright`.
 		*/
-		readonly bgGrey: Chalk;
+		readonly bgGrey: ChalkProperty;
 
-		readonly bgBlackBright: Chalk;
-		readonly bgRedBright: Chalk;
-		readonly bgGreenBright: Chalk;
-		readonly bgYellowBright: Chalk;
-		readonly bgBlueBright: Chalk;
-		readonly bgMagentaBright: Chalk;
-		readonly bgCyanBright: Chalk;
-		readonly bgWhiteBright: Chalk;
+		readonly bgBlackBright: ChalkProperty;
+		readonly bgRedBright: ChalkProperty;
+		readonly bgGreenBright: ChalkProperty;
+		readonly bgYellowBright: ChalkProperty;
+		readonly bgBlueBright: ChalkProperty;
+		readonly bgMagentaBright: ChalkProperty;
+		readonly bgCyanBright: ChalkProperty;
+		readonly bgWhiteBright: ChalkProperty;
 	}
+
+	interface ChalkProperty extends ChalkObject, ChalkFunction {}
+
+	interface Chalk extends ChalkObject, ChalkFunction, ChalkTemplateFunction {}
 }
 
 /**
@@ -398,7 +411,7 @@ Call the last one as a method with a string argument.
 Order doesn't matter, and later styles take precedent in case of a conflict.
 This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 */
-declare const chalk: chalk.Chalk & chalk.ChalkFunction & {
+declare const chalk: chalk.Chalk & chalk.ChalkFunction & chalk.ChalkTemplateFunction & {
 	supportsColor: chalk.ColorSupport | false;
 	Level: typeof LevelEnum;
 	Color: Color;
