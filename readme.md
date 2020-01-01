@@ -13,7 +13,6 @@
 
 <img src="https://cdn.jsdelivr.net/gh/chalk/ansi-styles@8261697c95bf34b6c7767e2cbe9941a851d59385/screenshot.svg" width="900">
 
-
 ## Highlights
 
 - Expressive API
@@ -24,15 +23,13 @@
 - Doesn't extend `String.prototype`
 - Clean and focused
 - Actively maintained
-- [Used by ~46,000 packages](https://www.npmjs.com/browse/depended/chalk) as of October 1, 2019
-
+- [Used by ~50,000 packages](https://www.npmjs.com/browse/depended/chalk) as of January 1, 2020
 
 ## Install
 
 ```console
 $ npm install chalk
 ```
-
 
 ## Usage
 
@@ -107,7 +104,6 @@ console.log(chalk.green('Hello %s'), name);
 //=> 'Hello Sindre'
 ```
 
-
 ## API
 
 ### chalk.`<style>[.<style>...](string, [string...])`
@@ -148,7 +144,6 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 ### chalk.stderr and chalk.stderr.supportsColor
 
 `chalk.stderr` contains a separate instance configured with color support detected for `stderr` stream instead of `stdout`. Override rules from `chalk.supportsColor` apply to this too. `chalk.stderr.supportsColor` is exposed for convenience.
-
 
 ## Styles
 
@@ -202,7 +197,6 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 - `bgCyanBright`
 - `bgWhiteBright`
 
-
 ## Tagged template literal
 
 Chalk can be used as a [tagged template literal](http://exploringjs.com/es6/ch_template-literals.html#_tagged-template-literals).
@@ -231,7 +225,6 @@ console.log(chalk`{bold.rgb(10,100,200) Hello!}`);
 Note that function styles (`rgb()`, `hsl()`, `keyword()`, etc.) may not contain spaces between parameters.
 
 All interpolated values (`` chalk`${foo}` ``) are converted to strings via the `.toString()` method. All curly braces (`{` and `}`) in interpolated value strings are escaped.
-
 
 ## 256 and Truecolor color support
 
@@ -262,23 +255,19 @@ The following color models can be used:
 - [`ansi`](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) - Example: `chalk.ansi(31).bgAnsi(93)('red on yellowBright')`
 - [`ansi256`](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) - Example: `chalk.bgAnsi256(194)('Honeydew, more or less')`
 
-
 ## Windows
 
 If you're on Windows, do yourself a favor and use [Windows Terminal](https://github.com/microsoft/terminal) instead of `cmd.exe`.
 
-
 ## Origin story
 
 [colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68) and the package is unmaintained. Although there are other packages, they either do too much or not enough. Chalk is a clean and focused alternative.
-
 
 ## chalk for enterprise
 
 Available as part of the Tidelift Subscription.
 
 The maintainers of chalk and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-chalk?utm_source=npm-chalk&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
-
 
 ## Related
 
@@ -296,7 +285,6 @@ The maintainers of chalk and thousands of other packages are working with Tideli
 - [gradient-string](https://github.com/bokub/gradient-string) - Apply color gradients to strings
 - [chalk-pipe](https://github.com/LitoMore/chalk-pipe) - Create chalk style schemes with simpler style strings
 - [terminal-link](https://github.com/sindresorhus/terminal-link) - Create clickable links in the terminal
-
 
 ## Maintainers
 
