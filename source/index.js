@@ -139,9 +139,9 @@ const createBuilder = (self, _styler, _isEmpty) => {
 		return applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
 	};
 
-	// `__proto__` is used because we must return a function, but there is
+	// We alter the prototype because we must return a function, but there is
 	// no way to create a function with a different prototype
-	builder.__proto__ = proto; // eslint-disable-line no-proto
+	Object.setPrototypeOf(builder, proto);
 
 	builder._generator = self;
 	builder._styler = _styler;
