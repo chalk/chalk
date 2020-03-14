@@ -110,3 +110,15 @@ test('sets correct level for chalk.stderr and respects it', t => {
 	t.is(chalk.stderr.level, 3);
 	t.is(chalk.stderr.red.bold('foo'), '\u001B[31m\u001B[1mfoo\u001B[22m\u001B[39m');
 });
+
+test('keeps .apply from Function', t => {
+	t.is(chalk.apply(chalk, ['foo']), 'foo');
+});
+
+test('keeps .bind from Function', t => {
+	t.is(chalk.bind(chalk, 'foo')(), 'foo');
+});
+
+test('keeps .call from Function', t => {
+	t.is(chalk.call(chalk, 'foo'), 'foo');
+});
