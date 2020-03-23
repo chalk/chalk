@@ -400,7 +400,7 @@ This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 */
 declare const chalk: chalk.Chalk & chalk.ChalkFunction & {
 	supportsColor: chalk.ColorSupport | false;
-	Level: typeof LevelEnum;
+	Level: chalk.Level;
 	Color: Color;
 	ForegroundColor: ForegroundColor;
 	BackgroundColor: BackgroundColor;
