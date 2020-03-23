@@ -60,5 +60,10 @@
 			"unicorn/prefer-string-slice": "off",
 			"unicorn/prefer-includes": "off"
 		}
+	},
+	"tsd": {
+		"compilerOptions": {
+			"isolatedModules": true
+		}
 	}
 }
