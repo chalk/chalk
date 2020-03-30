@@ -30,6 +30,14 @@ test('correctly perform template substitutions', t => {
 		instance.bold('Hello,', instance.cyan.inverse(name + '!'), 'This is a') + ' test. ' + instance.green(exclamation + '!'));
 });
 
+test('correctly perform nested template substitutions', t => {
+	const instance = new chalk.Instance({level: 0});
+	const name = 'Sindre';
+	const exclamation = 'Neat';
+	t.is(instance.bold`Hello, {cyan.inverse ${name}!} This is a` + ' test. ' + instance.green`${exclamation}!`,
+		instance.bold('Hello,', instance.cyan.inverse(name + '!'), 'This is a') + ' test. ' + instance.green(exclamation + '!'));
+});
+
 test('correctly parse and evaluate color-convert functions', t => {
 	const instance = new chalk.Instance({level: 3});
 	t.is(instance`{bold.rgb(144,10,178).inverse Hello, {~inverse there!}}`,
