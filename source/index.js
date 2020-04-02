@@ -17,7 +17,7 @@ const levelMapping = [
 const styles = Object.create(null);
 
 const applyOptions = (object, options = {}) => {
-	if (options.level > 3 || options.level < 0) {
+	if (!Number.isInteger(options.level) || options.level > 3 || options.level < 0) {
 		throw new Error('The `level` option should be an integer from 0 to 3');
 	}
 
