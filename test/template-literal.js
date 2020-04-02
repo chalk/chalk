@@ -121,8 +121,8 @@ test('correctly parse newline escapes (bug #177)', t => {
 
 test('correctly parse escape in parameters (bug #177 comment 318622809)', t => {
 	const instance = new chalk.Instance({level: 0});
-	const str = '\\';
-	t.is(instance`{blue ${str}}`, '\\');
+	const string = '\\';
+	t.is(instance`{blue ${string}}`, '\\');
 });
 
 test('correctly parses unicode/hex escapes', t => {

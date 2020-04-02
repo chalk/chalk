@@ -4,15 +4,15 @@ const chalk = require('..');
 
 // Generates screenshot
 for (const key of Object.keys(styles)) {
-	let ret = key;
+	let returnValue = key;
 
 	if (key === 'reset' || key === 'hidden' || key === 'grey') {
 		continue;
 	}
 
 	if (/^bg[^B]/.test(key)) {
-		ret = chalk.black(ret);
+		returnValue = chalk.black(returnValue);
 	}
 
-	process.stdout.write(chalk[key](ret) + ' ');
+	process.stdout.write(chalk[key](returnValue) + ' ');
 }

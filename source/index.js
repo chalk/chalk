@@ -17,7 +17,7 @@ const levelMapping = [
 const styles = Object.create(null);
 
 const applyOptions = (object, options = {}) => {
-	if (!Number.isInteger(options.level) || options.level > 3 || options.level < 0) {
+	if (options.level && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
 		throw new Error('The `level` option should be an integer from 0 to 3');
 	}
 
@@ -28,6 +28,7 @@ const applyOptions = (object, options = {}) => {
 
 class ChalkClass {
 	constructor(options) {
+		// eslint-disable-next-line no-constructor-return
 		return chalkFactory(options);
 	}
 }

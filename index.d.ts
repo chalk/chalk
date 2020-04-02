@@ -91,12 +91,10 @@ declare namespace chalk {
 		level?: Level;
 	}
 
-	interface Instance {
-		/**
-		Return a new Chalk instance.
-		*/
-		new (options?: Options): Chalk;
-	}
+	/**
+	Return a new Chalk instance.
+	*/
+	type Instance = new (options?: Options) => Chalk;
 
 	/**
 	Detect whether the terminal supports color.
