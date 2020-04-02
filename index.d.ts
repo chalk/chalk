@@ -1,25 +1,3 @@
-declare const enum LevelEnum {
-	/**
-	All colors disabled.
-	*/
-	None = 0,
-
-	/**
-	Basic 16 colors support.
-	*/
-	Basic = 1,
-
-	/**
-	ANSI 256 colors support.
-	*/
-	Ansi256 = 2,
-
-	/**
-	Truecolor 16 million colors support.
-	*/
-	TrueColor = 3
-}
-
 /**
 Basic foreground colors.
 
@@ -89,12 +67,26 @@ declare type Modifiers =
 	| 'visible';
 
 declare namespace chalk {
-	type Level = LevelEnum;
+	/**
+	Levels:
+	- `0` - All colors disabled.
+	- `1` - Basic 16 colors support.
+	- `2` - ANSI 256 colors support.
+	- `3` - Truecolor 16 million colors support.
+	*/
+	type Level = 0 | 1 | 2 | 3;
 
 	interface Options {
 		/**
 		Specify the color support for Chalk.
+
 		By default, color support is automatically detected based on the environment.
+
+		Levels:
+		- `0` - All colors disabled.
+		- `1` - Basic 16 colors support.
+		- `2` - ANSI 256 colors support.
+		- `3` - Truecolor 16 million colors support.
 		*/
 		level?: Level;
 	}
@@ -161,7 +153,14 @@ declare namespace chalk {
 
 		/**
 		The color support for Chalk.
+
 		By default, color support is automatically detected based on the environment.
+
+		Levels:
+		- `0` - All colors disabled.
+		- `1` - Basic 16 colors support.
+		- `2` - ANSI 256 colors support.
+		- `3` - Truecolor 16 million colors support.
 		*/
 		level: Level;
 
@@ -400,7 +399,7 @@ This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 */
 declare const chalk: chalk.Chalk & chalk.ChalkFunction & {
 	supportsColor: chalk.ColorSupport | false;
-	Level: typeof LevelEnum;
+	Level: chalk.Level;
 	Color: Color;
 	ForegroundColor: ForegroundColor;
 	BackgroundColor: BackgroundColor;

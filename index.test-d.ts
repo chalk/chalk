@@ -4,12 +4,6 @@ import chalk = require('.');
 // - Helpers -
 type colorReturn = chalk.Chalk & {supportsColor?: never};
 
-// - Level -
-expectType<number>(chalk.Level.None);
-expectType<number>(chalk.Level.Basic);
-expectType<number>(chalk.Level.Ansi256);
-expectType<number>(chalk.Level.TrueColor);
-
 // - supportsColor -
 expectType<chalk.ColorSupport | false>(chalk.supportsColor);
 expectType<boolean>((chalk.supportsColor as chalk.ColorSupport).hasBasic);
