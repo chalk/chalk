@@ -181,5 +181,6 @@ test('should support nested calls', t => {
 	const name = 'Sindre';
 	const exclamation = 'Neat';
 	const result = instance.bold`Hello, {cyan.inverse ${name}!} This is a test. {green ${exclamation}!}`;
-	t.is(result, '\u001B[1mHello, \u001B[22m\u001B[1m\u001B[36m\u001B[7mSindre!\u001B[27m\u001B[39m\u001B[22m\u001B[1m This is a test. \u001B[22m\u001B[1m\u001B[32mNeat!\u001B[39m\u001B[22m');
+
+	t.is(result, '\u001B[1mHello, \u001B[36m\u001B[7mSindre!\u001B[27m\u001B[39m This is a test. \u001B[32mNeat!\u001B[39m\u001B[22m');
 });
