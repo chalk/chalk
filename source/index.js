@@ -58,7 +58,7 @@ function Chalk(options) {
 for (const [styleName, style] of Object.entries(ansiStyles)) {
 	styles[styleName] = {
 		get() {
-			const builder = createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty);
+			const builder = createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty, styleName);
 			Object.defineProperty(this, styleName, {value: builder});
 			return builder;
 		}
@@ -81,7 +81,7 @@ for (const model of usedModels) {
 			const {level} = this;
 			return function (...arguments_) {
 				const styler = createStyler(ansiStyles.color[levelMapping[level]][model](...arguments_), ansiStyles.color.close, this._styler);
-				return createBuilder(this, styler, this._isEmpty);
+				return createBuilder(this, styler, this._isEmpty, model);
 			};
 		}
 	};
@@ -94,7 +94,7 @@ for (const model of usedModels) {
 			const {level} = this;
 			return function (...arguments_) {
 				const styler = createStyler(ansiStyles.bgColor[levelMapping[level]][model](...arguments_), ansiStyles.bgColor.close, this._styler);
-				return createBuilder(this, styler, this._isEmpty);
+				return createBuilder(this, styler, this._isEmpty, bgModel);
 			};
 		}
 	};
@@ -133,7 +133,7 @@ const createStyler = (open, close, parent) => {
 	};
 };
 
-const createBuilder = (self, _styler, _isEmpty) => {
+const createBuilder = (self, _styler, _isEmpty, styleName) => {
 	const builder = (...arguments_) => {
 		if (arguments_.length === 1) {
 			// Single argument is hot path, implicit coercion is faster than anything
@@ -150,7 +150,7 @@ const createBuilder = (self, _styler, _isEmpty) => {
 		}
 
 		arguments_ = arguments_.slice(1);
-		const parts = [firstString.raw[0]];
+		const parts = ['{' + styleName + ' ', firstString.raw[0]];
 
 		for (let i = 1; i < firstString.length; i++) {
 			parts.push(
@@ -158,6 +158,8 @@ const createBuilder = (self, _styler, _isEmpty) => {
 				String(firstString.raw[i])
 			);
 		}
+
+		parts.push('}');
 
 		if (template === undefined) {
 			template = require('./templates');
