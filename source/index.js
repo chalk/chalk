@@ -135,9 +135,33 @@ const createStyler = (open, close, parent) => {
 
 const createBuilder = (self, _styler, _isEmpty) => {
 	const builder = (...arguments_) => {
-		// Single argument is hot path, implicit coercion is faster than anything
-		// eslint-disable-next-line no-implicit-coercion
-		return applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+		if (arguments_.length === 1) {
+			return applyStyle(builder, String(arguments_[0]));
+		}
+
+		const [firstString] = arguments_;
+
+		if (!Array.isArray(firstString)) {
+			// If chalk() was called by itself or with a string,
+			// return the string itself as a string.
+			return applyStyle(builder, arguments_.join(' '));
+		}
+
+		arguments_ = arguments_.slice(1);
+		const parts = [firstString.raw[0]];
+
+		for (let i = 1; i < firstString.length; i++) {
+			parts.push(
+				String(arguments_[i - 1]).replace(/[{}\\]/g, '\\$&'),
+				String(firstString.raw[i])
+			);
+		}
+
+		if (template === undefined) {
+			template = require('./templates');
+		}
+
+		return template(chalk, parts.join(''));
 	};
 
 	// We alter the prototype because we must return a function, but there is

@@ -175,3 +175,11 @@ test('should allow bracketed Unicode escapes', t => {
 	t.is(instance`This is a {bold \u{AB681}} test`, 'This is a \u001B[1m\u{AB681}\u001B[22m test');
 	t.is(instance`This is a {bold \u{10FFFF}} test`, 'This is a \u001B[1m\u{10FFFF}\u001B[22m test');
 });
+
+test('should support nested calls', t => {
+	const instance = new chalk.Instance({level: 3});
+	const name = 'Sindre';
+	const exclamation = 'Neat';
+	const result = instance.bold`{bold Hello, {cyan.inverse ${name}!} This is a test. {green ${exclamation}!}}`;
+	t.is(result, '\u001B[1mHello, \u001B[22m\u001B[1m\u001B[36m\u001B[7mSindre!\u001B[27m\u001B[39m\u001B[22m\u001B[1m This is a test. \u001B[22m\u001B[1m\u001B[32mNeat!\u001B[39m\u001B[22m');
+});
