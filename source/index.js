@@ -136,10 +136,12 @@ const createStyler = (open, close, parent) => {
 const createBuilder = (self, _styler, _isEmpty) => {
 	const builder = (...arguments_) => {
 		if (arguments_.length === 1) {
-			return applyStyle(builder, String(arguments_[0]));
+			// Single argument is hot path, implicit coercion is faster than anything
+			// eslint-disable-next-line no-implicit-coercion
+			return applyStyle(builder, '' + arguments_[0]);
 		}
 
-		const [firstString] = arguments_;
+		const firstString = arguments_[0];
 
 		if (!Array.isArray(firstString)) {
 			// If chalk() was called by itself or with a string,
