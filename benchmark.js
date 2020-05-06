@@ -47,4 +47,16 @@ suite('chalk', () => {
 	bench('cached: 1 style nested non-intersecting', () => {
 		chalkBgRed(blueStyledString);
 	});
+
+	set('iterations', 10000);
+
+	bench('cached: 1 style template literal', () => {
+		// eslint-disable-next-line no-unused-expressions
+		chalkRed`the fox jumps over the lazy dog`;
+	});
+
+	bench('cached: nested styles template literal', () => {
+		// eslint-disable-next-line no-unused-expressions
+		chalkRed`the fox {bold jumps} over the {underline lazy} dog`;
+	});
 });

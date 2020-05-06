@@ -135,7 +135,7 @@ const createStyler = (open, close, parent) => {
 const createBuilder = (self, _styler, _isEmpty) => {
 	const builder = (...arguments_) => {
 		if (Array.isArray(arguments_[0])) {
-			// Called as a template litteral, e.g. chalk.red`2 + 3 = {bold ${2+3}}`
+			// Called as a template literal, e.g. chalk.red`2 + 3 = {bold ${2+3}}`
 			return applyStyle(builder, chalkTag(builder, ...arguments_));
 		}
 

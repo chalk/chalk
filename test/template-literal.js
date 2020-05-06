@@ -36,6 +36,12 @@ test('correctly perform nested template substitutions', t => {
 	const exclamation = 'Neat';
 	t.is(instance.bold`Hello, {cyan.inverse ${name}!} This is a` + ' test. ' + instance.green`${exclamation}!`,
 		instance.bold('Hello,', instance.cyan.inverse(name + '!'), 'This is a') + ' test. ' + instance.green(exclamation + '!'));
+
+	t.is(instance.red.bgGreen.bold`Hello {italic.blue ${name}}`,
+		instance.red.bgGreen.bold('Hello ' + instance.italic.blue(name)));
+
+	t.is(instance.strikethrough.cyanBright.bgBlack`Works with {reset {bold numbers}} {bold.red ${1}}`,
+		instance.strikethrough.cyanBright.bgBlack('Works with ' + instance.reset.bold('numbers') + ' ' + instance.bold.red(1)));
 });
 
 test('correctly parse and evaluate color-convert functions', t => {

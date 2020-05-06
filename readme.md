@@ -215,10 +215,11 @@ console.log(chalk`
 
 Blocks are delimited by an opening curly brace (`{`), a style, some content, and a closing curly brace (`}`).
 
-Template styles are chained exactly like normal Chalk styles. The following two statements are equivalent:
+Template styles are chained exactly like normal Chalk styles. The following three statements are equivalent:
 
 ```js
 console.log(chalk.bold.rgb(10, 100, 200)('Hello!'));
+console.log(chalk.bold.rgb(10, 100, 200)`Hello!`);
 console.log(chalk`{bold.rgb(10,100,200) Hello!}`);
 ```
 
