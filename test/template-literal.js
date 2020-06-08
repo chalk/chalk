@@ -42,6 +42,11 @@ test('correctly perform nested template substitutions', t => {
 
 	t.is(instance.strikethrough.cyanBright.bgBlack`Works with {reset {bold numbers}} {bold.red ${1}}`,
 		instance.strikethrough.cyanBright.bgBlack('Works with ' + instance.reset.bold('numbers') + ' ' + instance.bold.red(1)));
+
+	t.is(chalk.bold`Also works on the shared {bgBlue chalk} object`,
+		'\u001B[1mAlso works on the shared \u001B[1m' +
+		'\u001B[44mchalk\u001B[49m\u001B[22m' +
+		'\u001B[1m object\u001B[22m');
 });
 
 test('correctly parse and evaluate color-convert functions', t => {
