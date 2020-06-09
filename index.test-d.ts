@@ -152,6 +152,11 @@ expectType<string>(chalk.bgWhiteBright`foo`);
 expectType<string>(chalk.red.bgGreen.underline('foo'));
 expectType<string>(chalk.underline.red.bgGreen('foo'));
 
+// -- Complex template literal --
+expectType<string>(chalk.underline``);
+expectType<string>(chalk.red.bgGreen.bold`Hello {italic.blue ${name}}`);
+expectType<string>(chalk.strikethrough.cyanBright.bgBlack`Works with {reset {bold numbers}} {bold.red ${1}}`);
+
 // -- Color types ==
 expectType<typeof chalk.Color>('red');
 expectError<typeof chalk.Color>('hotpink');

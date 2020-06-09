@@ -16,6 +16,14 @@ test('support multiple arguments in base function', t => {
 	t.is(chalk('hello', 'there'), 'hello there');
 });
 
+test('support automatic casting to string', t => {
+	t.is(chalk(['hello', 'there']), 'hello,there');
+	t.is(chalk(123), '123');
+
+	t.is(chalk.bold(['foo', 'bar']), '\u001B[1mfoo,bar\u001B[22m');
+	t.is(chalk.green(98765), '\u001B[32m98765\u001B[39m');
+});
+
 test('style string', t => {
 	t.is(chalk.underline('foo'), '\u001B[4mfoo\u001B[24m');
 	t.is(chalk.red('foo'), '\u001B[31mfoo\u001B[39m');

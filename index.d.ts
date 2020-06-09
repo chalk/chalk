@@ -137,6 +137,13 @@ declare namespace chalk {
 		DISK: {rgb(255,131,0) ${disk.used / disk.total * 100}%}
 		`);
 		```
+
+		@example
+		```
+		import chalk = require('chalk');
+
+		log(chalk.red.bgBlack`2 + 3 = {bold ${2 + 3}}`)
+		```
 		*/
 		(text: TemplateStringsArray, ...placeholders: unknown[]): string;
 
