@@ -19,22 +19,22 @@ const levelMapping = [
 const styles = Object.create(null);
 
 function parseTaggedString(string) {
-  const tagPattern = /\<([\w, '().]+)\>([\s\S]+)\<\/\w*\>/g;
-  const callPattern = /\((.*)\)/;
-  return string.replace(tagPattern, (_, color, text) => {
-    let carbonate = chalk;
-    color.split('.').forEach(c => {
-      if (callPattern.test(c)) {
-        const args = JSON.parse(`[${ callPattern.exec(c)[1].replace(/'/g, '"') }]`);
-        c = /(\w+)/g.exec(c)[0];
-        carbonate = carbonate[c] ? carbonate[c].apply(carbonate[c], args) : carbonate;
-      } else {
-        carbonate = carbonate[c] || carbonate;
-      }
-    });
-    text = carbonate(text);
-    return tagPattern.test(text) ? parseTaggedString(text) : text;
-  });
+	const tagPattern = /<([\w, '().]+)>([\s\S]+)<\/\w*>/g;
+	const callPattern = /\((.*)\)/;
+	return string.replace(tagPattern, (_, color, text) => {
+		let carbonate = chalk;
+		color.split('.').forEach(c => {
+			if (callPattern.test(c)) {
+				const args = JSON.parse(`[${callPattern.exec(c)[1].replace(/'/g, '"')}]`);
+				c = /(\w+)/g.exec(c)[0];
+				carbonate = carbonate[c] ? carbonate[c].apply(carbonate[c], args) : carbonate;
+			} else {
+				carbonate = carbonate[c] || carbonate;
+			}
+		});
+		text = carbonate(text);
+		return tagPattern.test(text) ? parseTaggedString(text) : text;
+	});
 }
 
 const applyOptions = (object, options = {}) => {
@@ -68,7 +68,7 @@ const chalkFactory = options => {
 	};
 
 	chalk.template.Instance = ChalkClass;
-	
+
 	chalk.template.parse = parseTaggedString;
 
 	return chalk.template;
