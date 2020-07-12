@@ -78,6 +78,13 @@ RAM: {green ${ram.used / ram.total * 100}%}
 DISK: {rgb(255,131,0) ${disk.used / disk.total * 100}%}
 `);
 
+// Nestable style tags
+log(chalk.parse(`
+  <green>
+    Aren't you glad I didn't say <bold.keyword('orange').underline>Naranja!</>
+  </>
+`));
+
 // Use RGB colors in terminal emulators that support it.
 log(chalk.keyword('orange')('Yay for orange colored text!'));
 log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
@@ -226,6 +233,25 @@ console.log(chalk`{bold.rgb(10,100,200) Hello!}`);
 Note that function styles (`rgb()`, `hsl()`, `keyword()`, etc.) may not contain spaces between parameters.
 
 All interpolated values (`` chalk`${foo}` ``) are converted to strings via the `.toString()` method. All curly braces (`{` and `}`) in interpolated value strings are escaped.
+
+## Style tags
+
+You can quickly stylize any string that uses html-like tags
+
+```js
+const chalk = require('chalk');
+
+const example1 = '<bold.green>Well that is <bgYellow.underline.dim.blink.black>convinient!</></>'
+const example2 = '<bold.rgb(1,4,50).underline>All functions are supported</>'
+
+console.log(chalk.parse(example1));
+console.log(chalk.parse(example2));
+```
+
+- Style tags always come in pairs: An **opening tag** followed by a **closing tag**.
+- The **opening tag** name is any style/modifier that is listed above and multiple styles can be chained using a dot.
+- The **closing tag** name does not require a matching name, unlike html.
+- Styles will cascade, in other words: child tags, as well as sibling tags or text will inherit a parent tag's style.
 
 ## 256 and Truecolor color support
 
