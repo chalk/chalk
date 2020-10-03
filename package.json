@@ -62,8 +62,7 @@
 			"@typescript-eslint/member-ordering": "off",
 			"no-redeclare": "off",
 			"unicorn/string-content": "off",
-			"unicorn/better-regex": "off",
-			"unicorn/prefer-number-properties": "off"
+			"unicorn/better-regex": "off"
 		}
 	}
 }
