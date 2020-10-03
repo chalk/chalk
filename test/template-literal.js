@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-hex-escape */
-const test = require('ava');
+import test from 'ava';
 
 // Spoof supports-color
 require('./_supports-color')(__dirname);

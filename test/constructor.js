@@ -1,4 +1,4 @@
-const test = require('ava');
+import test from 'ava';
 
 const chalk = require('../source');
 

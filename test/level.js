@@ -1,6 +1,6 @@
-const path = require('path');
-const test = require('ava');
-const execa = require('execa');
+import path from 'path';
+import test from 'ava';
+import execa from 'execa';
 
 // Spoof supports-color
 require('./_supports-color')(__dirname);
