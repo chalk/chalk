@@ -179,7 +179,7 @@ test('throws if an extra unescaped } is found', t => {
 
 test('should not parse upper-case escapes', t => {
 	const instance = new chalk.Instance({level: 0});
-	t.is(instance`\N\n\T\t\X07\x07\U000A\u000A\U000a\u000a`, 'N\nT\tX07\x07U000A\u000AU000a\u000A');
+	t.is(instance`\N\n\T\t\X07\x07\U000A\u000A\U000a\u000A`, 'N\nT\tX07\x07U000A\u000AU000a\u000A');
 });
 
 test('should properly handle undefined template interpolated values', t => {

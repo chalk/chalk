@@ -17,10 +17,10 @@ test('the `level` option should be a number from 0 to 3', t => {
 	/* eslint-disable no-new */
 	t.throws(() => {
 		new chalk.Instance({level: 10});
-	}, /should be an integer from 0 to 3/);
+	}, {message: /should be an integer from 0 to 3/});
 
 	t.throws(() => {
 		new chalk.Instance({level: -1});
-	}, /should be an integer from 0 to 3/);
+	}, {message: /should be an integer from 0 to 3/});
 	/* eslint-enable no-new */
 });

@@ -3,7 +3,9 @@ const chalk = require('..');
 
 const ignoreChars = /[^!-~]/g;
 
-const delay = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+const delay = milliseconds => new Promise(resolve => {
+	setTimeout(resolve, milliseconds);
+});
 
 function rainbow(string, offset) {
 	if (!string || string.length === 0) {
