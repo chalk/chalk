@@ -181,7 +181,7 @@ declare namespace chalk {
 		chalk.hex('#DEADED');
 		```
 		*/
-		hex(color: string): Chalk;
+		hex: (color: string) => Chalk;
 
 		/**
 		Use keyword color value to set text color.
@@ -195,27 +195,27 @@ declare namespace chalk {
 		chalk.keyword('orange');
 		```
 		*/
-		keyword(color: string): Chalk;
+		keyword: (color: string) => Chalk;
 
 		/**
 		Use RGB values to set text color.
 		*/
-		rgb(red: number, green: number, blue: number): Chalk;
+		rgb: (red: number, green: number, blue: number) => Chalk;
 
 		/**
 		Use HSL values to set text color.
 		*/
-		hsl(hue: number, saturation: number, lightness: number): Chalk;
+		hsl: (hue: number, saturation: number, lightness: number) => Chalk;
 
 		/**
 		Use HSV values to set text color.
 		*/
-		hsv(hue: number, saturation: number, value: number): Chalk;
+		hsv: (hue: number, saturation: number, value: number) => Chalk;
 
 		/**
 		Use HWB values to set text color.
 		*/
-		hwb(hue: number, whiteness: number, blackness: number): Chalk;
+		hwb: (hue: number, whiteness: number, blackness: number) => Chalk;
 
 		/**
 		Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set text color.
@@ -223,12 +223,12 @@ declare namespace chalk {
 		30 <= code && code < 38 || 90 <= code && code < 98
 		For example, 31 for red, 91 for redBright.
 		*/
-		ansi(code: number): Chalk;
+		ansi: (code: number) => Chalk;
 
 		/**
 		Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set text color.
 		*/
-		ansi256(index: number): Chalk;
+		ansi256: (index: number) => Chalk;
 
 		/**
 		Use HEX value to set background color.
@@ -242,7 +242,7 @@ declare namespace chalk {
 		chalk.bgHex('#DEADED');
 		```
 		*/
-		bgHex(color: string): Chalk;
+		bgHex: (color: string) => Chalk;
 
 		/**
 		Use keyword color value to set background color.
@@ -256,27 +256,27 @@ declare namespace chalk {
 		chalk.bgKeyword('orange');
 		```
 		*/
-		bgKeyword(color: string): Chalk;
+		bgKeyword: (color: string) => Chalk;
 
 		/**
 		Use RGB values to set background color.
 		*/
-		bgRgb(red: number, green: number, blue: number): Chalk;
+		bgRgb: (red: number, green: number, blue: number) => Chalk;
 
 		/**
 		Use HSL values to set background color.
 		*/
-		bgHsl(hue: number, saturation: number, lightness: number): Chalk;
+		bgHsl: (hue: number, saturation: number, lightness: number) => Chalk;
 
 		/**
 		Use HSV values to set background color.
 		*/
-		bgHsv(hue: number, saturation: number, value: number): Chalk;
+		bgHsv: (hue: number, saturation: number, value: number) => Chalk;
 
 		/**
 		Use HWB values to set background color.
 		*/
-		bgHwb(hue: number, whiteness: number, blackness: number): Chalk;
+		bgHwb: (hue: number, whiteness: number, blackness: number) => Chalk;
 
 		/**
 		Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set background color.
@@ -285,12 +285,12 @@ declare namespace chalk {
 		For example, 31 for red, 91 for redBright.
 		Use the foreground code, not the background code (for example, not 41, nor 101).
 		*/
-		bgAnsi(code: number): Chalk;
+		bgAnsi: (code: number) => Chalk;
 
 		/**
 		Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set background color.
 		*/
-		bgAnsi256(index: number): Chalk;
+		bgAnsi256: (index: number) => Chalk;
 
 		/**
 		Modifier: Resets the current color chain.

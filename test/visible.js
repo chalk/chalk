@@ -1,4 +1,4 @@
-import test from 'ava';
+const test = require('ava');
 
 // Spoof supports-color
 require('./_supports-color')(__dirname);
