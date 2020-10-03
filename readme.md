@@ -282,7 +282,7 @@ The following color models can be used:
 
 ## Browser support
 
-Since Chrome 69 ANSI escape codes are natively supported in the terminal.
+Since Chrome 69, ANSI escape codes are natively supported in the developer console.
 
 ## Windows
 
