@@ -87,9 +87,7 @@ for (const model of usedModels) {
 			};
 		}
 	};
-}
 
-for (const model of usedModels) {
 	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
 	styles[bgModel] = {
 		get() {
