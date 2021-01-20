@@ -30,7 +30,7 @@
 		<sup>Special thanks to:</sup>
 		<br>
 		<br>
-		<a href="https://standardresume.co">
+		<a href="https://standardresume.co/tech">
 			<img src="https://sindresorhus.com/assets/thanks/standard-resume-logo.svg" width="200"/>
 		</a>
 	</p>
