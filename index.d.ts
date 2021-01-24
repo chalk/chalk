@@ -1,7 +1,7 @@
 /**
 Basic foreground colors.
 
-[More colors here.](https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support)
+[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
 */
 declare type ForegroundColor =
 	| 'black'
@@ -26,7 +26,7 @@ declare type ForegroundColor =
 /**
 Basic background colors.
 
-[More colors here.](https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support)
+[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
 */
 declare type BackgroundColor =
 	| 'bgBlack'
@@ -51,7 +51,7 @@ declare type BackgroundColor =
 /**
 Basic colors.
 
-[More colors here.](https://github.com/chalk/chalk/blob/master/readme.md#256-and-truecolor-color-support)
+[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
 */
 declare type Color = ForegroundColor | BackgroundColor;
 
