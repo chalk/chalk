@@ -1,6 +1,5 @@
 /* globals suite, bench */
-'use strict';
-const chalk = require('.');
+import chalk from './index.js';
 
 suite('chalk', () => {
 	const chalkRed = chalk.red;

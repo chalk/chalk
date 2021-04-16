@@ -1,6 +1,5 @@
-'use strict';
-const styles = require('ansi-styles');
-const chalk = require('..');
+import styles from 'ansi-styles';
+import chalk from '../index.js';
 
 // Generates screenshot
 for (const key of Object.keys(styles)) {

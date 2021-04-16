@@ -1,9 +1,7 @@
 import test from 'ava';
+import chalk from '../source/index.js';
 
-// Spoof supports-color
-require('./_supports-color')(__dirname);
-
-const chalk = require('../source');
+chalk.level = 1;
 
 test('create an isolated context where colors can be disabled (by level)', t => {
 	const instance = new chalk.Instance({level: 0});

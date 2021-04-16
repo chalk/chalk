@@ -1,11 +1,11 @@
 import {expectType, expectAssignable, expectError} from 'tsd';
-import chalk = require('.');
+import chalk, {Chalk, Color, ColorSupport, ColorSupportLevel} from './index.js';
 
 // - Helpers -
-type colorReturn = chalk.Chalk & {supportsColor?: never};
+type colorReturn = Chalk & {supportsColor?: never};
 
 // - supportsColor -
-expectType<chalk.ColorSupport | false>(chalk.supportsColor);
+expectType<ColorSupport | false>(chalk.supportsColor);
 if (chalk.supportsColor) {
 	expectType<boolean>(chalk.supportsColor.hasBasic);
 	expectType<boolean>(chalk.supportsColor.has256);
@@ -13,8 +13,8 @@ if (chalk.supportsColor) {
 }
 
 // - stderr -
-expectAssignable<chalk.Chalk>(chalk.stderr);
-expectType<chalk.ColorSupport | false>(chalk.stderr.supportsColor);
+expectAssignable<Chalk>(chalk.stderr);
+expectType<ColorSupport | false>(chalk.stderr.supportsColor);
 if (chalk.stderr.supportsColor) {
 	expectType<boolean>(chalk.stderr.supportsColor.hasBasic);
 	expectType<boolean>(chalk.stderr.supportsColor.has256);
@@ -29,10 +29,10 @@ expectError(chalk.reset.supportsColor);
 
 // - Chalk -
 // -- Instance --
-expectType<chalk.Chalk>(new chalk.Instance({level: 1}));
+expectType<Chalk>(new chalk.Instance({level: 1}));
 
 // -- Properties --
-expectType<chalk.Level>(chalk.level);
+expectType<ColorSupportLevel>(chalk.level);
 
 // -- Template literal --
 expectType<string>(chalk``);
@@ -158,5 +158,5 @@ expectType<string>(chalk.red.bgGreen.bold`Hello {italic.blue ${name}}`);
 expectType<string>(chalk.strikethrough.cyanBright.bgBlack`Works with {reset {bold numbers}} {bold.red ${1}}`);
 
 // -- Color types ==
-expectAssignable<typeof chalk.Color>('red');
-expectError<typeof chalk.Color>('hotpink');
+expectAssignable<Color>('red');
+expectError<Color>('hotpink');

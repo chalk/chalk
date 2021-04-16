@@ -1,9 +1,8 @@
 import test from 'ava';
+import chalk from '../source/index.js';
 
-// Spoof supports-color
-require('./_supports-color')(__dirname);
-
-const chalk = require('../source');
+chalk.level = 3;
+chalk.stderr.level = 3;
 
 console.log('TERM:', process.env.TERM || '[none]');
 console.log('platform:', process.platform || '[unknown]');

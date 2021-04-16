@@ -1,5 +1,4 @@
-'use strict';
-const chalk = require('..');
+import chalk from '../index.js';
 
 const ignoreChars = /[^!-~]/g;
 
@@ -17,7 +16,7 @@ function rainbow(string, offset) {
 	let hue = offset % 360;
 	const characters = [];
 	for (const character of string) {
-		if (character.match(ignoreChars)) {
+		if (ignoreChars.test(character)) {
 			characters.push(character);
 		} else {
 			characters.push(chalk.hsl(hue, 100, 50)(character));
@@ -30,8 +29,8 @@ function rainbow(string, offset) {
 
 async function animateString(string) {
 	console.log();
-	for (let i = 0; i < 360 * 5; i++) {
-		console.log('\u001B[1F\u001B[G', rainbow(string, i));
+	for (let index = 0; index < 360 * 5; index++) {
+		console.log('\u001B[1F\u001B[G', rainbow(string, index));
 		await delay(2); // eslint-disable-line no-await-in-loop
 	}
 }

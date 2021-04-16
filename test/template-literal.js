@@ -1,10 +1,8 @@
 /* eslint-disable unicorn/no-hex-escape */
 import test from 'ava';
+import chalk from '../source/index.js';
 
-// Spoof supports-color
-require('./_supports-color')(__dirname);
-
-const chalk = require('../source');
+chalk.level = 1;
 
 test('return an empty string for an empty literal', t => {
 	const instance = new chalk.Instance();

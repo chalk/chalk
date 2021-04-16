@@ -5,9 +5,10 @@
 	"license": "MIT",
 	"repository": "chalk/chalk",
 	"funding": "https://github.com/chalk/chalk?sponsor=1",
-	"main": "source",
+	"type": "module",
+	"exports": "./source/index.js",
 	"engines": {
-		"node": ">=10"
+		"node": ">=12"
 	},
 	"scripts": {
 		"test": "xo && nyc ava && tsd",
@@ -42,26 +43,20 @@
 	],
 	"dependencies": {
 		"ansi-styles": "^4.1.0",
-		"supports-color": "^7.1.0"
+		"supports-color": "^9.0.0"
 	},
 	"devDependencies": {
-		"ava": "^2.4.0",
+		"ava": "^3.15.0",
 		"coveralls": "^3.1.0",
-		"execa": "^4.0.3",
-		"import-fresh": "^3.2.1",
+		"execa": "^5.0.0",
 		"matcha": "^0.7.0",
 		"nyc": "^15.1.0",
-		"resolve-from": "^5.0.0",
-		"tsd": "^0.13.1",
-		"xo": "^0.33.1"
+		"tsd": "^0.14.0",
+		"xo": "^0.38.2"
 	},
 	"xo": {
 		"rules": {
 			"unicorn/prefer-string-slice": "off",
-			"unicorn/prefer-includes": "off",
-			"@typescript-eslint/member-ordering": "off",
-			"no-redeclare": "off",
-			"unicorn/string-content": "off",
 			"unicorn/better-regex": "off"
 		}
 	}

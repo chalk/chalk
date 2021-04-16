@@ -1,6 +1,4 @@
-'use strict';
-
-const stringReplaceAll = (string, substring, replacer) => {
+export function stringReplaceAll(string, substring, replacer) {
 	let index = string.indexOf(substring);
 	if (index === -1) {
 		return string;
@@ -15,11 +13,11 @@ const stringReplaceAll = (string, substring, replacer) => {
 		index = string.indexOf(substring, endIndex);
 	} while (index !== -1);
 
-	returnValue += string.substr(endIndex);
+	returnValue += string.slice(endIndex);
 	return returnValue;
-};
+}
 
-const stringEncaseCRLFWithFirstIndex = (string, prefix, postfix, index) => {
+export function stringEncaseCRLFWithFirstIndex(string, prefix, postfix, index) {
 	let endIndex = 0;
 	let returnValue = '';
 	do {
@@ -29,11 +27,6 @@ const stringEncaseCRLFWithFirstIndex = (string, prefix, postfix, index) => {
 		index = string.indexOf('\n', endIndex);
 	} while (index !== -1);
 
-	returnValue += string.substr(endIndex);
+	returnValue += string.slice(endIndex);
 	return returnValue;
-};
-
-module.exports = {
-	stringReplaceAll,
-	stringEncaseCRLFWithFirstIndex
-};
+}

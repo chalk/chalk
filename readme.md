@@ -79,7 +79,7 @@ $ npm install chalk
 ## Usage
 
 ```js
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 console.log(chalk.blue('Hello world!'));
 ```
@@ -87,7 +87,8 @@ console.log(chalk.blue('Hello world!'));
 Chalk comes with an easy to use composable API where you just chain and nest the styles you want.
 
 ```js
-const chalk = require('chalk');
+import chalk from 'chalk';
+
 const log = console.log;
 
 // Combine styled and normal strings
@@ -132,7 +133,7 @@ log(chalk.hex('#DEADED').bold('Bold gray!'));
 Easily define your own themes:
 
 ```js
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 const error = chalk.bold.red;
 const warning = chalk.keyword('orange');
@@ -144,6 +145,8 @@ console.log(warning('Warning!'));
 Take advantage of console.log [string substitution](https://nodejs.org/docs/latest/api/console.html#console_console_log_data_args):
 
 ```js
+import chalk from 'chalk';
+
 const name = 'Sindre';
 console.log(chalk.green('Hello %s'), name);
 //=> 'Hello Sindre'
@@ -168,7 +171,9 @@ Color support is automatically detected, but you can override it by setting the 
 If you need to change this in a reusable module, create a new instance:
 
 ```js
-const ctx = new chalk.Instance({level: 0});
+import chalk from 'chalk';
+
+const customChalk = new chalk.Instance({level: 0});
 ```
 
 | Level | Description |
@@ -247,7 +252,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 Chalk can be used as a [tagged template literal](https://exploringjs.com/es6/ch_template-literals.html#_tagged-template-literals).
 
 ```js
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 const miles = 18;
 const calculateFeet = miles => miles * 5280;
@@ -263,6 +268,8 @@ Blocks are delimited by an opening curly brace (`{`), a style, some content, and
 Template styles are chained exactly like normal Chalk styles. The following three statements are equivalent:
 
 ```js
+import chalk from 'chalk';
+
 console.log(chalk.bold.rgb(10, 100, 200)('Hello!'));
 console.log(chalk.bold.rgb(10, 100, 200)`Hello!`);
 console.log(chalk`{bold.rgb(10,100,200) Hello!}`);

@@ -1,4 +1,3 @@
-'use strict';
 const TEMPLATE_REGEX = /(?:\\(u(?:[a-f\d]{4}|\{[a-f\d]{1,6}\})|x[a-f\d]{2}|.))|(?:\{(~)?(\w+(?:\([^)]*\))?(?:\.\w+(?:\([^)]*\))?)*)(?:[ \t]|(?=\r?\n)))|(\})|((?:.|[\r\n\f])+?)/gi;
 const STYLE_REGEX = /(?:^|\.)(\w+)(?:\(([^)]*)\))?/g;
 const STRING_REGEX = /^(['"])((?:\\.|(?!\1)[^\\])*)\1$/;
@@ -62,7 +61,7 @@ function parseStyle(style) {
 
 		if (matches[2]) {
 			const args = parseArguments(name, matches[2]);
-			results.push([name].concat(args));
+			results.push([name, ...args]);
 		} else {
 			results.push([name]);
 		}
@@ -96,7 +95,7 @@ function buildStyle(chalk, styles) {
 	return current;
 }
 
-module.exports = (chalk, temporary) => {
+export default function template(chalk, temporary) {
 	const styles = [];
 	const chunks = [];
 	let chunk = [];
@@ -126,9 +125,9 @@ module.exports = (chalk, temporary) => {
 	chunks.push(chunk.join(''));
 
 	if (styles.length > 0) {
-		const errMessage = `Chalk template literal is missing ${styles.length} closing bracket${styles.length === 1 ? '' : 's'} (\`}\`)`;
-		throw new Error(errMessage);
+		const errorMessage = `Chalk template literal is missing ${styles.length} closing bracket${styles.length === 1 ? '' : 's'} (\`}\`)`;
+		throw new Error(errorMessage);
 	}
 
 	return chunks.join('');
-};
+}

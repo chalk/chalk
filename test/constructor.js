@@ -1,6 +1,5 @@
 import test from 'ava';
-
-const chalk = require('../source');
+import chalk from '../source/index.js';
 
 test('Chalk.constructor should throw an expected error', t => {
 	const expectedError = t.throws(() => {

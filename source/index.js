@@ -1,11 +1,12 @@
-'use strict';
-const ansiStyles = require('ansi-styles');
-const {stdout: stdoutColor, stderr: stderrColor} = require('supports-color');
-const {
+import ansiStyles from 'ansi-styles';
+import supportsColor from 'supports-color';
+import {
 	stringReplaceAll,
 	stringEncaseCRLFWithFirstIndex
-} = require('./util');
+} from './util.js';
+import template from './templates.js';
 
+const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
 const {isArray} = Array;
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
@@ -168,7 +169,7 @@ const applyStyle = (self, string) => {
 	}
 
 	const {openAll, closeAll} = styler;
-	if (string.indexOf('\u001B') !== -1) {
+	if (string.includes('\u001B')) {
 		while (styler !== undefined) {
 			// Replace any instances already present with a re-opening code
 			// otherwise only the part of the string until said closing code
@@ -190,7 +191,6 @@ const applyStyle = (self, string) => {
 	return openAll + string + closeAll;
 };
 
-let template;
 const chalkTag = (chalk, ...strings) => {
 	const [firstString] = strings;
 
@@ -210,10 +210,6 @@ const chalkTag = (chalk, ...strings) => {
 		);
 	}
 
-	if (template === undefined) {
-		template = require('./templates');
-	}
-
 	return template(chalk, parts.join(''));
 };
 
@@ -224,4 +220,4 @@ chalk.supportsColor = stdoutColor;
 chalk.stderr = Chalk({level: stderrColor ? stderrColor.level : 0}); // eslint-disable-line new-cap
 chalk.stderr.supportsColor = stderrColor;
 
-module.exports = chalk;
+export default chalk;
