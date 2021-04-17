@@ -191,9 +191,9 @@ Can be overridden by the user with the flags `--color` and `--no-color`. For sit
 
 Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
 
-### chalkStderr and chalkStderr.supportsColor
+### chalkStderr and supportsColorStderr
 
-`chalkStderr` contains a separate instance configured with color support detected for `stderr` stream instead of `stdout`. Override rules from `supportsColor` apply to this too. `chalkStderr.supportsColor` is exposed for convenience.
+`chalkStderr` contains a separate instance configured with color support detected for `stderr` stream instead of `stdout`. Override rules from `supportsColor` apply to this too. `supportsColorStderr` is exposed for convenience.
 
 ## Styles
 

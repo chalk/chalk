@@ -213,10 +213,10 @@ Object.defineProperties(createChalk.prototype, styles);
 
 const chalk = createChalk();
 export const chalkStderr = createChalk({level: stderrColor ? stderrColor.level : 0});
-chalkStderr.supportsColor = stderrColor;
 
 export {
-	stdoutColor as supportsColor
+	stdoutColor as supportsColor,
+	stderrColor as supportsColorStderr
 };
 
 export default chalk;

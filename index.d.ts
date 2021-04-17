@@ -401,6 +401,8 @@ This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 declare const chalk: ChalkInstance & ChalkFunction;
 
 export const supportsColor: ColorSupport | false;
+
 export const chalkStderr: typeof chalk & {supportsColor: typeof supportsColor};
+export const supportsColorStderr: typeof supportsColor;
 
 export default chalk;
