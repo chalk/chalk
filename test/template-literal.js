@@ -1,27 +1,27 @@
 /* eslint-disable unicorn/no-hex-escape */
 import test from 'ava';
-import chalk from '../source/index.js';
+import chalk, {Chalk} from '../source/index.js';
 
 chalk.level = 1;
 
 test('return an empty string for an empty literal', t => {
-	const instance = new chalk.Instance();
+	const instance = new Chalk();
 	t.is(instance``, '');
 });
 
 test('return a regular string for a literal with no templates', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	t.is(instance`hello`, 'hello');
 });
 
 test('correctly perform template parsing', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	t.is(instance`{bold Hello, {cyan World!} This is a} test. {green Woo!}`,
 		instance.bold('Hello,', instance.cyan('World!'), 'This is a') + ' test. ' + instance.green('Woo!'));
 });
 
 test('correctly perform template substitutions', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	const name = 'Sindre';
 	const exclamation = 'Neat';
 	t.is(instance`{bold Hello, {cyan.inverse ${name}!} This is a} test. {green ${exclamation}!}`,
@@ -29,7 +29,7 @@ test('correctly perform template substitutions', t => {
 });
 
 test('correctly perform nested template substitutions', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	const name = 'Sindre';
 	const exclamation = 'Neat';
 	t.is(instance.bold`Hello, {cyan.inverse ${name}!} This is a` + ' test. ' + instance.green`${exclamation}!`,
@@ -48,7 +48,7 @@ test('correctly perform nested template substitutions', t => {
 });
 
 test('correctly parse and evaluate color-convert functions', t => {
-	const instance = new chalk.Instance({level: 3});
+	const instance = new Chalk({level: 3});
 	t.is(instance`{bold.rgb(144,10,178).inverse Hello, {~inverse there!}}`,
 		'\u001B[1m\u001B[38;2;144;10;178m\u001B[7mHello, ' +
 		'\u001B[27m\u001B[39m\u001B[22m\u001B[1m' +
@@ -61,13 +61,13 @@ test('correctly parse and evaluate color-convert functions', t => {
 });
 
 test('properly handle escapes', t => {
-	const instance = new chalk.Instance({level: 3});
+	const instance = new Chalk({level: 3});
 	t.is(instance`{bold hello \{in brackets\}}`,
 		'\u001B[1mhello {in brackets}\u001B[22m');
 });
 
 test('throw if there is an unclosed block', t => {
-	const instance = new chalk.Instance({level: 3});
+	const instance = new Chalk({level: 3});
 	try {
 		console.log(instance`{bold this shouldn't appear ever\}`);
 		t.fail();
@@ -84,7 +84,7 @@ test('throw if there is an unclosed block', t => {
 });
 
 test('throw if there is an invalid style', t => {
-	const instance = new chalk.Instance({level: 3});
+	const instance = new Chalk({level: 3});
 	try {
 		console.log(instance`{abadstylethatdoesntexist this shouldn't appear ever}`);
 		t.fail();
@@ -94,7 +94,7 @@ test('throw if there is an invalid style', t => {
 });
 
 test('properly style multiline color blocks', t => {
-	const instance = new chalk.Instance({level: 3});
+	const instance = new Chalk({level: 3});
 	t.is(
 		instance`{bold
 			Hello! This is a
@@ -114,49 +114,49 @@ test('properly style multiline color blocks', t => {
 });
 
 test('escape interpolated values', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	t.is(instance`Hello {bold hi}`, 'Hello hi');
 	t.is(instance`Hello ${'{bold hi}'}`, 'Hello {bold hi}');
 });
 
 test('allow custom colors (themes) on custom contexts', t => {
-	const instance = new chalk.Instance({level: 3});
+	const instance = new Chalk({level: 3});
 	instance.rose = instance.hex('#F6D9D9');
 	t.is(instance`Hello, {rose Rose}.`, 'Hello, \u001B[38;2;246;217;217mRose\u001B[39m.');
 });
 
 test('correctly parse newline literals (bug #184)', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	t.is(instance`Hello
 {red there}`, 'Hello\nthere');
 });
 
 test('correctly parse newline escapes (bug #177)', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	t.is(instance`Hello\nthere!`, 'Hello\nthere!');
 });
 
 test('correctly parse escape in parameters (bug #177 comment 318622809)', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	const string = '\\';
 	t.is(instance`{blue ${string}}`, '\\');
 });
 
 test('correctly parses unicode/hex escapes', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	t.is(instance`\u0078ylophones are fo\x78y! {magenta.inverse \u0078ylophones are fo\x78y!}`,
 		'xylophones are foxy! xylophones are foxy!');
 });
 
 test('correctly parses string arguments', t => {
-	const instance = new chalk.Instance({level: 3});
+	const instance = new Chalk({level: 3});
 	t.is(instance`{keyword('black').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
 	t.is(instance`{keyword('blac\x6B').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
 	t.is(instance`{keyword('blac\u006B').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
 });
 
 test('throws if a bad argument is encountered', t => {
-	const instance = new chalk.Instance({level: 3}); // Keep level at least 1 in case we optimize for disabled chalk instances
+	const instance = new Chalk({level: 3}); // Keep level at least 1 in case we optimize for disabled chalk instances
 	try {
 		console.log(instance`{keyword(????) hi}`);
 		t.fail();
@@ -166,7 +166,7 @@ test('throws if a bad argument is encountered', t => {
 });
 
 test('throws if an extra unescaped } is found', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	try {
 		console.log(instance`{red hi!}}`);
 		t.fail();
@@ -176,18 +176,18 @@ test('throws if an extra unescaped } is found', t => {
 });
 
 test('should not parse upper-case escapes', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	t.is(instance`\N\n\T\t\X07\x07\U000A\u000A\U000a\u000A`, 'N\nT\tX07\x07U000A\u000AU000a\u000A');
 });
 
 test('should properly handle undefined template interpolated values', t => {
-	const instance = new chalk.Instance({level: 0});
+	const instance = new Chalk({level: 0});
 	t.is(instance`hello ${undefined}`, 'hello undefined');
 	t.is(instance`hello ${null}`, 'hello null');
 });
 
 test('should allow bracketed Unicode escapes', t => {
-	const instance = new chalk.Instance({level: 3});
+	const instance = new Chalk({level: 3});
 	t.is(instance`\u{AB}`, '\u{AB}');
 	t.is(instance`This is a {bold \u{AB681}} test`, 'This is a \u001B[1m\u{AB681}\u001B[22m test');
 	t.is(instance`This is a {bold \u{10FFFF}} test`, 'This is a \u001B[1m\u{10FFFF}\u001B[22m test');
