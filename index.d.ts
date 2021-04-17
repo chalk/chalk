@@ -402,7 +402,7 @@ declare const chalk: ChalkInstance & ChalkFunction;
 
 export const supportsColor: ColorSupport | false;
 
-export const chalkStderr: typeof chalk & {supportsColor: typeof supportsColor};
+export const chalkStderr: typeof chalk;
 export const supportsColorStderr: typeof supportsColor;
 
 export default chalk;
