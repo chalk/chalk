@@ -10,12 +10,12 @@ const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
 const {isArray} = Array;
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
-const levelMapping = [
-	'ansi',
-	'ansi',
+const levelMapping = new Set([
+	'ansi256',
+	'ansi256',
 	'ansi256',
 	'ansi16m'
-];
+]);
 
 const styles = Object.create(null);
 
@@ -72,14 +72,26 @@ styles.visible = {
 	}
 };
 
-const usedModels = ['rgb', 'hex', 'keyword', 'hsl', 'hsv', 'hwb', 'ansi', 'ansi256'];
+const getModelAnsi = (model, level, type, ...arguments_) => {
+	if (model === 'rgb') {
+		return level === 'ansi16m' ? ansiStyles[type].ansi16m(...arguments_) : ansiStyles[type].ansi256(ansiStyles.rgbToAnsi256(...arguments_));
+	}
+
+	if (model === 'hex') {
+		return getModelAnsi('rgb', level, type, ...ansiStyles.hexToRgb(...arguments_));
+	}
+
+	return ansiStyles[type](...arguments_);
+};
+
+const usedModels = ['rgb', 'hex', 'ansi256'];
 
 for (const model of usedModels) {
 	styles[model] = {
 		get() {
 			const {level} = this;
 			return function (...arguments_) {
-				const styler = createStyler(ansiStyles.color[levelMapping[level]][model](...arguments_), ansiStyles.color.close, this._styler);
+				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'color', ...arguments_), ansiStyles.color.close, this._styler);
 				return createBuilder(this, styler, this._isEmpty);
 			};
 		}
@@ -90,7 +102,7 @@ for (const model of usedModels) {
 		get() {
 			const {level} = this;
 			return function (...arguments_) {
-				const styler = createStyler(ansiStyles.bgColor[levelMapping[level]][model](...arguments_), ansiStyles.bgColor.close, this._styler);
+				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'bgColor', ...arguments_), ansiStyles.bgColor.close, this._styler);
 				return createBuilder(this, styler, this._isEmpty);
 			};
 		}
