@@ -171,9 +171,9 @@ Color support is automatically detected, but you can override it by setting the 
 If you need to change this in a reusable module, create a new instance:
 
 ```js
-import chalk from 'chalk';
+import {Chalk} from 'chalk';
 
-const customChalk = new chalk.Instance({level: 0});
+const customChalk = new Chalk({level: 0});
 ```
 
 | Level | Description |
@@ -183,7 +183,7 @@ const customChalk = new chalk.Instance({level: 0});
 | `2` | 256 color support |
 | `3` | Truecolor support (16 million colors) |
 
-### chalk.supportsColor
+### supportsColor
 
 Detect whether the terminal [supports color](https://github.com/chalk/supports-color). Used internally and handled for you, but exposed for convenience.
 
@@ -191,9 +191,9 @@ Can be overridden by the user with the flags `--color` and `--no-color`. For sit
 
 Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
 
-### chalk.stderr and chalk.stderr.supportsColor
+### chalkStderr and supportsColorStderr
 
-`chalk.stderr` contains a separate instance configured with color support detected for `stderr` stream instead of `stdout`. Override rules from `chalk.supportsColor` apply to this too. `chalk.stderr.supportsColor` is exposed for convenience.
+`chalkStderr` contains a separate instance configured with color support detected for `stderr` stream instead of `stdout`. Override rules from `supportsColor` apply to this too. `supportsColorStderr` is exposed for convenience.
 
 ## Styles
 

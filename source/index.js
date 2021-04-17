@@ -29,7 +29,7 @@ const applyOptions = (object, options = {}) => {
 	object.level = options.level === undefined ? colorLevel : options.level;
 };
 
-class ChalkClass {
+export class Chalk {
 	constructor(options) {
 		// eslint-disable-next-line no-constructor-return
 		return chalkFactory(options);
@@ -42,19 +42,15 @@ const chalkFactory = options => {
 
 	chalk.template = (...arguments_) => chalkTag(chalk.template, ...arguments_);
 
-	Object.setPrototypeOf(chalk, Chalk.prototype);
+	Object.setPrototypeOf(chalk, createChalk.prototype);
 	Object.setPrototypeOf(chalk.template, chalk);
 
-	chalk.template.constructor = () => {
-		throw new Error('`chalk.constructor()` is deprecated. Use `new chalk.Instance()` instead.');
-	};
-
-	chalk.template.Instance = ChalkClass;
+	chalk.template.Chalk = Chalk;
 
 	return chalk.template;
 };
 
-function Chalk(options) {
+function createChalk(options) {
 	return chalkFactory(options);
 }
 
@@ -213,11 +209,14 @@ const chalkTag = (chalk, ...strings) => {
 	return template(chalk, parts.join(''));
 };
 
-Object.defineProperties(Chalk.prototype, styles);
+Object.defineProperties(createChalk.prototype, styles);
 
-const chalk = Chalk(); // eslint-disable-line new-cap
-chalk.supportsColor = stdoutColor;
-chalk.stderr = Chalk({level: stderrColor ? stderrColor.level : 0}); // eslint-disable-line new-cap
-chalk.stderr.supportsColor = stderrColor;
+const chalk = createChalk();
+export const chalkStderr = createChalk({level: stderrColor ? stderrColor.level : 0});
+
+export {
+	stdoutColor as supportsColor,
+	stderrColor as supportsColorStderr
+};
 
 export default chalk;

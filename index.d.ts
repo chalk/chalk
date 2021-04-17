@@ -93,7 +93,7 @@ export interface Options {
 /**
 Return a new Chalk instance.
 */
-export type ChalkInstance = new (options?: Options) => Chalk;
+export const Chalk: new (options?: Options) => ChalkInstance;
 
 /**
 Detect whether the terminal supports color.
@@ -149,12 +149,7 @@ interface ChalkFunction {
 	(...text: unknown[]): string;
 }
 
-export interface Chalk extends ChalkFunction {
-	/**
-	Return a new Chalk instance.
-	*/
-	Instance: ChalkInstance;
-
+export interface ChalkInstance extends ChalkFunction {
 	/**
 	The color support for Chalk.
 
@@ -180,7 +175,7 @@ export interface Chalk extends ChalkFunction {
 	chalk.hex('#DEADED');
 	```
 	*/
-	hex: (color: string) => Chalk;
+	hex: (color: string) => this;
 
 	/**
 	Use keyword color value to set text color.
@@ -194,27 +189,27 @@ export interface Chalk extends ChalkFunction {
 	chalk.keyword('orange');
 	```
 	*/
-	keyword: (color: string) => Chalk;
+	keyword: (color: string) => this;
 
 	/**
 	Use RGB values to set text color.
 	*/
-	rgb: (red: number, green: number, blue: number) => Chalk;
+	rgb: (red: number, green: number, blue: number) => this;
 
 	/**
 	Use HSL values to set text color.
 	*/
-	hsl: (hue: number, saturation: number, lightness: number) => Chalk;
+	hsl: (hue: number, saturation: number, lightness: number) => this;
 
 	/**
 	Use HSV values to set text color.
 	*/
-	hsv: (hue: number, saturation: number, value: number) => Chalk;
+	hsv: (hue: number, saturation: number, value: number) => this;
 
 	/**
 	Use HWB values to set text color.
 	*/
-	hwb: (hue: number, whiteness: number, blackness: number) => Chalk;
+	hwb: (hue: number, whiteness: number, blackness: number) => this;
 
 	/**
 	Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set text color.
@@ -222,12 +217,12 @@ export interface Chalk extends ChalkFunction {
 	30 <= code && code < 38 || 90 <= code && code < 98
 	For example, 31 for red, 91 for redBright.
 	*/
-	ansi: (code: number) => Chalk;
+	ansi: (code: number) => this;
 
 	/**
 	Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set text color.
 	*/
-	ansi256: (index: number) => Chalk;
+	ansi256: (index: number) => this;
 
 	/**
 	Use HEX value to set background color.
@@ -241,7 +236,7 @@ export interface Chalk extends ChalkFunction {
 	chalk.bgHex('#DEADED');
 	```
 	*/
-	bgHex: (color: string) => Chalk;
+	bgHex: (color: string) => this;
 
 	/**
 	Use keyword color value to set background color.
@@ -255,27 +250,27 @@ export interface Chalk extends ChalkFunction {
 	chalk.bgKeyword('orange');
 	```
 	*/
-	bgKeyword: (color: string) => Chalk;
+	bgKeyword: (color: string) => this;
 
 	/**
 	Use RGB values to set background color.
 	*/
-	bgRgb: (red: number, green: number, blue: number) => Chalk;
+	bgRgb: (red: number, green: number, blue: number) => this;
 
 	/**
 	Use HSL values to set background color.
 	*/
-	bgHsl: (hue: number, saturation: number, lightness: number) => Chalk;
+	bgHsl: (hue: number, saturation: number, lightness: number) => this;
 
 	/**
 	Use HSV values to set background color.
 	*/
-	bgHsv: (hue: number, saturation: number, value: number) => Chalk;
+	bgHsv: (hue: number, saturation: number, value: number) => this;
 
 	/**
 	Use HWB values to set background color.
 	*/
-	bgHwb: (hue: number, whiteness: number, blackness: number) => Chalk;
+	bgHwb: (hue: number, whiteness: number, blackness: number) => this;
 
 	/**
 	Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set background color.
@@ -284,114 +279,114 @@ export interface Chalk extends ChalkFunction {
 	For example, 31 for red, 91 for redBright.
 	Use the foreground code, not the background code (for example, not 41, nor 101).
 	*/
-	bgAnsi: (code: number) => Chalk;
+	bgAnsi: (code: number) => this;
 
 	/**
 	Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set background color.
 	*/
-	bgAnsi256: (index: number) => Chalk;
+	bgAnsi256: (index: number) => this;
 
 	/**
 	Modifier: Resets the current color chain.
 	*/
-	readonly reset: Chalk;
+	readonly reset: this;
 
 	/**
 	Modifier: Make text bold.
 	*/
-	readonly bold: Chalk;
+	readonly bold: this;
 
 	/**
 	Modifier: Emitting only a small amount of light.
 	*/
-	readonly dim: Chalk;
+	readonly dim: this;
 
 	/**
 	Modifier: Make text italic. (Not widely supported)
 	*/
-	readonly italic: Chalk;
+	readonly italic: this;
 
 	/**
 	Modifier: Make text underline. (Not widely supported)
 	*/
-	readonly underline: Chalk;
+	readonly underline: this;
 
 	/**
 	Modifier: Inverse background and foreground colors.
 	*/
-	readonly inverse: Chalk;
+	readonly inverse: this;
 
 	/**
 	Modifier: Prints the text, but makes it invisible.
 	*/
-	readonly hidden: Chalk;
+	readonly hidden: this;
 
 	/**
 	Modifier: Puts a horizontal line through the center of the text. (Not widely supported)
 	*/
-	readonly strikethrough: Chalk;
+	readonly strikethrough: this;
 
 	/**
 	Modifier: Prints the text only when Chalk has a color support level > 0.
 	Can be useful for things that are purely cosmetic.
 	*/
-	readonly visible: Chalk;
+	readonly visible: this;
 
-	readonly black: Chalk;
-	readonly red: Chalk;
-	readonly green: Chalk;
-	readonly yellow: Chalk;
-	readonly blue: Chalk;
-	readonly magenta: Chalk;
-	readonly cyan: Chalk;
-	readonly white: Chalk;
-
-	/*
-	Alias for `blackBright`.
-	*/
-	readonly gray: Chalk;
+	readonly black: this;
+	readonly red: this;
+	readonly green: this;
+	readonly yellow: this;
+	readonly blue: this;
+	readonly magenta: this;
+	readonly cyan: this;
+	readonly white: this;
 
 	/*
 	Alias for `blackBright`.
 	*/
-	readonly grey: Chalk;
+	readonly gray: this;
 
-	readonly blackBright: Chalk;
-	readonly redBright: Chalk;
-	readonly greenBright: Chalk;
-	readonly yellowBright: Chalk;
-	readonly blueBright: Chalk;
-	readonly magentaBright: Chalk;
-	readonly cyanBright: Chalk;
-	readonly whiteBright: Chalk;
+	/*
+	Alias for `blackBright`.
+	*/
+	readonly grey: this;
 
-	readonly bgBlack: Chalk;
-	readonly bgRed: Chalk;
-	readonly bgGreen: Chalk;
-	readonly bgYellow: Chalk;
-	readonly bgBlue: Chalk;
-	readonly bgMagenta: Chalk;
-	readonly bgCyan: Chalk;
-	readonly bgWhite: Chalk;
+	readonly blackBright: this;
+	readonly redBright: this;
+	readonly greenBright: this;
+	readonly yellowBright: this;
+	readonly blueBright: this;
+	readonly magentaBright: this;
+	readonly cyanBright: this;
+	readonly whiteBright: this;
+
+	readonly bgBlack: this;
+	readonly bgRed: this;
+	readonly bgGreen: this;
+	readonly bgYellow: this;
+	readonly bgBlue: this;
+	readonly bgMagenta: this;
+	readonly bgCyan: this;
+	readonly bgWhite: this;
 
 	/*
 	Alias for `bgBlackBright`.
 	*/
-	readonly bgGray: Chalk;
+	readonly bgGray: this;
 
 	/*
 	Alias for `bgBlackBright`.
 	*/
-	readonly bgGrey: Chalk;
+	readonly bgGrey: this;
 
-	readonly bgBlackBright: Chalk;
-	readonly bgRedBright: Chalk;
-	readonly bgGreenBright: Chalk;
-	readonly bgYellowBright: Chalk;
-	readonly bgBlueBright: Chalk;
-	readonly bgMagentaBright: Chalk;
-	readonly bgCyanBright: Chalk;
-	readonly bgWhiteBright: Chalk;
+	readonly bgBlackBright: this;
+	readonly bgRedBright: this;
+	readonly bgGreenBright: this;
+	readonly bgYellowBright: this;
+	readonly bgBlueBright: this;
+	readonly bgMagentaBright: this;
+	readonly bgCyanBright: this;
+	readonly bgWhiteBright: this;
 }
 
 /**
@@ -403,9 +398,11 @@ Order doesn't matter, and later styles take precedent in case of a conflict.
 
 This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 */
-declare const chalk: Chalk & ChalkFunction & {
-	supportsColor: ColorSupport | false;
-	stderr: Chalk & {supportsColor: ColorSupport | false};
-};
+declare const chalk: ChalkInstance & ChalkFunction;
+
+export const supportsColor: ColorSupport | false;
+
+export const chalkStderr: typeof chalk;
+export const supportsColorStderr: typeof supportsColor;
 
 export default chalk;
