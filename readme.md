@@ -274,7 +274,7 @@ console.log(chalk.bold.rgb(10, 100, 200)`Hello!`);
 console.log(chalk`{bold.rgb(10,100,200) Hello!}`);
 ```
 
-Note that function styles (`rgb()`, `hsl()`, `keyword()`, etc.) may not contain spaces between parameters.
+Note that function styles (`rgb()`, `hsl()`, etc.) may not contain spaces between parameters.
 
 All interpolated values (`` chalk`${foo}` ``) are converted to strings via the `.toString()` method. All curly braces (`{` and `}`) in interpolated value strings are escaped.
 
@@ -289,7 +289,7 @@ Examples:
 - `chalk.hex('#DEADED').underline('Hello, world!')`
 - `chalk.rgb(15, 100, 204).inverse('Hello!')`
 
-Background versions of these models are prefixed with `bg` and the first level of the module capitalized (e.g. `keyword` for foreground colors and `bgKeyword` for background colors).
+Background versions of these models are prefixed with `bg` and the first level of the module capitalized (e.g. `hex` for foreground colors and `bgHex` for background colors).
 
 - `chalk.bgHex('#DEADED').underline('Hello, world!')`
 - `chalk.bgRgb(15, 100, 204).inverse('Hello!')`

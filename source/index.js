@@ -10,12 +10,12 @@ const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
 const {isArray} = Array;
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
-const levelMapping = new Set([
+const levelMapping = [
 	'ansi256',
 	'ansi256',
 	'ansi256',
 	'ansi16m'
-]);
+];
 
 const styles = Object.create(null);
 
