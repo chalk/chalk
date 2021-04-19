@@ -117,3 +117,9 @@ test('sets correct level for chalkStderr and respects it', t => {
 	t.is(chalkStderr.level, 3);
 	t.is(chalkStderr.red.bold('foo'), '\u001B[31m\u001B[1mfoo\u001B[22m\u001B[39m');
 });
+
+test('keeps function prototype methods', t => {
+	t.is(chalk.apply(chalk, ['foo']), 'foo');
+	t.is(chalk.bind(chalk, 'foo')(), 'foo');
+	t.is(chalk.call(chalk, 'foo'), 'foo');
+});
