@@ -73,6 +73,8 @@ styles.visible = {
 };
 
 const getModelAnsi = (model, level, type, ...arguments_) => {
+	level = levelMapping[level];
+	
 	if (model === 'rgb') {
 		if (level === 'ansi16m') {
 			return ansiStyles[type].ansi16m(...arguments_);
@@ -99,7 +101,7 @@ for (const model of usedModels) {
 		get() {
 			const {level} = this;
 			return function (...arguments_) {
-				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'color', ...arguments_), ansiStyles.color.close, this._styler);
+				const styler = createStyler(getModelAnsi(model, level, 'color', ...arguments_), ansiStyles.color.close, this._styler);
 				return createBuilder(this, styler, this._isEmpty);
 			};
 		}
@@ -110,7 +112,7 @@ for (const model of usedModels) {
 		get() {
 			const {level} = this;
 			return function (...arguments_) {
-				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'bgColor', ...arguments_), ansiStyles.bgColor.close, this._styler);
+				const styler = createStyler(getModelAnsi(model, level, 'bgColor', ...arguments_), ansiStyles.bgColor.close, this._styler);
 				return createBuilder(this, styler, this._isEmpty);
 			};
 		}
