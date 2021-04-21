@@ -11,8 +11,8 @@ const {isArray} = Array;
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = [
-	'ansi256',
-	'ansi256',
+	'ansi',
+	'ansi',
 	'ansi256',
 	'ansi16m'
 ];
@@ -74,7 +74,15 @@ styles.visible = {
 
 const getModelAnsi = (model, level, type, ...arguments_) => {
 	if (model === 'rgb') {
-		return level === 'ansi16m' ? ansiStyles[type].ansi16m(...arguments_) : ansiStyles[type].ansi256(ansiStyles.rgbToAnsi256(...arguments_));
+		if (level === 'ansi16m') {
+			return ansiStyles[type].ansi16m(...arguments_);
+		}
+
+		if (level === 'ansi256') {
+			return ansiStyles[type].ansi256(ansiStyles.rgbToAnsi256(...arguments_));
+		}
+
+		return ansiStyles[type].ansi(ansiStyles.rgbToAnsi(...arguments_));
 	}
 
 	if (model === 'hex') {
@@ -84,7 +92,7 @@ const getModelAnsi = (model, level, type, ...arguments_) => {
 	return ansiStyles[type](...arguments_);
 };
 
-const usedModels = ['rgb', 'hex', 'ansi256'];
+const usedModels = ['rgb', 'hex', 'ansi256', 'ansi'];
 
 for (const model of usedModels) {
 	styles[model] = {

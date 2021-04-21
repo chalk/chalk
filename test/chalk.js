@@ -93,6 +93,11 @@ test('line breaks should open and close colors with CRLF', t => {
 	t.is(chalk.grey('hello\r\nworld'), '\u001B[90mhello\u001B[39m\r\n\u001B[90mworld\u001B[39m');
 });
 
+test('properly convert RGB to 16 colors on basic color terminals', t => {
+	t.is(new Chalk({level: 1}).hex('#FF0000')('hello'), '\u001B[91mhello\u001B[39m');
+	t.is(new Chalk({level: 1}).bgHex('#FF0000')('hello'), '\u001B[101mhello\u001B[49m');
+});
+
 test('properly convert RGB to 256 colors on basic color terminals', t => {
 	t.is(new Chalk({level: 2}).hex('#FF0000')('hello'), '\u001B[38;5;196mhello\u001B[39m');
 	t.is(new Chalk({level: 2}).bgHex('#FF0000')('hello'), '\u001B[48;5;196mhello\u001B[49m');

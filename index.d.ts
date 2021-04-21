@@ -184,6 +184,14 @@ export interface ChalkInstance extends ChalkFunction {
 	hex: (color: string) => this;
 
 	/**
+	Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set text color.
+
+	30 <= code && code < 38 || 90 <= code && code < 98
+	For example, 31 for red, 91 for redBright.
+	*/
+	ansi: (code: number) => this;
+
+	/**
 	Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set text color.
 	*/
 	ansi256: (index: number) => this;
@@ -206,6 +214,14 @@ export interface ChalkInstance extends ChalkFunction {
 	```
 	*/
 	bgHex: (color: string) => this;
+
+	/**
+	Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set background color.
+	30 <= code && code < 38 || 90 <= code && code < 98
+	For example, 31 for red, 91 for redBright.
+	Use the foreground code, not the background code (for example, not 41, nor 101).
+	*/
+	bgAnsi: (code: number) => this;
 
 	/**
 	Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set background color.

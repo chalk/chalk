@@ -42,7 +42,7 @@
 		"text"
 	],
 	"dependencies": {
-		"ansi-styles": "^6.0.0",
+		"ansi-styles": "^6.1.0",
 		"supports-color": "^9.0.0"
 	},
 	"devDependencies": {
