@@ -217,6 +217,7 @@ export interface ChalkInstance extends ChalkFunction {
 
 	/**
 	Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set background color.
+
 	30 <= code && code < 38 || 90 <= code && code < 98
 	For example, 31 for red, 91 for redBright.
 	Use the foreground code, not the background code (for example, not 41, nor 101).
