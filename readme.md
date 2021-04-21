@@ -274,7 +274,7 @@ console.log(chalk.bold.rgb(10, 100, 200)`Hello!`);
 console.log(chalk`{bold.rgb(10,100,200) Hello!}`);
 ```
 
-Note that function styles (`rgb()`, `hsl()`, etc.) may not contain spaces between parameters.
+Note that function styles (`rgb()`, `hex()`, etc.) may not contain spaces between parameters.
 
 All interpolated values (`` chalk`${foo}` ``) are converted to strings via the `.toString()` method. All curly braces (`{` and `}`) in interpolated value strings are escaped.
 
