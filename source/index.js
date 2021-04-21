@@ -89,7 +89,7 @@ const getModelAnsi = (model, level, type, ...arguments_) => {
 		return getModelAnsi('rgb', level, type, ...ansiStyles.hexToRgb(...arguments_));
 	}
 
-	return ansiStyles[type](...arguments_);
+	return ansiStyles[type][model](...arguments_);
 };
 
 const usedModels = ['rgb', 'hex', 'ansi256', 'ansi'];
