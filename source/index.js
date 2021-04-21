@@ -74,7 +74,7 @@ styles.visible = {
 
 const getModelAnsi = (model, level, type, ...arguments_) => {
 	level = levelMapping[level];
-	
+
 	if (model === 'rgb') {
 		if (level === 'ansi16m') {
 			return ansiStyles[type].ansi16m(...arguments_);
