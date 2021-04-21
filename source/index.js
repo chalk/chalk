@@ -92,7 +92,7 @@ const getModelAnsi = (model, level, type, ...arguments_) => {
 	return ansiStyles[type][model](...arguments_);
 };
 
-const usedModels = ['rgb', 'hex', 'ansi256', 'ansi'];
+const usedModels = ['rgb', 'hex', 'ansi256'];
 
 for (const model of usedModels) {
 	styles[model] = {

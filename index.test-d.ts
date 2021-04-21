@@ -43,11 +43,9 @@ expectType<string>(chalk`Works with numbers {bold.red ${1}}`);
 // -- Color methods --
 expectAssignable<colorReturn>(chalk.rgb(0, 0, 0));
 expectAssignable<colorReturn>(chalk.hex('#DEADED'));
-expectAssignable<colorReturn>(chalk.ansi(30));
 expectAssignable<colorReturn>(chalk.ansi256(0));
 expectAssignable<colorReturn>(chalk.bgRgb(0, 0, 0));
 expectAssignable<colorReturn>(chalk.bgHex('#DEADED'));
-expectAssignable<colorReturn>(chalk.bgAnsi(30));
 expectAssignable<colorReturn>(chalk.bgAnsi256(0));
 
 // -- Modifiers --
