@@ -9,9 +9,9 @@ import template from './templates.js';
 const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
 const {isArray} = Array;
 
-const GENERATOR = Symbol('Generator');
-const STYLER = Symbol('Styler');
-const IS_EMPTY = Symbol('Is empty');
+const GENERATOR = Symbol('GENERATOR');
+const STYLER = Symbol('STYLER');
+const IS_EMPTY = Symbol('ISEMPTY');
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = [
