@@ -9,6 +9,10 @@ import template from './templates.js';
 const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
 const {isArray} = Array;
 
+const GENERATOR = Symbol('GENERATOR');
+const STYLER = Symbol('STYLER');
+const IS_EMPTY = Symbol('IS_EMPTY');
+
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = [
 	'ansi',
@@ -59,7 +63,7 @@ Object.setPrototypeOf(createChalk.prototype, Function.prototype);
 for (const [styleName, style] of Object.entries(ansiStyles)) {
 	styles[styleName] = {
 		get() {
-			const builder = createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty);
+			const builder = createBuilder(this, createStyler(style.open, style.close, this[STYLER]), this[IS_EMPTY]);
 			Object.defineProperty(this, styleName, {value: builder});
 			return builder;
 		}
@@ -68,7 +72,7 @@ for (const [styleName, style] of Object.entries(ansiStyles)) {
 
 styles.visible = {
 	get() {
-		const builder = createBuilder(this, this._styler, true);
+		const builder = createBuilder(this, this[STYLER], true);
 		Object.defineProperty(this, 'visible', {value: builder});
 		return builder;
 	}
@@ -101,8 +105,8 @@ for (const model of usedModels) {
 		get() {
 			const {level} = this;
 			return function (...arguments_) {
-				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'color', ...arguments_), ansiStyles.color.close, this._styler);
-				return createBuilder(this, styler, this._isEmpty);
+				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'color', ...arguments_), ansiStyles.color.close, this[STYLER]);
+				return createBuilder(this, styler, this[IS_EMPTY]);
 			};
 		}
 	};
@@ -112,8 +116,8 @@ for (const model of usedModels) {
 		get() {
 			const {level} = this;
 			return function (...arguments_) {
-				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'bgColor', ...arguments_), ansiStyles.bgColor.close, this._styler);
-				return createBuilder(this, styler, this._isEmpty);
+				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'bgColor', ...arguments_), ansiStyles.bgColor.close, this[STYLER]);
+				return createBuilder(this, styler, this[IS_EMPTY]);
 			};
 		}
 	};
@@ -124,10 +128,10 @@ const proto = Object.defineProperties(() => {}, {
 	level: {
 		enumerable: true,
 		get() {
-			return this._generator.level;
+			return this[GENERATOR].level;
 		},
 		set(level) {
-			this._generator.level = level;
+			this[GENERATOR].level = level;
 		}
 	}
 });
@@ -168,19 +172,19 @@ const createBuilder = (self, _styler, _isEmpty) => {
 	// no way to create a function with a different prototype
 	Object.setPrototypeOf(builder, proto);
 
-	builder._generator = self;
-	builder._styler = _styler;
-	builder._isEmpty = _isEmpty;
+	builder[GENERATOR] = self;
+	builder[STYLER] = _styler;
+	builder[IS_EMPTY] = _isEmpty;
 
 	return builder;
 };
 
 const applyStyle = (self, string) => {
 	if (self.level <= 0 || !string) {
-		return self._isEmpty ? '' : string;
+		return self[IS_EMPTY] ? '' : string;
 	}
 
-	let styler = self._styler;
+	let styler = self[STYLER];
 
 	if (styler === undefined) {
 		return string;

@@ -223,7 +223,7 @@ export interface ChalkInstance extends ChalkFunction {
 	readonly bold: this;
 
 	/**
-	Modifier: Emitting only a small amount of light.
+	Modifier: Make text slightly darker. (Inconsistent across terminals; might do nothing)
 	*/
 	readonly dim: this;
 
