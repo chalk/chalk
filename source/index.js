@@ -1,5 +1,5 @@
-import ansiStyles from 'ansi-styles';
-import supportsColor from 'supports-color';
+import ansiStyles from './ansi-styles/index.js';
+import supportsColor from './supports-color/index.js';
 import {
 	stringReplaceAll,
 	stringEncaseCRLFWithFirstIndex
@@ -7,6 +7,7 @@ import {
 import template from './templates.js';
 
 const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
+
 const {isArray} = Array;
 
 const GENERATOR = Symbol('GENERATOR');
