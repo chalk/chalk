@@ -184,7 +184,7 @@ export interface ChalkInstance extends ChalkFunction {
 	hex: (color: string) => this;
 
 	/**
-	Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set text color.
+	Use an [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set text color.
 	*/
 	ansi256: (index: number) => this;
 
