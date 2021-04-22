@@ -42,17 +42,20 @@
 		"text"
 	],
 	"dependencies": {
-		"ansi-styles": "^4.1.0",
+		"ansi-styles": "^6.1.0",
 		"supports-color": "^9.0.0"
 	},
 	"devDependencies": {
 		"ava": "^3.15.0",
+		"color-convert": "^2.0.1",
 		"coveralls": "^3.1.0",
 		"execa": "^5.0.0",
+		"log-update": "^4.0.0",
 		"matcha": "^0.7.0",
 		"nyc": "^15.1.0",
 		"tsd": "^0.14.0",
-		"xo": "^0.38.2"
+		"xo": "^0.38.2",
+		"yoctodelay": "^1.2.0"
 	},
 	"xo": {
 		"rules": {

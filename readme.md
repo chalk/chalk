@@ -125,7 +125,6 @@ DISK: {rgb(255,131,0) ${disk.used / disk.total * 100}%}
 `);
 
 // Use RGB colors in terminal emulators that support it.
-log(chalk.keyword('orange')('Yay for orange colored text!'));
 log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
 log(chalk.hex('#DEADED').bold('Bold gray!'));
 ```
@@ -136,7 +135,7 @@ Easily define your own themes:
 import chalk from 'chalk';
 
 const error = chalk.bold.red;
-const warning = chalk.keyword('orange');
+const warning = chalk.hex('#FFA500'); // Orange color
 
 console.log(error('Error!'));
 console.log(warning('Warning!'));
@@ -275,7 +274,7 @@ console.log(chalk.bold.rgb(10, 100, 200)`Hello!`);
 console.log(chalk`{bold.rgb(10,100,200) Hello!}`);
 ```
 
-Note that function styles (`rgb()`, `hsl()`, `keyword()`, etc.) may not contain spaces between parameters.
+Note that function styles (`rgb()`, `hex()`, etc.) may not contain spaces between parameters.
 
 All interpolated values (`` chalk`${foo}` ``) are converted to strings via the `.toString()` method. All curly braces (`{` and `}`) in interpolated value strings are escaped.
 
@@ -288,24 +287,17 @@ Colors are downsampled from 16 million RGB values to an ANSI color format that i
 Examples:
 
 - `chalk.hex('#DEADED').underline('Hello, world!')`
-- `chalk.keyword('orange')('Some orange text')`
 - `chalk.rgb(15, 100, 204).inverse('Hello!')`
 
-Background versions of these models are prefixed with `bg` and the first level of the module capitalized (e.g. `keyword` for foreground colors and `bgKeyword` for background colors).
+Background versions of these models are prefixed with `bg` and the first level of the module capitalized (e.g. `hex` for foreground colors and `bgHex` for background colors).
 
 - `chalk.bgHex('#DEADED').underline('Hello, world!')`
-- `chalk.bgKeyword('orange')('Some orange text')`
 - `chalk.bgRgb(15, 100, 204).inverse('Hello!')`
 
 The following color models can be used:
 
 - [`rgb`](https://en.wikipedia.org/wiki/RGB_color_model) - Example: `chalk.rgb(255, 136, 0).bold('Orange!')`
 - [`hex`](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) - Example: `chalk.hex('#FF8800').bold('Orange!')`
-- [`keyword`](https://www.w3.org/wiki/CSS/Properties/color/keywords) (CSS keywords) - Example: `chalk.keyword('orange').bold('Orange!')`
-- [`hsl`](https://en.wikipedia.org/wiki/HSL_and_HSV) - Example: `chalk.hsl(32, 100, 50).bold('Orange!')`
-- [`hsv`](https://en.wikipedia.org/wiki/HSL_and_HSV) - Example: `chalk.hsv(32, 100, 100).bold('Orange!')`
-- [`hwb`](https://en.wikipedia.org/wiki/HWB_color_model) - Example: `chalk.hwb(32, 0, 50).bold('Orange!')`
-- [`ansi`](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) - Example: `chalk.ansi(31).bgAnsi(93)('red on yellowBright')`
 - [`ansi256`](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) - Example: `chalk.bgAnsi256(194)('Honeydew, more or less')`
 
 ## Browser support

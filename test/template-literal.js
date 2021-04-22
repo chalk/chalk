@@ -150,18 +150,18 @@ test('correctly parses unicode/hex escapes', t => {
 
 test('correctly parses string arguments', t => {
 	const instance = new Chalk({level: 3});
-	t.is(instance`{keyword('black').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
-	t.is(instance`{keyword('blac\x6B').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
-	t.is(instance`{keyword('blac\u006B').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
+	t.is(instance`{hex('#000000').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
+	t.is(instance`{hex('#00000\x30').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
+	t.is(instance`{hex('#00000\u0030').bold can haz cheezburger}`, '\u001B[38;2;0;0;0m\u001B[1mcan haz cheezburger\u001B[22m\u001B[39m');
 });
 
 test('throws if a bad argument is encountered', t => {
 	const instance = new Chalk({level: 3}); // Keep level at least 1 in case we optimize for disabled chalk instances
 	try {
-		console.log(instance`{keyword(????) hi}`);
+		console.log(instance`{hex(????) hi}`);
 		t.fail();
 	} catch (error) {
-		t.is(error.message, 'Invalid Chalk template style argument: ???? (in style \'keyword\')');
+		t.is(error.message, 'Invalid Chalk template style argument: ???? (in style \'hex\')');
 	}
 });
 

@@ -61,6 +61,7 @@ export type Modifiers =
 	| 'dim'
 	| 'italic'
 	| 'underline'
+	| 'overline'
 	| 'inverse'
 	| 'hidden'
 	| 'strikethrough'
@@ -164,6 +165,11 @@ export interface ChalkInstance extends ChalkFunction {
 	level: ColorSupportLevel;
 
 	/**
+	Use RGB values to set text color.
+	*/
+	rgb: (red: number, green: number, blue: number) => this;
+
+	/**
 	Use HEX value to set text color.
 
 	@param color - Hexadecimal value representing the desired color.
@@ -178,51 +184,14 @@ export interface ChalkInstance extends ChalkFunction {
 	hex: (color: string) => this;
 
 	/**
-	Use keyword color value to set text color.
-
-	@param color - Keyword value representing the desired color.
-
-	@example
-	```
-	import chalk from 'chalk';
-
-	chalk.keyword('orange');
-	```
-	*/
-	keyword: (color: string) => this;
-
-	/**
-	Use RGB values to set text color.
-	*/
-	rgb: (red: number, green: number, blue: number) => this;
-
-	/**
-	Use HSL values to set text color.
-	*/
-	hsl: (hue: number, saturation: number, lightness: number) => this;
-
-	/**
-	Use HSV values to set text color.
-	*/
-	hsv: (hue: number, saturation: number, value: number) => this;
-
-	/**
-	Use HWB values to set text color.
-	*/
-	hwb: (hue: number, whiteness: number, blackness: number) => this;
-
-	/**
-	Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set text color.
-
-	30 <= code && code < 38 || 90 <= code && code < 98
-	For example, 31 for red, 91 for redBright.
-	*/
-	ansi: (code: number) => this;
-
-	/**
-	Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set text color.
+	Use an [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set text color.
 	*/
 	ansi256: (index: number) => this;
+
+	/**
+	Use RGB values to set background color.
+	*/
+	bgRgb: (red: number, green: number, blue: number) => this;
 
 	/**
 	Use HEX value to set background color.
@@ -237,49 +206,6 @@ export interface ChalkInstance extends ChalkFunction {
 	```
 	*/
 	bgHex: (color: string) => this;
-
-	/**
-	Use keyword color value to set background color.
-
-	@param color - Keyword value representing the desired color.
-
-	@example
-	```
-	import chalk from 'chalk';
-
-	chalk.bgKeyword('orange');
-	```
-	*/
-	bgKeyword: (color: string) => this;
-
-	/**
-	Use RGB values to set background color.
-	*/
-	bgRgb: (red: number, green: number, blue: number) => this;
-
-	/**
-	Use HSL values to set background color.
-	*/
-	bgHsl: (hue: number, saturation: number, lightness: number) => this;
-
-	/**
-	Use HSV values to set background color.
-	*/
-	bgHsv: (hue: number, saturation: number, value: number) => this;
-
-	/**
-	Use HWB values to set background color.
-	*/
-	bgHwb: (hue: number, whiteness: number, blackness: number) => this;
-
-	/**
-	Use a [Select/Set Graphic Rendition](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters) (SGR) [color code number](https://en.wikipedia.org/wiki/ANSI_escape_code#3/4_bit) to set background color.
-
-	30 <= code && code < 38 || 90 <= code && code < 98
-	For example, 31 for red, 91 for redBright.
-	Use the foreground code, not the background code (for example, not 41, nor 101).
-	*/
-	bgAnsi: (code: number) => this;
 
 	/**
 	Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set background color.
@@ -310,6 +236,11 @@ export interface ChalkInstance extends ChalkFunction {
 	Modifier: Make text underline. (Not widely supported)
 	*/
 	readonly underline: this;
+
+	/**
+	Modifier: Make text overline. (Not widely supported)
+	*/
+	readonly overline: this;
 
 	/**
 	Modifier: Inverse background and foreground colors.
