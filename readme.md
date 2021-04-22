@@ -70,16 +70,10 @@
 - Actively maintained
 - [Used by ~50,000 packages](https://www.npmjs.com/browse/depended/chalk) as of January 1, 2020
 
-## Install
-
-```console
-$ npm install chalk
-```
-
 ## Usage
 
 ```js
-import chalk from 'chalk';
+import chalk from "https://deno.land/x/chalk_deno@v4.1.1-deno/source/index.js"
 
 console.log(chalk.blue('Hello world!'));
 ```
