@@ -11,7 +11,7 @@ const {isArray} = Array;
 
 const GENERATOR = Symbol('GENERATOR');
 const STYLER = Symbol('STYLER');
-const IS_EMPTY = Symbol('ISEMPTY');
+const IS_EMPTY = Symbol('IS_EMPTY');
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
 const levelMapping = [
