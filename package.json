@@ -59,8 +59,8 @@
 	},
 	"xo": {
 		"rules": {
-			"unicorn/prefer-string-slice": "off",
-			"unicorn/better-regex": "off"
+			"unicorn/prefer-string-slice": "on",
+			"unicorn/better-regex": "on"
 		}
 	}
 }
