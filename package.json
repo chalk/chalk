@@ -8,7 +8,7 @@
 	"type": "module",
 	"exports": "./source/index.js",
 	"engines": {
-		"node": ">=12"
+		"node": ">=12.17"
 	},
 	"scripts": {
 		"test": "xo && nyc ava && tsd",
