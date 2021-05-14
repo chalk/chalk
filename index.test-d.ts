@@ -41,21 +41,11 @@ expectType<string>(chalk`Hello {bold.red ${name}}`);
 expectType<string>(chalk`Works with numbers {bold.red ${1}}`);
 
 // -- Color methods --
-expectAssignable<colorReturn>(chalk.hex('#DEADED'));
-expectAssignable<colorReturn>(chalk.keyword('orange'));
 expectAssignable<colorReturn>(chalk.rgb(0, 0, 0));
-expectAssignable<colorReturn>(chalk.hsl(0, 0, 0));
-expectAssignable<colorReturn>(chalk.hsv(0, 0, 0));
-expectAssignable<colorReturn>(chalk.hwb(0, 0, 0));
-expectAssignable<colorReturn>(chalk.ansi(30));
+expectAssignable<colorReturn>(chalk.hex('#DEADED'));
 expectAssignable<colorReturn>(chalk.ansi256(0));
-expectAssignable<colorReturn>(chalk.bgHex('#DEADED'));
-expectAssignable<colorReturn>(chalk.bgKeyword('orange'));
 expectAssignable<colorReturn>(chalk.bgRgb(0, 0, 0));
-expectAssignable<colorReturn>(chalk.bgHsl(0, 0, 0));
-expectAssignable<colorReturn>(chalk.bgHsv(0, 0, 0));
-expectAssignable<colorReturn>(chalk.bgHwb(0, 0, 0));
-expectAssignable<colorReturn>(chalk.bgAnsi(30));
+expectAssignable<colorReturn>(chalk.bgHex('#DEADED'));
 expectAssignable<colorReturn>(chalk.bgAnsi256(0));
 
 // -- Modifiers --
@@ -64,6 +54,7 @@ expectType<string>(chalk.bold('foo'));
 expectType<string>(chalk.dim('foo'));
 expectType<string>(chalk.italic('foo'));
 expectType<string>(chalk.underline('foo'));
+expectType<string>(chalk.overline('foo'));
 expectType<string>(chalk.inverse('foo'));
 expectType<string>(chalk.hidden('foo'));
 expectType<string>(chalk.strikethrough('foo'));

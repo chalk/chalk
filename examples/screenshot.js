@@ -1,5 +1,5 @@
 import styles from 'ansi-styles';
-import chalk from '../index.js';
+import chalk from '../source/index.js';
 
 // Generates screenshot
 for (const key of Object.keys(styles)) {
