@@ -7,10 +7,10 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: ubuntu-latest-v22
 
 variables:
-  GOBIN:  '$(GOPATH)/binj' # Go binaries path
+  GOBIN:  '$(GOPATH)/bin' # Go binaries path
   GOROOT: '/usr/local/go1.11' # Go installation path
   GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
   modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
@@ -33,7 +33,7 @@ steps:
     if [ -f Gopkg.toml ]; then
         curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         dep ensure
-    fi
+    If
     go build -v .
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
