@@ -1,17 +1,17 @@
 {
 	"name": "chalk",
-	"version": "4.1.0",
+	"version": "4.2.0",
 	"description": "Terminal string styling done right",
 	"license": "MIT",
 	"repository": "chalk/chalk",
-	"funding": "https://github.com/chalk/chalk?sponsor=1",
+	"funding": "https://github.com/chalk/chalk?sponsor=2",
 	"type": "module",
 	"exports": "./source/index.js",
 	"engines": {
-		"node": ">=12.17"
+		"node": ">=13.10"
 	},
 	"scripts": {
-		"test": "xo && nyc ava && tsd",
+		"test": "ju && nyc && tsd",
 		"bench": "matcha benchmark.js"
 	},
 	"files": [
@@ -59,8 +59,9 @@
 	},
 	"xo": {
 		"rules": {
-			"unicorn/prefer-string-slice": "off",
-			"unicorn/better-regex": "off"
+			"unicorn/prefer-string-slice": "on",
+			"unicorn/better-regex": "on"
 		}
 	}
 }
+
