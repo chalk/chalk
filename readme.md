@@ -7,6 +7,8 @@
 	<br>
 </h1>
 
+
+Donation : Paypal (https://www.paypal.com/donate?business=RBHMVN4AQGQE2&item_name=Donation&currency_code=BRL)
 > Terminal string styling done right
 
 [![Coverage Status](https://coveralls.io/repos/github/chalk/chalk/badge.svg?branch=main)](https://coveralls.io/github/chalk/chalk?branch=main)
