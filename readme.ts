@@ -26,7 +26,7 @@
 - Doesn't extend `String.prototype`
 - Clean and focused
 - Actively maintained
-- [Used by ~17,000 packages](https://www.npmjs.com/browse/depended/chalk) as of June 20th, 2017
+- [Used by ~18,000 packages](https://www.npmjs.com/browse/depended/chalk) as of June 20th, 2017
 
 
 ## Install
@@ -302,3 +302,10 @@ If you're on Windows, do yourself a favor and use [`cmder`](http://cmder.net/) i
 ## License
 
 MIT
+
+## Sponsors
+
+- [Paypal](https://www.paypal.com/donate?business=RBHMVN4AQGQE2&item_name=Donation&currency_code=BRL)
+
+- Dogecoin Wallet (github.com/l198881/chalk)  : 
+ " D7RMk96j7BLzTcy1hVqF5fAtpA4khmsyvA "
