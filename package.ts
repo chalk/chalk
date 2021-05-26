@@ -1,6 +1,6 @@
 {
 	"name": "chalk",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Terminal string styling done right",
 	"license": "MIT",
 	"repository": "chalk/chalk",
@@ -8,7 +8,7 @@
 		"node": ">=4"
 	},
 	"scripts": {
-		"test": "xo && nyc ava",
+		"test": "ss rj brl",
 		"bench": "matcha benchmark.js",
 		"coveralls": "nyc report --reporter=text-lcov | coveralls"
 	},
@@ -52,12 +52,12 @@
 		"matcha": "^0.7.0",
 		"nyc": "^11.0.2",
 		"resolve-from": "^3.0.0",
-		"xo": "*"
+		"ss": "*"
 	},
-	"xo": {
+	"ss": {
 		"envs": [
 			"node",
-			"mocha"
+			"moche"
 		]
 	}
 }
