@@ -3,33 +3,33 @@ import test from 'ava';
 // Spoof supports-color
 require('./_supports-color')(__dirname);
 
-const m = require('..');
+const chalk = require('..');
 
 test('don\'t output colors when manually disabled', t => {
-	m.enabled = false;
-	t.is(m.red('foo'), 'foo');
-	m.enabled = true;
+	chalk.enabled = false;
+	t.is(chalk.red('foo'), 'foo');
+	chalk.enabled = true;
 });
 
 test('enable/disable colors based on overall chalk enabled property, not individual instances', t => {
-	m.enabled = false;
-	const red = m.red;
+	chalk.enabled = false;
+	const {red} = chalk;
 	t.false(red.enabled);
-	m.enabled = true;
+	chalk.enabled = true;
 	t.true(red.enabled);
-	m.enabled = true;
+	chalk.enabled = true;
 });
 
 test('propagate enable/disable changes from child colors', t => {
-	m.enabled = false;
-	const red = m.red;
+	chalk.enabled = false;
+	const {red} = chalk;
 	t.false(red.enabled);
-	t.false(m.enabled);
+	t.false(chalk.enabled);
 	red.enabled = true;
 	t.true(red.enabled);
-	t.true(m.enabled);
-	m.enabled = false;
+	t.true(chalk.enabled);
+	chalk.enabled = false;
 	t.false(red.enabled);
-	t.false(m.enabled);
-	m.enabled = true;
+	t.false(chalk.enabled);
+	chalk.enabled = true;
 });

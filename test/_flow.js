@@ -9,10 +9,6 @@ chalk.constructor({level: 1});
 new chalk.constructor({enabled: 'true'});
 new chalk.constructor({enabled: true});
 
-// $ExpectError (Can't pass in null)
-chalk.underline(null);
-chalk.underline('foo');
-
 // $ExpectError (Can't have typo in chalk method)
 chalk.rd('foo');
 chalk.red('foo');
@@ -28,10 +24,6 @@ chalk.red.bgBlue.underline('foo');
 // $ExpectError (Level must be 0, 1, 2, or 3)
 const badCtx = chalk.constructor({level: 4});
 const ctx = chalk.constructor({level: 3});
-
-// $ExpectError (Can't pass in null)
-ctx(null);
-ctx('foo');
 
 // $ExpectError (Can't have typo in method name)
 ctx.gry('foo');

@@ -1,8 +1,7 @@
 'use strict';
 const escapeStringRegexp = require('escape-string-regexp');
 const ansiStyles = require('ansi-styles');
-const stdoutColor = require('supports-color').stdout;
-
+const {stdout: stdoutColor} = require('supports-color');
 const template = require('./templates.js');
 
 const isSimpleWindowsTerm = process.platform === 'win32' && !(process.env.TERM || '').toLowerCase().startsWith('xterm');
@@ -15,13 +14,15 @@ const skipModels = new Set(['gray']);
 
 const styles = Object.create(null);
 
-function applyOptions(obj, options) {
-	options = options || {};
+function applyOptions(object, options = {}) {
+	if (options.level > 3 || options.level < 0) {
+		throw new Error('The `level` option should be an integer from 0 to 3');
+	}
 
 	// Detect level if not set manually
-	const scLevel = stdoutColor ? stdoutColor.level : 0;
-	obj.level = options.level === undefined ? scLevel : options.level;
-	obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0;
+	const colorLevel = stdoutColor ? stdoutColor.level : 0;
+	object.level = options.level === undefined ? colorLevel : options.level;
+	object.enabled = 'enabled' in options ? options.enabled : object.level > 0;
 }
 
 function Chalk(options) {
@@ -31,10 +32,7 @@ function Chalk(options) {
 		const chalk = {};
 		applyOptions(chalk, options);
 
-		chalk.template = function () {
-			const args = [].slice.call(arguments);
-			return chalkTag.apply(null, [chalk.template].concat(args));
-		};
+		chalk.template = (...args) => chalkTag(chalk.template, ...args);
 
 		Object.setPrototypeOf(chalk, Chalk.prototype);
 		Object.setPrototypeOf(chalk.template, chalk);
@@ -58,7 +56,7 @@ for (const key of Object.keys(ansiStyles)) {
 	styles[key] = {
 		get() {
 			const codes = ansiStyles[key];
-			return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, key);
+			return build.call(this, [...(this._styles || []), codes], this._empty, key);
 		}
 	};
 }
@@ -77,15 +75,15 @@ for (const model of Object.keys(ansiStyles.color.ansi)) {
 
 	styles[model] = {
 		get() {
-			const level = this.level;
-			return function () {
-				const open = ansiStyles.color[levelMapping[level]][model].apply(null, arguments);
+			const {level} = this;
+			return function (...args) {
+				const open = ansiStyles.color[levelMapping[level]][model](...args);
 				const codes = {
 					open,
 					close: ansiStyles.color.close,
 					closeRe: ansiStyles.color.closeRe
 				};
-				return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
+				return build.call(this, [...(this._styles || []), codes], this._empty, model);
 			};
 		}
 	};
@@ -100,15 +98,15 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
 	styles[bgModel] = {
 		get() {
-			const level = this.level;
-			return function () {
-				const open = ansiStyles.bgColor[levelMapping[level]][model].apply(null, arguments);
+			const {level} = this;
+			return function (...args) {
+				const open = ansiStyles.bgColor[levelMapping[level]][model](...args);
 				const codes = {
 					open,
 					close: ansiStyles.bgColor.close,
 					closeRe: ansiStyles.bgColor.closeRe
 				};
-				return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
+				return build.call(this, [...(this._styles || []), codes], this._empty, model);
 			};
 		}
 	};
@@ -117,10 +115,7 @@ for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
 const proto = Object.defineProperties(() => {}, styles);
 
 function build(_styles, _empty, key) {
-	const builder = function () {
-		return applyStyle.apply(builder, arguments);
-	};
-
+	const builder = (...args) => applyStyle.call(builder, ...args);
 	builder._styles = _styles;
 	builder._empty = _empty;
 
@@ -156,25 +151,11 @@ function build(_styles, _empty, key) {
 	return builder;
 }
 
-function applyStyle() {
-	// Support varags, but simply cast to string in case there's only one arg
-	const args = arguments;
-	const argsLen = args.length;
-	let str = String(arguments[0]);
+function applyStyle(...args) {
+	let string = args.join(' ');
 
-	if (argsLen === 0) {
-		return '';
-	}
-
-	if (argsLen > 1) {
-		// Don't slice `arguments`, it prevents V8 optimizations
-		for (let a = 1; a < argsLen; a++) {
-			str += ' ' + args[a];
-		}
-	}
-
-	if (!this.enabled || this.level <= 0 || !str) {
-		return this._empty ? '' : str;
+	if (!this.enabled || this.level <= 0 || !string) {
+		return this._empty ? '' : string;
 	}
 
 	// Turns out that on Windows dimmed gray text becomes invisible in cmd.exe,
@@ -189,33 +170,37 @@ function applyStyle() {
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
 		// will be colored, and the rest will simply be 'plain'.
-		str = code.open + str.replace(code.closeRe, code.open) + code.close;
+		string = code.open + string.replace(code.closeRe, code.open) + code.close;
 
 		// Close the styling before a linebreak and reopen
 		// after next line to fix a bleed issue on macOS
 		// https://github.com/chalk/chalk/pull/92
-		str = str.replace(/\r?\n/g, `${code.close}$&${code.open}`);
+		string = string.replace(/\r?\n/g, `${code.close}$&${code.open}`);
 	}
 
 	// Reset the original `dim` if we changed it to work around the Windows dimmed gray issue
 	ansiStyles.dim.open = originalDim;
 
-	return str;
+	return string;
 }
 
-function chalkTag(chalk, strings) {
-	if (!Array.isArray(strings)) {
+function chalkTag(chalk, ...strings) {
+	const [firstString] = strings;
+
+	if (!Array.isArray(firstString)) {
 		// If chalk() was called by itself or with a string,
 		// return the string itself as a string.
-		return [].slice.call(arguments, 1).join(' ');
+		return strings.join(' ');
 	}
 
-	const args = [].slice.call(arguments, 2);
-	const parts = [strings.raw[0]];
+	const args = strings.slice(1);
+	const parts = [firstString.raw[0]];
 
-	for (let i = 1; i < strings.length; i++) {
-		parts.push(String(args[i - 1]).replace(/[{}\\]/g, '\\$&'));
-		parts.push(String(strings.raw[i]));
+	for (let i = 1; i < firstString.length; i++) {
+		parts.push(
+			String(args[i - 1]).replace(/[{}\\]/g, '\\$&'),
+			String(firstString.raw[i])
+		);
 	}
 
 	return template(chalk, parts.join(''));
