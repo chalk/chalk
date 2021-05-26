@@ -1,21 +1,21 @@
 {
 	"name": "chalk",
-	"version": "2.4.2",
+	"version": "4.1.0",
 	"description": "Terminal string styling done right",
 	"license": "MIT",
 	"repository": "chalk/chalk",
+	"funding": "https://github.com/chalk/chalk?sponsor=1",
+	"main": "source",
 	"engines": {
-		"node": ">=6"
+		"node": ">=10"
 	},
 	"scripts": {
-		"test": "xo && nyc ava && tsd-check && flow",
+		"test": "xo && nyc ava && tsd",
 		"bench": "matcha benchmark.js"
 	},
 	"files": [
-		"index.js",
-		"templates.js",
-		"index.d.ts",
-		"index.js.flow"
+		"source",
+		"index.d.ts"
 	],
 	"keywords": [
 		"color",
@@ -41,27 +41,28 @@
 		"text"
 	],
 	"dependencies": {
-		"ansi-styles": "^3.2.1",
-		"escape-string-regexp": "^1.0.5",
-		"supports-color": "^6.0.0"
+		"ansi-styles": "^4.1.0",
+		"supports-color": "^7.1.0"
 	},
 	"devDependencies": {
-		"@sindresorhus/tsconfig": "^0.1.1",
-		"ava": "^1.0.1",
-		"coveralls": "^3.0.2",
-		"execa": "^1.0.0",
-		"flow-bin": "^0.89.0",
-		"import-fresh": "^3.0.0",
+		"ava": "^2.4.0",
+		"coveralls": "^3.1.0",
+		"execa": "^4.0.3",
+		"import-fresh": "^3.2.1",
 		"matcha": "^0.7.0",
-		"nyc": "^13.1.0",
-		"resolve-from": "^4.0.0",
-		"tsd-check": "^0.3.0",
-		"xo": "^0.23.0"
+		"nyc": "^15.1.0",
+		"resolve-from": "^5.0.0",
+		"tsd": "^0.13.1",
+		"xo": "^0.33.1"
 	},
-	"types": "index.d.ts",
 	"xo": {
-		"ignores": [
-			"test/_flow.js"
-		]
+		"rules": {
+			"unicorn/prefer-string-slice": "off",
+			"unicorn/prefer-includes": "off",
+			"@typescript-eslint/member-ordering": "off",
+			"no-redeclare": "off",
+			"unicorn/string-content": "off",
+			"unicorn/better-regex": "off"
+		}
 	}
 }
