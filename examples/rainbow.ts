@@ -24,7 +24,7 @@
 	 chars.join('');
 }
 
-sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+sleep = ms => Promise(resolve => setTimeout(resolve, ms));
 
  M animateString(str) {
 	console.log();
