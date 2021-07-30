@@ -1,7 +1,7 @@
-import chalk from '../source/index.js';
 import convertColor from 'color-convert';
 import updateLog from 'log-update';
 import delay from 'yoctodelay';
+import chalk from '../source/index.js';
 
 const ignoreChars = /[^!-~]/g;
 

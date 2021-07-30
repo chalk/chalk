@@ -13,7 +13,7 @@ const ESCAPES = new Map([
 	['0', '\0'],
 	['\\', '\\'],
 	['e', '\u001B'],
-	['a', '\u0007']
+	['a', '\u0007'],
 ]);
 
 function unescape(c) {

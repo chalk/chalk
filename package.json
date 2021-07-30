@@ -16,7 +16,7 @@
 	},
 	"files": [
 		"source",
-		"index.d.ts"
+		"!source/index.test-d.ts"
 	],
 	"keywords": [
 		"color",
@@ -43,20 +43,22 @@
 	],
 	"dependencies": {
 		"ansi-styles": "^6.1.0",
-		"supports-color": "^9.0.0"
+		"supports-color": "^9.0.2"
 	},
 	"devDependencies": {
 		"ava": "^3.15.0",
 		"color-convert": "^2.0.1",
-		"coveralls": "^3.1.0",
-		"execa": "^5.0.0",
+		"coveralls": "^3.1.1",
+		"execa": "^5.1.1",
 		"log-update": "^4.0.0",
 		"matcha": "^0.7.0",
 		"nyc": "^15.1.0",
-		"tsd": "^0.14.0",
-		"xo": "^0.39.1",
+		"tsd": "^0.17.0",
+		"typescript": "^4.3.5",
+		"xo": "^0.42.0",
 		"yoctodelay": "^1.2.0"
 	},
+	"types": "./source/index.d.ts",
 	"xo": {
 		"rules": {
 			"unicorn/prefer-string-slice": "off",

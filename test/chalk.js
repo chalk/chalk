@@ -20,7 +20,7 @@ test('support automatic casting to string', t => {
 	t.is(chalk(123), '123');
 
 	t.is(chalk.bold(['foo', 'bar']), '\u001B[1mfoo,bar\u001B[22m');
-	t.is(chalk.green(98765), '\u001B[32m98765\u001B[39m');
+	t.is(chalk.green(98_765), '\u001B[32m98765\u001B[39m');
 });
 
 test('style string', t => {
@@ -37,14 +37,14 @@ test('support applying multiple styles at once', t => {
 test('support nesting styles', t => {
 	t.is(
 		chalk.red('foo' + chalk.underline.bgBlue('bar') + '!'),
-		'\u001B[31mfoo\u001B[4m\u001B[44mbar\u001B[49m\u001B[24m!\u001B[39m'
+		'\u001B[31mfoo\u001B[4m\u001B[44mbar\u001B[49m\u001B[24m!\u001B[39m',
 	);
 });
 
 test('support nesting styles of the same type (color, underline, bg)', t => {
 	t.is(
 		chalk.red('a' + chalk.yellow('b' + chalk.green('c') + 'b') + 'c'),
-		'\u001B[31ma\u001B[33mb\u001B[32mc\u001B[39m\u001B[31m\u001B[33mb\u001B[39m\u001B[31mc\u001B[39m'
+		'\u001B[31ma\u001B[33mb\u001B[32mc\u001B[39m\u001B[31m\u001B[33mb\u001B[39m\u001B[31mc\u001B[39m',
 	);
 });
 

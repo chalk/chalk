@@ -2,7 +2,7 @@ import ansiStyles from 'ansi-styles';
 import supportsColor from 'supports-color';
 import {
 	stringReplaceAll,
-	stringEncaseCRLFWithFirstIndex
+	stringEncaseCRLFWithFirstIndex,
 } from './util.js';
 import template from './templates.js';
 
@@ -18,7 +18,7 @@ const levelMapping = [
 	'ansi',
 	'ansi',
 	'ansi256',
-	'ansi16m'
+	'ansi16m',
 ];
 
 const styles = Object.create(null);
@@ -66,7 +66,7 @@ for (const [styleName, style] of Object.entries(ansiStyles)) {
 			const builder = createBuilder(this, createStyler(style.open, style.close, this[STYLER]), this[IS_EMPTY]);
 			Object.defineProperty(this, styleName, {value: builder});
 			return builder;
-		}
+		},
 	};
 }
 
@@ -75,7 +75,7 @@ styles.visible = {
 		const builder = createBuilder(this, this[STYLER], true);
 		Object.defineProperty(this, 'visible', {value: builder});
 		return builder;
-	}
+	},
 };
 
 const getModelAnsi = (model, level, type, ...arguments_) => {
@@ -108,7 +108,7 @@ for (const model of usedModels) {
 				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'color', ...arguments_), ansiStyles.color.close, this[STYLER]);
 				return createBuilder(this, styler, this[IS_EMPTY]);
 			};
-		}
+		},
 	};
 
 	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
@@ -119,7 +119,7 @@ for (const model of usedModels) {
 				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'bgColor', ...arguments_), ansiStyles.bgColor.close, this[STYLER]);
 				return createBuilder(this, styler, this[IS_EMPTY]);
 			};
-		}
+		},
 	};
 }
 
@@ -132,8 +132,8 @@ const proto = Object.defineProperties(() => {}, {
 		},
 		set(level) {
 			this[GENERATOR].level = level;
-		}
-	}
+		},
+	},
 });
 
 const createStyler = (open, close, parent) => {
@@ -152,7 +152,7 @@ const createStyler = (open, close, parent) => {
 		close,
 		openAll,
 		closeAll,
-		parent
+		parent,
 	};
 };
 
@@ -228,7 +228,7 @@ const chalkTag = (chalk, ...strings) => {
 	for (let i = 1; i < firstString.length; i++) {
 		parts.push(
 			String(arguments_[i - 1]).replace(/[{}\\]/g, '\\$&'),
-			String(firstString.raw[i])
+			String(firstString.raw[i]),
 		);
 	}
 
@@ -242,7 +242,7 @@ export const chalkStderr = createChalk({level: stderrColor ? stderrColor.level :
 
 export {
 	stdoutColor as supportsColor,
-	stderrColor as supportsColorStderr
+	stderrColor as supportsColorStderr,
 };
 
 export default chalk;

@@ -1,4 +1,4 @@
-import {fileURLToPath} from 'url';
+import {fileURLToPath} from 'node:url';
 import test from 'ava';
 import execa from 'execa';
 import chalk from '../source/index.js';

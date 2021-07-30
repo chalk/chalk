@@ -42,22 +42,22 @@ test('correctly perform nested template substitutions', t => {
 		instance.strikethrough.cyanBright.bgBlack('Works with ' + instance.reset.bold('numbers') + ' ' + instance.bold.red(1)));
 
 	t.is(chalk.bold`Also works on the shared {bgBlue chalk} object`,
-		'\u001B[1mAlso works on the shared \u001B[1m' +
-		'\u001B[44mchalk\u001B[49m\u001B[22m' +
-		'\u001B[1m object\u001B[22m');
+		'\u001B[1mAlso works on the shared \u001B[1m'
+		+ '\u001B[44mchalk\u001B[49m\u001B[22m'
+		+ '\u001B[1m object\u001B[22m');
 });
 
 test('correctly parse and evaluate color-convert functions', t => {
 	const instance = new Chalk({level: 3});
 	t.is(instance`{bold.rgb(144,10,178).inverse Hello, {~inverse there!}}`,
-		'\u001B[1m\u001B[38;2;144;10;178m\u001B[7mHello, ' +
-		'\u001B[27m\u001B[39m\u001B[22m\u001B[1m' +
-		'\u001B[38;2;144;10;178mthere!\u001B[39m\u001B[22m');
+		'\u001B[1m\u001B[38;2;144;10;178m\u001B[7mHello, '
+		+ '\u001B[27m\u001B[39m\u001B[22m\u001B[1m'
+		+ '\u001B[38;2;144;10;178mthere!\u001B[39m\u001B[22m');
 
 	t.is(instance`{bold.bgRgb(144,10,178).inverse Hello, {~inverse there!}}`,
-		'\u001B[1m\u001B[48;2;144;10;178m\u001B[7mHello, ' +
-		'\u001B[27m\u001B[49m\u001B[22m\u001B[1m' +
-		'\u001B[48;2;144;10;178mthere!\u001B[49m\u001B[22m');
+		'\u001B[1m\u001B[48;2;144;10;178m\u001B[7mHello, '
+		+ '\u001B[27m\u001B[49m\u001B[22m\u001B[1m'
+		+ '\u001B[48;2;144;10;178mthere!\u001B[49m\u001B[22m');
 });
 
 test('properly handle escapes', t => {
@@ -103,13 +103,13 @@ test('properly style multiline color blocks', t => {
 		} {underline
 			I hope you enjoy
 		}`,
-		'\u001B[1m\u001B[22m\n' +
-		'\u001B[1m\t\t\tHello! This is a\u001B[22m\n' +
-		'\u001B[1m\t\t\tmultiline block!\u001B[22m\n' +
-		'\u001B[1m\t\t\t:)\u001B[22m\n' +
-		'\u001B[1m\t\t\u001B[22m \u001B[4m\u001B[24m\n' +
-		'\u001B[4m\t\t\tI hope you enjoy\u001B[24m\n' +
-		'\u001B[4m\t\t\u001B[24m'
+		'\u001B[1m\u001B[22m\n'
+		+ '\u001B[1m\t\t\tHello! This is a\u001B[22m\n'
+		+ '\u001B[1m\t\t\tmultiline block!\u001B[22m\n'
+		+ '\u001B[1m\t\t\t:)\u001B[22m\n'
+		+ '\u001B[1m\t\t\u001B[22m \u001B[4m\u001B[24m\n'
+		+ '\u001B[4m\t\t\tI hope you enjoy\u001B[24m\n'
+		+ '\u001B[4m\t\t\u001B[24m',
 	);
 });
 
