@@ -52,9 +52,13 @@
 			</div>
 		</a>
 		<br>
-		<a href="https://uibakery.io/?utm_source=chalk&utm_medium=sponsor&utm_campaign=github">
+		<a href="https://strapi.io/?ref=sindresorhus">
 			<div>
-				<img src="https://sindresorhus.com/assets/thanks/uibakery-logo.jpg" width="270" alt="UI Bakery">
+				<img src="https://sindresorhus.com/assets/thanks/strapi-logo-white-bg.png" width="220" alt="Strapi">
+			</div>
+			<b>Strapi is the leading open-source headless CMS.</b>
+			<div>
+				<sup>It’s 100% JavaScript, fully customizable, and developer-first.</sup>
 			</div>
 		</a>
 	</p>
@@ -78,8 +82,8 @@
 
 ## Install
 
-```console
-$ npm install chalk
+```sh
+npm install chalk
 ```
 
 ## Usage
@@ -204,15 +208,16 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 ### Modifiers
 
-- `reset` - Resets the current color chain.
-- `bold` - Make text bold.
-- `dim` - Emitting only a small amount of light.
-- `italic` - Make text italic. *(Not widely supported)*
-- `underline` - Make text underline. *(Not widely supported)*
-- `inverse`- Inverse background and foreground colors.
-- `hidden` - Prints the text, but makes it invisible.
+- `reset` - Reset the current style.
+- `bold` - Make the text bold.
+- `dim` - Make the text have lower opacity.
+- `italic` - Make the text italic. *(Not widely supported)*
+- `underline` - Put a horizontal line below the text. *(Not widely supported)*
+- `overline` - Put a horizontal line above the text. *(Not widely supported)*
+- `inverse`- Invert background and foreground colors.
+- `hidden` - Print the text but make it invisible.
 - `strikethrough` - Puts a horizontal line through the center of the text. *(Not widely supported)*
-- `visible`- Prints the text only when Chalk has a color level > 0. Can be useful for things that are purely cosmetic.
+- `visible`- Print the text only when Chalk has a color level above zero. Can be useful for things that are purely cosmetic.
 
 ### Colors
 

@@ -213,52 +213,53 @@ export interface ChalkInstance extends ChalkFunction {
 	bgAnsi256: (index: number) => this;
 
 	/**
-	Modifier: Resets the current color chain.
+	Modifier: Reset the current style.
 	*/
 	readonly reset: this;
 
 	/**
-	Modifier: Make text bold.
+	Modifier: Make the text bold.
 	*/
 	readonly bold: this;
 
 	/**
-	Modifier: Make text slightly darker. (Inconsistent across terminals; might do nothing)
+	Modifier: Make the text have lower opacity.
 	*/
 	readonly dim: this;
 
 	/**
-	Modifier: Make text italic. (Not widely supported)
+	Modifier: Make the text italic. *(Not widely supported)*
 	*/
 	readonly italic: this;
 
 	/**
-	Modifier: Make text underline. (Not widely supported)
+	Modifier: Put a horizontal line below the text. *(Not widely supported)*
 	*/
 	readonly underline: this;
 
 	/**
-	Modifier: Make text overline. (Not widely supported)
+	Modifier: Put a horizontal line above the text. *(Not widely supported)*
 	*/
 	readonly overline: this;
 
 	/**
-	Modifier: Inverse background and foreground colors.
+	Modifier: Invert background and foreground colors.
 	*/
 	readonly inverse: this;
 
 	/**
-	Modifier: Prints the text, but makes it invisible.
+	Modifier: Print the text but make it invisible.
 	*/
 	readonly hidden: this;
 
 	/**
-	Modifier: Puts a horizontal line through the center of the text. (Not widely supported)
+	Modifier: Puts a horizontal line through the center of the text. *(Not widely supported)*
 	*/
 	readonly strikethrough: this;
 
 	/**
-	Modifier: Prints the text only when Chalk has a color support level > 0.
+	Modifier: Print the text only when Chalk has a color level above zero.
+
 	Can be useful for things that are purely cosmetic.
 	*/
 	readonly visible: this;

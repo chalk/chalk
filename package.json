@@ -8,7 +8,7 @@
 	"type": "module",
 	"exports": "./source/index.js",
 	"engines": {
-		"node": ">=12.17"
+		"node": "^12.17.0 || ^14.13 || >=16.0.0"
 	},
 	"scripts": {
 		"test": "xo && nyc ava && tsd",
@@ -26,7 +26,6 @@
 		"console",
 		"cli",
 		"string",
-		"str",
 		"ansi",
 		"style",
 		"styles",
