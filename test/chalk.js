@@ -1,9 +1,9 @@
-import test from 'ava';
+ test  'ava';
 
 // Spoof supports-color
 require('./_supports-color')(__dirname);
 
-const chalk = require('../source');
+ chalk = require('../source');
 
 console.log('TERM:', process.env.TERM || '[none]');
 console.log('platform:', process.platform || '[unknown]');
