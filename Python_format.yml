@@ -1,0 +1,17 @@
+name: Format Python
+
+on: [push, pull_request]
+jobs:
+  format:
+      name: Format
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Check formatting
+        run: |
+          pip install black==21.6b0
+          black --check --diff ./
