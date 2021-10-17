@@ -6,7 +6,27 @@ import {
 } from './util.js';
 import template from './templates.js';
 
-const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
+// True for any Browser or WebWorker
+// copied from https://github.com/flexdinesh/browser-or-node/blob/master/src/index.js available under the MIT license
+const isBrowser =
+	(typeof window !== "undefined" && typeof window.document !== "undefined")
+	||
+	(typeof self === "object" &&
+	self.constructor &&
+	self.constructor.name === "DedicatedWorkerGlobalScope");
+
+// Overwrite SupportsColor if we are running in Browser or WebWorker
+const { stdout: stdoutColor, stderr: stderrColor } = !isBrowser
+	? supportsColor
+	: {
+			stdout: {
+				level: 3,
+			},
+			stderr: {
+				level: 3,
+			},
+	  };
+
 const {isArray} = Array;
 
 const GENERATOR = Symbol('GENERATOR');
@@ -20,20 +40,6 @@ const levelMapping = [
 	'ansi256',
 	'ansi16m',
 ];
-
-// True for any Browser or WebWorker
-// copied from https://github.com/flexdinesh/browser-or-node/blob/master/src/index.js available under the MIT license
-const isBrowser =
-	(typeof window !== "undefined" && typeof window.document !== "undefined")
-	||
-	(typeof self === "object" &&
-	self.constructor &&
-	self.constructor.name === "DedicatedWorkerGlobalScope");
-
-if(isBrowser)
-{
-	stderrColor = stdoutColor = 3;
-}
 
 const styles = Object.create(null);
 
