@@ -21,6 +21,20 @@ const levelMapping = [
 	'ansi16m',
 ];
 
+// True for any Browser or WebWorker
+// copied from https://github.com/flexdinesh/browser-or-node/blob/master/src/index.js available under the MIT license
+const isBrowser =
+	(typeof window !== "undefined" && typeof window.document !== "undefined")
+	||
+	(typeof self === "object" &&
+	self.constructor &&
+	self.constructor.name === "DedicatedWorkerGlobalScope");
+
+if(isBrowser)
+{
+	stderrColor = stdoutColor = 3;
+}
+
 const styles = Object.create(null);
 
 const applyOptions = (object, options = {}) => {
