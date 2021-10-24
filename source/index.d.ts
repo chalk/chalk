@@ -166,6 +166,13 @@ export interface ChalkInstance extends ChalkFunction {
 
 	/**
 	Use RGB values to set text color.
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.rgb(222, 173, 237);
+	```
 	*/
 	rgb: (red: number, green: number, blue: number) => this;
 
@@ -185,11 +192,25 @@ export interface ChalkInstance extends ChalkFunction {
 
 	/**
 	Use an [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set text color.
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.ansi256(201);
+	```
 	*/
 	ansi256: (index: number) => this;
 
 	/**
 	Use RGB values to set background color.
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.bgRgb(222, 173, 237);
+	```
 	*/
 	bgRgb: (red: number, green: number, blue: number) => this;
 
@@ -209,6 +230,13 @@ export interface ChalkInstance extends ChalkFunction {
 
 	/**
 	Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set background color.
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.bgAnsi256(201);
+	```
 	*/
 	bgAnsi256: (index: number) => this;
 
