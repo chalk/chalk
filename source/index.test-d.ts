@@ -34,12 +34,6 @@ expectType<ChalkInstance>(new Chalk({level: 1}));
 // -- Properties --
 expectType<ColorSupportLevel>(chalk.level);
 
-// -- Template literal --
-expectType<string>(chalk``);
-const name = 'John';
-expectType<string>(chalk`Hello {bold.red ${name}}`);
-expectType<string>(chalk`Works with numbers {bold.red ${1}}`);
-
 // -- Color methods --
 expectAssignable<colorReturn>(chalk.rgb(0, 0, 0));
 expectAssignable<colorReturn>(chalk.hex('#DEADED'));
