@@ -39,7 +39,7 @@ export class Chalk {
 }
 
 const chalkFactory = options => {
-	const chalk = (...arguments_) => arguments_.join(' ');
+	const chalk = (...strings) => strings.join(' ');
 	applyOptions(chalk, options);
 
 	Object.setPrototypeOf(chalk, createChalk.prototype);
