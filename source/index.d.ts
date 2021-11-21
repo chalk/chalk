@@ -1,4 +1,4 @@
-import type {ColorInfo, ColorSupport, ColorSupportLevel} from 'supports-color';
+import {ColorInfo, ColorSupportLevel} from 'supports-color';
 
 /**
 Basic foreground colors.
@@ -68,12 +68,6 @@ export type Modifiers =
 	| 'hidden'
 	| 'strikethrough'
 	| 'visible';
-
-export {
-	ColorInfo,
-	ColorSupport,
-	ColorSupportLevel,
-};
 
 export interface Options {
 	/**
@@ -310,5 +304,11 @@ declare const chalk: ChalkInstance;
 export const supportsColor: ColorInfo;
 export const chalkStderr: typeof chalk;
 export const supportsColorStderr: typeof supportsColor;
+
+export {
+	ColorInfo,
+	ColorSupport,
+	ColorSupportLevel,
+} from 'supports-color';
 
 export default chalk;
