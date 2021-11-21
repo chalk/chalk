@@ -1,12 +1,11 @@
 import {expectType, expectAssignable, expectError} from 'tsd';
-import chalk, {Chalk, ChalkInstance, Color, ColorSupport, ColorSupportLevel, chalkStderr, supportsColor, supportsColorStderr} from './index.js';
-
-// - Helpers -
-type colorReturn = ChalkInstance & {supportsColor?: never};
+import chalk, {Chalk, ChalkInstance, Color, ColorInfo, ColorSupport, ColorSupportLevel, chalkStderr, supportsColor, supportsColorStderr} from './index.js';
 
 // - supportsColor -
-expectType<ColorSupport | false>(supportsColor);
+expectType<ColorInfo>(supportsColor);
 if (supportsColor) {
+	expectType<ColorSupport>(supportsColor);
+	expectType<ColorSupportLevel>(supportsColor.level);
 	expectType<boolean>(supportsColor.hasBasic);
 	expectType<boolean>(supportsColor.has256);
 	expectType<boolean>(supportsColor.has16m);
@@ -14,7 +13,7 @@ if (supportsColor) {
 
 // - stderr -
 expectAssignable<ChalkInstance>(chalkStderr);
-expectType<ColorSupport | false>(supportsColorStderr);
+expectType<ColorInfo>(supportsColorStderr);
 if (supportsColorStderr) {
 	expectType<boolean>(supportsColorStderr.hasBasic);
 	expectType<boolean>(supportsColorStderr.has256);
@@ -35,12 +34,12 @@ expectType<ChalkInstance>(new Chalk({level: 1}));
 expectType<ColorSupportLevel>(chalk.level);
 
 // -- Color methods --
-expectAssignable<colorReturn>(chalk.rgb(0, 0, 0));
-expectAssignable<colorReturn>(chalk.hex('#DEADED'));
-expectAssignable<colorReturn>(chalk.ansi256(0));
-expectAssignable<colorReturn>(chalk.bgRgb(0, 0, 0));
-expectAssignable<colorReturn>(chalk.bgHex('#DEADED'));
-expectAssignable<colorReturn>(chalk.bgAnsi256(0));
+expectType<ChalkInstance>(chalk.rgb(0, 0, 0));
+expectType<ChalkInstance>(chalk.hex('#DEADED'));
+expectType<ChalkInstance>(chalk.ansi256(0));
+expectType<ChalkInstance>(chalk.bgRgb(0, 0, 0));
+expectType<ChalkInstance>(chalk.bgHex('#DEADED'));
+expectType<ChalkInstance>(chalk.bgAnsi256(0));
 
 // -- Modifiers --
 expectType<string>(chalk.reset('foo'));
