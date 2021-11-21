@@ -302,6 +302,7 @@ This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 declare const chalk: ChalkInstance;
 
 export const supportsColor: ColorInfo;
+
 export const chalkStderr: typeof chalk;
 export const supportsColorStderr: typeof supportsColor;
 
