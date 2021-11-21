@@ -1,3 +1,5 @@
+import {ColorInfo, ColorSupportLevel} from 'supports-color';
+
 /**
 Basic foreground colors.
 
@@ -67,15 +69,6 @@ export type Modifiers =
 	| 'strikethrough'
 	| 'visible';
 
-/**
-Levels:
-- `0` - All colors disabled.
-- `1` - Basic 16 colors support.
-- `2` - ANSI 256 colors support.
-- `3` - Truecolor 16 million colors support.
-*/
-export type ColorSupportLevel = 0 | 1 | 2 | 3;
-
 export interface Options {
 	/**
 	Specify the color support for Chalk.
@@ -94,32 +87,7 @@ export interface Options {
 /**
 Return a new Chalk instance.
 */
-export const Chalk: new (options?: Options) => ChalkInstance;
-
-/**
-Detect whether the terminal supports color.
-*/
-export interface ColorSupport {
-	/**
-	The color level used by Chalk.
-	*/
-	level: ColorSupportLevel;
-
-	/**
-	Return whether Chalk supports basic 16 colors.
-	*/
-	hasBasic: boolean;
-
-	/**
-	Return whether Chalk supports ANSI 256 colors.
-	*/
-	has256: boolean;
-
-	/**
-	Return whether Chalk supports Truecolor 16 million colors.
-	*/
-	has16m: boolean;
-}
+export const Chalk: new (options?: Options) => ChalkInstance; // eslint-disable-line @typescript-eslint/naming-convention
 
 export interface ChalkInstance {
 	(...text: unknown[]): string;
@@ -333,9 +301,15 @@ This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 */
 declare const chalk: ChalkInstance;
 
-export const supportsColor: ColorSupport | false;
+export const supportsColor: ColorInfo;
 
 export const chalkStderr: typeof chalk;
 export const supportsColorStderr: typeof supportsColor;
+
+export {
+	ColorInfo,
+	ColorSupport,
+	ColorSupportLevel,
+} from 'supports-color';
 
 export default chalk;
