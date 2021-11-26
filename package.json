@@ -7,6 +7,13 @@
 	"funding": "https://github.com/chalk/chalk?sponsor=1",
 	"type": "module",
 	"exports": "./source/index.js",
+	"imports": {
+		"#ansi-styles": "./source/vendor/ansi-styles/index.js",
+		"#supports-color": {
+			"node": "./source/vendor/supports-color/index.js",
+			"default": "./source/vendor/supports-color/browser.js"
+		}
+	},
 	"engines": {
 		"node": "^12.17.0 || ^14.13 || >=16.0.0"
 	},
@@ -40,10 +47,6 @@
 		"command-line",
 		"text"
 	],
-	"dependencies": {
-		"ansi-styles": "^6.1.0",
-		"supports-color": "^9.1.0"
-	},
 	"devDependencies": {
 		"ava": "^3.15.0",
 		"color-convert": "^2.0.1",

@@ -1,9 +1,9 @@
-import ansiStyles from 'ansi-styles';
-import supportsColor from 'supports-color';
-import {
+import ansiStyles from '#ansi-styles';
+import supportsColor from '#supports-color';
+import { // eslint-disable-line import/order
 	stringReplaceAll,
 	stringEncaseCRLFWithFirstIndex,
-} from './util.js';
+} from './utilities.js';
 
 const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
 

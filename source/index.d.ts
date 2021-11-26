@@ -1,4 +1,6 @@
-import {ColorInfo, ColorSupportLevel} from 'supports-color';
+// TODO: Make it this when TS suports that.
+// import {ColorInfo, ColorSupportLevel} from '#supports-color';
+import {ColorInfo, ColorSupportLevel} from './vendor/supports-color/index.js';
 
 /**
 Basic foreground colors.
@@ -310,6 +312,7 @@ export {
 	ColorInfo,
 	ColorSupport,
 	ColorSupportLevel,
-} from 'supports-color';
+// } from '#supports-color';
+} from './vendor/supports-color/index.js';
 
 export default chalk;
