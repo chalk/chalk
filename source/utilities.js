@@ -1,3 +1,4 @@
+// TODO: When targeting Node.js 16, use `String.prototype.replaceAll`.
 export function stringReplaceAll(string, substring, replacer) {
 	let index = string.indexOf(substring);
 	if (index === -1) {
