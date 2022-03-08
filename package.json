@@ -6,6 +6,7 @@
 	"repository": "chalk/chalk",
 	"funding": "https://github.com/chalk/chalk?sponsor=1",
 	"type": "module",
+	"main": "./source/index.js",
 	"exports": "./source/index.js",
 	"imports": {
 		"#ansi-styles": "./source/vendor/ansi-styles/index.js",
