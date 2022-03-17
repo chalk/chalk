@@ -4,7 +4,7 @@ const wrapAnsi16 = (offset = 0) => code => `\u001B[${code + offset}m`;
 
 const wrapAnsi256 = (offset = 0) => code => `\u001B[${38 + offset};5;${code}m`;
 
-const wrapAnsi16m = (offset = 0) => (red, green, blue) => `\u001B[${38 + offset};2;${red};${green};${blue}m`;
+const wrapAnsi16m = (offset = 0) => (red, green, blue) => `\u001B[${38 + offset};2;${Math.round(red)};${Math.round(green)};${Math.round(blue)}m`;
 
 function assembleStyles() {
 	const codes = new Map();
