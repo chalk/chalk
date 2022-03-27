@@ -9,7 +9,7 @@ export function stringReplaceAll(string, substring, replacer) {
 	let endIndex = 0;
 	let returnValue = '';
 	do {
-		returnValue += string.substr(endIndex, index - endIndex) + substring + replacer;
+		returnValue += string.slice(endIndex, index) + substring + replacer;
 		endIndex = index + substringLength;
 		index = string.indexOf(substring, endIndex);
 	} while (index !== -1);
@@ -23,7 +23,7 @@ export function stringEncaseCRLFWithFirstIndex(string, prefix, postfix, index) {
 	let returnValue = '';
 	do {
 		const gotCR = string[index - 1] === '\r';
-		returnValue += string.substr(endIndex, (gotCR ? index - 1 : index) - endIndex) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
+		returnValue += string.slice(endIndex, (gotCR ? index - 1 : index)) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
 		endIndex = index + 1;
 		index = string.indexOf('\n', endIndex);
 	} while (index !== -1);
