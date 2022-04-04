@@ -1,29 +1,32 @@
-import ansiStyles from '#ansi-styles';
-import supportsColor from '#supports-color';
-import { // eslint-disable-line import/order
+import ansiStyles from "ansi-styles";
+import supportsColor from "supports-color";
+import {
+	// eslint-disable-line import/order
 	stringReplaceAll,
 	stringEncaseCRLFWithFirstIndex,
-} from './utilities.js';
+} from "./utilities.js";
 
-const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
+const { stdout: stdoutColor, stderr: stderrColor } = supportsColor;
 
-const GENERATOR = Symbol('GENERATOR');
-const STYLER = Symbol('STYLER');
-const IS_EMPTY = Symbol('IS_EMPTY');
+const GENERATOR = Symbol("GENERATOR");
+const STYLER = Symbol("STYLER");
+const IS_EMPTY = Symbol("IS_EMPTY");
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
-const levelMapping = [
-	'ansi',
-	'ansi',
-	'ansi256',
-	'ansi16m',
-];
+const levelMapping = ["ansi", "ansi", "ansi256", "ansi16m"];
 
 const styles = Object.create(null);
 
 const applyOptions = (object, options = {}) => {
-	if (options.level && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
-		throw new Error('The `level` option should be an integer from 0 to 3');
+	if (
+		options.level &&
+		!(
+			Number.isInteger(options.level) &&
+			options.level >= 0 &&
+			options.level <= 3
+		)
+	) {
+		throw new Error("The `level` option should be an integer from 0 to 3");
 	}
 
 	// Detect level if not set manually
@@ -38,8 +41,8 @@ export class Chalk {
 	}
 }
 
-const chalkFactory = options => {
-	const chalk = (...strings) => strings.join(' ');
+const chalkFactory = (options) => {
+	const chalk = (...strings) => strings.join(" ");
 	applyOptions(chalk, options);
 
 	Object.setPrototypeOf(chalk, createChalk.prototype);
@@ -56,8 +59,12 @@ Object.setPrototypeOf(createChalk.prototype, Function.prototype);
 for (const [styleName, style] of Object.entries(ansiStyles)) {
 	styles[styleName] = {
 		get() {
-			const builder = createBuilder(this, createStyler(style.open, style.close, this[STYLER]), this[IS_EMPTY]);
-			Object.defineProperty(this, styleName, {value: builder});
+			const builder = createBuilder(
+				this,
+				createStyler(style.open, style.close, this[STYLER]),
+				this[IS_EMPTY]
+			);
+			Object.defineProperty(this, styleName, { value: builder });
 			return builder;
 		},
 	};
@@ -66,50 +73,63 @@ for (const [styleName, style] of Object.entries(ansiStyles)) {
 styles.visible = {
 	get() {
 		const builder = createBuilder(this, this[STYLER], true);
-		Object.defineProperty(this, 'visible', {value: builder});
+		Object.defineProperty(this, "visible", { value: builder });
 		return builder;
 	},
 };
 
 const getModelAnsi = (model, level, type, ...arguments_) => {
-	if (model === 'rgb') {
-		if (level === 'ansi16m') {
+	if (model === "rgb") {
+		if (level === "ansi16m") {
 			return ansiStyles[type].ansi16m(...arguments_);
 		}
 
-		if (level === 'ansi256') {
+		if (level === "ansi256") {
 			return ansiStyles[type].ansi256(ansiStyles.rgbToAnsi256(...arguments_));
 		}
 
 		return ansiStyles[type].ansi(ansiStyles.rgbToAnsi(...arguments_));
 	}
 
-	if (model === 'hex') {
-		return getModelAnsi('rgb', level, type, ...ansiStyles.hexToRgb(...arguments_));
+	if (model === "hex") {
+		return getModelAnsi(
+			"rgb",
+			level,
+			type,
+			...ansiStyles.hexToRgb(...arguments_)
+		);
 	}
 
 	return ansiStyles[type][model](...arguments_);
 };
 
-const usedModels = ['rgb', 'hex', 'ansi256'];
+const usedModels = ["rgb", "hex", "ansi256"];
 
 for (const model of usedModels) {
 	styles[model] = {
 		get() {
-			const {level} = this;
+			const { level } = this;
 			return function (...arguments_) {
-				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'color', ...arguments_), ansiStyles.color.close, this[STYLER]);
+				const styler = createStyler(
+					getModelAnsi(model, levelMapping[level], "color", ...arguments_),
+					ansiStyles.color.close,
+					this[STYLER]
+				);
 				return createBuilder(this, styler, this[IS_EMPTY]);
 			};
 		},
 	};
 
-	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
+	const bgModel = "bg" + model[0].toUpperCase() + model.slice(1);
 	styles[bgModel] = {
 		get() {
-			const {level} = this;
+			const { level } = this;
 			return function (...arguments_) {
-				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'bgColor', ...arguments_), ansiStyles.bgColor.close, this[STYLER]);
+				const styler = createStyler(
+					getModelAnsi(model, levelMapping[level], "bgColor", ...arguments_),
+					ansiStyles.bgColor.close,
+					this[STYLER]
+				);
 				return createBuilder(this, styler, this[IS_EMPTY]);
 			};
 		},
@@ -152,7 +172,11 @@ const createStyler = (open, close, parent) => {
 const createBuilder = (self, _styler, _isEmpty) => {
 	// Single argument is hot path, implicit coercion is faster than anything
 	// eslint-disable-next-line no-implicit-coercion
-	const builder = (...arguments_) => applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+	const builder = (...arguments_) =>
+		applyStyle(
+			builder,
+			arguments_.length === 1 ? "" + arguments_[0] : arguments_.join(" ")
+		);
 
 	// We alter the prototype because we must return a function, but there is
 	// no way to create a function with a different prototype
@@ -167,7 +191,7 @@ const createBuilder = (self, _styler, _isEmpty) => {
 
 const applyStyle = (self, string) => {
 	if (self.level <= 0 || !string) {
-		return self[IS_EMPTY] ? '' : string;
+		return self[IS_EMPTY] ? "" : string;
 	}
 
 	let styler = self[STYLER];
@@ -176,8 +200,8 @@ const applyStyle = (self, string) => {
 		return string;
 	}
 
-	const {openAll, closeAll} = styler;
-	if (string.includes('\u001B')) {
+	const { openAll, closeAll } = styler;
+	if (string.includes("\u001B")) {
 		while (styler !== undefined) {
 			// Replace any instances already present with a re-opening code
 			// otherwise only the part of the string until said closing code
@@ -191,7 +215,7 @@ const applyStyle = (self, string) => {
 	// We can move both next actions out of loop, because remaining actions in loop won't have
 	// any/visible effect on parts we add here. Close the styling before a linebreak and reopen
 	// after next line to fix a bleed issue on macOS: https://github.com/chalk/chalk/pull/92
-	const lfIndex = string.indexOf('\n');
+	const lfIndex = string.indexOf("\n");
 	if (lfIndex !== -1) {
 		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
 	}
@@ -202,11 +226,10 @@ const applyStyle = (self, string) => {
 Object.defineProperties(createChalk.prototype, styles);
 
 const chalk = createChalk();
-export const chalkStderr = createChalk({level: stderrColor ? stderrColor.level : 0});
+export const chalkStderr = createChalk({
+	level: stderrColor ? stderrColor.level : 0,
+});
 
-export {
-	stdoutColor as supportsColor,
-	stderrColor as supportsColorStderr,
-};
+export { stdoutColor as supportsColor, stderrColor as supportsColorStderr };
 
 export default chalk;
