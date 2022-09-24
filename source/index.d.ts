@@ -2,7 +2,7 @@
 // import {ColorInfo, ColorSupportLevel} from '#supports-color';
 import {ColorInfo, ColorSupportLevel} from './vendor/supports-color/index.js';
 
-type BasicColor =  'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white';
+type BasicColor = 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white';
 type BrightColor = `${BasicColor}Bright`;
 type Grey = 'gray' | 'grey';
 
