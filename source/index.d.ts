@@ -2,55 +2,24 @@
 // import {ColorInfo, ColorSupportLevel} from '#supports-color';
 import {ColorInfo, ColorSupportLevel} from './vendor/supports-color/index.js';
 
+type BasicColor = 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white';
+type BrightColor = `${BasicColor}Bright`;
+type Grey = 'gray' | 'grey';
+
 /**
 Basic foreground colors.
 
 [More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
 */
-export type ForegroundColor =
-	| 'black'
-	| 'red'
-	| 'green'
-	| 'yellow'
-	| 'blue'
-	| 'magenta'
-	| 'cyan'
-	| 'white'
-	| 'gray'
-	| 'grey'
-	| 'blackBright'
-	| 'redBright'
-	| 'greenBright'
-	| 'yellowBright'
-	| 'blueBright'
-	| 'magentaBright'
-	| 'cyanBright'
-	| 'whiteBright';
+
+export type ForegroundColor = BasicColor | BrightColor | Grey;
 
 /**
 Basic background colors.
 
 [More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
 */
-export type BackgroundColor =
-	| 'bgBlack'
-	| 'bgRed'
-	| 'bgGreen'
-	| 'bgYellow'
-	| 'bgBlue'
-	| 'bgMagenta'
-	| 'bgCyan'
-	| 'bgWhite'
-	| 'bgGray'
-	| 'bgGrey'
-	| 'bgBlackBright'
-	| 'bgRedBright'
-	| 'bgGreenBright'
-	| 'bgYellowBright'
-	| 'bgBlueBright'
-	| 'bgMagentaBright'
-	| 'bgCyanBright'
-	| 'bgWhiteBright';
+export type BackgroundColor = `bg${Capitalize<ForegroundColor>}`;
 
 /**
 Basic colors.
