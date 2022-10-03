@@ -209,4 +209,8 @@ export {
 	stderrColor as supportsColorStderr,
 };
 
+export const modifiers = Object.keys(ansiStyles.modifier);
+export const foregroundColors = Object.keys(ansiStyles.color);
+export const backgroundColors = Object.keys(ansiStyles.bgColor);
+
 export default chalk;
