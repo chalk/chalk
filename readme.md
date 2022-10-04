@@ -205,6 +205,15 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 All supported style strings are exposed for convenience. `colors` is the combination of `foregroundColors` and `backgroundColors`.
 
+This is useful when checking if a style string is supported:
+
+```js
+import {foregroundColors} from 'chalk';
+
+console.log(foregroundColors.includes('pink'));
+//=> false
+```
+
 ## Styles
 
 ### Modifiers
