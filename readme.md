@@ -201,7 +201,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 `chalkStderr` contains a separate instance configured with color support detected for `stderr` stream instead of `stdout`. Override rules from `supportsColor` apply to this too. `supportsColorStderr` is exposed for convenience.
 
-### modifiers, foregroundColors, backgroundColors and colors
+### modifiers, foregroundColors, backgroundColors, and colors
 
 All supported style strings are exposed for convenience. `colors` is the combination of `foregroundColors` and `backgroundColors`.
 
