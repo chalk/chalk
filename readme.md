@@ -205,7 +205,7 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 All supported style strings are exposed as an array of strings for convenience. `colors` is the combination of `foregroundColors` and `backgroundColors`.
 
-This is useful when checking if a style string is supported:
+This can be useful if you wrap Chalk and need to validate input:
 
 ```js
 import {modifiers, foregroundColors} from 'chalk';
