@@ -13,7 +13,6 @@
 [![npm dependents](https://badgen.net/npm/dependents/chalk)](https://www.npmjs.com/package/chalk?activeTab=dependents)
 [![Downloads](https://badgen.net/npm/dt/chalk)](https://www.npmjs.com/package/chalk)
 [![run on repl.it](https://img.shields.io/badge/Run_on_Replit-130f26?logo=replit&logoColor=white)](https://repl.it/github/chalk/chalk)
-[![Support Chalk on DEV](https://badge.devprotocol.xyz/0x44d871aebF0126Bf646753E2C976Aa7e68A66c15/descriptive)](https://stakes.social/0x44d871aebF0126Bf646753E2C976Aa7e68A66c15)
 
 ![](media/screenshot.png)
 
@@ -25,19 +24,19 @@
 	<p>
 		<p>
 			<sup>
-				Sindre Sorhus' open source work is supported by the community on <a href="https://github.com/sponsors/sindresorhus">GitHub Sponsors</a> and <a href="https://stakes.social/0x44d871aebF0126Bf646753E2C976Aa7e68A66c15">Dev</a>
+				Sindre Sorhus' open source work is supported by the community on <a href="https://github.com/sponsors/sindresorhus">GitHub Sponsors</a>
 			</sup>
 		</p>
 		<sup>Special thanks to:</sup>
 		<br>
 		<br>
 		<a href="https://standardresume.co/tech">
-			<img src="https://sindresorhus.com/assets/thanks/standard-resume-logo.svg" width="160"/>
+			<img src="https://sindresorhus.com/assets/thanks/standard-resume-logo.svg" width="160">
 		</a>
 		<br>
 		<br>
 		<a href="https://retool.com/?utm_campaign=sindresorhus">
-			<img src="https://sindresorhus.com/assets/thanks/retool-logo.svg" width="230"/>
+			<img src="https://sindresorhus.com/assets/thanks/retool-logo.svg" width="230">
 		</a>
 		<br>
 		<br>
@@ -62,6 +61,16 @@
 				<sup>It’s 100% JavaScript, fully customizable, and developer-first.</sup>
 			</div>
 		</a>
+		<br>
+		<br>
+		<a href="https://www.stackaid.us/?utm_campaign=sindre">
+			<div>
+				<img src="https://sindresorhus.com/assets/thanks/stackaid-logo.png" width="230" alt="StackAid">
+			</div>
+			<b>Fund your open source dependencies</b>
+		</a>
+		<br>
+		<br>
 	</p>
 </div>
 
@@ -80,7 +89,7 @@
 - Doesn't extend `String.prototype`
 - Clean and focused
 - Actively maintained
-- [Used by ~76,000 packages](https://www.npmjs.com/browse/depended/chalk) as of October 26, 2021
+- [Used by ~86,000 packages](https://www.npmjs.com/browse/depended/chalk) as of October 4, 2022
 
 ## Install
 
@@ -287,12 +296,6 @@ If you're on Windows, do yourself a favor and use [Windows Terminal](https://git
 ## Origin story
 
 [colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68) and the package is unmaintained. Although there are other packages, they either do too much or not enough. Chalk is a clean and focused alternative.
-
-## chalk for enterprise
-
-Available as part of the Tidelift Subscription.
-
-The maintainers of chalk and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-chalk?utm_source=npm-chalk&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
 
 ## Related
 

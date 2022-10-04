@@ -38,6 +38,6 @@ test('propagate enable/disable changes from child colors', t => {
 });
 
 test('disable colors if they are not supported', async t => {
-	const {stdout} = await execaNode(fileURLToPath(new URL('./_fixture.js', import.meta.url)));
+	const {stdout} = await execaNode(fileURLToPath(new URL('_fixture.js', import.meta.url)));
 	t.is(stdout, 'testout testerr');
 });
