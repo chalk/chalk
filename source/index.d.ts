@@ -284,8 +284,9 @@ export {
 // } from '#supports-color';
 } from './vendor/supports-color/index.js';
 
-export const modifiers: Modifiers[];
-export const foregroundColors: ForegroundColor[];
-export const backgroundColors: BackgroundColor[];
+export const modifiers: readonly Modifiers[];
+export const foregroundColors: readonly ForegroundColor[];
+export const backgroundColors: readonly BackgroundColor[];
+export const colors: readonly Color[];
 
 export default chalk;

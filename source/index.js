@@ -212,5 +212,6 @@ export {
 export const modifiers = Object.keys(ansiStyles.modifier);
 export const foregroundColors = Object.keys(ansiStyles.color);
 export const backgroundColors = Object.keys(ansiStyles.bgColor);
+export const colors = [...foregroundColors, ...backgroundColors];
 
 export default chalk;
