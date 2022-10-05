@@ -210,6 +210,22 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 `chalkStderr` contains a separate instance configured with color support detected for `stderr` stream instead of `stdout`. Override rules from `supportsColor` apply to this too. `supportsColorStderr` is exposed for convenience.
 
+### modifiers, foregroundColors, backgroundColors, and colors
+
+All supported style strings are exposed as an array of strings for convenience. `colors` is the combination of `foregroundColors` and `backgroundColors`.
+
+This can be useful if you wrap Chalk and need to validate input:
+
+```js
+import {modifiers, foregroundColors} from 'chalk';
+
+console.log(modifiers.includes('bold'));
+//=> true
+
+console.log(foregroundColors.includes('pink'));
+//=> false
+```
+
 ## Styles
 
 ### Modifiers
