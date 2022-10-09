@@ -187,4 +187,9 @@ declare const ansiStyles: {
 	readonly codes: ReadonlyMap<number, number>;
 } & ForegroundColor & BackgroundColor & Modifier & ConvertColor;
 
+declare const modifiers: readonly Modifier[];
+declare const foregroundColors: readonly ForegroundColor[];
+declare const backgroundColors: readonly BackgroundColor[];
+declare const colors: readonly Color[];
+
 export default ansiStyles;
