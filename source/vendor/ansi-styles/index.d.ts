@@ -180,16 +180,54 @@ export interface ConvertColor {
 	hexToAnsi(hex: string): number;
 }
 
+/**
+Basic modifier names.
+*/
+export type ModifierName = keyof Modifier;
+
+/**
+Basic foreground color names.
+[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
+*/
+export type ForegroundColorName = keyof ForegroundColor;
+
+/**
+Basic background color names.
+[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
+*/
+export type BackgroundColorName = keyof BackgroundColor;
+
+/**
+Basic color names. The combination of foreground and background color names.
+[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
+*/
+export type ColorName = ForegroundColorName | BackgroundColorName;
+
+/**
+Basic modifier names.
+*/
+export const modifierNames: readonly ModifierName[];
+
+/**
+Basic foreground color names.
+*/
+export const foregroundColorNames: readonly ForegroundColorName[];
+
+/**
+Basic background color names.
+*/
+export const backgroundColorNames: readonly BackgroundColorName[];
+
+/*
+Basic color names. The combination of foreground and background color names.
+*/
+export const colorNames: readonly ColorName[];
+
 declare const ansiStyles: {
 	readonly modifier: Modifier;
 	readonly color: ColorBase & ForegroundColor;
 	readonly bgColor: ColorBase & BackgroundColor;
 	readonly codes: ReadonlyMap<number, number>;
 } & ForegroundColor & BackgroundColor & Modifier & ConvertColor;
-
-declare const modifiers: readonly Modifier[];
-declare const foregroundColors: readonly ForegroundColor[];
-declare const backgroundColors: readonly BackgroundColor[];
-declare const colors: readonly Color[];
 
 export default ansiStyles;

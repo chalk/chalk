@@ -205,13 +205,15 @@ const chalk = createChalk();
 export const chalkStderr = createChalk({level: stderrColor ? stderrColor.level : 0});
 
 export {
+	modifierNames as modifiers,
+	foregroundColorNames as foregroundColors,
+	backgroundColorNames as backgroundColors,
+	colorNames as colors,
+} from './vendor/ansi-styles/index.js';
+
+export {
 	stdoutColor as supportsColor,
 	stderrColor as supportsColorStderr,
 };
-
-export const modifiers = Object.keys(ansiStyles.modifier);
-export const foregroundColors = Object.keys(ansiStyles.color);
-export const backgroundColors = Object.keys(ansiStyles.bgColor);
-export const colors = [...foregroundColors, ...backgroundColors];
 
 export default chalk;

@@ -1,5 +1,5 @@
 import {expectType, expectAssignable, expectError} from 'tsd';
-import chalk, {Chalk, ChalkInstance, Color, ColorInfo, ColorSupport, ColorSupportLevel, chalkStderr, supportsColor, supportsColorStderr} from './index.js';
+import chalk, {Chalk, ChalkInstance, Modifiers, ForegroundColor, BackgroundColor, Color, ColorInfo, ColorSupport, ColorSupportLevel, chalkStderr, supportsColor, supportsColorStderr} from './index.js';
 
 // - supportsColor -
 expectType<ColorInfo>(supportsColor);
@@ -141,6 +141,20 @@ expectType<string>(chalk.underline``);
 expectType<string>(chalk.red.bgGreen.bold`Hello {italic.blue ${name}}`);
 expectType<string>(chalk.strikethrough.cyanBright.bgBlack`Works with {reset {bold numbers}} {bold.red ${1}}`);
 
-// -- Color types ==
+// -- Modifiers types
+expectAssignable<Modifiers>('strikethrough');
+expectError<Modifiers>('delete');
+
+// -- Foreground types
+expectAssignable<ForegroundColor>('red');
+expectError<ForegroundColor>('pink');
+
+// -- Background types
+expectAssignable<BackgroundColor>('bgRed');
+expectError<BackgroundColor>('bgPink');
+
+// -- Color types --
 expectAssignable<Color>('red');
+expectAssignable<Color>('bgRed');
 expectError<Color>('hotpink');
+expectError<Color>('bgHotpink');

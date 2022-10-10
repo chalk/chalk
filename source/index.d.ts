@@ -1,44 +1,8 @@
 // TODO: Make it this when TS suports that.
+// import {ModifierName as Modifiers, ForegroundColorName as ForegroundColor, BackgroundColorName as BackgroundColor, ColorName as Color} from '#ansi-styles';
 // import {ColorInfo, ColorSupportLevel} from '#supports-color';
+import {ModifierName as Modifiers, ForegroundColorName as ForegroundColor, BackgroundColorName as BackgroundColor, ColorName as Color} from './vendor/ansi-styles/index.js';
 import {ColorInfo, ColorSupportLevel} from './vendor/supports-color/index.js';
-
-type BasicColor = 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white';
-type BrightColor = `${BasicColor}Bright`;
-type Grey = 'gray' | 'grey';
-
-/**
-Basic foreground colors.
-
-[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
-*/
-
-export type ForegroundColor = BasicColor | BrightColor | Grey;
-
-/**
-Basic background colors.
-
-[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
-*/
-export type BackgroundColor = `bg${Capitalize<ForegroundColor>}`;
-
-/**
-Basic colors.
-
-[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
-*/
-export type Color = ForegroundColor | BackgroundColor;
-
-export type Modifiers =
-	| 'reset'
-	| 'bold'
-	| 'dim'
-	| 'italic'
-	| 'underline'
-	| 'overline'
-	| 'inverse'
-	| 'hidden'
-	| 'strikethrough'
-	| 'visible';
 
 export interface Options {
 	/**
@@ -276,6 +240,14 @@ export const supportsColor: ColorInfo;
 
 export const chalkStderr: typeof chalk;
 export const supportsColorStderr: typeof supportsColor;
+
+export {
+	ModifierName as Modifiers,
+	ForegroundColorName as ForegroundColor,
+	BackgroundColorName as BackgroundColor,
+	ColorName as Color,
+// } from '#ansi-styles';
+} from './vendor/ansi-styles/index.js';
 
 export {
 	ColorInfo,
