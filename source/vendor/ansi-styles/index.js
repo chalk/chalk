@@ -214,9 +214,10 @@ function assembleStyles() {
 }
 
 const ansiStyles = assembleStyles();
+
+export default ansiStyles;
+
 export const modifierNames = Object.keys(styles.modifier);
 export const foregroundColorNames = Object.keys(styles.color);
 export const backgroundColorNames = Object.keys(styles.bgColor);
 export const colorNames = [...foregroundColorNames, ...backgroundColorNames];
-
-export default ansiStyles;
