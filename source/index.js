@@ -205,6 +205,10 @@ const chalk = createChalk();
 export const chalkStderr = createChalk({level: stderrColor ? stderrColor.level : 0});
 
 export {
+	modifierNames,
+	foregroundColorNames,
+	backgroundColorNames,
+	colorNames,
 	modifierNames as modifiers,
 	foregroundColorNames as foregroundColors,
 	backgroundColorNames as backgroundColors,

@@ -1,5 +1,8 @@
-import {expectType, expectAssignable, expectError} from 'tsd';
-import chalk, {Chalk, ChalkInstance, Modifiers, ForegroundColor, BackgroundColor, Color, ColorInfo, ColorSupport, ColorSupportLevel, chalkStderr, supportsColor, supportsColorStderr} from './index.js';
+import {expectType, expectAssignable, expectError, expectDeprecated} from 'tsd';
+import chalk, {
+	Chalk, ChalkInstance, ColorInfo, ColorSupport, ColorSupportLevel, chalkStderr, supportsColor, supportsColorStderr,
+	ModifierName, ForegroundColorName, BackgroundColorName, ColorName,
+} from './index.js';
 
 // - supportsColor -
 expectType<ColorInfo>(supportsColor);
@@ -142,19 +145,19 @@ expectType<string>(chalk.red.bgGreen.bold`Hello {italic.blue ${name}}`);
 expectType<string>(chalk.strikethrough.cyanBright.bgBlack`Works with {reset {bold numbers}} {bold.red ${1}}`);
 
 // -- Modifiers types
-expectAssignable<Modifiers>('strikethrough');
-expectError<Modifiers>('delete');
+expectAssignable<ModifierName>('strikethrough');
+expectError<ModifierName>('delete');
 
 // -- Foreground types
-expectAssignable<ForegroundColor>('red');
-expectError<ForegroundColor>('pink');
+expectAssignable<ForegroundColorName>('red');
+expectError<ForegroundColorName>('pink');
 
 // -- Background types
-expectAssignable<BackgroundColor>('bgRed');
-expectError<BackgroundColor>('bgPink');
+expectAssignable<BackgroundColorName>('bgRed');
+expectError<BackgroundColorName>('bgPink');
 
 // -- Color types --
-expectAssignable<Color>('red');
-expectAssignable<Color>('bgRed');
-expectError<Color>('hotpink');
-expectError<Color>('bgHotpink');
+expectAssignable<ColorName>('red');
+expectAssignable<ColorName>('bgRed');
+expectError<ColorName>('hotpink');
+expectError<ColorName>('bgHotpink');

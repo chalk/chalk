@@ -1,7 +1,7 @@
 // TODO: Make it this when TS suports that.
-// import {ModifierName as Modifiers, ForegroundColorName as ForegroundColor, BackgroundColorName as BackgroundColor, ColorName as Color} from '#ansi-styles';
+// import {ModifierName, ForegroundColor, BackgroundColor, ColorName} from '#ansi-styles';
 // import {ColorInfo, ColorSupportLevel} from '#supports-color';
-import {ModifierName as Modifiers, ForegroundColorName as ForegroundColor, BackgroundColorName as BackgroundColor, ColorName as Color} from './vendor/ansi-styles/index.js';
+import {ModifierName, ForegroundColorName, BackgroundColorName, ColorName} from './vendor/ansi-styles/index.js';
 import {ColorInfo, ColorSupportLevel} from './vendor/supports-color/index.js';
 
 export interface Options {
@@ -242,10 +242,10 @@ export const chalkStderr: typeof chalk;
 export const supportsColorStderr: typeof supportsColor;
 
 export {
-	ModifierName as Modifiers,
-	ForegroundColorName as ForegroundColor,
-	BackgroundColorName as BackgroundColor,
-	ColorName as Color,
+	ModifierName,
+	ForegroundColorName,
+	BackgroundColorName,
+	ColorName,
 // } from '#ansi-styles';
 } from './vendor/ansi-styles/index.js';
 
@@ -256,9 +256,86 @@ export {
 // } from '#supports-color';
 } from './vendor/supports-color/index.js';
 
+/**
+Basic modifier names.
+*/
+export const modifierNames: readonly ModifierName[];
+
+/**
+Basic foreground color names.
+*/
+export const foregroundColorNames: readonly ForegroundColorName[];
+
+/**
+Basic background color names.
+*/
+export const backgroundColorNames: readonly BackgroundColorName[];
+
+/**
+Basic color names. The combination of foreground and background color names.
+*/
+export const colorNames: readonly ColorName[];
+
+/**
+@deprecated Use `ModifierName` instead.
+
+Basic modifier names.
+*/
+export type Modifiers = ModifierName;
+
+/**
+@deprecated Use `ForegroundColorName` instead.
+
+Basic foreground color names.
+
+[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
+*/
+export type ForegroundColor = ForegroundColorName;
+
+/**
+@deprecated Use `BackgroundColorName` instead.
+
+Basic background color names.
+
+[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
+*/
+export type BackgroundColor = BackgroundColorName;
+
+/**
+@deprecated Use `ColorName` instead.
+
+Basic color names. The combination of foreground and background color names.
+
+[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
+*/
+export type Color = ColorName;
+
+/**
+@deprecated Use `modifierNames` instead.
+
+Basic modifier names.
+*/
 export const modifiers: readonly Modifiers[];
+
+/**
+@deprecated Use `foregroundColorNames` instead.
+
+Basic foreground color names.
+*/
 export const foregroundColors: readonly ForegroundColor[];
+
+/**
+@deprecated Use `backgroundColorNames` instead.
+
+Basic background color names.
+*/
 export const backgroundColors: readonly BackgroundColor[];
+
+/**
+@deprecated Use `colorNames` instead.
+
+Basic color names. The combination of foreground and background color names.
+*/
 export const colors: readonly Color[];
 
 export default chalk;
