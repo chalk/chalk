@@ -242,10 +242,8 @@ export const chalkStderr: typeof chalk;
 export const supportsColorStderr: typeof supportsColor;
 
 export {
-	ModifierName,
-	ForegroundColorName,
-	BackgroundColorName,
-	ColorName,
+	ModifierName, ForegroundColorName, BackgroundColorName, ColorName,
+	modifierNames, foregroundColorNames, backgroundColorNames, colorNames,
 // } from '#ansi-styles';
 } from './vendor/ansi-styles/index.js';
 
@@ -255,26 +253,6 @@ export {
 	ColorSupportLevel,
 // } from '#supports-color';
 } from './vendor/supports-color/index.js';
-
-/**
-Basic modifier names.
-*/
-export const modifierNames: readonly ModifierName[];
-
-/**
-Basic foreground color names.
-*/
-export const foregroundColorNames: readonly ForegroundColorName[];
-
-/**
-Basic background color names.
-*/
-export const backgroundColorNames: readonly BackgroundColorName[];
-
-/**
-Basic color names. The combination of foreground and background color names.
-*/
-export const colorNames: readonly ColorName[];
 
 /**
 @deprecated Use `ModifierName` instead.
