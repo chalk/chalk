@@ -254,6 +254,7 @@ export {
 // } from '#supports-color';
 } from './vendor/supports-color/index.js';
 
+// TODO: Remove these aliases in the next major version
 /**
 @deprecated Use `ModifierName` instead.
 

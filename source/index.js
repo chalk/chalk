@@ -210,7 +210,7 @@ export {
 	backgroundColorNames,
 	colorNames,
 
-	// TODO: Remove these aliases in next major version
+	// TODO: Remove these aliases in the next major version
 	modifierNames as modifiers,
 	foregroundColorNames as foregroundColors,
 	backgroundColorNames as backgroundColors,
