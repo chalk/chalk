@@ -12,6 +12,7 @@
 		"#ansi-styles": "./source/vendor/ansi-styles/index.js",
 		"#supports-color": {
 			"node": "./source/vendor/supports-color/index.js",
+			"bun": "./source/vendor/supports-color/index.js",
 			"default": "./source/vendor/supports-color/browser.js"
 		}
 	},
