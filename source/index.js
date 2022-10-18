@@ -1,9 +1,13 @@
+import {createRequire} from 'node:module';
 import ansiStyles from '#ansi-styles';
 import supportsColor from '#supports-color';
 import { // eslint-disable-line import/order
 	stringReplaceAll,
 	stringEncaseCRLFWithFirstIndex,
 } from './utilities.js';
+
+const require = createRequire(import.meta.url);
+const colors = require('./color-defs.json');
 
 const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
 
@@ -20,7 +24,6 @@ const levelMapping = [
 ];
 
 const styles = Object.create(null);
-
 const applyOptions = (object, options = {}) => {
 	if (options.level && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
 		throw new Error('The `level` option should be an integer from 0 to 3');
@@ -72,26 +75,36 @@ styles.visible = {
 };
 
 const getModelAnsi = (model, level, type, ...arguments_) => {
-	if (model === 'rgb') {
-		if (level === 'ansi16m') {
-			return ansiStyles[type].ansi16m(...arguments_);
+	switch (model) {
+		case 'rgb':
+			if (level === 'ansi16m') {
+				return ansiStyles[type].ansi16m(...arguments_);
+			}
+
+			if (level === 'ansi256') {
+				return ansiStyles[type].ansi256(ansiStyles.rgbToAnsi256(...arguments_));
+			}
+
+			return ansiStyles[type].ansi(ansiStyles.rgbToAnsi(...arguments_));
+
+		case 'hex': {
+			return getModelAnsi('rgb', level, type, ...ansiStyles.hexToRgb(...arguments_));
 		}
 
-		if (level === 'ansi256') {
-			return ansiStyles[type].ansi256(ansiStyles.rgbToAnsi256(...arguments_));
+		case 'color': {
+			// Select color mapping
+			const [colorName] = arguments_;
+			const hexCode = colors[colorName.toLowerCase()] || colors.black;
+			return getModelAnsi('rgb', level, type, ...ansiStyles.hexToRgb(hexCode));
 		}
 
-		return ansiStyles[type].ansi(ansiStyles.rgbToAnsi(...arguments_));
+		default: {
+			return ansiStyles[type][model](...arguments_);
+		}
 	}
-
-	if (model === 'hex') {
-		return getModelAnsi('rgb', level, type, ...ansiStyles.hexToRgb(...arguments_));
-	}
-
-	return ansiStyles[type][model](...arguments_);
 };
 
-const usedModels = ['rgb', 'hex', 'ansi256'];
+const usedModels = ['rgb', 'hex', 'ansi256', 'color'];
 
 for (const model of usedModels) {
 	styles[model] = {

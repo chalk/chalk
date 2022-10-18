@@ -124,3 +124,10 @@ test('keeps function prototype methods', t => {
 	t.is(chalk.bind(chalk, 'foo')(), 'foo');
 	t.is(chalk.call(chalk, 'foo'), 'foo');
 });
+
+test('property convert CSS color name to 256 colors', t => {
+	t.is(new Chalk({level: 2}).color('Red')('hello'), '\u001B[38;5;196mhello\u001B[39m');
+	t.is(new Chalk({level: 2}).color('Green')('hello'), '\u001B[38;5;34mhello\u001B[39m');
+	t.is(new Chalk({level: 3}).color('Blue')('hello'), '\u001B[38;2;0;0;255mhello\u001B[39m');
+	t.is(new Chalk({level: 3}).color('PaleBlue')('hello'), new Chalk({level: 3}).color('Black')('hello'));
+});
