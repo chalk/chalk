@@ -12,7 +12,7 @@
 [![Coverage Status](https://codecov.io/gh/chalk/chalk/branch/main/graph/badge.svg)](https://codecov.io/gh/chalk/chalk)
 [![npm dependents](https://badgen.net/npm/dependents/chalk)](https://www.npmjs.com/package/chalk?activeTab=dependents)
 [![Downloads](https://badgen.net/npm/dt/chalk)](https://www.npmjs.com/package/chalk)
-[![run on repl.it](https://img.shields.io/badge/Run_on_Replit-130f26?logo=replit&logoColor=white)](https://repl.it/github/chalk/chalk)
+[![run on repl.it](https://img.shields.io/badge/Run_on_Replit-f26207?logo=replit&logoColor=white)](https://repl.it/github/chalk/chalk)
 
 ![](media/screenshot.png)
 
