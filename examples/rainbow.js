@@ -33,8 +33,6 @@ async function animateString(string) {
 	}
 }
 
-(async () => {
-	console.log();
-	await animateString('We hope you enjoy Chalk! <3');
-	console.log();
-})();
+console.log();
+await animateString('We hope you enjoy Chalk! <3');
+console.log();
