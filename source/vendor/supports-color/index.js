@@ -138,10 +138,12 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		const version = Number.parseInt((env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
 
 		switch (env.TERM_PROGRAM) {
-			case 'iTerm.app':
+			case 'iTerm.app': {
 				return version >= 3 ? 3 : 2;
-			case 'Apple_Terminal':
+			}
+			case 'Apple_Terminal': {
 				return 2;
+			}
 			// No default
 		}
 	}
