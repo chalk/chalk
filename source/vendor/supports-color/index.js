@@ -3,7 +3,7 @@ import os from 'node:os';
 import tty from 'node:tty';
 
 // From: https://github.com/sindresorhus/has-flag/blob/main/index.js
-function hasFlag(flag, argv = globalThis.Deno?.args ?? process.argv) {
+function hasFlag(flag, argv = globalThis.Deno ? globalThis.Deno.args : process.argv) {
 	const prefix = flag.startsWith('-') ? '' : (flag.length === 1 ? '-' : '--');
 	const position = argv.indexOf(prefix + flag);
 	const terminatorPosition = argv.indexOf('--');
@@ -141,6 +141,7 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 			case 'iTerm.app': {
 				return version >= 3 ? 3 : 2;
 			}
+
 			case 'Apple_Terminal': {
 				return 2;
 			}
