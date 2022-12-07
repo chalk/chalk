@@ -1,15 +1,26 @@
 /* eslint-env browser */
 
-const isBlinkBasedBrowser = navigator.userAgentData
-	? navigator.userAgentData.brands.some(({brand}) => brand === 'Chromium')
-	: /\b(Chrome|Chromium)\//.test(navigator.userAgent);
+const level = (() => {
+	if (navigator.userAgentData) {
+		const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
+		if (brand?.version > 93) {
+			return 3;
+		}
+	}
 
-const colorSupport = isBlinkBasedBrowser ? {
-	level: 1,
+	if (/\b(Chrome|Chromium)\//.test(navigator.userAgent)) {
+		return 1;
+	}
+
+	return 0;
+})();
+
+const colorSupport = level !== 0 && {
+	level,
 	hasBasic: true,
-	has256: false,
-	has16m: false,
-} : false;
+	has256: level >= 2,
+	has16m: level >= 3,
+};
 
 const supportsColor = {
 	stdout: colorSupport,

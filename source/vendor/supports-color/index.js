@@ -3,7 +3,7 @@ import os from 'node:os';
 import tty from 'node:tty';
 
 // From: https://github.com/sindresorhus/has-flag/blob/main/index.js
-function hasFlag(flag, argv = process.argv) {
+function hasFlag(flag, argv = globalThis.Deno?.args ?? process.argv) {
 	const prefix = flag.startsWith('-') ? '' : (flag.length === 1 ? '-' : '--');
 	const position = argv.indexOf(prefix + flag);
 	const terminatorPosition = argv.indexOf('--');
@@ -80,6 +80,12 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		}
 	}
 
+	// Check for Azure DevOps pipelines.
+	// Has to be above the `!streamIsTTY` check.
+	if ('TF_BUILD' in env && 'AGENT_NAME' in env) {
+		return 1;
+	}
+
 	if (haveStream && !streamIsTTY && forceColor === undefined) {
 		return 0;
 	}
@@ -105,7 +111,11 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	if ('CI' in env) {
-		if (['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI', 'GITHUB_ACTIONS', 'BUILDKITE', 'DRONE'].some(sign => sign in env) || env.CI_NAME === 'codeship') {
+		if ('GITHUB_ACTIONS' in env) {
+			return 3;
+		}
+
+		if (['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI', 'BUILDKITE', 'DRONE'].some(sign => sign in env) || env.CI_NAME === 'codeship') {
 			return 1;
 		}
 
@@ -116,11 +126,6 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
 	}
 
-	// Check for Azure DevOps pipelines
-	if ('TF_BUILD' in env && 'AGENT_NAME' in env) {
-		return 1;
-	}
-
 	if (env.COLORTERM === 'truecolor') {
 		return 3;
 	}
@@ -129,13 +134,10 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		const version = Number.parseInt((env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
 
 		switch (env.TERM_PROGRAM) {
-			case 'iTerm.app': {
+			case 'iTerm.app':
 				return version >= 3 ? 3 : 2;
-			}
-
-			case 'Apple_Terminal': {
+			case 'Apple_Terminal':
 				return 2;
-			}
 			// No default
 		}
 	}

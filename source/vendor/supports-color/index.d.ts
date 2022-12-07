@@ -45,7 +45,7 @@ export interface ColorSupport {
 
 export type ColorInfo = ColorSupport | false;
 
-export function createSupportsColor(stream: WriteStream, options?: Options): ColorInfo;
+export function createSupportsColor(stream?: WriteStream, options?: Options): ColorInfo;
 
 declare const supportsColor: {
 	stdout: ColorInfo;
