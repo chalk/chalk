@@ -2,6 +2,10 @@ name: CI
 on:
   - push
   - pull_request
+
+permissions:
+  contents: read #  to fetch code (actions/checkout)
+
 jobs:
   test:
     name: Node.js ${{ matrix.node-version }}
