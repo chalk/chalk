@@ -1,0 +1,7 @@
+std="roblox+testez"
+[config]
+empty_if = { comments_count = true }
+
+[rules]
+incorrect_standard_library_use = "allow"
+shadowing = "allow"

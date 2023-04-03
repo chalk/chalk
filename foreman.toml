@@ -1,0 +1,6 @@
+[tools]
+luau-lsp = { source = "JohnnyMorganz/luau-lsp", version = "1.18.1" }
+rojo = { source = "rojo-rbx/rojo", version = "7.2.1" }
+selene = { source = "Kampfkarren/selene", version = "0.25.0" }
+stylua = { source = "JohnnyMorganz/StyLua", version = "0.17.1" }
+wally = { source = "UpliftGames/wally", version = "=0.3.1" }

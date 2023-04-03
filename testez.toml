@@ -1,0 +1,79 @@
+[[afterAll.args]]
+type = "function"
+
+[[afterEach.args]]
+type = "function"
+
+[[beforeAll.args]]
+type = "function"
+
+[[beforeEach.args]]
+type = "function"
+
+[[describe.args]]
+type = "string"
+
+[[describe.args]]
+type = "function"
+
+[[describeFOCUS.args]]
+type = "string"
+
+[[describeFOCUS.args]]
+type = "function"
+
+[[describeSKIP.args]]
+type = "string"
+
+[[describeSKIP.args]]
+type = "function"
+
+[[expect.args]]
+type = "any"
+
+[[FIXME.args]]
+type = "string"
+required = false
+
+[FOCUS]
+args = []
+
+[[it.args]]
+type = "string"
+
+[[it.args]]
+type = "function"
+
+[[itFIXME.args]]
+type = "string"
+
+[[itFIXME.args]]
+type = "function"
+
+[[itFOCUS.args]]
+type = "string"
+
+[[itFOCUS.args]]
+type = "function"
+
+[[fit.args]]
+type = "string"
+
+[[fit.args]]
+type = "function"
+
+[[itSKIP.args]]
+type = "string"
+
+[[itSKIP.args]]
+type = "function"
+
+[[xit.args]]
+type = "string"
+
+[[xit.args]]
+type = "function"
+
+[SKIP]
+args = []
+
