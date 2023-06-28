@@ -1,13 +1,13 @@
 import type {WriteStream} from 'node:tty';
 
-export type Options = {
+export interface Options {
 	/**
 	Whether `process.argv` should be sniffed for `--color` and `--no-color` flags.
 
 	@default true
 	*/
 	readonly sniffFlags?: boolean;
-};
+}
 
 /**
 Levels:
@@ -21,7 +21,7 @@ export type ColorSupportLevel = 0 | 1 | 2 | 3;
 /**
 Detect whether the terminal supports color.
 */
-export type ColorSupport = {
+export interface ColorSupport {
 	/**
 	The color level.
 	*/
@@ -41,7 +41,7 @@ export type ColorSupport = {
 	Whether Truecolor 16 million colors are supported.
 	*/
 	has16m: boolean;
-};
+}
 
 export type ColorInfo = ColorSupport | false;
 
