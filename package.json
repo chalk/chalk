@@ -61,6 +61,7 @@
 		"xo": "^0.53.0",
 		"yoctodelay": "^2.0.0"
 	},
+	"sideEffects": false,
 	"xo": {
 		"rules": {
 			"unicorn/prefer-string-slice": "off",
