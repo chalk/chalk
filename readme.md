@@ -51,14 +51,6 @@
 		</a>
 		<br>
 		<br>
-		<a href="https://www.stackaid.us/?utm_campaign=sindre">
-			<div>
-				<img src="https://sindresorhus.com/assets/thanks/stackaid-logo.png" width="230" alt="StackAid">
-			</div>
-			<b>Fund your open source dependencies</b>
-		</a>
-		<br>
-		<br>
 	</p>
 </div>
 
