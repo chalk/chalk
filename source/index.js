@@ -19,8 +19,6 @@ const levelMapping = [
 	'ansi16m',
 ];
 
-const styles = Object.create(null);
-
 const applyOptions = (object, options = {}) => {
 	if (options.level && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
 		throw new Error('The `level` option should be an integer from 0 to 3');
@@ -45,6 +43,8 @@ function createChalk(options) {
 }
 
 Object.setPrototypeOf(createChalk.prototype, Function.prototype);
+
+const styles = Object.create(null);
 
 for (const [styleName, style] of Object.entries(ansiStyles)) {
 	styles[styleName] = {
