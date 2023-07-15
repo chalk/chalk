@@ -31,13 +31,6 @@ const applyOptions = (object, options = {}) => {
 	object.level = options.level === undefined ? colorLevel : options.level;
 };
 
-export class Chalk {
-	constructor(options) {
-		// eslint-disable-next-line no-constructor-return
-		return chalkFactory(options);
-	}
-}
-
 const chalkFactory = options => {
 	const chalk = (...strings) => strings.join(' ');
 	applyOptions(chalk, options);
@@ -202,6 +195,14 @@ const applyStyle = (self, string) => {
 Object.defineProperties(createChalk.prototype, styles);
 
 const chalk = createChalk();
+
+export class Chalk {
+	constructor(options) {
+		// eslint-disable-next-line no-constructor-return
+		return chalkFactory(options);
+	}
+}
+
 export const chalkStderr = createChalk({level: stderrColor ? stderrColor.level : 0});
 
 export {
