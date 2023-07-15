@@ -42,8 +42,6 @@ function createChalk(options) {
 	return chalkFactory(options);
 }
 
-Object.setPrototypeOf(createChalk.prototype, Function.prototype);
-
 const styles = Object.create(null);
 
 for (const [styleName, style] of Object.entries(ansiStyles)) {
@@ -192,6 +190,7 @@ const applyStyle = (self, string) => {
 	return openAll + string + closeAll;
 };
 
+Object.setPrototypeOf(createChalk.prototype, Function.prototype);
 Object.defineProperties(createChalk.prototype, styles);
 
 const chalk = createChalk();
