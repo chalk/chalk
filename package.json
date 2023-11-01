@@ -22,8 +22,8 @@
 	"scripts": {
 		"test": "xo && c8 ava && tsd",
 		"bench": "matcha benchmark.js",
-		"prepack": "node -p 'require(`fs`).renameSync(`./readme.md`, `./_readme.md`)'",
-		"postpack": "node -p 'require(`fs`).renameSync(`./_readme.md`, `./readme.md`)'"
+    "prepack": "node -p 'var fs = require(`fs`); fs.renameSync(`./readme.md`, `./_readme.md`); fs.renameSync(`./readme_npm.md`, `./readme.md`)'",
+    "postpack": "node -p 'var fs = require(`fs`); fs.renameSync(`./readme.md`, `./readme_npm.md`); fs.renameSync(`./_readme.md`, `./readme.md`);'"
 	},
 	"files": [
 		"source",
