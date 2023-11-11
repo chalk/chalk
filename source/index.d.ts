@@ -1,7 +1,12 @@
 // TODO: Make it this when TS suports that.
 // import {ModifierName, ForegroundColor, BackgroundColor, ColorName} from '#ansi-styles';
 // import {ColorInfo, ColorSupportLevel} from '#supports-color';
-import {ModifierName, ForegroundColorName, BackgroundColorName, ColorName} from './vendor/ansi-styles/index.js';
+import {
+	ModifierName,
+	ForegroundColorName,
+	BackgroundColorName,
+	ColorName,
+} from './vendor/ansi-styles/index.js';
 import {ColorInfo, ColorSupportLevel} from './vendor/supports-color/index.js';
 
 export interface Options {

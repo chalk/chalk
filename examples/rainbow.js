@@ -10,7 +10,7 @@ function rainbow(string, offset) {
 		return string;
 	}
 
-	const hueStep = 360 / string.replace(ignoreChars, '').length;
+	const hueStep = 360 / string.replaceAll(ignoreChars, '').length;
 
 	let hue = offset % 360;
 	const characters = [];
