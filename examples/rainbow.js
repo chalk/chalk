@@ -1,4 +1,4 @@
-import { setTimeout as delay } from 'node:timers/promises';
+import {setTimeout as delay} from 'node:timers/promises';
 import convertColor from 'color-convert';
 import updateLog from 'log-update';
 import chalk from '../source/index.js';
