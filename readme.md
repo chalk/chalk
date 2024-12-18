@@ -289,6 +289,8 @@ If absolute package size is important to you, I also maintain [yoctocolors](http
 - [chalk-pipe](https://github.com/LitoMore/chalk-pipe) - Create chalk style schemes with simpler style strings
 - [terminal-link](https://github.com/sindresorhus/terminal-link) - Create clickable links in the terminal
 
+*(Not accepting additional entries)*
+
 ## Maintainers
 
 - [Sindre Sorhus](https://github.com/sindresorhus)
