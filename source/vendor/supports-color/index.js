@@ -31,17 +31,29 @@ if (
 }
 
 function envForceColor() {
-	if ('FORCE_COLOR' in env) {
-		if (env.FORCE_COLOR === 'true') {
-			return 1;
-		}
-
-		if (env.FORCE_COLOR === 'false') {
-			return 0;
-		}
-
-		return env.FORCE_COLOR.length === 0 ? 1 : Math.min(Number.parseInt(env.FORCE_COLOR, 10), 3);
+	if (!('FORCE_COLOR' in env)) {
+		return;
 	}
+
+	if (env.FORCE_COLOR === 'true') {
+		return 1;
+	}
+
+	if (env.FORCE_COLOR === 'false') {
+		return 0;
+	}
+
+	if (env.FORCE_COLOR.length === 0) {
+		return 1;
+	}
+
+	const level = Math.min(Number.parseInt(env.FORCE_COLOR, 10), 3);
+
+	if (![0, 1, 2, 3].includes(level)) {
+		return;
+	}
+
+	return level;
 }
 
 function translateLevel(level) {
