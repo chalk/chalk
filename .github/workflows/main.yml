@@ -10,9 +10,8 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
+          - 20
           - 18
-          - 16
-          - 14
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,7 +19,3 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
-      - uses: codecov/codecov-action@v2
-        if: matrix.node-version == 16
-        with:
-          fail_ci_if_error: true

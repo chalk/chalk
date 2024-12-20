@@ -18,7 +18,7 @@
 	"types": "./source/index.d.ts",
 	"sideEffects": false,
 	"engines": {
-		"node": "^12.17.0 || ^14.13 || >=16.0.0"
+		"node": ">=18"
 	},
 	"scripts": {
 		"test": "xo && c8 ava && tsd",
