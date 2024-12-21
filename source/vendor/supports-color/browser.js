@@ -8,7 +8,7 @@ const level = (() => {
 
 	if (globalThis.navigator.userAgentData) {
 		const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
-		if (brand?.version > 93) {
+		if (brand && brand.version > 93) {
 			return 3;
 		}
 	}
