@@ -39,6 +39,14 @@
 npm install chalk
 ```
 
+```sh
+yarn add chalk
+```
+
+```sh
+pnpm add chalk
+```
+
 **IMPORTANT:** Chalk 5 is ESM. If you want to use Chalk with TypeScript or a build tool, you will probably want to use Chalk 4 for now. [Read more.](https://github.com/chalk/chalk/releases/tag/v5.0.0)
 
 ## Usage
