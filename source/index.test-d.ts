@@ -1,7 +1,22 @@
-import {expectType, expectAssignable, expectError, expectDeprecated} from 'tsd';
+import {
+	expectType,
+	expectAssignable,
+	expectError,
+	expectDeprecated,
+} from 'tsd';
 import chalk, {
-	Chalk, ChalkInstance, ColorInfo, ColorSupport, ColorSupportLevel, chalkStderr, supportsColor, supportsColorStderr,
-	ModifierName, ForegroundColorName, BackgroundColorName, ColorName,
+	Chalk,
+	ChalkInstance,
+	ColorInfo,
+	ColorSupport,
+	ColorSupportLevel,
+	chalkStderr,
+	supportsColor,
+	supportsColorStderr,
+	ModifierName,
+	ForegroundColorName,
+	BackgroundColorName,
+	ColorName,
 	Modifiers,
 } from './index.js';
 

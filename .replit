@@ -1,2 +1,0 @@
-language = "nodejs"
-run = "cd examples && node rainbow"

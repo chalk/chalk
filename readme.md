@@ -15,47 +15,10 @@
 
 ![](media/screenshot.png)
 
-<br>
+## Info
 
----
-
-<div align="center">
-	<p>
-		<p>
-			<sup>
-				Sindre Sorhus' open source work is supported by the community on <a href="https://github.com/sponsors/sindresorhus">GitHub Sponsors</a>
-			</sup>
-		</p>
-		<sup>Special thanks to:</sup>
-		<br>
-		<br>
-		<a href="https://standardresume.co/tech">
-			<img src="https://sindresorhus.com/assets/thanks/standard-resume-logo.svg" width="160">
-		</a>
-		<br>
-		<br>
-		<a href="https://retool.com/?utm_campaign=sindresorhus">
-			<img src="https://sindresorhus.com/assets/thanks/retool-logo.svg" width="230">
-		</a>
-		<br>
-		<br>
-		<a href="https://strapi.io/?ref=sindresorhus">
-			<div>
-				<img src="https://sindresorhus.com/assets/thanks/strapi-logo-white-bg.png" width="220" alt="Strapi">
-			</div>
-			<b>Strapi is the leading open-source headless CMS.</b>
-			<div>
-				<sup>It’s 100% JavaScript, fully customizable, and developer-first.</sup>
-			</div>
-		</a>
-		<br>
-		<br>
-	</p>
-</div>
-
----
-
-<br>
+- [Why not switch to a smaller coloring package?](https://github.com/chalk/chalk?tab=readme-ov-file#why-not-switch-to-a-smaller-coloring-package)
+- See [yoctocolors](https://github.com/sindresorhus/yoctocolors) for a smaller alternative
 
 ## Highlights
 
@@ -68,7 +31,7 @@
 - Doesn't extend `String.prototype`
 - Clean and focused
 - Actively maintained
-- [Used by ~86,000 packages](https://www.npmjs.com/browse/depended/chalk) as of October 4, 2022
+- [Used by ~115,000 packages](https://www.npmjs.com/browse/depended/chalk) as of July 4, 2024
 
 ## Install
 
@@ -288,9 +251,25 @@ Since Chrome 69, ANSI escape codes are natively supported in the developer conso
 
 If you're on Windows, do yourself a favor and use [Windows Terminal](https://github.com/microsoft/terminal) instead of `cmd.exe`.
 
-## Origin story
+## FAQ
 
-[colors.js](https://github.com/Marak/colors.js) used to be the most popular string styling module, but it has serious deficiencies like extending `String.prototype` which causes all kinds of [problems](https://github.com/yeoman/yo/issues/68) and the package is unmaintained. Although there are other packages, they either do too much or not enough. Chalk is a clean and focused alternative.
+### Why not switch to a smaller coloring package?
+
+Chalk may be larger, but there is a reason for that. It offers a more user-friendly API, well-documented types, supports millions of colors, and covers edge cases that smaller alternatives miss. Chalk is mature, reliable, and built to last.
+
+But beyond the technical aspects, there's something more critical: trust and long-term maintenance. I have been active in open source for over a decade, and I'm committed to keeping Chalk maintained. Smaller packages might seem appealing now, but there's no guarantee they will be around for the long term, or that they won't become malicious over time.
+
+Chalk is also likely already in your dependency tree (since 100K+ packages depend on it), so switching won’t save space—in fact, it might increase it. npm deduplicates dependencies, so multiple Chalk instances turn into one, but adding another package alongside it will increase your overall size.
+
+If the goal is to clean up the ecosystem, switching away from Chalk won’t even make a dent. The real problem lies with packages that have very deep dependency trees (for example, those including a lot of polyfills). Chalk has no dependencies. It's better to focus on impactful changes rather than minor optimizations.
+
+If absolute package size is important to you, I also maintain [yoctocolors](https://github.com/sindresorhus/yoctocolors), one of the smallest color packages out there.
+
+*\- [Sindre](https://github.com/sindresorhus)*
+
+### But the smaller coloring package has benchmarks showing it is faster
+
+[Micro-benchmarks are flawed](https://sindresorhus.com/blog/micro-benchmark-fallacy) because they measure performance in unrealistic, isolated scenarios, often giving a distorted view of real-world performance. Don't believe marketing fluff. All the coloring packages are more than fast enough.
 
 ## Related
 
@@ -309,6 +288,8 @@ If you're on Windows, do yourself a favor and use [Windows Terminal](https://git
 - [gradient-string](https://github.com/bokub/gradient-string) - Apply color gradients to strings
 - [chalk-pipe](https://github.com/LitoMore/chalk-pipe) - Create chalk style schemes with simpler style strings
 - [terminal-link](https://github.com/sindresorhus/terminal-link) - Create clickable links in the terminal
+
+*(Not accepting additional entries)*
 
 ## Maintainers
 
