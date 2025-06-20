@@ -2,6 +2,7 @@ name: CI
 on:
   - push
   - pull_request
+  - workflow_dispatch
 jobs:
   test:
     name: Node.js ${{ matrix.node-version }}

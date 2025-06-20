@@ -21,7 +21,7 @@
 		"node": "^12.17.0 || ^14.13 || >=16.0.0"
 	},
 	"scripts": {
-		"test": "xo && c8 ava && tsd",
+		"test": "c8 ava && tsd",
 		"bench": "matcha benchmark.js"
 	},
 	"files": [
@@ -57,7 +57,7 @@
 		"color-convert": "^2.0.1",
 		"execa": "^6.0.0",
 		"log-update": "^5.0.0",
-		"matcha": "^0.7.0",
+		"tinybench": "^4.0.1",
 		"tsd": "^0.19.0",
 		"xo": "^0.57.0",
 		"yoctodelay": "^2.0.0"
