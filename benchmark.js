@@ -1,7 +1,7 @@
 import { Bench } from "tinybench";
 import chalk from "./source/index.js";
 
-const bench = new Bench({ time: 150 });
+const bench = new Bench({ time: 1 });
 
 const chalkRed = chalk.red;
 const chalkBgRed = chalk.bgRed;
@@ -50,15 +50,23 @@ bench
 
 await bench.run();
 
-// Custom table output without samples, latency med, or throughput med
-const customTable = bench.tasks.map((task) => ({
+// Format throughput values with comma separators
+const formatThroughput = (value) => {
+	return Math.round(value).toLocaleString();
+};
+
+// Format time values in nanoseconds (converting from ms)
+const formatTime = (milliseconds) => {
+	const nanoseconds = milliseconds * 1e6;
+	return Math.round(nanoseconds).toLocaleString() + " ns";
+};
+
+// Create custom table with throughput and time columns
+const table = bench.tasks.map((task) => ({
 	"Task name": task.name,
-	// 'Latency avg (ns)': task.result.latency.mean.toFixed(2) + ' ± ' + task.result.latency.rme.toFixed(2) + '%',
-	"Throughput avg (ops/s)":
-		task.result.throughput.mean.toFixed(0) +
-		" ± " +
-		task.result.throughput.rme.toFixed(2) +
-		"%",
+	"Throughput avg (ops/s)": formatThroughput(task.result.throughput.mean),
+	"Throughput med (ops/s)": formatThroughput(task.result.throughput.p50),
+	"Avg time per op": formatTime(task.result.latency.mean),
 }));
 
-console.table(customTable);
+console.table(table);

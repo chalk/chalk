@@ -22,7 +22,7 @@
 	},
 	"scripts": {
 		"test": "c8 ava && tsd",
-		"bench": "matcha benchmark.js"
+		"bench": "node benchmark.js"
 	},
 	"files": [
 		"source",

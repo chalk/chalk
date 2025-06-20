@@ -5,12 +5,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 **Testing:**
+
 - `npm test` - Run all tests (linting, unit tests, coverage, TypeScript definitions)
 - `npx ava test/<specific-test-file>.js` - Run a specific test file
-- `npx xo` - Run linting only
 - `npx tsd` - Run TypeScript definition tests only
 
+NO LINTING. DONT ATTEMPT OT LINT
+
 **Benchmarking:**
+
 - `npm run bench` - Run performance benchmarks
 
 ## Architecture
@@ -18,16 +21,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Chalk is a zero-dependency terminal string styling library built as a pure ESM module. Key architectural elements:
 
 1. **Core Files:**
+
    - `source/index.js` - Main entry point with the chalk factory and chainable API implementation
    - `source/utilities.js` - Helper functions for string manipulation and color conversion
    - `source/vendor/` - Vendored dependencies (ansi-styles and supports-color) to avoid external dependencies
 
 2. **Internal Symbols:**
+
    - `GENERATOR` - Manages chalk instance creation and configuration
    - `STYLER` - Handles style application and chaining
    - `IS_EMPTY` - Tracks empty string optimization
 
 3. **API Design:**
+
    - Uses ES6 Proxy for dynamic property access (e.g., `chalk.red.bold`)
    - Chainable API with lazy property definition for performance
    - Supports nested styles with proper ANSI escape code management
