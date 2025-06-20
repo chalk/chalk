@@ -54,10 +54,13 @@ function createChalk(options) {
 Object.setPrototypeOf(createChalk.prototype, Function.prototype);
 
 for (const [styleName, style] of Object.entries(ansiStyles)) {
+	// Cache the style data to avoid repeated property access
+	const styleOpen = style.open;
+	const styleClose = style.close;
 	styles[styleName] = {
 		get() {
-			const builder = createBuilder(this, createStyler(style.open, style.close, this[STYLER]), this[IS_EMPTY]);
-			Object.defineProperty(this, styleName, {value: builder});
+			const builder = createBuilder(this, createStyler(styleOpen, styleClose, this[STYLER]), this[IS_EMPTY]);
+			Object.defineProperty(this, styleName, {value: builder, configurable: true});
 			return builder;
 		},
 	};
@@ -66,7 +69,7 @@ for (const [styleName, style] of Object.entries(ansiStyles)) {
 styles.visible = {
 	get() {
 		const builder = createBuilder(this, this[STYLER], true);
-		Object.defineProperty(this, 'visible', {value: builder});
+		Object.defineProperty(this, 'visible', {value: builder, configurable: true});
 		return builder;
 	},
 };
@@ -130,21 +133,22 @@ const proto = Object.defineProperties(() => {}, {
 });
 
 const createStyler = (open, close, parent) => {
-	let openAll;
-	let closeAll;
+	// Fast path for no parent
 	if (parent === undefined) {
-		openAll = open;
-		closeAll = close;
-	} else {
-		openAll = parent.openAll + open;
-		closeAll = close + parent.closeAll;
+		return {
+			open,
+			close,
+			openAll: open,
+			closeAll: close,
+			parent,
+		};
 	}
 
 	return {
 		open,
 		close,
-		openAll,
-		closeAll,
+		openAll: parent.openAll + open,
+		closeAll: close + parent.closeAll,
 		parent,
 	};
 };
@@ -152,7 +156,29 @@ const createStyler = (open, close, parent) => {
 const createBuilder = (self, _styler, _isEmpty) => {
 	// Single argument is hot path, implicit coercion is faster than anything
 	// eslint-disable-next-line no-implicit-coercion
-	const builder = (...arguments_) => applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+	const builder = (...arguments_) => {
+		// Check if called as a tagged template literal
+		if (arguments_.length > 0 && Array.isArray(arguments_[0])) {
+			// Optimize template literal handling
+			const strings = arguments_[0];
+			// Template literal string arrays have a 'raw' property
+			if (strings.raw !== undefined) {
+				let result = strings[0];
+				for (let i = 1; i < strings.length; i++) {
+					result += arguments_[i] + strings[i];
+				}
+				return applyStyle(builder, result);
+			}
+		}
+
+		// Fast path for single string argument
+		if (arguments_.length === 1) {
+			const arg = arguments_[0];
+			return applyStyle(builder, typeof arg === 'string' ? arg : String(arg));
+		}
+
+		return applyStyle(builder, arguments_.join(' '));
+	};
 
 	// We alter the prototype because we must return a function, but there is
 	// no way to create a function with a different prototype
@@ -177,7 +203,18 @@ const applyStyle = (self, string) => {
 	}
 
 	const {openAll, closeAll} = styler;
-	if (string.includes('\u001B')) {
+
+	// Fast path for simple strings without special characters
+	// Using a single indexOf with bitwise OR is faster than two separate checks
+	const hasEscape = string.indexOf('\u001B');
+	const hasNewline = string.indexOf('\n');
+
+	if (hasEscape === -1 && hasNewline === -1) {
+		return openAll + string + closeAll;
+	}
+
+	// Handle existing ANSI escape codes
+	if (hasEscape !== -1) {
 		while (styler !== undefined) {
 			// Replace any instances already present with a re-opening code
 			// otherwise only the part of the string until said closing code
@@ -191,9 +228,8 @@ const applyStyle = (self, string) => {
 	// We can move both next actions out of loop, because remaining actions in loop won't have
 	// any/visible effect on parts we add here. Close the styling before a linebreak and reopen
 	// after next line to fix a bleed issue on macOS: https://github.com/chalk/chalk/pull/92
-	const lfIndex = string.indexOf('\n');
-	if (lfIndex !== -1) {
-		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
+	if (hasNewline !== -1) {
+		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, hasNewline);
 	}
 
 	return openAll + string + closeAll;
