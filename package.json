@@ -1,6 +1,6 @@
 {
 	"name": "chalk",
-	"version": "5.4.1",
+	"version": "5.5.0",
 	"description": "Terminal string styling done right",
 	"license": "MIT",
 	"repository": "chalk/chalk",
