@@ -135,6 +135,10 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		return 3;
 	}
 
+	if (env.TERM === 'xterm-ghostty') {
+		return 3;
+	}
+
 	if ('TERM_PROGRAM' in env) {
 		const version = Number.parseInt((env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
 
