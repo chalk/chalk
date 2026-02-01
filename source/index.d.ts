@@ -122,6 +122,21 @@ export interface ChalkInstance {
 	bgAnsi256: (index: number) => this;
 
 	/**
+	Create a gradient between colors and apply it to the text.
+
+	@param colors - Array of colors (hex strings or RGB arrays) to gradient between.
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.gradient('#ff0000', '#0000ff')('Gradient text');
+	chalk.gradient([255, 0, 0], [0, 0, 255])('RGB gradient');
+	```
+	*/
+	gradient: (...colors: Array<string | [number, number, number]>) => this;
+
+	/**
 	Modifier: Reset the current style.
 	*/
 	readonly reset: this;
@@ -228,6 +243,27 @@ export interface ChalkInstance {
 	readonly bgMagentaBright: this;
 	readonly bgCyanBright: this;
 	readonly bgWhiteBright: this;
+
+	/**
+	Create a themed Chalk instance with custom styles.
+
+	@param theme - An object where keys are style names and values are Chalk instances.
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	const themedChalk = chalk.theme({
+		error: chalk.red.bold,
+		success: chalk.green,
+		warning: chalk.yellow,
+	});
+
+	console.log(themedChalk.error('This is an error'));
+	console.log(themedChalk.success('This is a success'));
+	```
+	*/
+	theme<T extends Record<string, this>>(theme: T): this & T;
 }
 
 /**

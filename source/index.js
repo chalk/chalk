@@ -3,6 +3,8 @@ import supportsColor from '#supports-color';
 import { // eslint-disable-line import/order
 	stringReplaceAll,
 	stringEncaseCRLFWithFirstIndex,
+	createGradientStyler,
+	applyGradient,
 } from './utilities.js';
 
 const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
@@ -71,6 +73,18 @@ styles.visible = {
 	},
 };
 
+styles.theme = {
+	value(theme) {
+		const themed = createBuilder(this, this[STYLER], this[IS_EMPTY]);
+
+		for (const [key, value] of Object.entries(theme)) {
+			Object.defineProperty(themed, key, {value});
+		}
+
+		return themed;
+	},
+};
+
 const getModelAnsi = (model, level, type, ...arguments_) => {
 	if (model === 'rgb') {
 		if (level === 'ansi16m') {
@@ -115,6 +129,12 @@ for (const model of usedModels) {
 		},
 	};
 }
+
+styles.gradient = {
+	get() {
+		return (...colors) => createBuilder(this, createGradientStyler(colors), this[IS_EMPTY]);
+	},
+};
 
 const proto = Object.defineProperties(() => {}, {
 	...styles,
@@ -176,7 +196,39 @@ const applyStyle = (self, string) => {
 		return string;
 	}
 
-	const {openAll, closeAll} = styler;
+	// Find gradient styler in the chain
+	let gradientStyler = null;
+	let current = styler;
+
+	while (current) {
+		if (current.gradient) {
+			gradientStyler = current;
+			break;
+		}
+
+		current = current.parent;
+	}
+
+	let openAll;
+	let closeAll;
+	if (gradientStyler) {
+		// Build openAll/closeAll excluding gradient stylers
+		openAll = '';
+		closeAll = '';
+		current = styler;
+
+		while (current) {
+			if (!current.gradient) {
+				openAll = current.open + openAll;
+				closeAll += current.close;
+			}
+
+			current = current.parent;
+		}
+	} else {
+		({openAll, closeAll} = styler);
+	}
+
 	if (string.includes('\u001B')) {
 		while (styler !== undefined) {
 			// Replace any instances already present with a re-opening code
@@ -187,6 +239,13 @@ const applyStyle = (self, string) => {
 			styler = styler.parent;
 		}
 	}
+
+	// Apply gradient if present
+	if (gradientStyler) {
+		string = applyGradient(string, gradientStyler.colors, self.level);
+	}
+
+	// We can move both next actions out of loop, because remaining actions in loop won't have
 
 	// We can move both next actions out of loop, because remaining actions in loop won't have
 	// any/visible effect on parts we add here. Close the styling before a linebreak and reopen

@@ -27,6 +27,8 @@
 - No dependencies
 - Ability to nest styles
 - [256/Truecolor color support](#256-and-truecolor-color-support)
+- [Themes](#themes) for consistent styling
+- [Gradients](#gradients) for smooth color transitions
 - Auto-detects color support
 - Doesn't extend `String.prototype`
 - Clean and focused
@@ -87,18 +89,6 @@ log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
 log(chalk.hex('#DEADED').bold('Bold gray!'));
 ```
 
-Easily define your own themes:
-
-```js
-import chalk from 'chalk';
-
-const error = chalk.bold.red;
-const warning = chalk.hex('#FFA500'); // Orange color
-
-console.log(error('Error!'));
-console.log(warning('Warning!'));
-```
-
 Take advantage of console.log [string substitution](https://nodejs.org/docs/latest/api/console.html#console_console_log_data_args):
 
 ```js
@@ -107,6 +97,40 @@ import chalk from 'chalk';
 const name = 'Sindre';
 console.log(chalk.green('Hello %s'), name);
 //=> 'Hello Sindre'
+```
+
+## Themes
+
+Define a theme with multiple styles for consistent coloring:
+
+```js
+import chalk from 'chalk';
+
+const themedChalk = chalk.theme({
+	error: chalk.bold.red,
+	success: chalk.green,
+	warning: chalk.hex('#FFA500'), // Orange
+	info: chalk.blue,
+	title: chalk.cyan.bold.underline,
+});
+
+console.log(themedChalk.error('Error!'));
+console.log(themedChalk.success('Success!'));
+console.log(themedChalk.warning('Warning!'));
+console.log(themedChalk.info('Info'));
+console.log(themedChalk.title('Title'));
+```
+
+Themes work with all Chalk features including gradients and chaining:
+
+```js
+const themedChalk = chalk.theme({
+	rainbow: chalk.gradient('#ff0000', '#00ff00', '#0000ff'),
+	important: chalk.red.bold.underline,
+});
+
+console.log(themedChalk.rainbow('Rainbow text'));
+console.log(themedChalk.important.bgWhite('Important message'));
 ```
 
 ## API
@@ -118,6 +142,26 @@ Example: `chalk.red.bold.underline('Hello', 'world');`
 Chain [styles](#styles) and call the last one as a method with a string argument. Order doesn't matter, and later styles take precedent in case of a conflict. This simply means that `chalk.red.yellow.green` is equivalent to `chalk.green`.
 
 Multiple arguments will be separated by space.
+
+### chalk.theme(theme)
+
+Create a themed Chalk instance with custom styles.
+
+```js
+chalk.theme({
+	error: chalk.red.bold,
+	success: chalk.green,
+});
+```
+
+### chalk.gradient(...colors)
+
+Apply a color gradient to text.
+
+```js
+chalk.gradient('#ff0000', '#0000ff')('Hello');
+chalk.gradient([255, 0, 0], [0, 0, 255])('World');
+```
 
 ### chalk.level
 
@@ -242,6 +286,37 @@ The following color models can be used:
 - [`rgb`](https://en.wikipedia.org/wiki/RGB_color_model) - Example: `chalk.rgb(255, 136, 0).bold('Orange!')`
 - [`hex`](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) - Example: `chalk.hex('#FF8800').bold('Orange!')`
 - [`ansi256`](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) - Example: `chalk.bgAnsi256(194)('Honeydew, more or less')`
+
+## Gradients
+
+Apply smooth color gradients to text:
+
+```js
+import chalk from 'chalk';
+
+// Two-color gradient
+console.log(chalk.gradient('#ff0000', '#0000ff')('Hello World'));
+
+// RGB arrays
+console.log(chalk.gradient([255, 0, 0], [0, 255, 0], [0, 0, 255])('Rainbow'));
+
+// Multiple colors
+console.log(chalk.gradient('#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff')('Spectrum'));
+```
+
+Gradients work with all Chalk features:
+
+```js
+// Combine with other styles
+console.log(chalk.gradient('#ff0080', '#8000ff').bold('Bold gradient'));
+
+// Use in themes
+const themedChalk = chalk.theme({
+	rainbow: chalk.gradient('#ff0000', '#00ff00', '#0000ff'),
+});
+
+console.log(themedChalk.rainbow('Themed rainbow'));
+```
 
 ## Browser support
 
