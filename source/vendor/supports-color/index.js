@@ -91,7 +91,15 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		return 0;
 	}
 
-	const min = forceColor || 0;
+	// When `FORCE_COLOR` is set to a specific level, return that level
+	// directly instead of using it as a minimum. This ensures that
+	// e.g. FORCE_COLOR=1 gives exactly level 1, not a higher level
+	// based on terminal capabilities.
+	if (forceColor !== undefined) {
+		return forceColor;
+	}
+
+	const min = 0;
 
 	if (env.TERM === 'dumb') {
 		return min;
