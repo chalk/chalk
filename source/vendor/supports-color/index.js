@@ -81,6 +81,12 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		}
 	}
 
+	// If FORCE_COLOR is explicitly set, return it immediately
+	// to prevent terminal detection from overriding it
+	if (forceColor !== undefined) {
+		return forceColor;
+	}
+
 	// Check for Azure DevOps pipelines.
 	// Has to be above the `!streamIsTTY` check.
 	if ('TF_BUILD' in env && 'AGENT_NAME' in env) {
