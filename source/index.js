@@ -22,7 +22,7 @@ const levelMapping = [
 const styles = Object.create(null);
 
 const applyOptions = (object, options = {}) => {
-	if (options.level && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
+	if (options.level !== undefined && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
 		throw new Error('The `level` option should be an integer from 0 to 3');
 	}
 
@@ -151,8 +151,15 @@ const createStyler = (open, close, parent) => {
 
 const createBuilder = (self, _styler, _isEmpty) => {
 	// Single argument is hot path, implicit coercion is faster than anything
-	// eslint-disable-next-line no-implicit-coercion
-	const builder = (...arguments_) => applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+	const builder = (...arguments_) => {
+		// Tagged template literal: first argument is a strings array with a `.raw` property
+		if (arguments_.length > 0 && Array.isArray(arguments_[0]) && 'raw' in arguments_[0]) {
+			return applyStyle(builder, String.raw(arguments_[0], ...arguments_.slice(1)));
+		}
+
+		// eslint-disable-next-line no-implicit-coercion
+		return applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+	};
 
 	// We alter the prototype because we must return a function, but there is
 	// no way to create a function with a different prototype

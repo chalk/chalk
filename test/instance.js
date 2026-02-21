@@ -22,3 +22,15 @@ test('the `level` option should be a number from 0 to 3', t => {
 	}, {message: /should be an integer from 0 to 3/});
 	/* eslint-enable no-new */
 });
+
+test('the `level` option rejects null and NaN (S5)', t => {
+	/* eslint-disable no-new */
+	t.throws(() => {
+		new Chalk({level: null});
+	}, {message: /should be an integer from 0 to 3/});
+
+	t.throws(() => {
+		new Chalk({level: Number.NaN});
+	}, {message: /should be an integer from 0 to 3/});
+	/* eslint-enable no-new */
+});

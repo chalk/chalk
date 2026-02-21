@@ -124,3 +124,22 @@ test('keeps function prototype methods', t => {
 	t.is(chalk.bind(chalk, 'foo')(), 'foo');
 	t.is(chalk.call(chalk, 'foo'), 'foo');
 });
+
+test('accept numeric hex values in .hex() (S2)', t => {
+	// Numeric values should behave identically to their string equivalents
+	t.is(new Chalk({level: 3}).hex(0xFF_00_00)('hello'), new Chalk({level: 3}).hex('#FF0000')('hello'));
+	t.is(new Chalk({level: 3}).bgHex(0xFF_00_FF)('hello'), new Chalk({level: 3}).bgHex('#FF00FF')('hello'));
+	// Leading zeros must be preserved: 0x0000FF is blue, not a garbled 3-char match
+	t.is(new Chalk({level: 3}).hex(0x00_00_FF)('hello'), new Chalk({level: 3}).hex('#0000FF')('hello'));
+	t.is(new Chalk({level: 3}).hex(0x00_FF_00)('hello'), new Chalk({level: 3}).hex('#00FF00')('hello'));
+});
+
+test('support tagged template literals with interpolations (P6)', t => {
+	const name = 'World';
+	t.is(chalk.red`hello ${name}`, '\u001B[31mhello World\u001B[39m');
+	t.is(chalk.bold`count: ${42}`, '\u001B[1mcount: 42\u001B[22m');
+	// Without interpolations should still work
+	t.is(chalk.red`hello`, '\u001B[31mhello\u001B[39m');
+	// Array arguments (not template literals) must be unaffected
+	t.is(chalk.bold(['foo', 'bar']), '\u001B[1mfoo,bar\u001B[22m');
+});

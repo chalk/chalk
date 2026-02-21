@@ -40,7 +40,8 @@ function envForceColor() {
 			return 0;
 		}
 
-		return env.FORCE_COLOR.length === 0 ? 1 : Math.min(Number.parseInt(env.FORCE_COLOR, 10), 3);
+		const parsed = Number.parseInt(env.FORCE_COLOR, 10);
+		return env.FORCE_COLOR.length === 0 ? 1 : (Number.isNaN(parsed) ? 1 : Math.min(parsed, 3));
 	}
 }
 
@@ -58,12 +59,8 @@ function translateLevel(level) {
 }
 
 function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
-	const noFlagForceColor = envForceColor();
-	if (noFlagForceColor !== undefined) {
-		flagForceColor = noFlagForceColor;
-	}
-
-	const forceColor = sniffFlags ? flagForceColor : noFlagForceColor;
+	const envColor = envForceColor();
+	const forceColor = sniffFlags ? (envColor === undefined ? flagForceColor : envColor) : envColor;
 
 	if (forceColor === 0) {
 		return 0;

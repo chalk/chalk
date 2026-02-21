@@ -15,7 +15,7 @@ function rainbow(string, offset) {
 	let hue = offset % 360;
 	const characters = [];
 	for (const character of string) {
-		if (ignoreChars.test(character)) {
+		if (character < '!' || character > '~') {
 			characters.push(character);
 		} else {
 			characters.push(chalk.hex(convertColor.hsl.hex(hue, 100, 50))(character));

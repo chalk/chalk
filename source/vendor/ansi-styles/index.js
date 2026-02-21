@@ -133,7 +133,8 @@ function assembleStyles() {
 		},
 		hexToRgb: {
 			value(hex) {
-				const matches = /[a-f\d]{6}|[a-f\d]{3}/i.exec(hex.toString(16));
+				const hexString = typeof hex === 'number' ? hex.toString(16).padStart(6, '0') : String(hex);
+				const matches = /[a-f\d]{6}|[a-f\d]{3}/i.exec(hexString);
 				if (!matches) {
 					return [0, 0, 0];
 				}
