@@ -150,9 +150,11 @@ const createStyler = (open, close, parent) => {
 };
 
 const createBuilder = (self, _styler, _isEmpty) => {
-	// Single argument is hot path, implicit coercion is faster than anything
+	// Single argument is the hot path, implicit coercion is faster than anything.
+	// Two arguments is also common (e.g., chalk.red('Error:', message)),
+	// so we optimize it with direct concatenation instead of join().
 	// eslint-disable-next-line no-implicit-coercion
-	const builder = (...arguments_) => applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+	const builder = (...arguments_) => applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : ((arguments_.length === 2) ? (arguments_[0] + ' ' + arguments_[1]) : arguments_.join(' ')));
 
 	// We alter the prototype because we must return a function, but there is
 	// no way to create a function with a different prototype

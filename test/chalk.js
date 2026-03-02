@@ -69,6 +69,7 @@ test('alias gray to grey', t => {
 
 test('support variable number of arguments', t => {
 	t.is(chalk.red('foo', 'bar'), '\u001B[31mfoo bar\u001B[39m');
+	t.is(chalk.red('foo', 'bar', 'baz'), '\u001B[31mfoo bar baz\u001B[39m');
 });
 
 test('support falsy values', t => {

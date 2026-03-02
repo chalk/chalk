@@ -25,6 +25,14 @@ suite('chalk', () => {
 		chalkRed('the fox jumps over the lazy dog');
 	});
 
+	bench('cached: 1 style with 2 arguments', () => {
+		chalkRed('Error:', 'the fox jumps over the lazy dog');
+	});
+
+	bench('cached: 1 style with 3 arguments', () => {
+		chalkRed('Error:', 'the fox', 'jumps');
+	});
+
 	bench('cached: 2 styles', () => {
 		chalkBlueBgRed('the fox jumps over the lazy dog');
 	});
