@@ -93,6 +93,12 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 
 	const min = forceColor || 0;
 
+	// If forceColor was explicitly set (via FORCE_COLOR env or --color flag),
+	// respect it and don't override with auto-detection
+	if (forceColor !== undefined) {
+		return min;
+	}
+
 	if (env.TERM === 'dumb') {
 		return min;
 	}
