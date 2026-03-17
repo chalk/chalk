@@ -150,12 +150,30 @@ const createStyler = (open, close, parent) => {
 };
 
 const createBuilder = (self, _styler, _isEmpty) => {
-	// Single argument is hot path, implicit coercion is faster than anything
-	// eslint-disable-next-line no-implicit-coercion
-	const builder = (...arguments_) => applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+	const builder = (...arguments_) => {
+		if (arguments_.length === 1) {
+			const argument = arguments_[0];
+			if (typeof argument === 'string' || typeof argument === 'number') {
+				return applyStyle(builder, String(argument));
+			}
 
-	// We alter the prototype because we must return a function, but there is
-	// no way to create a function with a different prototype
+			return applyStyle(builder, String(argument));
+		}
+
+		const firstArgument = arguments_[0];
+		if (firstArgument && firstArgument.raw !== undefined) {
+			const {raw} = firstArgument;
+			let string = raw[0];
+			for (let index = 1; index < raw.length; index++) {
+				string += (index < arguments_.length ? String(arguments_[index]) : '') + raw[index];
+			}
+
+			return applyStyle(builder, string);
+		}
+
+		return applyStyle(builder, arguments_.join(' '));
+	};
+
 	Object.setPrototypeOf(builder, proto);
 
 	builder[GENERATOR] = self;

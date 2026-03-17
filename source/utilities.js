@@ -1,21 +1,24 @@
 // TODO: When targeting Node.js 16, use `String.prototype.replaceAll`.
 export function stringReplaceAll(string, substring, replacer) {
-	let index = string.indexOf(substring);
+	const index = string.indexOf(substring);
 	if (index === -1) {
 		return string;
 	}
 
 	const substringLength = substring.length;
-	let endIndex = 0;
-	let returnValue = '';
-	do {
-		returnValue += string.slice(endIndex, index) + substring + replacer;
-		endIndex = index + substringLength;
-		index = string.indexOf(substring, endIndex);
-	} while (index !== -1);
+	const replacement = substring + replacer;
+	let result = '';
+	let lastIndex = 0;
+	let currentIndex = index;
 
-	returnValue += string.slice(endIndex);
-	return returnValue;
+	do {
+		result += string.slice(lastIndex, currentIndex) + replacement;
+		lastIndex = currentIndex + substringLength;
+		currentIndex = string.indexOf(substring, lastIndex);
+	} while (currentIndex !== -1);
+
+	result += string.slice(lastIndex);
+	return result;
 }
 
 export function stringEncaseCRLFWithFirstIndex(string, prefix, postfix, index) {
