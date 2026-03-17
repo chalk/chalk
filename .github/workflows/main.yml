@@ -22,4 +22,4 @@ jobs:
       - uses: codecov/codecov-action@v2
         if: matrix.node-version == 16
         with:
-          fail_ci_if_error: false
+          fail_ci_if_error: true
