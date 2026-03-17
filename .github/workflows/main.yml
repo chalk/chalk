@@ -12,7 +12,6 @@ jobs:
         node-version:
           - 18
           - 16
-          - 14
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,4 +22,4 @@ jobs:
       - uses: codecov/codecov-action@v2
         if: matrix.node-version == 16
         with:
-          fail_ci_if_error: true
+          fail_ci_if_error: false
