@@ -20,7 +20,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
-      - uses: codecov/codecov-action@v2
+      - uses: qltysh/qlty-action/coverage@v2
         if: matrix.node-version == 16
         with:
-          fail_ci_if_error: true
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: coverage/lcov.info
