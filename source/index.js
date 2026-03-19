@@ -5,7 +5,7 @@ import { // eslint-disable-line import/order
 	stringEncaseCRLFWithFirstIndex,
 } from './utilities.js';
 
-const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
+const { stdout: stdoutColor, stderr: stderrColor } = supportsColor;
 
 const GENERATOR = Symbol('GENERATOR');
 const STYLER = Symbol('STYLER');
@@ -57,7 +57,7 @@ for (const [styleName, style] of Object.entries(ansiStyles)) {
 	styles[styleName] = {
 		get() {
 			const builder = createBuilder(this, createStyler(style.open, style.close, this[STYLER]), this[IS_EMPTY]);
-			Object.defineProperty(this, styleName, {value: builder});
+			Object.defineProperty(this, styleName, { value: builder });
 			return builder;
 		},
 	};
@@ -66,7 +66,7 @@ for (const [styleName, style] of Object.entries(ansiStyles)) {
 styles.visible = {
 	get() {
 		const builder = createBuilder(this, this[STYLER], true);
-		Object.defineProperty(this, 'visible', {value: builder});
+		Object.defineProperty(this, 'visible', { value: builder });
 		return builder;
 	},
 };
@@ -96,7 +96,7 @@ const usedModels = ['rgb', 'hex', 'ansi256'];
 for (const model of usedModels) {
 	styles[model] = {
 		get() {
-			const {level} = this;
+			const { level } = this;
 			return function (...arguments_) {
 				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'color', ...arguments_), ansiStyles.color.close, this[STYLER]);
 				return createBuilder(this, styler, this[IS_EMPTY]);
@@ -107,7 +107,7 @@ for (const model of usedModels) {
 	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
 	styles[bgModel] = {
 		get() {
-			const {level} = this;
+			const { level } = this;
 			return function (...arguments_) {
 				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'bgColor', ...arguments_), ansiStyles.bgColor.close, this[STYLER]);
 				return createBuilder(this, styler, this[IS_EMPTY]);
@@ -116,7 +116,7 @@ for (const model of usedModels) {
 	};
 }
 
-const proto = Object.defineProperties(() => {}, {
+const proto = Object.defineProperties(() => { }, {
 	...styles,
 	level: {
 		enumerable: true,
@@ -152,7 +152,15 @@ const createStyler = (open, close, parent) => {
 const createBuilder = (self, _styler, _isEmpty) => {
 	// Single argument is hot path, implicit coercion is faster than anything
 	// eslint-disable-next-line no-implicit-coercion
-	const builder = (...arguments_) => applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+	const builder = (...arguments_) => applyStyle(builder,
+		// Fast path for common 2 argument
+		// Using `== null` to handle both null and undefined
+		// and using String() for other values to preserve toString() coercion
+		(arguments_.length === 1) ? ('' + arguments_[0]) : (arguments_.length === 2) ? (
+			(arguments_[0] == null ? '' : String(arguments_[0])) + ' ' +
+			(arguments_[1] == null ? '' : String(arguments_[1]))
+		) : arguments_.join(' ')
+	);
 
 	// We alter the prototype because we must return a function, but there is
 	// no way to create a function with a different prototype
@@ -176,7 +184,7 @@ const applyStyle = (self, string) => {
 		return string;
 	}
 
-	const {openAll, closeAll} = styler;
+	const { openAll, closeAll } = styler;
 	if (string.includes('\u001B')) {
 		while (styler !== undefined) {
 			// Replace any instances already present with a re-opening code
@@ -202,7 +210,7 @@ const applyStyle = (self, string) => {
 Object.defineProperties(createChalk.prototype, styles);
 
 const chalk = createChalk();
-export const chalkStderr = createChalk({level: stderrColor ? stderrColor.level : 0});
+export const chalkStderr = createChalk({ level: stderrColor ? stderrColor.level : 0 });
 
 export {
 	modifierNames,
