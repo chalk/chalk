@@ -52,6 +52,7 @@
 	],
 	"devDependencies": {
 		"@types/node": "^16.11.10",
+		"ansi-styles": "^6.2.3",
 		"ava": "^3.15.0",
 		"c8": "^7.10.0",
 		"color-convert": "^2.0.1",
@@ -59,16 +60,20 @@
 		"log-update": "^5.0.0",
 		"matcha": "^0.7.0",
 		"tsd": "^0.19.0",
-		"xo": "^0.57.0",
+		"xo": "^0.54.2",
 		"yoctodelay": "^2.0.0"
 	},
 	"xo": {
+		"ignores": [
+			"source/vendor"
+		],
 		"rules": {
 			"unicorn/prefer-string-slice": "off",
 			"@typescript-eslint/consistent-type-imports": "off",
 			"@typescript-eslint/consistent-type-exports": "off",
 			"@typescript-eslint/consistent-type-definitions": "off",
-			"unicorn/expiring-todo-comments": "off"
+			"unicorn/expiring-todo-comments": "off",
+			"no-warning-comments": "off"
 		}
 	},
 	"c8": {

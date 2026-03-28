@@ -9,12 +9,12 @@ for (const key of Object.keys(styles)) {
 	// We skip `overline` as almost no terminal supports it so we cannot show it off.
 	if (
 		key === 'reset'
-			|| key === 'hidden'
-			|| key === 'grey'
-			|| key === 'bgGray'
-			|| key === 'bgGrey'
-			|| key === 'overline'
-			|| key.endsWith('Bright')
+		|| key === 'hidden'
+		|| key === 'grey'
+		|| key === 'bgGray'
+		|| key === 'bgGrey'
+		|| key === 'overline'
+		|| key.endsWith('Bright')
 	) {
 		continue;
 	}
