@@ -12,7 +12,7 @@ test('create an isolated context where colors can be disabled (by level)', t => 
 });
 
 test('the `level` option should be a number from 0 to 3', t => {
-	/* eslint-disable no-new */
+	/* eslint-disable no-new -- Ignore */
 	t.throws(() => {
 		new Chalk({level: 10});
 	}, {message: /should be an integer from 0 to 3/});

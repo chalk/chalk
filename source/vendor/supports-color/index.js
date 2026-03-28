@@ -124,7 +124,7 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	if ('TEAMCITY_VERSION' in env) {
-		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
+		return /^(?:9\.0*[1-9]\d*\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
 	}
 
 	if (env.COLORTERM === 'truecolor') {
@@ -158,7 +158,7 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		}
 	}
 
-	if (/-256(color)?$/i.test(env.TERM)) {
+	if (/-256(?:color)?$/i.test(env.TERM)) {
 		return 2;
 	}
 

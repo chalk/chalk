@@ -1,5 +1,5 @@
 /* globals suite, bench */
-import chalk from './index.js';
+import chalk from './source/index.js';
 
 suite('chalk', () => {
 	const chalkRed = chalk.red;

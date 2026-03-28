@@ -1,9 +1,9 @@
-import ansiStyles from '#ansi-styles';
-import supportsColor from '#supports-color';
-import { // eslint-disable-line import/order
+import {
 	stringReplaceAll,
 	stringEncaseCRLFWithFirstIndex,
 } from './utilities.js';
+import ansiStyles from '#ansi-styles';
+import supportsColor from '#supports-color';
 
 const {stdout: stdoutColor, stderr: stderrColor} = supportsColor;
 
@@ -116,18 +116,21 @@ for (const model of usedModels) {
 	};
 }
 
-const proto = Object.defineProperties(() => {}, {
-	...styles,
-	level: {
-		enumerable: true,
-		get() {
-			return this[GENERATOR].level;
-		},
-		set(level) {
-			this[GENERATOR].level = level;
+const proto = Object.defineProperties(
+	() => {},
+	{
+		...styles,
+		level: {
+			enumerable: true,
+			get() {
+				return this[GENERATOR].level;
+			},
+			set(level) {
+				this[GENERATOR].level = level;
+			},
 		},
 	},
-});
+);
 
 const createStyler = (open, close, parent) => {
 	let openAll;
@@ -166,7 +169,8 @@ const createBuilder = (self, _styler, _isEmpty) => {
 };
 
 const applyStyle = (self, string) => {
-	if (self.level <= 0 || !string) {
+	// Read the level directly off the generator to skip the `level` getter dispatch on this hot path
+	if (self[GENERATOR].level <= 0 || !string) {
 		return self[IS_EMPTY] ? '' : string;
 	}
 

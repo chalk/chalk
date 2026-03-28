@@ -1,18 +1,17 @@
-/* eslint-env browser */
-
 const level = (() => {
 	if (!('navigator' in globalThis)) {
 		return 0;
 	}
 
 	if (globalThis.navigator.userAgentData) {
+		// eslint-disable-next-line no-undef
 		const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
 		if (brand && brand.version > 93) {
 			return 3;
 		}
 	}
 
-	if (/\b(Chrome|Chromium)\//.test(globalThis.navigator.userAgent)) {
+	if (/\b(?:Chrome|Chromium)\//.test(globalThis.navigator.userAgent)) {
 		return 1;
 	}
 

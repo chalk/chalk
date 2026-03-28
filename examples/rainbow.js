@@ -3,19 +3,19 @@ import convertColor from 'color-convert';
 import updateLog from 'log-update';
 import chalk from '../source/index.js';
 
-const ignoreChars = /[^!-~]/g;
+const ignoreCharacters = /[^\u{0021}-\u{007E}]/gu;
 
 function rainbow(string, offset) {
 	if (!string || string.length === 0) {
 		return string;
 	}
 
-	const hueStep = 360 / string.replaceAll(ignoreChars, '').length;
+	const hueStep = 360 / string.replaceAll(ignoreCharacters, '').length;
 
 	let hue = offset % 360;
 	const characters = [];
 	for (const character of string) {
-		if (ignoreChars.test(character)) {
+		if (ignoreCharacters.test(character)) {
 			characters.push(character);
 		} else {
 			characters.push(chalk.hex(convertColor.hsl.hex(hue, 100, 50))(character));

@@ -110,7 +110,7 @@ export interface ChalkInstance {
 	bgHex: (color: string) => this;
 
 	/**
-	Use a [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set background color.
+	Use an [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set background color.
 
 	@example
 	```
@@ -247,8 +247,14 @@ export const chalkStderr: typeof chalk;
 export const supportsColorStderr: typeof supportsColor;
 
 export {
-	ModifierName, ForegroundColorName, BackgroundColorName, ColorName,
-	modifierNames, foregroundColorNames, backgroundColorNames, colorNames,
+	ModifierName,
+	ForegroundColorName,
+	BackgroundColorName,
+	ColorName,
+	modifierNames,
+	foregroundColorNames,
+	backgroundColorNames,
+	colorNames,
 // } from '#ansi-styles';
 } from './vendor/ansi-styles/index.js';
 
@@ -299,27 +305,27 @@ export type Color = ColorName;
 
 Basic modifier names.
 */
-export const modifiers: readonly Modifiers[];
+export const modifiers: readonly ModifierName[];
 
 /**
 @deprecated Use `foregroundColorNames` instead.
 
 Basic foreground color names.
 */
-export const foregroundColors: readonly ForegroundColor[];
+export const foregroundColors: readonly ForegroundColorName[];
 
 /**
 @deprecated Use `backgroundColorNames` instead.
 
 Basic background color names.
 */
-export const backgroundColors: readonly BackgroundColor[];
+export const backgroundColors: readonly BackgroundColorName[];
 
 /**
 @deprecated Use `colorNames` instead.
 
 Basic color names. The combination of foreground and background color names.
 */
-export const colors: readonly Color[];
+export const colors: readonly ColorName[];
 
 export default chalk;
