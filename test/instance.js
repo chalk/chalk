@@ -20,5 +20,13 @@ test('the `level` option should be a number from 0 to 3', t => {
 	t.throws(() => {
 		new Chalk({level: -1});
 	}, {message: /should be an integer from 0 to 3/});
+
+	t.throws(() => {
+		new Chalk({level: null});
+	}, {message: /should be an integer from 0 to 3/});
+
+	t.throws(() => {
+		new Chalk({level: Number.NaN});
+	}, {message: /should be an integer from 0 to 3/});
 	/* eslint-enable no-new */
 });
