@@ -74,6 +74,8 @@ export interface ChalkInstance {
 	/**
 	Use an [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set text color.
 
+	The value is downsampled to the 16-color palette on terminals that only support basic colors (level 1), so `chalk.ansi256(196)` becomes 91 (ANSI escape for bright red).
+
 	@example
 	```
 	import chalk from 'chalk';
@@ -111,6 +113,8 @@ export interface ChalkInstance {
 
 	/**
 	Use an [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set background color.
+
+	The value is downsampled to the 16-color palette on terminals that only support basic colors (level 1), so `chalk.bgAnsi256(196)` becomes 101 (ANSI escape for bright red background).
 
 	@example
 	```
