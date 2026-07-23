@@ -105,9 +105,28 @@ test('properly convert RGB to 256 colors on basic color terminals', t => {
 	t.is(new Chalk({level: 3}).bgHex('#FF0000')('hello'), '\u001B[48;2;255;0;0mhello\u001B[49m');
 });
 
-test('don\'t emit RGB codes if level is 0', t => {
+test('properly convert ANSI 256 to 16 colors on basic color terminals', t => {
+	t.is(new Chalk({level: 1}).ansi256(196)('hello'), '\u001B[91mhello\u001B[39m');
+	t.is(new Chalk({level: 1}).bgAnsi256(196)('hello'), '\u001B[101mhello\u001B[49m');
+	t.is(new Chalk({level: 1}).ansi256(2)('hello'), '\u001B[32mhello\u001B[39m');
+	t.is(new Chalk({level: 1}).bgAnsi256(2)('hello'), '\u001B[42mhello\u001B[49m');
+	t.is(new Chalk({level: 1}).ansi256(8)('hello'), '\u001B[90mhello\u001B[39m');
+	t.is(new Chalk({level: 1}).ansi256(232)('hello'), '\u001B[30mhello\u001B[39m');
+	t.is(new Chalk({level: 1}).ansi256(255)('hello'), '\u001B[37mhello\u001B[39m');
+});
+
+test('keep ANSI 256 colors on 256 color and Truecolor terminals', t => {
+	t.is(new Chalk({level: 2}).ansi256(196)('hello'), '\u001B[38;5;196mhello\u001B[39m');
+	t.is(new Chalk({level: 2}).bgAnsi256(196)('hello'), '\u001B[48;5;196mhello\u001B[49m');
+	t.is(new Chalk({level: 3}).ansi256(196)('hello'), '\u001B[38;5;196mhello\u001B[39m');
+	t.is(new Chalk({level: 3}).bgAnsi256(196)('hello'), '\u001B[48;5;196mhello\u001B[49m');
+});
+
+test('don\'t emit color codes if level is 0', t => {
 	t.is(new Chalk({level: 0}).hex('#FF0000')('hello'), 'hello');
 	t.is(new Chalk({level: 0}).bgHex('#FF0000')('hello'), 'hello');
+	t.is(new Chalk({level: 0}).ansi256(196)('hello'), 'hello');
+	t.is(new Chalk({level: 0}).bgAnsi256(196)('hello'), 'hello');
 });
 
 test('supports blackBright color', t => {
