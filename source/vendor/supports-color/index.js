@@ -43,7 +43,17 @@ function envForceColor() {
 		return 0;
 	}
 
-	return env.FORCE_COLOR.length === 0 ? 1 : Math.min(Number.parseInt(env.FORCE_COLOR, 10), 3);
+	if (env.FORCE_COLOR.length === 0) {
+		return 1;
+	}
+
+	const level = Math.min(Number.parseInt(env.FORCE_COLOR, 10), 3);
+
+	if (![0, 1, 2, 3].includes(level)) {
+		return;
+	}
+
+	return level;
 }
 
 function translateLevel(level) {
@@ -81,6 +91,11 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		if (hasFlag('color=256')) {
 			return 2;
 		}
+	}
+
+	// A numeric `FORCE_COLOR` requests an exact level, while `FORCE_COLOR=true` and `FORCE_COLOR=` only enable color and let the level be detected.
+	if (noFlagForceColor !== undefined && !Number.isNaN(Number.parseInt(env.FORCE_COLOR, 10))) {
+		return noFlagForceColor;
 	}
 
 	// Check for Azure DevOps pipelines.
