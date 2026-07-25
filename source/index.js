@@ -99,26 +99,24 @@ const getModelAnsi = (model, level, type, ...arguments_) => {
 const usedModels = ['rgb', 'hex', 'ansi256'];
 
 for (const model of usedModels) {
-	styles[model] = {
-		get() {
-			const {level} = this;
-			return function (...arguments_) {
-				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'color', ...arguments_), ansiStyles.color.close, this[STYLER]);
-				return createBuilder(this, styler, this[IS_EMPTY]);
-			};
-		},
-	};
+	const capitalizedModel = model[0].toUpperCase() + model.slice(1);
 
-	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
-	styles[bgModel] = {
-		get() {
-			const {level} = this;
-			return function (...arguments_) {
-				const styler = createStyler(getModelAnsi(model, levelMapping[level], 'bgColor', ...arguments_), ansiStyles.bgColor.close, this[STYLER]);
-				return createBuilder(this, styler, this[IS_EMPTY]);
-			};
-		},
-	};
+	for (const [styleName, type] of [
+		[model, 'color'],
+		['bg' + capitalizedModel, 'bgColor'],
+		['underline' + capitalizedModel, 'underlineColor'],
+	]) {
+		const {close} = ansiStyles[type];
+		styles[styleName] = {
+			get() {
+				const {level} = this;
+				return function (...arguments_) {
+					const styler = createStyler(getModelAnsi(model, levelMapping[level], type, ...arguments_), close, this[STYLER]);
+					return createBuilder(this, styler, this[IS_EMPTY]);
+				};
+			},
+		};
+	}
 }
 
 const proto = Object.defineProperties(
@@ -229,6 +227,7 @@ export {
 	modifierNames,
 	foregroundColorNames,
 	backgroundColorNames,
+	underlineColorNames,
 	colorNames,
 
 	// TODO: Remove these aliases in the next major version

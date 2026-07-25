@@ -152,9 +152,9 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 `chalkStderr` contains a separate instance configured with color support detected for `stderr` stream instead of `stdout`. Override rules from `supportsColor` apply to this too. `supportsColorStderr` is exposed for convenience.
 
-### modifierNames, foregroundColorNames, backgroundColorNames, and colorNames
+### modifierNames, foregroundColorNames, backgroundColorNames, underlineColorNames, and colorNames
 
-All supported style strings are exposed as an array of strings for convenience. `colorNames` is the combination of `foregroundColorNames` and `backgroundColorNames`.
+All supported style strings are exposed as an array of strings for convenience. `colorNames` is the combination of `foregroundColorNames` and `backgroundColorNames`. Underline color names are kept separate in `underlineColorNames`.
 
 This can be useful if you wrap Chalk and need to validate input:
 
@@ -177,6 +177,10 @@ console.log(foregroundColorNames.includes('pink'));
 - `dim` - Make the text have lower opacity.
 - `italic` - Make the text italic. *(Not widely supported)*
 - `underline` - Put a horizontal line below the text. *(Not widely supported)*
+- `underlineDouble` - Put a double horizontal line below the text. *(Not widely supported)*
+- `underlineCurly` - Put a curly horizontal line below the text. *(Not widely supported)*
+- `underlineDotted` - Put a dotted horizontal line below the text. *(Not widely supported)*
+- `underlineDashed` - Put a dashed horizontal line below the text. *(Not widely supported)*
 - `overline` - Put a horizontal line above the text. *(Not widely supported)*
 - `inverse` - Invert background and foreground colors.
 - `hidden` - Print the text but make it invisible.
@@ -221,6 +225,29 @@ console.log(foregroundColorNames.includes('pink'));
 - `bgCyanBright`
 - `bgWhiteBright`
 
+### Underline colors
+
+The underline color is set independently of the text color, so the color is only visible when an underline style is also applied. For example, `chalk.underlineRed.underlineCurly('typo')` renders a red squiggle below otherwise unstyled text. *(Not widely supported)*
+
+Unlike text and background colors, there is no basic 16-color form for underline colors, so they always use the 256-color escape. At level 1 they are downsampled to the first 16 palette entries rather than to a basic color code.
+
+- `underlineBlack`
+- `underlineRed`
+- `underlineGreen`
+- `underlineYellow`
+- `underlineBlue`
+- `underlineMagenta`
+- `underlineCyan`
+- `underlineWhite`
+- `underlineBlackBright` (alias: `underlineGray`, `underlineGrey`)
+- `underlineRedBright`
+- `underlineGreenBright`
+- `underlineYellowBright`
+- `underlineBlueBright`
+- `underlineMagentaBright`
+- `underlineCyanBright`
+- `underlineWhiteBright`
+
 ## 256 and Truecolor color support
 
 Chalk supports 256 colors and [Truecolor](https://github.com/termstandard/colors) (16 million colors) on supported terminal apps.
@@ -232,10 +259,15 @@ Examples:
 - `chalk.hex('#DEADED').underline('Hello, world!')`
 - `chalk.rgb(15, 100, 204).inverse('Hello!')`
 
-Background versions of these models are prefixed with `bg` and the first level of the module capitalized (e.g. `hex` for foreground colors and `bgHex` for background colors).
+Background versions of these models are prefixed with `bg` and the first letter of the model capitalized (e.g. `hex` for foreground colors and `bgHex` for background colors).
 
 - `chalk.bgHex('#DEADED').underline('Hello, world!')`
 - `chalk.bgRgb(15, 100, 204).inverse('Hello!')`
+
+Underline versions are prefixed with `underline` in the same way (e.g. `hex` for foreground colors and `underlineHex` for underline colors). They only take effect when an underline style is also applied.
+
+- `chalk.underlineHex('#DEADED').underlineCurly('Hello, world!')`
+- `chalk.underlineRgb(15, 100, 204).underline('Hello!')`
 
 The following color models can be used:
 

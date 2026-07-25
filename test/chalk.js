@@ -1,6 +1,12 @@
 import process from 'node:process';
 import test from 'ava';
-import chalk, {Chalk, chalkStderr} from '../source/index.js';
+import chalk, {
+	Chalk,
+	chalkStderr,
+	colorNames,
+	modifierNames,
+	underlineColorNames,
+} from '../source/index.js';
 
 chalk.level = 3;
 chalkStderr.level = 3;
@@ -128,6 +134,73 @@ test('don\'t emit color codes if level is 0', t => {
 	t.is(new Chalk({level: 0}).bgHex('#FF0000')('hello'), 'hello');
 	t.is(new Chalk({level: 0}).ansi256(196)('hello'), 'hello');
 	t.is(new Chalk({level: 0}).bgAnsi256(196)('hello'), 'hello');
+	t.is(new Chalk({level: 0}).underlineHex('#FF0000')('hello'), 'hello');
+	t.is(new Chalk({level: 0}).underlineAnsi256(196)('hello'), 'hello');
+	t.is(new Chalk({level: 0}).underlineRed('hello'), 'hello');
+	t.is(new Chalk({level: 0}).underlineCurly('hello'), 'hello');
+});
+
+test('support extended underline styles', t => {
+	t.is(chalk.underlineDouble('foo'), '\u{1B}[4:2mfoo\u{1B}[24m');
+	t.is(chalk.underlineCurly('foo'), '\u{1B}[4:3mfoo\u{1B}[24m');
+	t.is(chalk.underlineDotted('foo'), '\u{1B}[4:4mfoo\u{1B}[24m');
+	t.is(chalk.underlineDashed('foo'), '\u{1B}[4:5mfoo\u{1B}[24m');
+});
+
+test('support nesting underline styles', t => {
+	t.is(
+		chalk.underline(chalk.underlineCurly('a') + 'b'),
+		'\u{1B}[4m\u{1B}[4:3ma\u{1B}[24m\u{1B}[4mb\u{1B}[24m',
+	);
+
+	t.is(
+		chalk.underlineCurly(chalk.underline('a') + 'b'),
+		'\u{1B}[4:3m\u{1B}[4ma\u{1B}[24m\u{1B}[4:3mb\u{1B}[24m',
+	);
+});
+
+test('support underline colors', t => {
+	t.is(chalk.underlineRed('foo'), '\u{1B}[58;5;1mfoo\u{1B}[59m');
+	t.is(chalk.underlineBlackBright('foo'), '\u{1B}[58;5;8mfoo\u{1B}[59m');
+	t.is(chalk.underlineGray('foo'), chalk.underlineBlackBright('foo'));
+	t.is(chalk.underlineGrey('foo'), chalk.underlineBlackBright('foo'));
+	t.is(
+		chalk.red.underlineRed.underlineCurly('foo'),
+		'\u{1B}[31m\u{1B}[58;5;1m\u{1B}[4:3mfoo\u{1B}[24m\u{1B}[59m\u{1B}[39m',
+	);
+});
+
+test('support nesting underline colors', t => {
+	t.is(
+		chalk.underlineBlue(chalk.underlineRed('a') + 'b'),
+		'\u{1B}[58;5;4m\u{1B}[58;5;1ma\u{1B}[59m\u{1B}[58;5;4mb\u{1B}[59m',
+	);
+});
+
+test('properly downsample underline colors', t => {
+	t.is(new Chalk({level: 3}).underlineRgb(255, 0, 0)('hello'), '\u{1B}[58;2;255;0;0mhello\u{1B}[59m');
+	t.is(new Chalk({level: 2}).underlineRgb(255, 0, 0)('hello'), '\u{1B}[58;5;196mhello\u{1B}[59m');
+	t.is(new Chalk({level: 1}).underlineRgb(255, 0, 0)('hello'), '\u{1B}[58;5;9mhello\u{1B}[59m');
+	t.is(new Chalk({level: 3}).underlineHex('#FF0000')('hello'), '\u{1B}[58;2;255;0;0mhello\u{1B}[59m');
+	t.is(new Chalk({level: 2}).underlineHex('#FF0000')('hello'), '\u{1B}[58;5;196mhello\u{1B}[59m');
+	t.is(new Chalk({level: 1}).underlineHex('#FF0000')('hello'), '\u{1B}[58;5;9mhello\u{1B}[59m');
+	t.is(new Chalk({level: 3}).underlineAnsi256(196)('hello'), '\u{1B}[58;5;196mhello\u{1B}[59m');
+	t.is(new Chalk({level: 2}).underlineAnsi256(196)('hello'), '\u{1B}[58;5;196mhello\u{1B}[59m');
+	t.is(new Chalk({level: 1}).underlineAnsi256(196)('hello'), '\u{1B}[58;5;9mhello\u{1B}[59m');
+	t.is(new Chalk({level: 1}).underlineAnsi256(2)('hello'), '\u{1B}[58;5;2mhello\u{1B}[59m');
+	t.is(new Chalk({level: 1}).underlineAnsi256(232)('hello'), '\u{1B}[58;5;0mhello\u{1B}[59m');
+
+	// The named underline colors have no basic 16-color form, so they are the same at every level.
+	t.is(new Chalk({level: 1}).underlineRed('hello'), '\u{1B}[58;5;1mhello\u{1B}[59m');
+	t.is(new Chalk({level: 2}).underlineRed('hello'), '\u{1B}[58;5;1mhello\u{1B}[59m');
+});
+
+test('expose the underline style names', t => {
+	t.true(modifierNames.includes('underlineCurly'));
+	t.true(underlineColorNames.includes('underlineRedBright'));
+
+	// Underline colors are intentionally not part of `colorNames`.
+	t.false(colorNames.includes('underlineRed'));
 });
 
 test('supports blackBright color', t => {

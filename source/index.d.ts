@@ -1,4 +1,4 @@
-// TODO: Make it this when TS suports that.
+// TODO: Make it this when TS supports that.
 // import {ModifierName, ForegroundColor, BackgroundColor, ColorName} from '#ansi-styles';
 // import {ColorInfo, ColorSupportLevel} from '#supports-color';
 import {
@@ -126,6 +126,52 @@ export interface ChalkInstance {
 	bgAnsi256: (index: number) => this;
 
 	/**
+	Use RGB values to set underline color.
+
+	The underline color is only visible when an underline style is also applied.
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.underlineRgb(222, 173, 237).underlineCurly('Hello, world!');
+	```
+	*/
+	underlineRgb: (red: number, green: number, blue: number) => this;
+
+	/**
+	Use HEX value to set underline color.
+
+	The underline color is only visible when an underline style is also applied.
+
+	@param color - Hexadecimal value representing the desired color.
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.underlineHex('#DEADED').underlineCurly('Hello, world!');
+	```
+	*/
+	underlineHex: (color: string) => this;
+
+	/**
+	Use an [8-bit unsigned number](https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit) to set underline color.
+
+	The underline color is only visible when an underline style is also applied.
+
+	The value is downsampled to the first 16 palette entries on terminals that only support basic colors (level 1), so `chalk.underlineAnsi256(196)` becomes 9 (the palette index for bright red).
+
+	@example
+	```
+	import chalk from 'chalk';
+
+	chalk.underlineAnsi256(201).underlineCurly('Hello, world!');
+	```
+	*/
+	underlineAnsi256: (index: number) => this;
+
+	/**
 	Modifier: Reset the current style.
 	*/
 	readonly reset: this;
@@ -149,6 +195,26 @@ export interface ChalkInstance {
 	Modifier: Put a horizontal line below the text. *(Not widely supported)*
 	*/
 	readonly underline: this;
+
+	/**
+	Modifier: Put a double horizontal line below the text. *(Not widely supported)*
+	*/
+	readonly underlineDouble: this;
+
+	/**
+	Modifier: Put a curly horizontal line below the text. *(Not widely supported)*
+	*/
+	readonly underlineCurly: this;
+
+	/**
+	Modifier: Put a dotted horizontal line below the text. *(Not widely supported)*
+	*/
+	readonly underlineDotted: this;
+
+	/**
+	Modifier: Put a dashed horizontal line below the text. *(Not widely supported)*
+	*/
+	readonly underlineDashed: this;
 
 	/**
 	Modifier: Put a horizontal line above the text. *(Not widely supported)*
@@ -186,12 +252,12 @@ export interface ChalkInstance {
 	readonly cyan: this;
 	readonly white: this;
 
-	/*
+	/**
 	Alias for `blackBright`.
 	*/
 	readonly gray: this;
 
-	/*
+	/**
 	Alias for `blackBright`.
 	*/
 	readonly grey: this;
@@ -214,12 +280,12 @@ export interface ChalkInstance {
 	readonly bgCyan: this;
 	readonly bgWhite: this;
 
-	/*
+	/**
 	Alias for `bgBlackBright`.
 	*/
 	readonly bgGray: this;
 
-	/*
+	/**
 	Alias for `bgBlackBright`.
 	*/
 	readonly bgGrey: this;
@@ -232,6 +298,34 @@ export interface ChalkInstance {
 	readonly bgMagentaBright: this;
 	readonly bgCyanBright: this;
 	readonly bgWhiteBright: this;
+
+	readonly underlineBlack: this;
+	readonly underlineRed: this;
+	readonly underlineGreen: this;
+	readonly underlineYellow: this;
+	readonly underlineBlue: this;
+	readonly underlineMagenta: this;
+	readonly underlineCyan: this;
+	readonly underlineWhite: this;
+
+	/**
+	Alias for `underlineBlackBright`.
+	*/
+	readonly underlineGray: this;
+
+	/**
+	Alias for `underlineBlackBright`.
+	*/
+	readonly underlineGrey: this;
+
+	readonly underlineBlackBright: this;
+	readonly underlineRedBright: this;
+	readonly underlineGreenBright: this;
+	readonly underlineYellowBright: this;
+	readonly underlineBlueBright: this;
+	readonly underlineMagentaBright: this;
+	readonly underlineCyanBright: this;
+	readonly underlineWhiteBright: this;
 }
 
 /**
@@ -254,10 +348,12 @@ export {
 	ModifierName,
 	ForegroundColorName,
 	BackgroundColorName,
+	UnderlineColorName,
 	ColorName,
 	modifierNames,
 	foregroundColorNames,
 	backgroundColorNames,
+	underlineColorNames,
 	colorNames,
 // } from '#ansi-styles';
 } from './vendor/ansi-styles/index.js';

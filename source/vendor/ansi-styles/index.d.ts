@@ -45,12 +45,32 @@ export interface Modifier {
 	readonly italic: CSPair;
 
 	/**
-	Make text underline. (Not widely supported)
+	Put a horizontal line below the text. (Not widely supported)
 	*/
 	readonly underline: CSPair;
 
 	/**
-	Make text overline.
+	Put a double horizontal line below the text. (Not widely supported)
+	*/
+	readonly underlineDouble: CSPair;
+
+	/**
+	Put a curly horizontal line below the text. (Not widely supported)
+	*/
+	readonly underlineCurly: CSPair;
+
+	/**
+	Put a dotted horizontal line below the text. (Not widely supported)
+	*/
+	readonly underlineDotted: CSPair;
+
+	/**
+	Put a dashed horizontal line below the text. (Not widely supported)
+	*/
+	readonly underlineDashed: CSPair;
+
+	/**
+	Put a horizontal line above the text.
 
 	Supported on VTE-based terminals, the GNOME terminal, mintty, and Git Bash.
 	*/
@@ -132,6 +152,36 @@ export interface BackgroundColor {
 	readonly bgWhiteBright: CSPair;
 }
 
+export interface UnderlineColor {
+	readonly underlineBlack: CSPair;
+	readonly underlineRed: CSPair;
+	readonly underlineGreen: CSPair;
+	readonly underlineYellow: CSPair;
+	readonly underlineBlue: CSPair;
+	readonly underlineCyan: CSPair;
+	readonly underlineMagenta: CSPair;
+	readonly underlineWhite: CSPair;
+
+	/**
+	Alias for `underlineBlackBright`.
+	*/
+	readonly underlineGray: CSPair;
+
+	/**
+	Alias for `underlineBlackBright`.
+	*/
+	readonly underlineGrey: CSPair;
+
+	readonly underlineBlackBright: CSPair;
+	readonly underlineRedBright: CSPair;
+	readonly underlineGreenBright: CSPair;
+	readonly underlineYellowBright: CSPair;
+	readonly underlineBlueBright: CSPair;
+	readonly underlineCyanBright: CSPair;
+	readonly underlineMagentaBright: CSPair;
+	readonly underlineWhiteBright: CSPair;
+}
+
 export interface ConvertColor {
 	/**
 	Convert from the RGB color space to the ANSI 256 color space.
@@ -200,6 +250,13 @@ Basic background color names.
 export type BackgroundColorName = keyof BackgroundColor;
 
 /**
+Basic underline color names.
+
+[More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
+*/
+export type UnderlineColorName = keyof UnderlineColor;
+
+/**
 Basic color names. The combination of foreground and background color names.
 
 [More colors here.](https://github.com/chalk/chalk/blob/main/readme.md#256-and-truecolor-color-support)
@@ -221,7 +278,12 @@ Basic background color names.
 */
 export const backgroundColorNames: readonly BackgroundColorName[];
 
-/*
+/**
+Basic underline color names.
+*/
+export const underlineColorNames: readonly UnderlineColorName[];
+
+/**
 Basic color names. The combination of foreground and background color names.
 */
 export const colorNames: readonly ColorName[];
@@ -230,7 +292,8 @@ declare const ansiStyles: {
 	readonly modifier: Modifier;
 	readonly color: ColorBase & ForegroundColor;
 	readonly bgColor: ColorBase & BackgroundColor;
+	readonly underlineColor: ColorBase & UnderlineColor;
 	readonly codes: ReadonlyMap<number, number>;
-} & ForegroundColor & BackgroundColor & Modifier & ConvertColor;
+} & ForegroundColor & BackgroundColor & UnderlineColor & Modifier & ConvertColor;
 
 export default ansiStyles;

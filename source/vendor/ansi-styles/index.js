@@ -1,10 +1,14 @@
 const ANSI_BACKGROUND_OFFSET = 10;
+const ANSI_UNDERLINE_OFFSET = 20;
 
 const wrapAnsi16 = (offset = 0) => code => `\u{1B}[${code + offset}m`;
 
 const wrapAnsi256 = (offset = 0) => code => `\u{1B}[${38 + offset};5;${code}m`;
 
 const wrapAnsi16m = (offset = 0) => (red, green, blue) => `\u{1B}[${38 + offset};2;${red};${green};${blue}m`;
+
+// `SGR 58` has no basic 16-color form, so the basic color code is mapped to its palette index instead.
+const wrapUnderlineAnsi = code => `\u{1B}[58;5;${code < 90 ? code - 30 : code - 90 + 8}m`;
 
 const styles = {
 	modifier: {
@@ -14,6 +18,11 @@ const styles = {
 		dim: [2, 22],
 		italic: [3, 23],
 		underline: [4, 24],
+		// Extended underline styles (`SGR 4:x` sub-parameters). Not in upstream `ansi-styles`.
+		underlineDouble: ['4:2', 24],
+		underlineCurly: ['4:3', 24],
+		underlineDotted: ['4:4', 24],
+		underlineDashed: ['4:5', 24],
 		overline: [53, 55],
 		inverse: [7, 27],
 		hidden: [8, 28],
@@ -63,11 +72,35 @@ const styles = {
 		bgCyanBright: [106, 49],
 		bgWhiteBright: [107, 49],
 	},
+	// Underline color (`SGR 58`/`59`). Not in upstream `ansi-styles`.
+	underlineColor: {
+		underlineBlack: ['58;5;0', 59],
+		underlineRed: ['58;5;1', 59],
+		underlineGreen: ['58;5;2', 59],
+		underlineYellow: ['58;5;3', 59],
+		underlineBlue: ['58;5;4', 59],
+		underlineMagenta: ['58;5;5', 59],
+		underlineCyan: ['58;5;6', 59],
+		underlineWhite: ['58;5;7', 59],
+
+		// Bright color
+		underlineBlackBright: ['58;5;8', 59],
+		underlineGray: ['58;5;8', 59], // Alias of `underlineBlackBright`
+		underlineGrey: ['58;5;8', 59], // Alias of `underlineBlackBright`
+		underlineRedBright: ['58;5;9', 59],
+		underlineGreenBright: ['58;5;10', 59],
+		underlineYellowBright: ['58;5;11', 59],
+		underlineBlueBright: ['58;5;12', 59],
+		underlineMagentaBright: ['58;5;13', 59],
+		underlineCyanBright: ['58;5;14', 59],
+		underlineWhiteBright: ['58;5;15', 59],
+	},
 };
 
 export const modifierNames = Object.keys(styles.modifier);
 export const foregroundColorNames = Object.keys(styles.color);
 export const backgroundColorNames = Object.keys(styles.bgColor);
+export const underlineColorNames = Object.keys(styles.underlineColor);
 export const colorNames = [...foregroundColorNames, ...backgroundColorNames];
 
 function assembleStyles() {
@@ -82,7 +115,8 @@ function assembleStyles() {
 
 			group[styleName] = styles[styleName];
 
-			codes.set(style[0], style[1]);
+			// Only the leading SGR parameter identifies a style, so `4:3` and `58;5;1` are keyed as `4` and `58`.
+			codes.set(Number.parseInt(style[0], 10), style[1]);
 		}
 
 		Object.defineProperty(styles, groupName, {
@@ -98,6 +132,7 @@ function assembleStyles() {
 
 	styles.color.close = '\u{1B}[39m';
 	styles.bgColor.close = '\u{1B}[49m';
+	styles.underlineColor.close = '\u{1B}[59m';
 
 	styles.color.ansi = wrapAnsi16();
 	styles.color.ansi256 = wrapAnsi256();
@@ -105,6 +140,9 @@ function assembleStyles() {
 	styles.bgColor.ansi = wrapAnsi16(ANSI_BACKGROUND_OFFSET);
 	styles.bgColor.ansi256 = wrapAnsi256(ANSI_BACKGROUND_OFFSET);
 	styles.bgColor.ansi16m = wrapAnsi16m(ANSI_BACKGROUND_OFFSET);
+	styles.underlineColor.ansi = wrapUnderlineAnsi;
+	styles.underlineColor.ansi256 = wrapAnsi256(ANSI_UNDERLINE_OFFSET);
+	styles.underlineColor.ansi16m = wrapAnsi16m(ANSI_UNDERLINE_OFFSET);
 
 	// From https://github.com/Qix-/color-convert/blob/3f0e0d4e92e235796ccb17f6e85c72094a651f49/conversions.js
 	Object.defineProperties(styles, {
