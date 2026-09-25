@@ -172,17 +172,14 @@ const createStyler = (open, close, parent) => {
 const createBuilder = (self, _styler, _isEmpty) => {
 	// Single argument is hot path, implicit coercion is faster than anything
 	const builder = (...arguments_) => {
+		// eslint-disable-next-line unicorn/prefer-ternary -- A ternary here would have to nest the two- and three-argument cases inside it, which `unicorn/no-nested-ternary` rejects in turn.
 		if (arguments_.length === 1) {
 			// eslint-disable-next-line no-implicit-coercion
 			return applyStyle(builder, '' + arguments_[0]);
 		}
 
-		if (arguments_.length === 2) {
-			// The template literal matches `Array#join` coercion (`null` and `undefined` become empty, objects use `toString`) while being faster.
-			return applyStyle(builder, `${arguments_[0] ?? ''} ${arguments_[1] ?? ''}`);
-		}
-
-		return applyStyle(builder, arguments_.join(' '));
+		// The template literal matches `Array#join` coercion (`null` and `undefined` become empty, objects use `toString`) while being faster.
+		return applyStyle(builder, arguments_.length === 2 ? `${arguments_[0] ?? ''} ${arguments_[1] ?? ''}` : arguments_.join(' '));
 	};
 
 	// We alter the prototype because we must return a function, but there is
@@ -199,7 +196,7 @@ const createBuilder = (self, _styler, _isEmpty) => {
 
 const applyStyle = (self, string) => {
 	// Read the level directly off the generator to skip the `level` getter dispatch on this hot path
-	if (self[GENERATOR][LEVEL] <= 0 || !string) {
+	if (!string || self[GENERATOR][LEVEL] <= 0) {
 		// eslint-disable-next-line unicorn/no-computed-property-existence-check -- Reads the boolean value, not a property existence check.
 		return self[IS_EMPTY] ? '' : string;
 	}

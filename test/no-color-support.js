@@ -1,4 +1,5 @@
-import test from 'ava';
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
 import chalk from '../source/index.js';
 
 // TODO: Do this when ESM supports loader hooks
@@ -18,7 +19,7 @@ import chalk from '../source/index.js';
 // 	}
 // });
 
-test('colors can be forced by using chalk.level', t => {
+test('colors can be forced by using chalk.level', () => {
 	chalk.level = 1;
-	t.is(chalk.green('hello'), '\u{1B}[32mhello\u{1B}[39m');
+	assert.equal(chalk.green('hello'), '\u{1B}[32mhello\u{1B}[39m');
 });

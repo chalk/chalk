@@ -22,8 +22,8 @@
 		"node": ">=22"
 	},
 	"scripts": {
-		"test": "xo && c8 ava && tsc --noEmit --types node source/index.d.ts",
-		"bench": "matcha benchmark.js"
+		"test": "xo && c8 node --test 'test/[!_]*.js' && tsc --noEmit --types node source/index.d.ts",
+		"bench": "node --experimental-bench --bench benchmark.js"
 	},
 	"files": [
 		"source"
@@ -51,16 +51,14 @@
 		"text"
 	],
 	"devDependencies": {
-		"@types/node": "^26.1.1",
-		"ansi-styles": "^6.2.3",
-		"ava": "^8.0.1",
+		"@types/node": "^26.6.3",
+		"ansi-styles": "^7.0.0",
 		"c8": "^12.0.0",
 		"color-convert": "^3.1.3",
-		"execa": "^10.0.0",
+		"execa": "^10.0.1",
 		"log-update": "^8.0.0",
-		"matcha": "^0.7.0",
 		"typescript": "^6.0.3",
-		"xo": "^4.0.0",
+		"xo": "^5.0.1",
 		"yoctodelay": "^2.0.0"
 	},
 	"xo": [
